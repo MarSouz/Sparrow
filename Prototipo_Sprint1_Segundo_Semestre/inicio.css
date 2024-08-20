@@ -1,0 +1,248 @@
+html{
+    scroll-behavior: smooth;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body {
+    overflow-x: hidden;
+}
+body::-webkit-scrollbar{
+    width: 6px;
+}
+body::-webkit-scrollbar-track{
+    background:#3476b3;
+}
+body::-webkit-scrollbar-thumb{
+    background-color: #000;
+}
+header{
+    width: 100%;
+    height: 120px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    
+}
+.menu{
+    display: flex;
+    gap: 100px;
+    margin-right: 30px;
+}
+.menu a{
+text-decoration: none;
+display: flex;
+color: #474c55;
+font-size: 20px;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.botoesMenu{
+    transition: transform 0.3s ease;
+}
+.botoesMenu:hover{
+    transform: scale(1.1);
+}
+
+.logo{
+    width: 230px;
+    height: 100px;
+    margin-left: 20px;
+}
+
+
+
+
+.banner{
+    background-image: url("https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/other/ul/g/90/34/90341b6b-a78f-404d-a77d50a280840189.component.xl.ts=1678791110989.png/content/adobe-cms/br/pt/topics/it-infrastructure-library/_jcr_content/root/leadspace");
+    background-size: cover;
+    width: 100%;
+    height: 705px;
+    background-repeat: no-repeat;
+    text-align: center;
+    border-color: #025360;
+    align-items: center;
+    justify-content: center;
+}
+.banner h1{
+    color: #fff ;
+    padding-top: 300px;
+    font-size: 100px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 10px;
+}
+.banner h2{
+    color: #fcfcd8;
+}
+
+
+.sobre_projeto_card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 87vh;
+    text-align: left;
+    font-size: 20px;
+}
+
+.sobre_projeto_card h4{
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #fcfcd8;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.sobre_projeto_card p{
+    font-size: 25px;
+    color: #fff;
+    margin-left: 5%;
+
+}
+
+.sobre_projeto h1{
+    font-size: 45px;
+    color: #252e61;
+    margin: 5px;
+}
+
+.boxInt {
+    height: 23vh;
+    width: 90vw;
+    background-image: linear-gradient(to right,  rgb(6, 70, 209), rgb(3, 4, 78) );
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+.boxInt:hover{
+    transform: scale(1.1);
+  }
+
+
+  .nosso_servico {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100vw;
+    background-image: linear-gradient(to right,  rgb(6, 70, 209), rgb(3, 4, 78) );
+    font-size: 22px;
+  }
+
+  .nosso_servico .boxNossoServico {
+    width: 95vw;
+    height: 75vh;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 5%;
+  }
+
+  .nosso_servico img {
+    width: 35%;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+.nosso_servico img:hover{
+    transform: scale(1.1);
+}
+
+  .boxUp {
+    display: flex;
+    flex-direction: row;
+    
+  }
+
+  .nosso_servico_card {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+  }
+
+  .box1 {
+    display: flex; 
+    flex-direction: column;
+    width: 55vw;
+    padding-right: 3%;
+  }
+
+
+
+
+
+  .nossa_equipe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    width: 100vw;
+    background-color: #fff;
+    font-size: 22px;
+  }
+
+  .nossa_equipe .boxNossaEquipe {
+    width: 95vw;
+    height: 75vh;
+    background-image: linear-gradient(to right,  rgb(6, 70, 209), rgb(3, 4, 78) );
+    border-radius: 20px;
+    padding: 5%;
+  }
+
+  .nossa_equipe img {
+    width: 35%;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+}
+.nossa_equipe img:hover{
+    transform: scale(1.1);
+}
+
+  .boxUp {
+    display: flex;
+    flex-direction: row;
+    
+  }
+
+  .nossa_equipe_card {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+  }
+
+  .box1Equipe {
+    display: flex; 
+    flex-direction: column;
+    width: 55vw;
+    padding-right: 3%;
+  }
+
+  .box1Equipe p{
+    color: #fff;
+  }
+
+
+footer{
+    height: 200px;
+    background-color: #969ca0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.loc a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+}
+.devs a{
+    text-decoration: none;
+    color: #474c55;
+    font-size: 20px;
+
+}
+
+
