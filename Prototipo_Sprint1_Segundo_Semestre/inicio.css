@@ -14,15 +14,15 @@ body::-webkit-scrollbar{
     width: 6px;
 }
 body::-webkit-scrollbar-track{
-    background:#3476b3;
+    background:#012E40;
 }
 body::-webkit-scrollbar-thumb{
-    background-color: #000;
+    background-color: #026773;
 }
 header{
     width: 100%;
     height: 120px;
-    background-color: #fff;
+    background-color: #012E40;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,7 +37,7 @@ header{
 .menu a{
 text-decoration: none;
 display: flex;
-color: #474c55;
+color: #F2E3D5;
 font-size: 20px;
 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -50,7 +50,7 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 
 .logo{
     width: 230px;
-    height: 100px;
+    height: 190px;
     margin-left: 20px;
 }
 
@@ -58,13 +58,13 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 
 
 .banner{
-    background-image: url("https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/other/ul/g/90/34/90341b6b-a78f-404d-a77d50a280840189.component.xl.ts=1678791110989.png/content/adobe-cms/br/pt/topics/it-infrastructure-library/_jcr_content/root/leadspace");
+    background-image: linear-gradient(to right,  #3CA6A6,  #026773);
     background-size: cover;
     width: 100%;
     height: 705px;
     background-repeat: no-repeat;
     text-align: center;
-    border-color: #025360;
+    border-color: #026773;
     align-items: center;
     justify-content: center;
 }
@@ -76,10 +76,12 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
     margin-left: 10px;
 }
 .banner h2{
-    color: #fcfcd8;
+    color: #F2E3D5;
 }
 
-
+.sobre_projeto{
+  background-color: #F2E3D5;
+}
 .sobre_projeto_card{
     display: flex;
     justify-content: center;
@@ -94,7 +96,7 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 .sobre_projeto_card h4{
     font-size: 30px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: #fcfcd8;
+    color: #F2E3D5;
     margin-left: 2%;
     margin-top: 2%;
 }
@@ -108,14 +110,14 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 
 .sobre_projeto h1{
     font-size: 45px;
-    color: #252e61;
+    color: #012E40;
     margin: 5px;
 }
 
 .boxInt {
     height: 23vh;
     width: 90vw;
-    background-image: linear-gradient(to right,  rgb(6, 70, 209), rgb(3, 4, 78) );
+    background-color: #026773;
     border-radius: 20px;
     transition: transform 0.3s ease;
 }
@@ -130,14 +132,14 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
     align-items: center;
     height: 90vh;
     width: 100vw;
-    background-image: linear-gradient(to right,  rgb(6, 70, 209), rgb(3, 4, 78) );
+    background-color: #3CA6A6;
     font-size: 22px;
   }
 
   .nosso_servico .boxNossoServico {
     width: 95vw;
     height: 75vh;
-    background-color: #fff;
+    background-color: #F2E3D5;
     border-radius: 20px;
     padding: 5%;
   }
@@ -180,14 +182,14 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
     align-items: center;
     height: 90vh;
     width: 100vw;
-    background-color: #fff;
+    background-color: #F2E3D5;
     font-size: 22px;
   }
 
   .nossa_equipe .boxNossaEquipe {
     width: 95vw;
     height: 75vh;
-    background-image: linear-gradient(to right,  rgb(6, 70, 209), rgb(3, 4, 78) );
+    background-color: #026773;
     border-radius: 20px;
     padding: 5%;
   }
@@ -227,7 +229,7 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 
 footer{
     height: 200px;
-    background-color: #969ca0;
+    background-color: #012E40;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -240,9 +242,13 @@ footer{
 }
 .devs a{
     text-decoration: none;
-    color: #474c55;
+    color: #F2E3D5;
     font-size: 20px;
 
 }
-
+.logo2{
+  width: 200px;
+  height: 180px;
+  margin-left: 20px;
+}
 
