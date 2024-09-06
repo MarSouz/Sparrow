@@ -73,5 +73,35 @@ class Usuario (
     }
 
 
+    fun mudarSenhaUsuario(){
+
+        while (true){
+            println("Digite a sua Nova Senha:\n")
+            val senhaA = readln()
+            println("Confirme a sua Nova Senha:\n")
+            val senhaB = readln()
+
+            if (senhaA == senhaB){
+                senha = senhaA
+            } else{
+                """
+                    As senhas inseridas não coincidem! Deseja tentar novamente?
+                    1 - Sim
+                    2 - Não, Voltar
+                """.trimIndent()
+                val resposta = readln()
+                    if (resposta == "2"){
+                        break
+                    }
+
+            }
+
+        }
+
+
+        senha = readln()
+    }
+
+
 
 }
