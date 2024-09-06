@@ -29,9 +29,16 @@ body {
  */
 
 main {
-  display: block;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
 }
 
+@media (max-width: 1020px){
+  .btn btn-xlarge btn-accent btn-rounded{
+    display: none;
+  } 
+}
 /**
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
