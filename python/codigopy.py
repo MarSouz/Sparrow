@@ -30,7 +30,6 @@ while (True):
     print(f"pacotes enviados: {redeenvio}")
     print(f"pacotes recebidos: {rederecebimento}")
     print(f"tempo de boot: {boot}")
-    print(f"Tempo que o computador está ligado: {str(uptime).split('.')[0]}")
     print("------------------------------")
 
     time.sleep(10)
