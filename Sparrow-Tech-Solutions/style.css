@@ -6,10 +6,10 @@
     box-sizing: border-box;
 }
 
-body {
+body {  
+    font-family: 'Roboto', sans-serif;
     width: 100vw;
     height: 100vh;
-    background-color: blue;
     overflow-x: hidden;
 }
 
@@ -44,10 +44,10 @@ section {
     text-transform: uppercase;
   }
 
-@media (max-width: 900px){
+@media (max-width: 600px){
     .father-home{
-        width: 50%;
-        height: 50%;
+        width: 600px;
+        height: 90%;
         background-color: red;
     }
 }
