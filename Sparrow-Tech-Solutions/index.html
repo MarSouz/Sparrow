@@ -1,53 +1,251 @@
 <!DOCTYPE html>
 <html lang="ptbr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparrow Solutions</title>
 
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./Logo3-FundoRemovido.png" />
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" href="./novas_imagens/Logo3-FundoRemovido.png" />
 </head>
 
 <body>
-          
+
     <section id="bem-vindo">
         <div class="father-home">
+            <div class="menu-btn" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="menu" id="menu">
+                <a href="./testes/loginecadastro.html" onclick="closeMenu()">Login</a>
+                <a href="./testes/contate.html" onclick="closeMenu()">Contate-nos</a>
+                <a href="#" onclick="closeMenu()">Tela inicial</a>
+            </div>
             <div class="banner-content">
-                <h2 class="banner-content" style="font: 48px Montserrat, Roboto, sans-serif, bold; color: white; font-family: monospace;">
-                    Bem Vindos a Sparrow</h2>
+                <h2 class="banner-content"
+                    style="font: 48px Montserrat, Roboto, sans-serif, bold; color: white; font-family: monospace;">
+                    <b>Bem Vindos a Sparrow</b>
+                </h2>
+                <a style="color: white;" href="#sobre-nos">Veja o projeto</a>
                 <div class="btn-wrap">
                     <a href="#about" class="btn-with-line" style="font-size: 17px; background-color: brown;"></a>
                 </div>
             </div>
         </div>
     </section>
-    
-    <section id="sobre-nos" style="background-color: aquamarine;">
-        <div class="max-w-6xl mx-auto p-8">
-            <div class="mb-8">
-             <h2 class="text-sm text-gray-500 uppercase tracking-wider mb-2">
-              Quem nós somos
-             </h2>
-             <h1 class="text-5xl font-bold text-gray-900">
-              Sobre Nós
-             </h1>
+
+    <section id="sobre-nos">
+        <div class="container-about">
+            <div class="header-about">
+                — QUEM NÓS SOMOS
             </div>
-            <div class="flex flex-col md:flex-row">
-             <div class="md:w-1/2 mb-8 md:mb-0">
-              <img alt="Estrada com árvores de outono ao lado, céu parcialmente nublado" class="w-full h-auto rounded-lg shadow-md" height="400" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-RcpoXHkzChYnDbFAyeQ8tamr/user-ehrvabJ3DufsCu8YJ7PqY5gl/img-QngrYPjHPxtJw6FcDzEclr2v.png?st=2024-09-09T02%3A17%3A20Z&amp;se=2024-09-09T04%3A17%3A20Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-09-08T22%3A17%3A00Z&amp;ske=2024-09-09T22%3A17%3A00Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=AdQCdrisBzc3huSD2lvRAXt36CqgI%2BznlJkR02dfGG0%3D" width="600"/>
-             </div>
-             <div class="md:w-1/2 md:pl-8">
-              <p class="mb-4">
-               A Sparrow é uma empresa idealizada nos princípios de organização, segurança e controle. Nós reconhecemos o grande valor que sistemas de controle de tráfego tem na sociedade e, por conta disso, nos dedicamos para desenvolver o melhor sistema possível para a manutenção e prolongamento da infraestrutura tecnológica que faz as nossas ruas mais seguras.
-              </p>
-              <p>
-               Nossa equipe é composta por desenvolvedores que sempre buscam aprender e oferecer a melhor experiência ao usuário, considerando com grande atenção as suas dores, necessidades e desejos, com o intuito de garantir colaborativamente um monitoramento de componentes de hardware ágil e informativo.
-              </p>
-             </div>
+            <div class="title-about">
+                Sobre Nós
             </div>
-           </div>
+            <div class="content-about">
+                <img src="./novas_imagens/estrada.avif " width="400" />
+                <div class="text-about">
+                    <p>
+                        A Sparrow é uma empresa idealizada nos princípios de organização, segurança e controle. Nós
+                        reconhecemos o grande valor que sistemas de controle de tráfego tem na sociedade e, por conta
+                        disso, nos dedicamos para desenvolver o melhor sistema possível para a manutenção e
+                        prolongamento da infraestrutura tecnológica que faz as nossas ruas mais seguras.
+                    </p>
+                    <p>
+                        Nossa equipe é composta por desenvolvedores que sempre buscam aprender e oferecer a melhor
+                        experiência ao usuário, considerando com grande atenção as suas dores, necessidades e desejos,
+                        com o intuito de garantir colaborativamente um monitoramento de componentes de hardware ágil e
+                        informativo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nossa-empresa" style="background-color: #212529; height: 80vh;">
+        <div class="container">
+            <div class="header">
+                <p style="color: white;">
+                    — A SPARROW NO DETALHE
+                </p>
+                <h1 style="color: white;">
+                    Nossa Empresa
+                </h1>
+            </div>
+            <div class="content-empresa">
+                <div class="card-empresa">
+                    <img height="300" src="./novas_imagens/Missao.png" width="300" />
+                    <h2>
+                        MISSÃO
+                    </h2>
+                    <p>
+                        <a href="./novas_imagens/Missao1.png">Clique aqui</a>
+                    </p>
+                </div>
+                <div class="card-empresa">
+                    <img height="300" src="./novas_imagens/Visao.png" width="300" />
+                    <h2>
+                        VISÃO
+                    </h2>
+                    <p>
+                        <a href="./novas_imagens/Visao1.png">Clique aqui</a>
+                    </p>
+                </div>
+                <div class="card-empresa">
+                    <img height="300" src="./novas_imagens/Valores.png" width="300" />
+                    <h2>
+                        VALORES
+                    </h2>
+                    <p>
+                        <a href="./novas_imagens/Valores1.png">Clique aqui</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </section>
     
+    <section id="nossa-empresa2" style="background-color: #212529;padding: 40px 0;">
+        <div class="container">
+            <div class="header">
+                <!-- Adicione o conteúdo do header aqui se necessário -->
+            </div>
+            <div class="content-empresa">
+                <div class="card-empresa">
+                    <img src="./novas_imagens/Quem.png" height="200" width="300" alt="Quem">
+                    <h2>QUEM?</h2>
+                    <p><a href="./novas_imagens/Quem1.png" style="color: #f0f0f0; text-decoration: underline;">Clique aqui</a></p>
+                </div>
+                <div class="card-empresa">
+                    <img src="./novas_imagens/Oque.png" height="200" width="300" alt="O Que">
+                    <h2>O QUE?</h2>
+                    <p><a href="./novas_imagens/Oque1.png" style="color: #f0f0f0; text-decoration: underline;">Clique aqui</a></p>
+                </div>
+                <div class="card-empresa">
+                    <img src="./novas_imagens/Paraque.png" height="200" width="300" alt="Para Que">
+                    <h2>PARA QUE?</h2>
+                    <p><a href="./novas_imagens/Paraque1.png" style="color: #f0f0f0; text-decoration: underline;">Clique aqui</a></p>
+                </div>
+                <div class="card-empresa">
+                    <img src="./novas_imagens/admbd.jpg" height="200" width="300" alt="Administração de BD">
+                    <p>Administração de BD</p>
+                </div>
+                <div class="card-empresa">
+                    <img src="./novas_imagens/pg.jpg" height="200" width="300" alt="Programação Web">
+                    <p>Programação Web</p>
+                </div>
+                <div class="card-empresa">
+                    <img src="./novas_imagens/clp.jpg" height="200" width="300" alt="Cloud Computing">
+                    <p>Cloud Computing</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- <section id="noosa-empresa3" style="color: #212529;">
+    </section> -->
+
+    <section id="nosso-servico">
+        <div class="container-servico">
+            <div class="header-servico">
+                <p>
+                    Os serviços que a Sparrow promete
+                </p>
+                <h1>
+                    Nossos Serviços
+                </h1>
+            </div>
+            <div class="services-servico">
+                <div class="service-servico">
+                    <img src="./novas_imagens/monitoramentoHardware.jpg " width="600" />
+                    <h3>
+                        Monitoramento Hardware
+                    </h3>
+                </div>
+                <div class="service-servico">
+                    <img src="./novas_imagens/emissaoRelatorio.jpg" width="600" />
+                    <h3>
+                        Emissão De Relatórios
+                    </h3>
+                </div>
+                <div class="service-servico">
+                    <img src="./novas_imagens/analiseTendencias.jpg" width="600" />
+                    <h3>
+                        Análise De Tendências
+                    </h3>
+                </div>
+            </div>
+            <a class="button-servico" href="./testes/contate.html">
+                Contrate nossos serviços
+            </a>
+        </div>
+    </section>
+
+    <section id="footer" style="height: min-content;">
+        <footer class="footer">
+            <div class="logo">
+                <img src="./novas_imagens/Logo1.png">
+            </div>
+            <div class="column">
+                <h3>Links</h3>
+                <a href="#">Início</a><br>
+                <a href="#sobre-nos">sobre nós</a> <br>
+                <a href="#nossa-empresa">Nossa Empresa</a> <br>
+                <a href="#nosso-servico">Nossos Serviços</a>
+            </div>
+            <div class="column contact-info">
+                <h3>Informações de Contato</h3>
+                <a
+                    href="https://www.google.com/maps/place/Rua+Haddock+Lobo,+595+-+Cerqueira+C%C3%A9sar,+S%C3%A3o+Paulo+-+SP,+01414-002/@-23.5580824,-46.6617266,17z/data=!3m1!4b1!4m6!3m5!1s0x94ce59d2b0da4a3f:0xf9757971d2bc9963!8m2!3d-23.5580824!4d-46.6617266!16s%2Fg%2F11v0_44c70?entry=ttu">
+                    Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001</a>
+                <p><i class="fas fa-envelope"><i class="icon icon-envelope-o"></i><a
+                            href="mailto: sparrowtechsolutions0@gmail.com"
+                            class="mail-id">sparrowtechsolutions0@gmail.com</a>
+            </div>
+            <div class="column">
+                <a href="https://github.com/BrunoMilici" target="_blank">Bruno Santos Milici </a><br><br>
+                <a href="https://github.com/carolinamontagner" target="_blank">Carolina Montagner
+                    Jaouiche</a><br><br>
+                <a href="https://github.com/fabriciogomes86820605" target="_blank">Fabrício Gomes
+                    Bonacelli</a><br><br>
+                <a href="https://github.com/JhonatanFrancozo" target="_blank">Jhonatan Françozo de
+                    Caldas</a><br><br>
+                <a href="https://github.com/MatheusBevilaqua" target="_blank">Matheus Grisostomo
+                    Bevilaqua</a><br><br>
+                <a href="https://github.com/RodrigoAlmeida2006" target="_blank">Rodrigo Almeida Munhoes
+                    Fré</a><br><br>
+            </div>
+        </footer>
+        <div class="footer-bottom">
+            <p>© 2024 Sparrow</p>
+            <p>Site feito por <a href="https://github.com/BrunoMilici/Projeto-Sparrow-Grupo-8" target="_blank">Sparrow
+                    Tech Solutions</a></p>
+        </div>
+    </section>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            const menuBtn = document.querySelector('.menu-btn');
+            menu.classList.toggle('active');
+            menuBtn.classList.toggle('open');
+        }
+
+        function closeMenu() {
+            document.getElementById('menu').classList.remove('active');
+        }
+        function showSection(sectionId) {
+            // Esconde todas as seções
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Mostra a seção desejada
+            document.getElementById(sectionId).style.display = 'block';
+        }
+    </script>
 </body>
+
 </html>
