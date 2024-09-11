@@ -396,10 +396,24 @@ section {
     color: var(--secondary-color);
 }
 
+.Nossa-Empresa{
+
+    background-color: #212529; 
+    height: 80vh;
+
+}
+
 /* Responsividade */
-@media (max-width: 600px) {
+@media (max-width: 400px) {
+
+    *{
+
+        font-size: large;
+
+    }
+
     .father-home {
-        width: 100vw;
+        width: 1000px;
         height: 90%;
         background-color: red;
     }
@@ -407,5 +421,68 @@ section {
     .services-servico {
         flex-direction: column;
         gap: 20px;
+        width: 1000px;
     }
+
+    .container-about {
+
+        flex-direction: column;
+        width: 1500px;
+
+    }
+
+    .content-empresa{
+
+        width: 1000px;
+        margin-bottom: 100px;
+        height: 500px;
+        padding-top: 100px;
+
+    }
+
+    .card-empresa{
+
+    padding-bottom: 100PX;
+    height: 65vh;
+    font-size: small;
+
+    }
+
+    .container{
+
+        flex-direction: column;
+        width: 1000px;
+
+    }
+
+    .container-servico{
+
+        flex-direction: row;
+        width: 1000px;
+        margin-bottom: 100px;
+        
+
+    }
+
+    .service-servico{
+
+        width:300px;
+
+    }
+
+    .footer{
+        padding-top: 300px;
+        flex-direction: column;
+        
+
+    }
+
+    .Nossa-Empresa{
+
+        width: 1000px;
+
+    }
+
+    
+    
 }
