@@ -37,11 +37,12 @@
             // Se passar por todas as validações
             alert("Login realizado com sucesso!");
             // Aqui você pode adicionar código para enviar os dados via AJAX ou redirecionar o usuário
+            window.location.href="../dashboard.html"
         }
 
         function voltar() {
             // Redirecionar para a página anterior ou alguma outra ação
-            window.history.back();
+            window.location.href="../index.html";
         }
     </script>
 </head>
@@ -59,7 +60,7 @@
                 <h3 style="color: #FFE4C4;">Senha:</h3>
                 <input id ="senha" type="password" placeholder="Digite sua senha" class="ipt">
                 <br><br>
-                <button href="../index.html" onclick="entrar()" class="btn">Entrar</button>
+                <button href="../dashboard.html" onclick="entrar()" class="btn">Entrar</button>
                 <button href="../index.html" onclick="voltar()" class="btn">Voltar</button>
             </div>
 
