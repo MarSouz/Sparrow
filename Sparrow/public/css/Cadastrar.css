@@ -1,0 +1,104 @@
+#page-contact {
+    background-color: rgb(58, 46, 38);
+    display: flex;
+    justify-content: center;
+}
+
+.father-contact {
+    display: flex;
+    width: 80%;
+    height: 100%;
+}
+
+.child-contact-image {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;   
+}
+
+.contact-text {
+    width: 80%;
+    height: 40%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+
+    & h1 {
+        display: flex;
+        flex-direction: column;
+        font-size: 70px;
+    }
+}
+
+.contact-svg {
+    width: 60%;
+    height: 40%;
+}
+
+.child-contact-card {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    background-color: rgb(122, 96, 58);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-logo {
+    width: 25%;
+}
+
+.contact-card-form {
+    width: 80%;
+    gap: 20px;
+    background-color: rgb(248, 248, 248);
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border-radius: 7px;
+    align-items: center;
+}
+
+.contact-input {
+    width: 90%;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+
+    & input {
+        width: 100%;
+        background: transparent;
+        border: 1px solid black;
+        padding: 5px 10px;
+        border-radius: 4px;
+        outline: none;
+    }
+}
+
+.btn-contact {
+    background-color: #010101;
+    color: #fbfdff;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 50%;
+    height: 35px;
+    transition: 0.3s;
+  }
+  
+    .btn-contact:hover {
+    background-color: #292c30;
+    box-shadow: 0 0 0 5px #8882825f;
+    color: #f8f8f8;
+  }
+  
+  

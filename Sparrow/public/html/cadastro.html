@@ -6,92 +6,66 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>Fale Conosco | Cadastrar</title>
 
   <script src="./js/sessao.js"></script>
 
-  <link rel="stylesheet" href="./css/estilo.css" />
+  <link rel="stylesheet" href="../css/Cadastrar.css">
+  <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="./assets/icon/favicon2.ico" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
 <body onload="listar()">
-  <!--header inicio-->
-  <div class="header">
-    <div class="container">
-      <h1 class="titulo">AquaTech</h1>
-      <ul class="navbar">
-        <li>
-          <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <!--header fim-->
-
-  <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
-    <div class="container">
-      <div class="card card-cadastro">
-        <h2>Bem-vindo!</h2>
-        <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
-          <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
-          </div>
-          <div class="campo">
-            <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-          </div>
-          <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="campo">
-            <span>Confirmação da Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
-          </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
+  <section id="page-contact">
+    <main class="father-contact">
+      <div class="child-contact-image">
+        <div class="contact-text">
+          <h1>Lorem</h1> 
+          <p>Explique aqui um pouco melhor sobre o seu negócio e o monitoramento adequado para seus dispositivos.</p>
         </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
+        <div class="contact-svg">
+          <img class="svg-contact" src="../assets/imgs/Contact us-cuate.svg" alt="">
+        </div>
+      </div>
+
+      <div class="child-contact-card">
+        <img class="contact-logo" src="../assets/imgs/Logo3-FundoRemovido.png" alt="">
+        <div class="contact-card-form">
+          FALE CONOSCO
+          <div class="contact-input">
+            <p>Nome da Empresa:</p>
+            <input type="text">
+          </div>
+
+
+          <div class="contact-input">
+            <p>Nome do representante:</p>
+            <input type="text">
+          </div>
+
+          <div class="contact-input">
+            <p>Insira um email:</p>
+            <input type="text">
+          </div>
+
+          <div class="contact-input">
+            <p>CNPJ:</p>
+            <input type="text">
+          </div>
+
+          <div class="contact-input">
+            <p>Nos conte um pouco mais sobre seus parêmetro para o nosso monitoramento:</p>
+            <input type="text">
+          </div>
+          
+          <button class="btn-contact">ENVIAR</button>
+
         </div>
 
-        <div id="div_erros_login"></div>
       </div>
-    </div>
-  </div>
-
-  <!--footer inicio-->
-  <div class="footer">
-    <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
-    </div>
-  </div>
-  <!--footer fim-->
+    </main>
+  </section>
 </body>
 
 </html>
