@@ -1,57 +1,83 @@
 import psutil
 import time
-import subprocess
-from datetime import datetime
 from mysql.connector import connect, Error
 
 config = {
   'user': 'root',
-  'password': 'manu',
+  'password': '#Gf23636497880',
   'host': 'localhost',
-  'database': 'calculo',
-  'auth_plugin': 'mysql_native_password'
+  'database': 'Sparrow'
 }
 
 
-while (True):
+qtdCpu = psutil.cpu_count(logical=True)
 
-    datahora = datetime.now()
-    dt= datahora.strftime("%d/%m/%Y")
-    dthora = datahora.strftime("%d/%m/%Y %H:%M:%S")
-    
-    cpu_percent = psutil.cpu_percent(interval=1)
+bytes = 1073741824
+qtdRam = psutil.virtual_memory()[0] / bytes
+ramFormatada = "{:.1f}".format(qtdRam)
 
-    mem = psutil.virtual_memory()
-    utilizado_ram = mem.used
-    disco = psutil.disk_usage('/')
-    utilizado_armazenamento = disco.used
-    redeenvio = psutil.net_io_counters()[2]
-    rederecebimento = psutil.net_io_counters()[3]
-    boot = datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-    boot_time = datetime.fromtimestamp(psutil.boot_time())
-    uptime = datetime.now() - boot_time
-    
-    print(dthora)
-    print(f"CPU utilizada: {cpu_percent}%")
-    print(f"RAM utilizada: {utilizado_ram / (1024 ** 3):.2f} GB")
-    print(f"DISCO utilizado: {utilizado_armazenamento / (1024 ** 3):.2f} GB")
-    print(f"pacotes enviados: {redeenvio}")
-    print(f"pacotes recebidos: {rederecebimento}")
-    print(f"tempo de boot: {boot}")
-    print("------------------------------")
-    
-    try:
-        db = connect(**config)
+qtdDisco = psutil.disk_usage("/")[0] / bytes
+discoFormatado = "{:.1f}".format(qtdDisco)
 
-        
-        if db.is_connected():
-            db_info = db.get_server_info()
-            print('Connected to MySQL server version -', db_info)
+print(f"Quantidade total de CPUs: {qtdCpu}")
+print(f"Quantidade total de RAM: {ramFormatada}Gib")
+print(f"Quantidade total de Disco: {discoFormatado}Gib")
+
+
+i = 0
+a = 0
+while i < 10: 
+    while a < 10:
+        cpu = psutil.cpu_percent(interval=None, percpu=False)        
+
+        ram = psutil.virtual_memory()[2]
+    
+        print(f"Uso da CPU: {cpu}%")
+        print(f"Uso da RAM: {ram}%")
+
+        try:
+            db = connect(**config)
+            if db.is_connected():
+                db_info = db.get_server_info()
+                print('Connected to MySQL server version -', db_info)
             
             with db.cursor() as cursor:
-                query = ("INSERT INTO calculo.dados_capturados VALUES "
-                        f"(null, current_timestamp(), {cpu_percent}, {utilizado_ram / 1024/1024/1024}, {utilizado_armazenamento / 1024 / 1024 / 1024}, {redeenvio})")
-                cursor.execute(query)
+                query1 = ("INSERT INTO Sparrow.dado_capturado VALUES "
+                        f"(null, {cpu}, current_timestamp(), 1, 1)")
+                query2 = ("INSERT INTO Sparrow.dado_capturado VALUES "
+                        f"(null, {ram}, current_timestamp(), 1, 2)")
+                
+                cursor.execute(query1)
+                cursor.execute(query2)
+                db.commit()
+                print(cursor.rowcount, "registro inserido")
+            
+            cursor.close()
+            db.close()
+
+        except Error as e:
+            print('Error to connect with MySQL -', e) 
+
+        a += 1
+        i = 0
+        time.sleep(1)
+
+    disk = psutil.disk_usage("/")[3]
+
+    print('------------------------------------')
+    print(f"Espaço de disco disponível: {disk}%")
+
+    try:
+            db = connect(**config)
+            if db.is_connected():
+                db_info = db.get_server_info()
+                print('Connected to MySQL server version -', db_info)
+            
+            with db.cursor() as cursor:
+                query1 = ("INSERT INTO Sparrow.dado_capturado VALUES "
+                        f"(null, {disk}, current_timestamp(), 1, 3)")
+                
+                cursor.execute(query1)
                 db.commit()
                 print(cursor.rowcount, "registro inserido")
             
@@ -60,6 +86,10 @@ while (True):
 
     except Error as e:
         print('Error to connect with MySQL -', e) 
+    i += 1
+    a = 0
 
-    time.sleep(10)
-   
+    
+    
+    
+
