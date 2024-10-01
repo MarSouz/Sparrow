@@ -8,12 +8,17 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   `cnpj` CHAR(14) NULL,
   PRIMARY KEY (`id`));
 
+INSERT INTO empresa VALUES (default, "Sparrow", "Dominique", "sparrow@gmail.com", 12345678912345);
+
 
 CREATE TABLE IF NOT EXISTS `cargo` (
   `id` INT NOT NULL auto_increment,
   `nome` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ;
+
+INSERT INTO cargo VALUES (default, "Administrador");
+INSERT INTO cargo VALUES (default, "Analista");
 
 CREATE TABLE IF NOT EXISTS `funcionario` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -31,12 +36,16 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
     REFERENCES `Sparrow`.`cargo` (`id`)
     );
 
+INSERT INTO funcionario VALUES (default, "Dominique Falcone Dornan", "dominique.dornan@sptech.school", "sparrow", 1, 1);
 
 CREATE TABLE IF NOT EXISTS `tipo_maquina` (
   `idtipo_maquina` INT NOT NULL auto_increment,
   `nome` VARCHAR(45) NULL,
   PRIMARY KEY (`idtipo_maquina`)
   );
+
+INSERT INTO tipo_maquina VALUES (default, "Servidor");
+INSERT INTO tipo_maquina VALUES (default, "Terminal");
 
 
 CREATE TABLE IF NOT EXISTS `maquina` (
@@ -55,10 +64,15 @@ CREATE TABLE IF NOT EXISTS `maquina` (
 
 CREATE TABLE IF NOT EXISTS `tipo_componente` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nome_componente` INT NULL,
+  `nome_componente` VARCHAR(45) NULL,
   `unidade_medida` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
 ;
+
+INSERT INTO tipo_componente VALUES (default, "CPU", "Porcentagem");
+INSERT INTO tipo_componente VALUES (default, "RAM", "Porcentagem");
+INSERT INTO tipo_componente VALUES (default, "Disco", "Porcentagem");
+INSERT INTO tipo_componente VALUES (default, "Placa de Rede", "Inteiro");
 
 
 CREATE TABLE IF NOT EXISTS `maquina_componente` (
@@ -76,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `maquina_componente` (
 
 CREATE TABLE IF NOT EXISTS `dado_capturado` (
   `id` INT NOT NULL auto_increment,
-  `registro_porcentagem` INT NULL,
+  `registro` INT NULL,
   `data_hora` DATETIME NULL,
   `fk_servidor` INT NOT NULL,
   `fk_componente_servidor` INT NOT NULL,
