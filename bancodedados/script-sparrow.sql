@@ -82,10 +82,10 @@ CREATE TABLE IF NOT EXISTS `maquina_componente` (
   PRIMARY KEY (`fk_servidor`, `fk_componente_servidor`),
   CONSTRAINT `fk_componentes_servidor_has_servidor_componentes_servidor1`
     FOREIGN KEY (`fk_servidor`)
-    REFERENCES `Sparrow`.`tipo_componente` (`id`),
+    REFERENCES `Sparrow`.`maquina` (`id`),
   CONSTRAINT `fk_componentes_servidor_has_servidor_servidor1`
     FOREIGN KEY (`fk_componente_servidor`)
-    REFERENCES `Sparrow`.`maquina` (`id`)
+    REFERENCES `Sparrow`.`tipo_componente` (`id`)
     );
 
 CREATE TABLE IF NOT EXISTS `dado_capturado` (
