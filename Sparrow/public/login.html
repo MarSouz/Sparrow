@@ -8,8 +8,8 @@
 
     <title>Sparrow | Login</title>
 
-    <script src="./js/sessao.js"></script>
-    <link rel="stylesheet" href="../public/css/Login.css">
+    <!-- <script src="./js/sessao.js"></script> -->
+    <link rel="stylesheet" href="css/Login.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,31 +17,110 @@
     <link rel="icon" href="./assets/icon/favicon2.ico" />
 </head>
 
-<body onload="listar()">
+<body>
     <section id="page-contact">
-      
 
-            <div class="child-contact-card">
-                <div class="contact-card-form">
-                    <img class="contact-logo" src="../assets/imgs/Logo2.png" alt="">
-                    Faça login
-                    <div class="contact-input">
-                        <p>Digite seu email:</p>
-                        <input type="text">
-                    </div>
 
-                    <div class="contact-input">
-                        <p>Digite sua senha:</p>
-                        <input type="text">
-                    </div>
-
-                    <button class="btn-contact">Acessar sua conta</button>
-
+        <div class="child-contact-card">
+            <div class="contact-card-form">
+                <img class="contact-logo" src="../assets/imgs/Logo2.png" alt="">
+                Faça login
+                <div class="contact-input">
+                    <p>Digite seu email:</p>
+                    <input type="text" id="email_input">
                 </div>
 
+                <div class="contact-input">
+                    <p>Digite sua senha:</p>
+                    <input type="text" id="senha_input">
+                </div>
+
+                <button class="btn-contact" onclick="entrar()">Acessar sua conta</button>
+
             </div>
-        
+
+        </div>
+
     </section>
 </body>
 
 </html>
+
+<script>
+    function entrar() {
+
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            console.log("Campos vazios")
+        }
+        else {
+            setInterval(5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    var resultado = json
+                    console.log()
+                    sessionStorage.EMAIL_USUARIO = resultado[0].email;
+                    sessionStorage.NOME_USUARIO = resultado[0].nome;
+                    sessionStorage.ID_USUARIO = resultado[0].id;
+                    sessionStorage.ID_EMPRESA = resultado[0].empresaId
+                    sessionStorage.TIPO_USUARIO = resultado[0].cargo_id
+                    setTimeout(function () {
+                        if (sessionStorage.ID_EMPRESA == 1) {
+                            // window.location = "./dashboard/cards.html"
+                            console.log("Tropa da Sparrow")
+                        }
+                        else {
+                            if(sessionStorage.TIPO_USUARIO == 1){
+                                // window.location = "./dashboard/mural.html"
+                                console.log("Dashboard1")
+                            }
+                            else if (sessionStorage.TIPO_USUARIO == 2){
+                                window.location = "./dashboard/dashAnalista.html"
+                            }
+                            else{
+                                console.log("Tipo de usuário inválido")
+                            }
+                        }
+                    }, 2000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+</script>

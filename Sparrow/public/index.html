@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sparrow Solutions</title>
     <script src="./js/sessao.js"></script>
-    <link rel="stylesheet" href="/Sparrow/public/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
             <a href=""><li>Serviço</li></a>
         </ul>
 
-        <button>Login</button>
+        <button onclick="login()">Login</button>
     </nav>
 </header>
 
@@ -63,6 +63,9 @@ function toggleMenu() {
     } else {
         menu.classList.add("nav-open");
     }
+}
+function login(){
+    window.location = "login.html"
 }
 </script>
 </body>
