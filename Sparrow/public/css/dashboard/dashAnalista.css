@@ -19,41 +19,30 @@ body{
 }
 
 nav{
-    /* position: absolute; */
-    top: 0;
-    bottom: 0;
     height: 100vh;
-    left: 0;
-    /* background: #aab8db; */
     background-color: white ;
-    width: 90px;
+    width: 5.5vw;
     overflow: hidden;
     transition: width 0.2s linear;
     box-shadow: 0 20px 35px rgba(0,0,0 0.1);
 }
 
-
 .logo{
-    text-align: center;
     display: flex;
+    justify-content: start;
+    align-items: center;
     transition: all 0.5 ease;
-    margin: 10px 0 0 10px;
+    padding: 0;
 }
 
-
 .logo img{
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    color: #000;
-    margin-right: 5px;
+    width: 30%;   
 }
 
 .logo span{
+    margin-top: -20px;
     font-weight: bold;
-    padding-left: 15px;
-    font-size: 18px;
-    text-transform: uppercase;
+    font-size: 22px;
 }
 
 
@@ -92,9 +81,8 @@ nav:hover{
     transition: all 0.5 ease;
 }
 
-
-.logout{
-    margin-top: 200px;
+.container-logout {
+    margin-top: 250px;
 }
 
 .father {
@@ -115,7 +103,7 @@ nav:hover{
     display: flex;
     height: 100%;
     width: 50%;
-    padding: 65px 40px 55px 35px;
+    padding: 65px 40px 55px 65px;
     transition: margin-left 0.5s ease; /* Transição para abrir a nav bar */
     flex-direction: column;
     justify-content: space-between;
@@ -129,10 +117,6 @@ nav:hover{
     align-items: center;
 }
 
-.content3{
-    width: 100%;
-    height: 50%;
-}
 
 .content1 .titulo{
     font-size: 30px;
@@ -196,20 +180,35 @@ nav:hover{
 
 .map-grafico {
     display: flex; 
-    margin-top: 50px; 
-    gap: 15px;
+    justify-content: space-evenly;
+    gap: 100px;
+    width: 100%;
+}
+
+
+.content3{
+    width: 100%;
+    height: 50%;
 }
 
 .graficoLinha {
     width: 40%; 
     height: 35%;
+    padding: 20px;
+    border-radius: 8px;
+    color: black; 
+    background-color: white;
+    box-shadow: 0 0 15px 0 #5a5446;
 }
 
 #map {
     width: 40%; 
-    height: 290px; 
-    border: 2px solid black; 
-    border-radius: 8px; 
+    height: 305px; 
+    padding: 20px;
+    border-radius: 8px;
+    color: black; 
+    background-color: white;
+    box-shadow: 0 0 15px 0 #5a5446;
 }
 
 

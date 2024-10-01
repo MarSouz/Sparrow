@@ -24,8 +24,8 @@
             <ul>
                 <li>
                     <a href="#" class="logo">
-                        <img src="logo.png" alt="">
-                        <!-- <span class="nav-item">Sparrow</span> -->
+                        <img src="../assets/imgs/Logo2.png" alt="">
+                        <span class="nav-item">Sparrow</span>
                     </a>
                 </li>
 
@@ -40,17 +40,17 @@
                     </a>
                 </li>
 
-                <li>
+                <!-- <li>
                     <a href="#">
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Usuários</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li>
                     <a href="#">
                         <i class="fas fa-chart-bar"></i>
-                        <span class="nav-item">Radar</span>
+                        <span class="nav-item">Servidor</span>
                     </a>
                 </li>
 
@@ -68,12 +68,14 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#" class="logout">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span class="nav-item">Sair</span>
-                    </a>
-                </li>
+                <div class="container-logout">
+                    <li>
+                        <a href="#" class="logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="nav-item">Sair</span>
+                        </a>
+                    </li>
+                </div>
             </ul>
         </nav>
     </div>
@@ -85,7 +87,7 @@
                 <div class="textoApresentacao">
                     <span class="titulo">Olá, Fernanda </span>
                 </div>
-        
+
                 <div class="terminal-botao">
                     <span class="subtitulo">Terminal 1</span>
                     <div class="container-botoes">
@@ -96,14 +98,14 @@
                     </div>
                 </div>
             </div>
-        
+
             <div class="content2">
                 <div class="container-descricao">
                     <span>Descrição</span>
                 </div>
             </div>
         </div>
-    
+
         <div class="content3">
             <div class="map-grafico">
                 <div class="graficoLinha">
@@ -111,9 +113,10 @@
                 </div>
                 <div id="map"></div>
             </div>
-        </div>     
+        </div>
     </div>
 </body>
+
 </html>
 <script>
     const ctx = document.getElementById('myChart');
@@ -124,7 +127,7 @@
             labels: ['Maio', 'Junho', 'Julho', 'Agosto'],
             datasets: [{
                 label: 'Terminais',
-                data: [3, 5, 2, 3],
+                data: [3, 9, 2, 3],
                 borderWidth: 1
             }]
         },
