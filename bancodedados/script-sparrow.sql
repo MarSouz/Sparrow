@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `maquina_componente` (
 
 CREATE TABLE IF NOT EXISTS `dado_capturado` (
   `id` INT NOT NULL auto_increment,
-  `registro_porcentagem` INT NULL,
+  `registro` INT NULL,
   `data_hora` DATETIME NULL,
   `fk_servidor` INT NOT NULL,
   `fk_componente_servidor` INT NOT NULL,
