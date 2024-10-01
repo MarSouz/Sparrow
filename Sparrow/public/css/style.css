@@ -1,8 +1,8 @@
 @import url(layout.css);
 
 /* Importando telas */
-@import url(A_welcome.css);
-@import url(B_sobreNos.css);
-@import url(C_nossaEmpresa.css);
-@import url(D_nossoServico.css);
-@import url(E_footer.css);
+@import url(pages/A_welcome.css);
+@import url(pages/B_sobreNos.css);
+@import url(pages/C_nossaEmpresa.css);
+@import url(pages/D_nossoServico.css);
+@import url(pages/E_footer.css);
