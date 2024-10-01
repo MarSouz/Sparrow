@@ -1,0 +1,170 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+body{
+    display: flex;
+    overflow: hidden;
+    background-color: #f8f1e1;
+}
+
+nav{
+    /* position: absolute; */
+    top: 0;
+    bottom: 0;
+    height: 150%;
+    left: 0;
+    /* background: #aab8db; */
+    background-color: #929292;
+    width: 90px;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0,0,0 0.1);
+}
+
+
+.logo{
+    text-align: center;
+    display: flex;
+    transition: all 0.5 ease;
+    margin: 10px 0 0 10px;
+}
+
+
+.logo img{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+}
+
+.logo span{
+    font-weight: bold;
+    padding-left: 15px;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+
+a{
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+}
+
+.fas{
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+    color: #000;
+}
+
+.nav-item{
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+    color: #000;
+}
+
+a:hover{
+    background: #eee;
+}
+
+nav:hover{
+    width: 280px;
+    transition: all 0.5 ease;
+}
+
+
+.logout{
+    /* position: fixed; */
+    bottom: 0;
+    margin-top: 200px;
+}
+
+
+.content {
+    flex: 1; /* Faz o conteúdo ocupar o restante da largura */
+    margin-left: 100px;
+    margin-top: 50px;
+    transition: margin-left 0.5s ease; /* Transição para abrir a nav bar */
+}
+
+.content span{
+    display: block;
+    margin-bottom: 30px;
+    
+}
+
+.content .titulo {
+    font-size: 40px;
+    font-weight: bold;
+    /* text-align: center; */
+}
+
+.content .subtitulo {
+    font-size: 30px;
+    font-weight: bold;
+    /* text-align: center; */
+}
+
+.content .apresentacao {
+    margin-top: 80px;
+    font-size: 20px;
+
+}
+
+.content .spanTerminal {
+    text-align: center;
+    margin-top: 150px;
+    font-size: 20px; 
+}
+
+
+.botoes {
+    display: flex; 
+    justify-content: center;
+    gap: 10px; /* Espaçamento entre os botões */
+
+}
+
+.botoes button {
+    width: 150px;
+    padding: 10px; 
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    background-color: #000000;
+    color: white; 
+    cursor: pointer; 
+}
+
+.botoes button:hover {
+    background: #929292; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
