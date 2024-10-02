@@ -94,10 +94,10 @@ body {
     width: 90%;
     display: flex;
     align-items: center;
-    /* gap: 5px; */
+    gap: 5px;
     flex-direction: column;
     border-radius: 4px;
-    /* background-color: #bb9e6b; */
+    background-color: #bb9e6b;
     box-sizing: border-box;
     
     & input {
@@ -109,13 +109,13 @@ body {
         display: flex;
         align-items: center;
         box-shadow: 2px 3px 10px rgb(101, 62, 36);
-        /* box-shadow: 20px 30px 40px rgb(101, 62, 36); */
+        box-shadow: 20px 30px 40px rgb(101, 62, 36);
     }
 
-    & p {
-        /* background-color: #bb9e6b; */
+    & span {
+        background-color: #bb9e6b;
         width: 100%;
-        /* padding: 2px; */
+        padding: 2px;
     }
 }
 
@@ -145,5 +145,3 @@ textarea {
     box-shadow: 0 0 0 5px #8882825f;
     color: #f8f8f8;
   }
-  
-  

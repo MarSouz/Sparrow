@@ -8,8 +8,8 @@
 
     <title>Sparrow | Login</title>
 
-    <!-- <script src="./js/sessao.js"></script> -->
-    <link rel="stylesheet" href="css/Login.css">
+    <script src="./js/sessao.js"></script>
+    <link rel="stylesheet" href="../css/Cadastrar.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,30 +17,30 @@
     <link rel="icon" href="./assets/icon/favicon2.ico" />
 </head>
 
-<body>
+<body onload="listar()">
     <section id="page-contact">
 
 
-        <div class="child-contact-card">
-            <div class="contact-card-form">
-                <img class="contact-logo" src="../assets/imgs/Logo2.png" alt="">
-                Faça login
-                <div class="contact-input">
-                    <p>Digite seu email:</p>
-                    <input type="text" id="email_input">
-                </div>
+            <div class="child-contact-card">
+                <div class="contact-card-form">
+                    <img class="contact-logo" src="../assets/imgs/Logo2.png" alt="">
+                    <h1>Faça login</h1>
+                    <div class="contact-input">
+                        <span>E-mail</span>
+                        <input type="text" name="E-mail" id="email_input" required="required" autocomplete="off">
+                    </div>
 
-                <div class="contact-input">
-                    <p>Digite sua senha:</p>
-                    <input type="text" id="senha_input">
-                </div>
+                    <div class="contact-input">
+                        <span>Senha</span>
+                        <input type="password" name="Senha" id="demo_senha" required="required" autocomplete="off">
+                    </div>
 
-                <button class="btn-contact" onclick="entrar()">Acessar sua conta</button>
+                    <button class="btn-contact">Faça Login</button>
+
+                </div>
 
             </div>
-
-        </div>
-
+        
     </section>
 </body>
 
