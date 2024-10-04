@@ -2,146 +2,170 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
+    color: black;
 }
 
-body {
-    font-family: 'Playfair Display';
-
-}
-
-#page-contact {
-    height: 100vh;
-    background-image: linear-gradient(to right bottom, #8b4513, #a3723c, #bb9e6b, #d6caa2, #f5f5dc);
-    display: flex;
-    justify-content: center;
-}
-
-.father-contact {
-    display: flex;
-    width: 80%;
-    height: 100%;
-}
-
-.child-contact-image {
-    display: flex;
-    width: 50%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 30px;
-    overflow: hidden;
-}
-
-.contact-text {
-    width: 80%;
-    height: 40%;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-    overflow: hidden;
-
-    & h1 {
-        display: flex;
-        flex-direction: column;
-        font-size: 40px;
-        padding: 40px;
-    }
-}
-
-.contact-svg {
-    width: 60%;
-    height: 40%;
-}
-
-.child-contact-card {
-    display: flex;
-    width: 50%;
-    height: 100%;
-    flex-direction: center ;
-    justify-content: center;
-    align-items: center;
-    margin-left: 70px;
-    margin-top: -30px;
-    padding: 25px;
-}
-
-.contact-logo {
-    width: 35%;
-    
-}
-
-.contact-card-form {
-    width: 80%;
-    gap: 20px;
-    background-color: rgb(248, 248, 248);
-    display: flex;
-    flex-direction: column;
-    padding: 40px;
-    border-radius: 7px;
-    align-items: center;
-    box-shadow: 0px 0px 25px rgb(101, 62, 36);
-}
-
-.contact-input {
-    width: 90%;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-direction: column;
-    border-radius: 4px;
-    background-color: #bb9e6b;
-    box-sizing: border-box;
-    
-    & input {
-        width: 100%;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 2px;
-        outline: none;
-        display: flex;
-        align-items: center;
-        box-shadow: 2px 3px 10px rgb(101, 62, 36);
-        box-shadow: 20px 30px 40px rgb(101, 62, 36);
-    }
-
-    & span {
-        background-color: #bb9e6b;
-        width: 100%;
-        padding: 2px;
-    }
-}
-
-textarea {
+body{
     width: 100%;
-    height: 47%;
-    border: none;
-    outline: none;
-    box-shadow: 0px 10px 25px rgb(101, 62, 36);
-    box-sizing: border-box;
-    padding: 3px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right bottom, #8b4513, #a3723c, #bb9e6b, #d6caa2, #f5f5dc);
 }
 
-.btn-contact {
-    background-color: #010101;
-    color: #fbfdff;
+.login{
+    width: 100%;
+    max-width: 400px;
+    background-color: rgb(248, 248, 248);
+    opacity: 0.90;
+    color: white;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 0 12px 0 #000000;
+    margin: 0 12px;
+    transition: 0.5s ease;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;     
+}
+
+.login:hover{
+    box-shadow: 0 4px 8px #000000;
+    transition: 0.5s ease;
+    transform: translateY(-3px);
+}
+
+
+
+.login .loginTexto{
+    text-align: center;
+}
+
+.login .loginTexto img{
+    width: 50px;
+    height: auto;
+}
+
+.input {
+    position: relative;
+    padding: 20px 0 0;
+    margin: 8px 0 0;;
+    width: 100%;
+    max-width: 330px;
+}
+
+.campo {
+    font-family: inherit;
+    width: 100%;
     border: none;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 17px;
+    color: #fff;
+    padding: 7px 0;
+    margin-bottom: 8px;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.campo::placeholder {
+    color: transparent;
+}
+
+.campo:placeholder-shown ~ .caixa {
+    font-size: 17px;
+    cursor: text;
+    top: 20px;
+}
+
+.campo:focus {
+    padding-top: 5px;
+    padding-bottom: 6px;
+    font-weight: 400;
+    border-width: 2px;
+    border-image: white;
+    border-image-slice: 1;
+}
+
+.campo:focus ~ .caixa {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 17px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.campo:required, .campo:invalid {
+    box-shadow: none;
+}
+
+.caixa {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 12px;
+    color: #868585;
+    pointer-events: none;
+}
+
+.login .esqueceuSenha{
+    height: 100%;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: -6px;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.login .esqueceuSenha a{
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    
+}
+
+.login button {
+    --hover-shadows: 0 0 20px 0 #000000;
+    --accent: #000000;
+    margin: 40px 0 0 0;
+    font-weight: bold;
+    width: 85%;
+    padding: 6px 10px 6px 10px;
+    letter-spacing: 0.1em;
+    border: none;
+    border-radius: 1.1em;
+    background-color: #000000;
     cursor: pointer;
-    border-radius: 8px;
-    width: 50%;
-    height: 35px;
-    transition: 0.3s;
-  }
+    color: white;
+    font-size: 24px;
+    transition: box-shadow ease-in-out 0.1s, background-color ease-in-out 0.1s,
+      letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
+    box-shadow: 0 0 15px 0 #000000;
+    transition: 0.5s;
+}
+
+.login button:hover {
+    box-shadow: var(--hover-shadows);
+    background-color: #000000;
+    transition: 0.8s;
+}
   
-    .btn-contact:hover {
-    background-color: #292c30;
-    box-shadow: 0 0 0 5px #8882825f;
-    color: #f8f8f8;
-  }
+.login button:active {
+    box-shadow: var(--hover-shadows), var(--accent) 0px 0px 10px;
+    background-color: var(--accent);
+    transform: scale(0.95);
+}  
+
+.ok {
+    width: 12%;
+    margin-bottom: -12px;
+}

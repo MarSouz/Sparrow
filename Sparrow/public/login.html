@@ -9,7 +9,7 @@
     <title>Sparrow | Login</title>
 
     <script src="./js/sessao.js"></script>
-    <link rel="stylesheet" href="../css/Cadastrar.css">
+    <link rel="stylesheet" href="./css/Login.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
@@ -18,30 +18,33 @@
 </head>
 
 <body onload="listar()">
-    <section id="page-contact">
+    <div class="login">
+
+        <div class="loginTexto">
+            <a href="index.html"><img src="./assets/imgs/Logo2.png" alt="logo"></a>
+            <h1>Login</h1>
+        </div>
 
 
-            <div class="child-contact-card">
-                <div class="contact-card-form">
-                    <img class="contact-logo" src="../assets/imgs/Logo2.png" alt="">
-                    <h1>Faça login</h1>
-                    <div class="contact-input">
-                        <span>E-mail</span>
-                        <input type="text" name="E-mail" id="email_input" required="required" autocomplete="off">
-                    </div>
+        <div class="input field">
+            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
+            <label for="name" class="caixa">E-mail</label>
+        </div>
 
-                    <div class="contact-input">
-                        <span>Senha</span>
-                        <input type="password" name="Senha" id="senha_input" required="required" autocomplete="off">
-                    </div>
 
-                    <button class="btn-contact">Faça Login</button>
+        <div class="input field">
+            <input type="password" class="campo" placeholder="Senha" required="" id="senha_input" autocomplete="off">
+            <label for="name" class="caixa">Senha</label>
+        </div>
 
-                </div>
 
-            </div>
-        
-    </section>
+
+        <div class="esqueceuSenha">
+            <a href="./esqSenha.html">Esqueceu a senha?</a>
+        </div>
+
+        <button type="submit" onclick="entrar()">Entrar</button>
+    </div>
 </body>
 
 </html>
@@ -93,14 +96,14 @@
                             console.log("Tropa da Sparrow")
                         }
                         else {
-                            if(sessionStorage.TIPO_USUARIO == 1){
+                            if (sessionStorage.TIPO_USUARIO == 1) {
                                 // window.location = "./dashboard/mural.html"
                                 console.log("Dashboard1")
                             }
-                            else if (sessionStorage.TIPO_USUARIO == 2){
+                            else if (sessionStorage.TIPO_USUARIO == 2) {
                                 window.location = "./dashboard/dashAnalista.html"
                             }
-                            else{
+                            else {
                                 console.log("Tipo de usuário inválido")
                             }
                         }
