@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,62 +12,140 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
 
-<header>
-    <div class="logoNav">
-        <img src="assets/imgs/Logo3.png" alt="Logo" class="imgLogo">
-    </div>
+    <header>
+        <div class="logoNav">
+            <img src="assets/imgs/Logo3.png" alt="Logo" class="imgLogo">
+        </div>
 
-    <!-- Ícone do menu hambúrguer -->
-    <div class="hamburguer" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
+        <div class="hamburguer" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
 
-    <nav id="menu">
-        <ul>    
-            <a href="#inicio"><li>Início</li></a>
-            <a href="#sobre"><li>Sobre Nós</li></a>
-            <a href="#nossa"><li>Nossa Empresa</li></a>
-            <a href="#beneficios"><li>Benefícios</li></a>
-            <a href=""><li>Serviço</li></a>
-        </ul>
+        <nav id="menu">
+            <ul>
+                <a href="#inicio">
+                    <li>Início</li>
+                </a>
+                <a href="#sobre">
+                    <li>Sobre Nós</li>
+                </a>
+                <a href="#nossa">
+                    <li>Nossa Empresa</li>
+                </a>
+                <a href="#beneficios">
+                    <li>Benefícios</li>
+                </a>
+                <a href="">
+                    <li>Serviço</li>
+                </a>
+            </ul>
 
-        <button onclick="login()">Login</button>
-    </nav>
-</header>
+            <button onclick="login()">Login</button>
+        </nav>
+    </header>
 
-<section id="inicio">
-    <!-- Conteúdo do início -->
-</section>
+    <section id="inicio">
 
-<section id="sobre">
-    <!-- Conteúdo sobre -->
-</section>
+        <div class="text-inicio">
 
-<section id="nossa">
-    <!-- Conteúdo da nossa empresa -->
-</section>
+            <div class="card-texto-1">
+                <h1>TECNOLOGIA QUE VÊ</h1>
+            </div>
 
-<section id="beneficios">
-    <!-- Conteúdo dos benefícios -->
-</section>
+            <div class="card-texto-2">
+                <h1>PROTEGE E INFORMA</h1>
+            </div>
 
-<script>
-function toggleMenu() {
-    var menu = document.getElementById("menu");
-    if (menu.classList.contains("nav-open")) {
-        menu.classList.remove("nav-open");
-    } else {
-        menu.classList.add("nav-open");
-    }
-}
-function login(){
-    window.location = "login.html"
-}
-</script>
+            <div class="card-button">
+                <button onclick="conhecer()">Conhecer</button>
+            </div>
+
+        </div>
+
+        <div class="espaco-radar">
+            <img src="/Sparrow/public/assets/svg/Radar.svg" alt="Radar" class="radar">
+        </div>
+
+    </section>
+
+    <section id="sobre">
+
+        <div class="card-sobre">
+
+            <div class="titulo">
+                <h1>Sobre Nós</h1>
+            </div>
+            
+            <div class="sobre-father">
+                
+                <img src="/Sparrow/public/assets/imgs/estrada.avif" alt="Estrada" class="imagem">
+        
+                <div class="sobre-right">
+
+                    <div class="titulo2">
+                        <h2>Bem Vindo a Sparrow!</h2>
+                    </div>
+    
+                    <p>A Sparrow é uma empresa idealizada nos princípios de organização, segurança e controle. Nós reconhecemos o
+                    grande valor que sistemas de controle de tráfego tem na sociedade e, por conta disso, nos dedicamos para
+                    desenvolver o melhor sistema possível para a manutenção e prolongamento da infraestrutura tecnológica que
+                    faz as nossas ruas mais seguras.
+                    <br>
+                    Nossa equipe é composta por desenvolvedores que sempre buscam aprender e oferecer a melhor experiência ao
+                    usuário, considerando com grande atenção as suas dores, necessidades e desejos, com o intuito de garantir
+                    colaborativamente um monitoramento de componentes de hardware ágil e informativo.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="nossa">
+        <!-- Conteúdo da nossa empresa -->
+    </section>
+
+    <section id="beneficios">
+        <!-- Conteúdo dos benefícios -->
+    </section>
+
+    <script>
+
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            var hamburguer = document.querySelector(".hamburguer");
+
+            if (menu.classList.contains("nav-open")) {
+                menu.classList.remove("nav-open");
+                hamburguer.classList.remove("active");
+            } else {
+                menu.classList.add("nav-open");
+                hamburguer.classList.add("active");
+            }
+        }
+
+        function login() {
+            window.location = "login.html";
+        }
+
+        function conhecer() {
+            window.location = "#sobre"
+        }
+
+    </script>
 </body>
+
 </html>

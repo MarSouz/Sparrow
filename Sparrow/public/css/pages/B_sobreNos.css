@@ -1,0 +1,57 @@
+#sobre {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-sobre {
+    height: 60%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sobre-father {
+    display: flex;
+}
+
+.titulo {
+    color: #313131;
+    width: 100%;
+    height: 15%;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.imagem {
+    width: 40%;
+}
+
+.sobre-right {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    padding: 0 40px 0 40px;
+}
+
+.titulo2 {
+    width: 100%;
+    height: 12%;
+}
+
+.sobre-right h2 {
+    font-size: 34px;
+    color: #313131;
+}
+
+.sobre-right p {
+    font-size: 18px;
+    color: #585858;
+}
