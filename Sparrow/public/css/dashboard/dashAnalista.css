@@ -107,6 +107,7 @@ nav:hover{
     transition: margin-left 0.5s ease; /* Transição para abrir a nav bar */
     flex-direction: column;
     justify-content: space-between;
+    /* background-color: pink; */
 }
 
 .content2{
@@ -118,20 +119,69 @@ nav:hover{
 }
 
 
-.content1 .titulo{
-    font-size: 30px;
-    margin-left: 10px;
+.content-infos{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    font-size: 12px;
+    text-align: center;
+    /* background-color: purple; */
+
 }
 
-.terminal-botao{
+.info1, 
+.info2, 
+.info3, 
+.info4{
+    display: flex; 
     flex-direction: column;
+    width: 15%; 
+    color: #fff;
+    background-color: white; 
+    color: black;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 18px 0 18px 0;
+    cursor: pointer;
+    transition: 0.4s ease;
+    gap: 5px;
 }
+
+.info1:hover, 
+.info2:hover, 
+.info3:hover, 
+.info4:hover {
+    background-color: rgb(193, 193, 193);
+    transition: 0.4s ease;
+}
+
 
 .content1 .subtitulo{
     font-size: 30px;
     font-weight: bold;
     margin-left: 10px;
 }
+
+.terminal-botao{
+    flex-direction: column;
+    /* background-color: orange; */
+
+}
+
+.terminal-botao select{
+    width: 35%;
+    height: 35%;
+    margin-left: 35px;
+    font-size: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 10px;
+
+}
+
 
 .container-botoes {
     display: flex; 
@@ -156,6 +206,7 @@ nav:hover{
     transition: 0.4s ease;
 }
 
+
 .container-botoes button:hover {
     background-color: rgb(193, 193, 193);
     transition: 0.4s ease;
@@ -176,6 +227,13 @@ nav:hover{
     box-shadow: 0 0 15px 0 #5a5446;
     padding: 15px; 
     z-index: 10; 
+}
+
+.container-descricao span{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    font-size: 20px;
 }
 
 .map-grafico {

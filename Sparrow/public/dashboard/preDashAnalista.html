@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -16,13 +17,14 @@
 
     <title>Pré-Dashboard Adm Terminal</title>
 </head>
+
 <body>
     <div class="menu-lateral">
         <nav id="nav">
             <ul>
                 <li>
                     <a href="#" class="logo">
-                        <img src="logo.png" alt="">
+                        <img src="../assets/imgs/Logo2.png" alt="">
                         <span class="nav-item">Sparrow</span>
                     </a>
                 </li>
@@ -76,33 +78,48 @@
         </nav>
     </div>
 
-    <div class="content">
-        <span class="titulo">Sparrow </span>
+    <div class="father">
+        <div class="father-content">
+            <div class="content1">
+                <span class="titulo">Sparrow</span>
+                <span class="subtitulo">Tecnologia que vê, protege e informa</span>
+                <span class="apresentacao">Monitoramento em tempo real dos componentes dos terminais</span>
+            </div>
 
-        <span class="subtitulo">Monitoramento seguro dos componentes de seu radar </span>
 
-        <span class="apresentacao"> Visualização dos dados em tempo real</span>
-      
+            <div class="content2">
+                <div class="container-descricao">
+                    <span class="titulo">Informações em tempo real</span>
+                    <span>Quantidade total:</span>
+                    <span>Quantidade online:</span>
+                    <span>Quantidade offline:</span>
+                </div>
+            </div>
 
-        <span class="spanTerminal">Escolha o terminal</span>
 
-        <div class="botoes">
-            <button onclick="location.href='dashAdmTerminal2.html'">Terminal 1</button>
-            <button>Terminal 2</button>
-            <button>Terminal 3</button>
-            <button>Terminal 4</button>
         </div>
+
+
+        <div class="father-content2">
+            <div class="content3"></div>
+
+            <div class="content4"></div>
+
+        </div>
+
     </div>
+
+
 </body>
 
 </html>
 <script>
     const nav = document.getElementById('nav'); //Pegando o id da navbar
-        nav.addEventListener('mouseover', function() { //"Escutar" o mouse passando por cima da nav e criando um evento
-            nav.classList.add('expanded');
-        }); // O evento é a expansão da nav bar 
+    nav.addEventListener('mouseover', function () { //"Escutar" o mouse passando por cima da nav e criando um evento
+        nav.classList.add('expanded');
+    }); // O evento é a expansão da nav bar 
 
-        nav.addEventListener('mouseout', function() {
-            nav.classList.remove('expanded'); //quando o mouse nao esta sobre a navbar, a tela fica como original
-        });
+    nav.addEventListener('mouseout', function () {
+        nav.classList.remove('expanded'); //quando o mouse nao esta sobre a navbar, a tela fica como original
+    });
 </script>
