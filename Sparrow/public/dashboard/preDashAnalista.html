@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
 
-    <title>Pré-Dashboard Adm Terminal</title>
+    <title>Sparrow | Dashboard</title>
 </head>
 
 <body>
@@ -40,12 +40,12 @@
                     </a>
                 </li>
 
-                <li>
+                <!-- <li>
                     <a href="#">
                         <i class="fas fa-user"></i>
                         <span class="nav-item">Usuários</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li>
                     <a href="#">
@@ -83,16 +83,16 @@
             <div class="content1">
                 <span class="titulo">Sparrow</span>
                 <span class="subtitulo">Tecnologia que vê, protege e informa</span>
-                <span class="apresentacao">Monitoramento em tempo real dos componentes dos terminais</span>
+                <span class="apresentacao">Monitoramento em tempo real dos componentes dos radares</span>
             </div>
 
 
             <div class="content2">
                 <div class="container-descricao">
-                    <span class="titulo">Informações em tempo real</span>
-                    <span>Quantidade total:</span>
-                    <span>Quantidade online:</span>
-                    <span>Quantidade offline:</span>
+                    <span class="titulo">Radares | Informações em tempo real</span>
+                    <span>Total:</span>
+                    <span>Online:</span>
+                    <span>Offline:</span>
                 </div>
             </div>
 
@@ -101,15 +101,20 @@
 
 
         <div class="father-content2">
-            <div class="content3"></div>
+            <div class="content3">
+                <span class="titulo">Escolha o elemento que deseja monitorar</span>
 
-            <div class="content4"></div>
+                <div class="botoes-content3">
+                    <button onclick="location.href='dashAnalista.html';">Terminal</button>
+                    <button onclick="location.href='dashAnalistaServidor.html';">Servidor</button>
+                </div>
+               
+            </div>
 
+            <div class="content4">
+            </div>
         </div>
-
     </div>
-
-
 </body>
 
 </html>

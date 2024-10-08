@@ -85,7 +85,7 @@ nav:hover{
 
 
 .logout{
-    margin-top: 200px;
+    margin-top: 250px;
 }
 
 .father{
@@ -111,7 +111,7 @@ nav:hover{
 .content1 {
     width: 50%;
     height: 100%;
-    background-color: orange;
+    /* background-color: orange; */
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -120,23 +120,20 @@ nav:hover{
 .content1 .titulo{
     font-size: 30px;
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 30px;
     margin-top: 30px;
-    /* background-color: black; */
 
 }
 
 .content1 .subtitulo{
     font-size: 25px;
-    margin-left: 20px;
-    /* background-color: black; */
+    margin-left: 30px;
 }
 
 .content1 .apresentacao{
     font-size: 20px;
-    margin-left: 20px;
-    margin-top: 150px;
-    /* background-color: black; */
+    margin-left: 30px;
+    margin-top: 50px;
 }
 
 
@@ -174,23 +171,65 @@ nav:hover{
 
 }
 
-
-
-
-
 .content3 {
     width: 50%;
     height: 100%;
-    background-color: pink;
+    /* background-color: pink; */
     display: flex;
-  
+    flex-direction: column;
+    justify-content: center;
 }
 
+.content3 .titulo{
+    font-size: 25px;
+    text-align: center;
+}
+
+
+.botoes-content3{
+    display: flex; 
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.botoes-content3 button {
+    display: flex; 
+    flex-direction: column;
+    width: 35%; 
+    color: #fff;
+    background-color: white; 
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 18px 0 18px 0;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.botoes-content3 button:hover {
+    background-color: rgb(206, 196, 174);
+    transition: 0.4s ease;
+}
+
+.botoes-content3 button:focus {
+    background-color: black;
+    color: white;
+    transition: 0.4s ease;
+}
+
+
+
 .content4 {
-    width: 50%;
-    height: 100%;
-    background-color: blue;
     display: flex;
+    background-image: url(../assets/imgs/Logo3-FundoRemovido.png);
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-position: center; 
   
 }
 
