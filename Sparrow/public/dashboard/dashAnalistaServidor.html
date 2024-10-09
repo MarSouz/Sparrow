@@ -23,18 +23,14 @@
         <nav id="nav">
             <ul>
                 <li>
-                    <a href="#" class="logo">
+                    <a href="./../index.html" class="logo">
                         <img src="../assets/imgs/Logo2.png" alt="">
                         <span class="nav-item">Sparrow</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#"></a>
-                </li>
-
-                <li>
-                    <a href="#">
+                    <a href="./../index.html">
                         <i class="fas fa-home"></i>
                         <span class="nav-item">Início</span>
                     </a>
@@ -48,16 +44,16 @@
                 </li> -->
 
                 <li>
-                    <a href="#">
+                    <a href="dashAnalista.html">
                         <i class="fas fa-chart-bar"></i>
-                        <span class="nav-item">Servidor</span>
+                        <span class="nav-item">Terminal</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="dashAnalistaServidor.html">
                         <i class="fas fa-chart-line"></i>
-                        <span class="nav-item">Terminal</span>
+                        <span class="nav-item">Servidor</span>
                     </a>
                 </li>
 
@@ -135,7 +131,7 @@
                 <div class="graficoLinha">
                     <canvas id="myChart"></canvas>
                 </div>
-                <canvas id="myChart2"></canvas>
+                <div id="map"></div>
             </div>
         </div>
     </div>
@@ -165,26 +161,29 @@
         }
     });
 
+    const map = L.map('map').setView([-24.0833, -46.0000], 5); //ajuste do nivel inicial do zoom o ultimo numero 
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 7,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
 
-    const ctx2 = document.getElementById('myChart2');
+    var marker = L.marker([-23.7951, -45.4146]).addTo(map);
+    var circle = L.circle([-23.7951, -45.4146], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+    }).addTo(map);
 
-new Chart(ctx2, {
-    type: 'bar',
-    data: {
-        labels: ['CPU', 'RAM', 'Disco', 'Rede'],
-        datasets: [{
-            label: 'Terminais',
-            data: [3, 9, 2, 3],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
+
+    const nav = document.getElementById('nav'); //Pegando o id da navbar
+    nav.addEventListener('mouseover', function () { //"Escutar" o mouse passando por cima da nav e criando um evento
+        nav.classList.add('expanded');
+    }); // O evento é a expansão da nav bar 
+
+    nav.addEventListener('mouseout', function () {
+        nav.classList.remove('expanded'); //quando o mouse nao esta sobre a navbar, a tela fica como original
+    });
+
 
 </script>
