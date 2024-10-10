@@ -12,4 +12,8 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.put("/editar/:idFuncionario", function (req, res) {
+    usuarioController.editarFuncionario(req, res);
+});
+
 module.exports = router;

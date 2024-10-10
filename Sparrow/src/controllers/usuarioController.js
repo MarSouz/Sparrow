@@ -73,7 +73,31 @@ function cadastrar(req, res) {
     }
 }
 
+function editarFuncionario(req, res) {
+    var nomeCompleto = req.body.nomeCompletoServer
+    var email = req.body.emailServer
+    var senha = req.body.senhaServer
+    var cargoId = req.body.cargoIdServer
+    var id = req.params.idFuncionario;
+
+    usuarioModel.editarFuncionario(nomeCompleto, email, senha, cargoId, id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    editarFuncionario
 }
