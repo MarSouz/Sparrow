@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* LARGURA DA BARRA DE ROLAGEM */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* FUNDA DA BARRA DE ROLAGEM */
+::-webkit-scrollbar-track {
+    background: #f1f1f100;
+}
+
+/* COR DA BARRA DE MEDIDA */
+::-webkit-scrollbar-thumb {
+    background: lightgreen;
+    border-radius: 3px;
+}
+
+/* HOVER DA BARRA DE MEDIDA */
+::-webkit-scrollbar-thumb:hover {
+    background: pink;
+}
+
+body {
+    font-family: 'Playfair Display';
+    height: 100vh;
+    width: 100vw;
+}
+
+#page-change {
+    width: 100vw;
+    height: 100vh;
+    display: flex; 
+    justify-content: center;
+}
+
+.child-backpage {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 90%;
+    background-image: linear-gradient(to right bottom, #5d3915, #6d431a, #7e4c1e, #8f5624, #a16029);
+    gap: 10px;
+    padding: 15px;
+
+    & h1 {
+        padding: 15px;
+    }
+}
+
+.father {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background: #f8f1e1;
+}
+
+.child-backpage-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
+    background: none;
+    color: white;
+}
+
+.backpage-icon-add{
+    min-width: 50px;
+    min-height: 50px;
+    background: red;
+    margin-right: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.child-backpage-table-func{
+    background: none;
+    padding: 0px 10px;
+    width: 100%;
+    height: 90%;
+    
+
+    & .backpage-coluns{
+        padding: 0px 10px;
+        background: white;
+        min-height: 50px;
+        max-height: 50px;
+
+        display: grid;
+        column-gap: 10px;
+        grid-template-columns: 4fr 3fr 1fr 1fr;
+
+        & .backpage-coluns-item{
+            background: white;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+    }
+}
+
+    & .backpage-row{
+        background-image: linear-gradient(to right bottom, #99642e, #aa794a, #ba8e66, #caa482, #d9baa0);
+        overflow-y: auto;
+        width: 100%;
+        height: calc(100% - 50px);
+        padding: 10px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        & .backpage-row-card-func{
+            padding: 0px 10px;
+            display: grid;
+            column-gap: 10px;
+            grid-template-columns: 4fr 3fr 1fr 1fr;
+            background: white;
+
+            min-height: 50px;
+            max-height: 50px;
+
+            & .backpage-row-item{
+                width: 100%;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+    
+                background: white;
+            }
+
+            /* & .backpage-row-itemED {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: white;
+            }
+
+            & .backpage-row-itemEX {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: white;
+            } */
+        }
+
+        .backpage-row-itemED, .backpage-row-itemEX {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+        }
+        
+        .backpage-row-itemED button, .backpage-row-itemEX button {
+            padding: 5px 10px;
+            background: none; 
+            border: none; 
+            border-radius: 8px;
+            font-size: 16px; 
+            cursor: pointer; 
+        }
+        
+    
+        
+    }
+
+    .icon-edit {
+        background-color: black;
+        width: 15%;
+    }
