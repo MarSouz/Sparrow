@@ -26,26 +26,42 @@
         </div>
         <br>
 
-        <p>Digite seu e-mail para enviarmos o processo para a recuperação de senha</p>
+        <p>Insira seu e-mail para confirmarmos se é você</p>
 
         <div class="input field">
             <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
             <label for="name" class="caixa">E-mail</label>
         </div>
-        
-        <div class="input field">
-            <input type="input" class="campo" placeholder="Nova senha" required="" id="novaSenha_input" autocomplete="off">
-            <label for="name" class="caixa">Nova senha</label>
-        </div>
 
         <button type="submit" onclick="enviar()">Enviar</button>
     </div>
 
-    <div class="login" style="display: none;" id="email">
+    <div class="login" style="display: none" id="redefinir">
+
+        <div class="loginTexto">
+            <a href="index.html"><img src="./assets/imgs/Logo2.png" alt="logo"></a>
+            <h1>Recupere sua senha</h1>
+        </div>
+        <br>
+
+        <p>Insira sua nova senha</p>
+
+        <div class="input field">
+            <input type="input" class="campo" placeholder="Senha" required="" id="senha_nova" autocomplete="off">
+            <label for="name" class="caixa">Senha Nova</label>
+        </div>
+
+        <button onclick="confirmar()">Confirmar</button>
+
+    </div>
+
+    <div class="login" style="display: none;" id="confirmacao">
 
             <h2>Senha redefinida<img src="./assets/imgs/Logo2.png" class="ok"></h2>
             <br>
             <p>Senha redefinida com sucesso</p>
+
+            <a href="login.html">Voltar para login</a>
 
     </div>
 
@@ -55,8 +71,13 @@
 <script>
 
     function enviar()   {
-        email.style.display = "block"
         recuperar.style.display = "none"
+        redefinir.style.display = "block"
+    }
+
+    function confirmar() {
+        redefinir.style.display = "none"
+        confirmacao.style.display = "block"
     }
 
 </script>
