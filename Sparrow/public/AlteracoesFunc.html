@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="../public/css/AlteracoesFunc.css">
     <link rel="stylesheet" href="../public/css/dashboard/dashAnalista.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://kit.fontawesome.com/9f39143484.js" crossorigin="anonymous"></script>
     <title>Alterar dados</title>
 
     <!-- LINKS OBRIGATORIOS PARA A NAVBAR -->
@@ -74,7 +73,9 @@
                 <div class="child-backpage-title">
                     <h1>Gerenciamento de funcionários</h1>
                     <div class="backpage-icon-add">
-                        <i class="fa-light fa-user-plus"></i>
+                        <button>
+                            <p>Add Funcionário</p> <img src="./assets/svg/icon-user-add.svg" alt="">
+                        </button>
                     </div>
                 </div>
 
@@ -86,10 +87,10 @@
                         <div class="backpage-coluns-item">
                             <p>Cargo</p>
                         </div>
-                        <div class="backpage-coluns-item">
+                        <div class="backpage-coluns-item center">
                             <p>Editar</p>
                         </div>
-                        <div class="backpage-coluns-item">
+                        <div class="backpage-coluns-item center">
                             <p>Excluir</p>
                         </div>
                     </div>
@@ -106,12 +107,12 @@
                             <div class="backpage-row-itemED">
                                 
                                 <button>
-                                    <i class="fa-light fa-pen-to-square" style="color: #030302;"></i>
+                                    <img src="./assets/svg/icon-pencil.svg" alt="">
                                 </button>
                             </div>
                             <div class="backpage-row-itemEX">
                                 <button>
-                                    <i class="fa-light fa-trash"></i>
+                                    <img src="./assets/svg/icon-lixeira.svg" alt="">
                                 </button>
                             </div>
                         </div>
@@ -122,7 +123,7 @@
                 
 
 
-                <!-- <div class="card-funcionario">
+                <div class="card-funcionario" style="display: none;">
                     <div class="input-func">
                         <p>Nome do funcionário:</p>
                         <input type="text" id="nome_func">
@@ -138,11 +139,12 @@
                         <input type="text" id="nome_representante">
                     </div>
 
-                    <div class="input-fun">
+                    <div class="input-func">
                         <p>Senha:</p>
                         <input type="text" id="email_input">
                     </div>
-                </div> -->
+                </div>
+
             </div>
         </div>
     </section>

@@ -37,16 +37,17 @@ body {
 #page-change {
     width: 100vw;
     height: 100vh;
-    display: flex; 
+    display: flex;
     justify-content: center;
 }
 
 .child-backpage {
     display: flex;
     flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
     width: 90%;
     height: 90%;
-    background-image: linear-gradient(to right bottom, #5d3915, #6d431a, #7e4c1e, #8f5624, #a16029);
     gap: 10px;
     padding: 15px;
 
@@ -64,83 +65,90 @@ body {
     background: #f8f1e1;
 }
 
-.child-backpage-title{
+.child-backpage-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 10%;
     background: none;
-    color: white;
+
+    & h1 {
+        font-size: 2.5rem;
+    }
 }
 
-.backpage-icon-add{
+.backpage-icon-add {
     min-width: 50px;
     min-height: 50px;
-    background: red;
     margin-right: 9px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-left: 15px;
+
+    & button {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        background: none;
+        gap: 15px;
+    }
 }
 
-.child-backpage-table-func{
+.child-backpage-table-func {
     background: none;
     padding: 0px 10px;
     width: 100%;
     height: 90%;
-    
 
-    & .backpage-coluns{
+    & .backpage-coluns {
         padding: 0px 10px;
-        background: white;
         min-height: 50px;
         max-height: 50px;
+        border-bottom: 2px solid gray;
 
         display: grid;
         column-gap: 10px;
         grid-template-columns: 4fr 3fr 1fr 1fr;
 
-        & .backpage-coluns-item{
-            background: white;
+        & .backpage-coluns-item {
             display: flex;
-            justify-content: start;
             align-items: center;
         }
     }
 }
 
-    & .backpage-row{
-        background-image: linear-gradient(to right bottom, #99642e, #aa794a, #ba8e66, #caa482, #d9baa0);
-        overflow-y: auto;
-        width: 100%;
-        height: calc(100% - 50px);
-        padding: 10px;
+& .backpage-row {
+    /* background-image: linear-gradient(to right bottom, #99642e, #aa794a, #ba8e66, #caa482, #d9baa0); */
+    overflow-y: auto;
+    width: 100%;
+    height: calc(100% - 50px);
+    padding: 10px 0px;
 
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-        & .backpage-row-card-func{
-            padding: 0px 10px;
-            display: grid;
-            column-gap: 10px;
-            grid-template-columns: 4fr 3fr 1fr 1fr;
+    & .backpage-row-card-func {
+        padding: 0px 10px;
+        display: grid;
+        column-gap: 10px;
+        grid-template-columns: 4fr 3fr 1fr 1fr;
+        background: white;
+        border-radius: 7px;
+        min-height: 50px;
+        max-height: 50px;
+
+        & .backpage-row-item {
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+
             background: white;
+        }
 
-            min-height: 50px;
-            max-height: 50px;
-
-            & .backpage-row-item{
-                width: 100%;
-                display: flex;
-                justify-content: start;
-                align-items: center;
-    
-                background: white;
-            }
-
-            /* & .backpage-row-itemED {
+        /* & .backpage-row-itemED {
                 width: 100%;
                 display: flex;
                 justify-content: center;
@@ -155,29 +163,51 @@ body {
                 align-items: center;
                 background: white;
             } */
-        }
-
-        .backpage-row-itemED, .backpage-row-itemEX {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: white;
-        }
-        
-        .backpage-row-itemED button, .backpage-row-itemEX button {
-            padding: 5px 10px;
-            background: none; 
-            border: none; 
-            border-radius: 8px;
-            font-size: 16px; 
-            cursor: pointer; 
-        }
-        
-    
-        
     }
 
-    .icon-edit {
-        background-color: black;
-        width: 15%;
+    .backpage-row-itemED,
+    .backpage-row-itemEX {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: white;
     }
+
+    .backpage-row-itemED button,
+    .backpage-row-itemEX button {
+        padding: 5px 10px;
+        background: none;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+
+
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.card-funcionario {
+    width: 400px;
+    height: 600px;
+    background-color: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.input-func {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}

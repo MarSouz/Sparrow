@@ -181,11 +181,7 @@ h1 {
         width: 100%;
         border: none;
         padding: 5px 10px;
-<<<<<<< HEAD
         border-radius: 5px;
-=======
-        border-radius: 10px;
->>>>>>> 93e5675a070558730476ed8051b5592abc33cfa1
         outline: none;
         display: flex;
         align-items: center;
