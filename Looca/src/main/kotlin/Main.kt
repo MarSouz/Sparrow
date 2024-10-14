@@ -1,6 +1,7 @@
 import com.github.britooo.looca.api.core.Looca
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 open class Main {
     companion object {
@@ -10,7 +11,6 @@ open class Main {
             print("Pronto para começar? Digite 1 para iniciar a captura: ")
 
             val inicio = readln().toInt()
-            val executor = Executors.newSingleThreadExecutor()
 
             if (inicio == 1) {
                 val repositorio = MaquinaRepositorio()
@@ -18,61 +18,53 @@ open class Main {
                 val looca = Looca()
 
                 while (true) {
-                    var userInput: String? = null
-
 
                     val interfaces = looca.rede.grupoDeInterfaces.interfaces
+
                     val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan2") }
+                    val existeMac = repositorio.existePorMac(interfaceDeConexaoPrincipal[0].enderecoMac)
 
-                    if (interfaceDeConexaoPrincipal.isNotEmpty()) {
-                        val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados
-                        val pacotesRecebidos = interfaceDeConexaoPrincipal[0].pacotesRecebidos
+                    if (existeMac){
+                        if (interfaceDeConexaoPrincipal.isNotEmpty()) {
+                            val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados
+                            val pacotesRecebidos = interfaceDeConexaoPrincipal[0].pacotesRecebidos
 
-                        val dadoPacotesEnviados = DadoCapturado().apply {
-                            setRegistro(pacotesEnviados)
-                            setComponenteMaquina(4)
+                            val dadoPacotesEnviados = DadoCapturado().apply {
+                                setRegistro(pacotesEnviados)
+                                setComponenteMaquina(4)
+                            }
+                            val sucessoEnviados = repositorio.inserir(dadoPacotesEnviados)
+
+                            val dadoPacotesRecebidos = DadoCapturado().apply {
+                                setRegistro(pacotesRecebidos)
+                                setComponenteMaquina(5)
+                            }
+                            val sucessoRecebidos = repositorio.inserir(dadoPacotesRecebidos)
+
+                            println(
+                                """
+                                Pacotes Enviados: $pacotesEnviados
+                                Pacotes Recebidos: $pacotesRecebidos
+                                """.trimIndent()
+                            )
+
+                            if (sucessoEnviados && sucessoRecebidos) {
+                                println("Inserido no banco de dados com sucesso!")
+                            }
                         }
-                        val sucessoEnviados = repositorio.inserir(dadoPacotesEnviados)
-
-                        val dadoPacotesRecebidos = DadoCapturado().apply {
-                            setRegistro(pacotesRecebidos)
-                            setComponenteMaquina(5)
-                        }
-                        val sucessoRecebidos = repositorio.inserir(dadoPacotesRecebidos)
-
-                        println(
-                            """
-                            Pacotes Enviados: $pacotesEnviados
-                            Pacotes Recebidos: $pacotesRecebidos
-                            """.trimIndent()
-                        )
-
-                        if (sucessoEnviados && sucessoRecebidos) {
-                            println("Inserido no banco de dados com sucesso!")
-                        }
-                    }
-                    val task = Runnable {
-                        print("Para parar a captura, digite 2 ou aguarde para continuar: ")
-                        userInput = readln()
-                    }
-
-                    val future = executor.submit(task)
-                    try {
-                        future.get(5, TimeUnit.SECONDS)
-                    } catch (e: Exception) {
-                        // Exceção ignorada; o usuário não digitou nada a tempo
-                    }
-
-                    if (userInput == "2") {
-                        println("Parando a captura.")
-                        break
                     }
                     else{
-                        println("Opção inválida.")
+                        val novaMaquina = Maquina()
+                        novaMaquina.setEnderecoMac(interfaceDeConexaoPrincipal[0].enderecoMac)
+                        repositorio.cadastrarMaquina(novaMaquina)
+
+                        val maquinaCadastrada = repositorio.buscarPorMac(interfaceDeConexaoPrincipal[0].enderecoMac)
+
+                        repositorio.cadastrarComponente(maquinaCadastrada.id, 4)
+                        repositorio.cadastrarComponente(maquinaCadastrada.id, 5)
+
                     }
                 }
-
-                executor.shutdown() // Encerra o executor após a captura
             } else {
                 println("Opção inválida.")
             }
