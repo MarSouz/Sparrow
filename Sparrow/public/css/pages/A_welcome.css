@@ -187,6 +187,19 @@ nav button:hover {
     width: 90%;
 }
 
+@media (max-width: 1650px) {
+    .text-inicio {
+        font-size: 65px;
+    }
+}
+
+
+@media (max-width: 1550px) {
+    .text-inicio {
+        font-size: 60px;
+    }
+}
+
 @media (max-width: 1400px) {
     .logoNav {
         flex: 0 0 12%;
@@ -205,6 +218,42 @@ nav button:hover {
     li {
         font-size: 16px;
         padding: 0 40px;
+    }
+
+    .text-inicio {
+        font-size: 52px;
+    }
+
+    .espaco-radar {
+        width: 34%;
+    }
+
+    .card-button button {
+        font-size: 23px;
+        width: 21%;
+    }
+}
+
+@media (max-width: 1300px) {
+    .text-inicio {
+        font-size: 47px;
+    }
+
+    .card-texto-1 {
+        height: 10%;
+    }
+
+    .card-texto-2 {
+        height: 10%;
+    }
+
+    .espaco-radar {
+        width: 36%;
+    }
+
+    .card-button button {
+        width: 22%;
+        font-size: 21px;
     }
 }
 
@@ -226,6 +275,44 @@ nav button:hover {
     li {
         font-size: 14px;
         padding: 0 25px;
+    }
+
+    .espaco-radar {
+        width: 39%;
+    }
+
+    .text-inicio {
+        font-size: 41px;
+    }
+
+    .card-button button {
+        width: 25%;
+    }
+}
+
+@media (max-width: 1070px) {
+    .card-texto-1 {
+        height: 9%;
+    }
+
+    .card-texto-2 {
+        height: 9%;
+    }
+
+    .espaco-radar {
+        width: 36%;
+    }
+
+    .espaco-radar {
+        width: 41%;
+    }
+
+    .text-inicio {
+        font-size: 36px;
+    }
+
+    .card-button button {
+        width: 26%;
     }
 }
 
@@ -278,9 +365,125 @@ nav button:hover {
     .imgLogo {
         max-width: 80px;
     }
+
+    #inicio {
+        flex-direction: column;
+    }
+
+    .espaco-radar {
+        height: 65%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: end;
+        order: -1;
+    }
+
+    .radar {
+        width: 32%;
+    }
+
+    .text-inicio {
+        height: 35%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 30px 0 30px;
+    }
+
+    .card-texto-1, .card-texto-2 {
+        height: 25%;
+    }
+
+    .card-button {
+        height: 18%;
+    }
+
+    .card-button button {
+        height: 85%;
+    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 850px) {
+    .radar {
+        width: 38%;
+    }
+}
+
+@media (max-width: 770px) {
+    .radar {
+        width: 40%;
+    }
+
+    .card-button button {
+        width: 28%;
+    }
+}
+
+@media (max-width: 680px) {
+    .radar {
+        width: 44%;
+    }
+
+    .text-inicio {
+        padding: 0 24px 0 24px;
+        font-size: 32px;
+    }
+
+    .card-texto-1, .card-texto-2 {
+        height: 22%;
+        padding: 0 15px 0 15px;
+    }
+
+    .card-button button {
+        width: 32%;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 580px) {
+    .espaco-radar {
+        height: 60%;
+    }
+
+    .radar {
+        width: 48%;
+    }
+
+    .text-inicio {
+        height: 40%;
+        padding: 0 22px 0 22px;
+        font-size: 29px;
+    }
+
+    .card-texto-1, .card-texto-2 {
+        padding: 0 10px 0 10px;
+        height: 18%;
+    }
+
+    .card-button button {
+        height: 75%;
+        width: 34%;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 505px) {
+    .text-inicio {
+        padding: 0 20px 0 20px;
+        font-size: 28.5px;
+    }
+
+    .card-button button {
+        height: 75%;
+        width: 36%;
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 481px) {
     li {
         font-size: 16px;
         padding: 10px 0;
@@ -298,6 +501,50 @@ nav button:hover {
 
     .imgLogo {
         max-width: 70px;
+    }
+
+    .radar {
+        width: 51%;
+    }
+
+    .text-inicio {
+        padding: 0 8px 0 8px;
+        font-size: 25px;
+    }
+
+    .card-texto-1, .card-texto-2 {
+        padding: 0 10px 0 10px;
+        height: 15%;
+    }
+
+    .card-button button {
+        width: 37%;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 405px) {
+    .radar {
+        width: 56%;
+    }
+
+    .text-inicio {
+        padding: 0 6px 0 6px;
+        font-size: 22px;
+    }
+
+    .card-texto-1, .card-texto-2 {
+        padding: 0 10px 0 10px;
+        height: 14%;
+    }
+
+    .card-button {
+        height: 16%;
+    }
+
+    .card-button button {
+        width: 45%;
+        font-size: 17px;
     }
 }
 
@@ -319,5 +566,28 @@ nav button:hover {
 
     .imgLogo {
         max-width: 60px;
+    }
+
+    .radar {
+        width: 63%;
+    }
+
+    .text-inicio {
+        padding: 0 4px 0 4px;
+        font-size: 20px;
+    }
+
+    .card-texto-1, .card-texto-2 {
+        padding: 0 8px 0 8px;
+        height: 12%;
+    }
+
+    .card-button {
+        height: 15%;
+    }
+
+    .card-button button {
+        width: 47%;
+        font-size: 16px;
     }
 }
