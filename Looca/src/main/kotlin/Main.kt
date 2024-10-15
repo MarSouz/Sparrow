@@ -28,14 +28,16 @@ open class Main {
                         if (interfaceDeConexaoPrincipal.isNotEmpty()) {
                             val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados
                             val pacotesRecebidos = interfaceDeConexaoPrincipal[0].pacotesRecebidos
-
+                            val maquina = repositorio.buscarPorMac(interfaceDeConexaoPrincipal[0].enderecoMac)
                             val dadoPacotesEnviados = DadoCapturado().apply {
+                                setFkMaquina(maquina.id)
                                 setRegistro(pacotesEnviados)
                                 setComponenteMaquina(4)
                             }
                             val sucessoEnviados = repositorio.inserir(dadoPacotesEnviados)
 
                             val dadoPacotesRecebidos = DadoCapturado().apply {
+                                setFkMaquina(maquina.id)
                                 setRegistro(pacotesRecebidos)
                                 setComponenteMaquina(5)
                             }
@@ -51,6 +53,7 @@ open class Main {
                             if (sucessoEnviados && sucessoRecebidos) {
                                 println("Inserido no banco de dados com sucesso!")
                             }
+                            Thread.sleep(10000)
                         }
                     }
                     else{

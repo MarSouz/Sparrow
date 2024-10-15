@@ -23,8 +23,9 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
     fun inserir(novoDado: DadoCapturado): Boolean {
         val qtdLinhasAfetadas = jdbcTemplate.update(
             "INSERT INTO dado_capturado(registro, data_hora, fk_maquina, fk_componente_maquina) " +
-                    "values(?,current_timestamp(),1,?)",
+                    "values(?,current_timestamp(),?,?)",
             novoDado.registro,
+            novoDado.fk_maquina,
             novoDado.fk_componente_maquina
         )
         return qtdLinhasAfetadas > 0
@@ -51,7 +52,7 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
          return qtdLinhasAfetadas>0
      }
 
-     fun buscarPorMac(enderecoMac: String): Maquina{
+     fun buscarPorMac(enderecoMac: String): Maquina {
          val maquinaEncontrada = jdbcTemplate.queryForObject(
              "SELECT * FROM maquina WHERE endereco_mac = ?",
              BeanPropertyRowMapper(Maquina::class.java),
@@ -62,11 +63,11 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
 
 
 
-     fun cadastrarComponente(fk_maquina:Int, componente:Int):Boolean{
+     fun cadastrarComponente(fkMaquina:Int, componente:Int):Boolean{
          val qtdLinhasAfetadas = jdbcTemplate.update(
              "INSERT INTO maquina_componente (fk_maquina, fk_componente_maquina, limite_componente)"+
              "VALUES (?,?,50000)",
-             fk_maquina,
+             fkMaquina,
              componente
          )
          return qtdLinhasAfetadas > 0
