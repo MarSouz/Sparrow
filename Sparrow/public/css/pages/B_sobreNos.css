@@ -55,3 +55,141 @@
     font-size: 18px;
     color: #585858;
 }
+
+@media (max-width: 1600px) {
+    .card-sobre {
+        width: 70%;
+    }
+    .imagem {
+        width: 45%;
+    }
+    .sobre-right {
+        width: 55%;
+    }
+    .titulo {
+        font-size: 30px;
+    }
+    .sobre-right h2 {
+        font-size: 30px;
+    }
+    .sobre-right p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1400px) {
+    .card-sobre {
+        width: 80%;
+    }
+    .imagem {
+        width: 50%;
+    }
+    .sobre-right {
+        width: 50%;
+    }
+    .titulo {
+        font-size: 28px;
+    }
+    .sobre-right h2 {
+        font-size: 28px;
+    }
+    .sobre-right p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .card-sobre {
+        width: 90%;
+    }
+    .imagem {
+        width: 60%;
+    }
+    .sobre-right {
+        width: 40%;
+    }
+    .titulo {
+        font-size: 26px;
+    }
+    .sobre-right h2 {
+        font-size: 26px;
+    }
+    .sobre-right p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 992px) {
+    .card-sobre {
+        height: 80%;
+    }
+    .sobre-father {
+        flex-direction: column;
+        align-items: center;
+    }
+    .imagem {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+    .sobre-right {
+        width: 70%;
+        padding: 0 20px;
+    }
+    .titulo2 {
+        height: 15%;
+    }
+    .sobre-right h2 {
+        font-size: 24px;
+    }
+    .sobre-right p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .titulo {
+        font-size: 22px;
+    }
+    .sobre-right h2 {
+        font-size: 22px;
+    }
+    .sobre-right p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .titulo {
+        font-size: 20px;
+    }
+    .sobre-right h2 {
+        font-size: 20px;
+    }
+    .sobre-right p {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo {
+        font-size: 18px;
+    }
+    .sobre-right h2 {
+        font-size: 18px;
+    }
+    .sobre-right p {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 320px) {
+    .titulo {
+        font-size: 16px;
+    }
+    .sobre-right h2 {
+        font-size: 16px;
+    }
+    .sobre-right p {
+        font-size: 9px;
+    }
+}
