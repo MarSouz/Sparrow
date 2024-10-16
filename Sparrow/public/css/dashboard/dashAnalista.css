@@ -55,7 +55,7 @@ a{
     padding: 10px;
 }
 
-.fas{
+.bx{
     position: relative;
     width: 70px;
     height: 40px;
@@ -82,7 +82,7 @@ nav:hover{
 }
 
 .container-logout {
-    margin-top: 250px;
+    margin-top: 280px;
 }
 
 .father {

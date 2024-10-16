@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard/dashAnalista.css">
+    <link rel="stylesheet" href="../css/dashboard/dashAdm.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
 
-    <title>Sparrow | Dashboard Analista Terminal</title>
+    <title>Sparrow | Dashboard Administrador Terminal</title>
 </head>
 
 <body>
@@ -30,30 +30,37 @@
                 </li>
 
                 <li>
-                    <a href="./preDashAnalista.html">
+                    <a href="./preDashAdm.html">
                         <i class="bx bxs-home"></i>
                         <span class="nav-item">Início</span>
                     </a>
                 </li>
 
-                <!-- <li>
+                <li>
                     <a href="#">
-                        <i class="fas fa-user"></i>
-                        <span class="nav-item">Usuários</span>
+                        <i class="bx bxs-user"></i>
+                        <span class="nav-item">Funcionários</span>
                     </a>
-                </li> -->
+                </li>
 
                 <li>
-                    <a href="dashAnalista.html">
+                    <a href="dashAdmTeste.html">
                         <i class="bx bx-radar"></i>
                         <span class="nav-item">Terminal</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="dashAnalistaServidor.html">
+                    <a href="dashAdmServidor.html">
                         <i class="bx bxs-server"></i>
                         <span class="nav-item">Servidor</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="bx bx-laptop"></i>
+                        <span class="nav-item">Máquinas</span>
                     </a>
                 </li>
 
@@ -77,18 +84,10 @@
     </div>
 
     <div class="father">
-        <div class="descricao-inicial">
-        <div class="father-content">
+        <div class="father-content1">
             <div class="content1">
-
                 <div class="terminal-botao">
                     <span class="subtitulo">Terminal</span>
-
-                    <select name="select-terminal" id="select-terminal">
-                        <option value="#" selected  disabled>Escolha qual monitorar</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
 
                     <div class="container-botoes">
                         <button>CPU</button>
@@ -97,58 +96,72 @@
                         <button>Rede</button>
                     </div>
                 </div>
+
             </div>
 
+
             <div class="content2">
-                <div class="content-infos">
-                    <span class="titulo">Atualização do uso dos componentes</span>
-                    
-                    <div class="info-container">
-                        <div class="info1">
-                            <span class="subtitulo">CPU</span>
-                            <span class="descricao">30%</span>
-                        </div>
-                        <div class="info2">
-                            <span class="subtitulo">RAM</span>
-                            <span class="descricao">50%</span>
-                        </div>
-                        <div class="info3">
-                            <span class="subtitulo">Disco</span>
-                            <span class="descricao">70GB</span>
-                        </div>
-                        <div class="info4">
-                            <span class="subtitulo">Rede</span>
-                            <span class="descricao">500 pacotes perdidos</span>
-                        </div>
+
+                <div class="graficos">
+                    <div class="graficoLinha">
+                        <canvas id="myChart"></canvas>
+                    </div>
+
+                    <div class="histograma">
+                        <canvas id="myChart2"></canvas>
                     </div>
                 </div>
             </div>
-            
         </div>
 
-        <div class="content3">
-            <div class="map-grafico">
-                <div class="graficoLinha">
-                    <canvas id="myChart"></canvas>
+        <div class="father-content2">
+            <div class="content3">
+                <span class="titulo">Histórico de alertas</span>
+
+                <div class="cards-content">
+                    <div class="card1">
+                        <span class="titulo-card">Nome da máquina: </span>
+                        <span class="subtitulo-card">Componente:</span>
+                        <span class="descricao-card">Descrição:</span>
+                    </div>
+
                 </div>
-                <div id="map"></div>
             </div>
         </div>
-    </div>
 </div>
 </body>
-
 </html>
 <script>
     const ctx = document.getElementById('myChart');
+    const ctx2 = document.getElementById('myChart2');
 
     new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
-            labels: ['Maio', 'Junho', 'Julho', 'Agosto'],
+            labels: ['Julho', 'Agosto', 'Setembro', 'Outubro'],
             datasets: [{
-                label: 'Terminais',
-                data: [3, 9, 2, 3],
+                label: '% de uso',
+                data: [70, 50, 40, 70],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Julho', 'Agosto', 'Setembro', 'Outubro'],
+            datasets: [{
+                label: 'Histograma de alertas',
+                data: [70, 50, 40, 70],
                 borderWidth: 1
             }]
         },

@@ -27,7 +27,6 @@ nav{
     box-shadow: 0 20px 35px rgba(0,0,0 0.1);
 }
 
-
 .logo{
     display: flex;
     justify-content: start;
@@ -35,7 +34,6 @@ nav{
     transition: all 0.5 ease;
     padding: 0;
 }
-
 
 .logo img{
     width: 30%;   
@@ -60,7 +58,7 @@ a{
 .bx{
     position: relative;
     width: 70px;
-    height: 40px;
+    height: 50px;
     top: 14px;
     font-size: 20px;
     text-align: center;
@@ -83,125 +81,69 @@ nav:hover{
     transition: all 0.5 ease;
 }
 
-
-.logout{
-    margin-top: 280px;
+.container-logout {
+    margin-top: 100px;
 }
 
-.father{
+.father {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.father-content1 {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
-
-.father-content{
-    width: 100%;
-    height: 50%;
-    display: flex;
-}
-
-.father-content2{
-    width: 100%;
-    height: 50%;
-    display: flex;
-}
-
 
 .content1 {
-    width: 50%;
-    height: 100%;
-    /* background-color: orange; */
     display: flex;
+    height: 50%;
+    width: 100%;
+    padding: 65px 40px 55px 65px;
     flex-direction: column;
-    gap: 30px;
+    justify-content: space-between;
+   
 }
-
-.content1 .titulo{
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 30px;
-    margin-top: 30px;
-
-}
-
-.content1 .subtitulo{
-    font-size: 25px;
-    margin-left: 30px;
-}
-
-.content1 .apresentacao{
-    font-size: 20px;
-    margin-left: 30px;
-    margin-top: 50px;
-}
-
-
 
 .content2{
-    width: 50%;
+    display: flex;
+    height: 50%;
+    width: 100%;
+    /* background-color: aqua; */
+}
+
+
+.father-content2 {
+    width: 100%;
     height: 100%;
-    /* background-color: purple; */
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.container-descricao{   
-    width: 70%; 
-    height: 70%; 
-    border-radius: 8px;
-    color: black; 
-    background-color: white;
-    box-shadow: 0 0 15px 0 #5a5446;
-    padding: 15px; 
-}
+/* FATHER-CONTENT 1 */
 
-.container-descricao span{
-    display: flex;
-    flex-direction: column;
-    margin: 15px;
-    font-size: 20px;
-}
-
-.container-descricao .titulo{
-    text-align: center;
+.content1 .subtitulo{
+    font-size: 30px;
     font-weight: bold;
-    margin: 20px;
-
+    margin-left: 10px;
 }
 
-.content3 {
-    width: 50%;
-    height: 100%;
-    /* background-color: pink; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.content3 .titulo{
-    font-size: 25px;
-    text-align: center;
-}
-
-
-.botoes-content3{
+.container-botoes{
     display: flex; 
-    justify-content: center;
     gap: 15px;
     margin-top: 15px;
 }
 
-.botoes-content3 button {
+.container-botoes button {
     display: flex; 
     flex-direction: column;
-    width: 35%; 
+    width: 15%; 
     color: #fff;
     background-color: white; 
     color: black;
     font-weight: bold;
-    font-size: 15px;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
@@ -211,41 +153,73 @@ nav:hover{
     transition: 0.4s ease;
 }
 
-.botoes-content3 button:hover {
-    background-color: rgb(206, 196, 174);
+
+.container-botoes button:hover {
+    background-color: rgb(193, 193, 193);
     transition: 0.4s ease;
 }
 
-.botoes-content3 button:focus {
+.container-botoes button:focus {
     background-color: black;
     color: white;
     transition: 0.4s ease;
 }
 
+.graficos {
+    display: flex; 
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 10px;
+    margin-top: -150px;
+    margin-left: 65px;
+}
 
-
-.content4 {
-    display: flex;
-    background-image: url(../assets/imgs/Logo3-FundoRemovido.png);
-    background-size: contain; 
-    background-repeat: no-repeat; 
-    background-position: center; 
-  
+.graficoLinha, 
+.histograma{
+    width: 70%;
+    height: 70%;
+    padding: 20px;
+    border-radius: 8px;
+    color: black; 
+    background-color: white;
+    box-shadow: 0 0 15px 0 #5a5446;
 }
 
 
+/* FATHER-CONTENT-2 */
+.content3 {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding: 65px 40px 55px 65px;
+    flex-direction: column;
+}
 
+.content3 .titulo{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 10px;
+}
 
+.cards-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 18px 0 18px 0;
+    
+}
 
+.card1 {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.card1 span{
+    display: block;
+    margin-bottom: 8px;
+}
