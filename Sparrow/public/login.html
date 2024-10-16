@@ -42,7 +42,7 @@
         <div class="esqueceuSenha">
             <a href="./esqSenha.html">Esqueceu a senha?</a>
         </div>
-
+        
         <button type="submit" onclick="entrar()">Entrar</button>
     </div>
 </body>
@@ -89,7 +89,7 @@
                     sessionStorage.NOME_USUARIO = resultado[0].nome;
                     sessionStorage.ID_USUARIO = resultado[0].id;
                     sessionStorage.ID_EMPRESA = resultado[0].empresaId
-                    sessionStorage.TIPO_USUARIO = resultado[0].cargo_id
+                    sessionStorage.TIPO_USUARIO = resultado[0].fk_cargo
                     setTimeout(function () {
                         if (sessionStorage.ID_EMPRESA == 1) {
                             // window.location = "./dashboard/cards.html"
@@ -101,7 +101,7 @@
                                 console.log("Dashboard1")
                             }
                             else if (sessionStorage.TIPO_USUARIO == 2) {
-                                window.location = "./dashboard/dashAnalista.html"
+                                window.location = "dashboard/preDashAnalista.html"
                             }
                             else {
                                 console.log("Tipo de usuário inválido")

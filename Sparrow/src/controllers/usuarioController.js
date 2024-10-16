@@ -96,7 +96,46 @@ function editarFuncionario(req, res) {
 
 }
 
+function verificarEmail(req, res) {
+
+    var email = req.params.email;
+
+    usuarioModel.verificarEmail(email).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function trocarSenha(req, res) {
+    var id = req.params.idFuncionario;
+    var senha = req.body.senhaServer
+
+    usuarioModel.trocarSenha(id, senha)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 module.exports = {
+    trocarSenha,
+    verificarEmail,
     autenticar,
     cadastrar,
     editarFuncionario

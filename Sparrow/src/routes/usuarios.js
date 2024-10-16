@@ -16,4 +16,12 @@ router.put("/editar/:idFuncionario", function (req, res) {
     usuarioController.editarFuncionario(req, res);
 });
 
+router.get("/verificar/:email", function (req, res) {
+    usuarioController.verificarEmail(req, res);
+});
+
+router.put("/trocar/:idFuncionario", function (req, res) {
+    usuarioController.trocarSenha(req, res);
+});
+
 module.exports = router;

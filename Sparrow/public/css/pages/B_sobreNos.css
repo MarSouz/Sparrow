@@ -29,6 +29,7 @@
 
 .imagem {
     width: 40%;
+    border-radius: 8px;
 }
 
 .sobre-right {

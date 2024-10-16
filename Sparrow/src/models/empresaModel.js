@@ -12,7 +12,7 @@ function cadastrarContato(nomeEmpresa, nomeRepresentante, email, cnpj, descricao
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
   var instrucaoSql = `
-      INSERT INTO contato (id_contatos, nome_empresa, nome_representante, email_contato, cnpj, descricao) VALUES (DEFAULT,'${nomeEmpresa}', '${nomeRepresentante}', '${email}', '${cnpj}', '${descricao}');
+      INSERT INTO possivel_cliente (id, nome_empresa, nome_representante, email_representante, cnpj, descricao) VALUES (DEFAULT,'${nomeEmpresa}', '${nomeRepresentante}', '${email}', '${cnpj}', '${descricao}');
   `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

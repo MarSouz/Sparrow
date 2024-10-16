@@ -29,7 +29,7 @@
         <p>Insira seu e-mail para confirmarmos se é você</p>
 
         <div class="input field">
-            <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
+            <input type="input" class="campo" placeholder="E-mail" required="" id="vec_email" autocomplete="off">
             <label for="name" class="caixa">E-mail</label>
         </div>
 
@@ -66,18 +66,67 @@
     </div>
 
 </body>
-
 </html>
 <script>
 
+    var id
+
     function enviar()   {
-        recuperar.style.display = "none"
-        redefinir.style.display = "block"
+
+        var email = vec_email.value;
+
+        console.log(email)
+
+        fetch(`/usuarios/verificar/${email}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    id = resposta[0].id
+                    console.log(id)
+
+                    recuperar.style.display = "none"
+                    redefinir.style.display = "block"
+
+                });
+            } else {
+                console.error('Nenhum email encontrado');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
     }
 
     function confirmar() {
-        redefinir.style.display = "none"
-        confirmacao.style.display = "block"
+
+        var senha = senha_nova.value;
+
+        console.log(senha)
+
+        fetch(`/usuarios/trocar/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                senhaServer: senha
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                console.log("Senha alterada com sucesso!")
+                redefinir.style.display = "none"
+                confirmacao.style.display = "block"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
     }
 
 </script>
