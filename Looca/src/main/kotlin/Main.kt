@@ -4,7 +4,7 @@ open class Main {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("Olá! Seja bem-vindo à Sparrow Tech Solutions. Estamos aqui para ajudá-lo a capturar os pacotes de rede e monitorar sua conexão.")
+            println("Olá! Seja bem-vindo à Sparrow Tech Solutions. \nEstamos aqui para ajudá-lo a capturar os pacotes de rede e monitorar sua conexão.")
             print("Pronto para começar? Digite 1 para iniciar: ")
 
             val inicio = readln().toInt()
@@ -14,32 +14,30 @@ open class Main {
                 repositorio.configurar()
                 val looca = Looca()
                 var interfaces = looca.rede.grupoDeInterfaces.interfaces
-                var interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan2") }
-                val existeMac = repositorio.existePorMac(interfaceDeConexaoPrincipal[0].enderecoMac)
+                val existeMac = repositorio.existePorMac(interfaces[0].enderecoMac)
                 if (existeMac) {
                     println("Máquina já cadastrada. Iniciando captura...")
                 } else {
-                    println("Cadastrando máquina no sistema. Iniciando captura...")
+
                     val novaMaquina = Maquina()
-                    novaMaquina.setEnderecoMac(interfaceDeConexaoPrincipal[0].enderecoMac)
+                    novaMaquina.setEnderecoMac(interfaces[0].enderecoMac)
                     repositorio.cadastrarMaquina(novaMaquina)
 
-                    val maquinaCadastrada = repositorio.buscarPorMac(interfaceDeConexaoPrincipal[0].enderecoMac)
+                    val maquinaCadastrada = repositorio.buscarPorMac(interfaces[0].enderecoMac)
 
                     repositorio.cadastrarComponente(maquinaCadastrada.id, 4)
                     repositorio.cadastrarComponente(maquinaCadastrada.id, 5)
+                    println("Cadastrando máquina no sistema. Iniciando captura...")
 
                 }
 
                 while (true) {
                     interfaces = looca.rede.grupoDeInterfaces.interfaces
 
-                    interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan2") }
-
-                    if (interfaceDeConexaoPrincipal.isNotEmpty()) {
-                        val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados
-                        val pacotesRecebidos = interfaceDeConexaoPrincipal[0].pacotesRecebidos
-                        val maquina = repositorio.buscarPorMac(interfaceDeConexaoPrincipal[0].enderecoMac)
+                    if (interfaces.isNotEmpty()) {
+                        val pacotesEnviados = interfaces[0].pacotesEnviados
+                        val pacotesRecebidos = interfaces[0].pacotesRecebidos
+                        val maquina = repositorio.buscarPorMac(interfaces[0].enderecoMac)
                         val dadoPacotesEnviados = DadoCapturado().apply {
                             setFkMaquina(maquina.id)
                             setRegistro(pacotesEnviados)
