@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/css/AlteracoesFunc.css">
     <link rel="stylesheet" href="../public/css/dashboard/dashAnalista.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Alterar dados</title>
 
     <!-- LINKS OBRIGATORIOS PARA A NAVBAR -->
@@ -73,7 +75,7 @@
                 <div class="child-backpage-title">
                     <h1>Gerenciamento de funcionários</h1>
                     <div class="backpage-icon-add">
-                        <button>
+                        <button onclick="add_user()">
                             <p>Add Funcionário</p> <img src="./assets/svg/icon-user-add.svg" alt="">
                         </button>
                     </div>
@@ -105,53 +107,126 @@
                                 <p>Analista</p>
                             </div>
                             <div class="backpage-row-itemED">
-                                
-                                <button>
+
+                                <button onclick="edit_func()">
                                     <img src="./assets/svg/icon-pencil.svg" alt="">
                                 </button>
                             </div>
                             <div class="backpage-row-itemEX">
-                                <button>
+                                <button onclick="remove_func()">
                                     <img src="./assets/svg/icon-lixeira.svg" alt="">
                                 </button>
                             </div>
                         </div>
-                        
-                        
-                    </div>
-                </div>
-                
-
-
-                <div class="card-funcionario" style="display: none;">
-                    <div class="input-func">
-                        <p>Nome do funcionário:</p>
-                        <input type="text" id="nome_func">
-                    </div>
-
-                    <div class="input-func">
-                        <p>Cargo:</p>
-                        <input type="text" id="cnpj_input">
-                    </div>
-
-                    <div class="input-func">
-                        <p>Email:</p>
-                        <input type="text" id="nome_representante">
-                    </div>
-
-                    <div class="input-func">
-                        <p>Senha:</p>
-                        <input type="text" id="email_input">
                     </div>
                 </div>
 
             </div>
         </div>
+
+
     </section>
+
+    <div id="edit-card" class="card-funcionario" style="display: none;">
+        <div class="title">
+            <h3>Editar funcionário</h3>
+            <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt=""></div>
+        </div>
+        <div class="child-input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome" required="" id="email_input" autocomplete="off">
+                <label for="name" class="caixa">Nome do funcionário</label>
+            </div>
+
+
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Cargo" required="" id="senha_input" autocomplete="off">
+                <label for="name" class="caixa">Cargo</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
+                <label for="name" class="caixa">Email</label>
+            </div>
+
+
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Senha" required="" id="senha_input" autocomplete="off">
+                <label for="name" class="caixa">Senha</label>
+            </div>
+        </div>
+        <div class="btn">
+            <button class="btn-save">Salvar</button>
+        </div>
+    </div>
+
+    <div id="cadastrar-func" class="card-funcionario" style="display: none;">
+        <div class="title">
+            <h3>Cadastrar funcionário</h3>
+            <div onclick="close_card('cadastrar-func')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt=""></div>
+        </div>
+        <div class="child-input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome" required="" id="email_input" autocomplete="off">
+                <label for="name" class="caixa">Nome do funcionário</label>
+            </div>
+
+
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Cargo" required="" id="senha_input" autocomplete="off">
+                <label for="name" class="caixa">Cargo</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
+                <label for="name" class="caixa">Email</label>
+            </div>
+
+
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Senha" required="" id="senha_input" autocomplete="off">
+                <label for="name" class="caixa">Senha</label>
+            </div>
+        </div>
+        <div class="btn">
+            <button onclick="" class="btn-save">Cadastrar</button>
+        </div>
+    </div>
+
+    <div id="card-confirm" class="card-confirm" style="display: none;">
+        <div class="text">Deseja excluir este funcionário?</div>
+        <div class="btns">
+            <button class="btnEx">Excluir</button>
+            <button onclick="cancelar()" class="btnC">Cancelar</button>
+        </div>
+    </div>
+
 </body>
 
 </html>
 
 <script>
+    function edit_func() {
 
+        var edit = document.getElementById("edit-card");
+        edit.style.display = "block";
+    }
+
+    function remove_func() {
+        var remove = document.getElementById("card-confirm")
+        remove.style.display = "flex"
+    }
+
+    function add_user() {
+        var add = document.getElementById("cadastrar-func")
+        add.style.display = "block"
+    }
+
+    function close_card(cardId) {
+        var card = document.getElementById(cardId)
+        card.style.display = "none"
+    }
+
+    function cancelar(){
+        var cancel = document.getElementById("card-confirm")
+        cancel.style.display = "none"
+    }
 </script>
