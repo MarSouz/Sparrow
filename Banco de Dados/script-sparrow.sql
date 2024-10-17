@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`tipo_componente` (
 
     
 CREATE TABLE IF NOT EXISTS `Sparrow`.`maquina_componente` (
+<<<<<<< HEAD
     `fk_maquina` INT NOT NULL,
     `fk_componente_maquina` INT NOT NULL,
     `limite_componente` INT NULL,
@@ -91,6 +92,18 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`maquina_componente` (
         REFERENCES `Sparrow`.`tipo_componente` (`id`)
         ON DELETE CASCADE);
 
+=======
+  `fk_maquina` INT NOT NULL,
+  `fk_componente_maquina` INT NOT NULL,
+  `limite_componente` INT NULL,
+  PRIMARY KEY (`fk_maquina`, `fk_componente_maquina`),
+  CONSTRAINT `fk_componentes_servidor_has_servidor_componentes_servidor1`
+    FOREIGN KEY (`fk_maquina`)
+    REFERENCES `Sparrow`.`maquina` (`id`),
+  CONSTRAINT `fk_componentes_servidor_has_servidor_servidor1`
+    FOREIGN KEY (`fk_componente_maquina`)
+    REFERENCES `Sparrow`.`tipo_componente` (`id`));
+>>>>>>> aa053c5574548dc7ebf9d473ad1240fb8075dd9a
 
 CREATE TABLE IF NOT EXISTS `Sparrow`.`dado_capturado` (
   `id` INT NOT NULL AUTO_INCREMENT,

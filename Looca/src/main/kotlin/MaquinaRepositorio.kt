@@ -12,7 +12,7 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
          fun configurar() {
              val dataSource = BasicDataSource()
              dataSource.driverClassName = "com.mysql.cj.jdbc.Driver"
-             dataSource.url = "jdbc:mysql://18.232.57.166:3306/Sparrow"
+             dataSource.url = "jdbc:mysql://52.71.94.239:3306/Sparrow"
              dataSource.username = "root"
              dataSource.password = "urubu100"
 

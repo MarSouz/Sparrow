@@ -8,6 +8,29 @@ function buscarPorCnpj(req, res) {
   });
 }
 
+function editarEmpresa(req, res) {
+  var nomeEmpresa = req.body.nomeEmpresaServer
+  var nomeRepresentante = req.body.nomeRepresentanteServer
+  var emailRepresentante = req.body.emailRepresentanteServer
+  var cnpj = req.body.cnpjServer
+  var id = req.params.idEmpresa;
+
+  empresaModel.editarEmpresa(nomeEmpresa, nomeRepresentante, emailRepresentante, cnpj, id)
+      .then(
+          function (resultado) {
+              res.json(resultado);
+          }
+      )
+      .catch(
+          function (erro) {
+              console.log(erro);
+              console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+              res.status(500).json(erro.sqlMessage);
+          }
+      );
+
+}
+
 function listar(req, res) {
   empresaModel.listar().then((resultado) => {
     res.status(200).json(resultado);
@@ -84,4 +107,5 @@ module.exports = {
   cadastrar,
   listar,
   cadastrarContato,
+  editarEmpresa,
 };

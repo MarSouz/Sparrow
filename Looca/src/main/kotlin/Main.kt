@@ -4,12 +4,6 @@ open class Main {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            println("Olá! Seja bem-vindo à Sparrow Tech Solutions. \nEstamos aqui para ajudá-lo a capturar os pacotes de rede e monitorar sua conexão.")
-            print("Pronto para começar? Digite 1 para iniciar: ")
-
-            val inicio = readln().toInt()
-
-            if (inicio == 1) {
                 val repositorio = MaquinaRepositorio()
                 repositorio.configurar()
                 val looca = Looca()
@@ -66,9 +60,6 @@ open class Main {
                     }
 
                 }
-            } else {
-                println("Opção inválida.")
-            }
 
         }
     }
