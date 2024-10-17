@@ -15,6 +15,7 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
+
 function buscarMedidasEmTempoReal(idAquario) {
 
     var instrucaoSql = `SELECT 
@@ -29,7 +30,21 @@ function buscarMedidasEmTempoReal(idAquario) {
     return database.executar(instrucaoSql);
 }
 
+
+
+
+
+function buscarUltimasMaquinas(idMaquina, latitudeServer, longitudeServer) {
+
+    var instrucaoSql = `UPDATE localizacao SET latitude = ${latitudeServer}, logintude= ${longitudeServer} WHERE id= ${idMaquina}`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal, 
+    buscarUltimasMaquinas
 }

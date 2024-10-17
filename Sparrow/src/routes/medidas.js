@@ -11,4 +11,14 @@ router.get("/tempo-real/:idAquario", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
 
+
+
+//EDITAR MÁQUINAS
+router.get("/ultimas/:idMaquina", function (req, res) {
+    medidaController.buscarUltimasMaquinas(req, res);
+});
+
+
+
+
 module.exports = router;

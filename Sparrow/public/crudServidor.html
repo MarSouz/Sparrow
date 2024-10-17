@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/AlteracoesFunc.css">
+    <link rel="stylesheet" href="../public/css/dashboard/dashAnalista.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Alterar dados</title>
+
+    <!-- LINKS OBRIGATORIOS PARA A NAVBAR -->
+    <link rel="stylesheet" href="../css/dashboard/dashAnalista.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+    <section id="page-change">
+        <div class="menu-lateral">
+            <nav id="nav">
+                <ul>
+                    <li>
+                        <a href="./index.html" class="logo">
+                            <img src="./assets/imgs/Logo2.png" alt="">
+                            <span class="nav-item">Sparrow</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./dashboard/dashAnalista.html">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-item">Início</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./dashboard/dashAnalista.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span class="nav-item">Terminal</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./dashboard/dashAnalistaServidor.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="nav-item">Servidor</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="nav-item">Central de atendimento</span>
+                        </a>
+                    </li>
+
+                    <div class="container-logout">
+                        <li>
+                            <a href="#" class="logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="nav-item">Sair</span>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="father">
+            <div class="child-backpage">
+
+                <div class="child-backpage-title">
+                    <h1>Gerenciamento de Servidores</h1>
+                    <div class="backpage-icon-add">
+                        <button onclick="add_user()">
+                            <p>Add Servidor</p> <img src="./assets/svg/icon-user-add.svg" alt="">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="child-backpage-table-func">
+                    <div class="backpage-coluns">
+                        <div class="backpage-coluns-item">
+                            <p>Nome</p>
+                        </div>
+                        <div class="backpage-coluns-item">
+                            <p>Localização</p>
+                        </div>
+                        <div class="backpage-coluns-item center">
+                            <p>Editar</p>
+                        </div>
+                        <div class="backpage-coluns-item center">
+                            <p>Excluir</p>
+                        </div>
+                    </div>
+
+                    <div class="backpage-row">
+                        <!-- CARD DO FUNCIONARIO -->
+                        <div class="backpage-row-card-func">
+                            <div class="backpage-row-item">
+                                <p>Máquina 1</p>
+                            </div>
+                            <div class="backpage-row-item">
+                                <p>latitude/longitude</p>
+                            </div>
+                            <div class="backpage-row-itemED">
+
+                                <button onclick="edit_func()">
+                                    <img src="./assets/svg/icon-pencil.svg" alt="">
+                                </button>
+                            </div>
+                            <div class="backpage-row-itemEX">
+                                <button onclick="remove_func()">
+                                    <img src="./assets/svg/icon-lixeira.svg" alt="">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </section>
+
+    <div id="edit-card" class="card-funcionario" style="display: none;">
+        <div class="title">
+            <h3>Editar servidor</h3>
+            <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
+            </div>
+        </div>
+        <div class="child-input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
+                <label for="name" class="caixa">Nome do servidor</label>
+            </div>
+
+
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Latitude" required="" id="latitude_input" autocomplete="off">
+                <label for="name" class="caixa">Latitude</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="longitude_input" autocomplete="off">
+                <label for="name" class="caixa">Longitude</label>
+            </div>
+
+
+        </div>
+        <div class="btn">
+            <button class="btn-save">Salvar</button>
+        </div>
+    </div>
+
+
+
+    <div id="card-confirm" class="card-confirm" style="display: none;">
+        <div class="text">Deseja excluir este servidor?</div>
+        <div class="btns">
+            <button class="btnEx">Excluir</button>
+            <button onclick="cancelar()" class="btnC">Cancelar</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    function edit_func() {
+        var edit = document.getElementById("edit-card");
+        edit.style.display = "block";
+        
+        var nomeVar = nome_input.value;
+        var longitudeVar = longitude_input.value;
+        var latitudeVar = latitude_input.value;
+
+        if (nomeVar == "" || longitudeVar == "" || latitudeVar == "") {
+            console.log("Campos vazios")
+        }
+        else {
+            setInterval(5000)
+        }
+
+        console.log("FORM NOME: ", nomeVar);
+        console.log("FORM LONGITUDE: ", longitudeVar);
+        console.log("FORM LATITUDE: ", latitudeVar);
+
+        fetch("/ultimas/:idMaquina", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                longitudeServer: longitudeVar,
+                latitudeServer: latitudeVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    var resultado = json
+                    // console.log()
+                    // sessionStorage.EMAIL_USUARIO = resultado[0].email;
+                    // sessionStorage.NOME_USUARIO = resultado[0].nome;
+                    // sessionStorage.ID_USUARIO = resultado[0].id;
+                    // setTimeout(function () {
+                    //     if (sessionStorage.ID_EMPRESA == 1) {
+                    //         // window.location = "./dashboard/cards.html"
+                    //         console.log("Tropa da Sparrow")
+                    //     }
+                    //     else {
+                    //         if (sessionStorage.TIPO_USUARIO == 1) {
+                    //             // window.location = "./dashboard/mural.html"
+                    //             console.log("Dashboard1")
+                    //         }
+                    //         else if (sessionStorage.TIPO_USUARIO == 2) {
+                    //             window.location = "dashboard/preDashAnalista.html"
+                    //         }
+                    //         else {
+                    //             console.log("Tipo de usuário inválido")
+                    //         }
+                    //     }
+                    // }, 2000); 
+                    // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar editar máquina!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
+    }
+
+    function remove_func() {
+        var remove = document.getElementById("card-confirm")
+        remove.style.display = "flex"
+    }
+
+    function add_user() {
+        var add = document.getElementById("cadastrar-func")
+        add.style.display = "block"
+    }
+
+    function close_card(cardId) {
+        var card = document.getElementById(cardId)
+        card.style.display = "none"
+    }
+
+    function cancelar() {
+        var cancel = document.getElementById("card-confirm")
+        cancel.style.display = "none"
+    }
+
+
+   
+
+</script>
