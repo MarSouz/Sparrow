@@ -31,7 +31,13 @@ function buscarMedidasEmTempoReal(idAquario) {
 }
 
 
+function buscarMaquina(idEmpresa, tipoMaquina) {
 
+    var instrucaoSql = `SELECT * FROM buscarMaquina WHERE idEmpresa = ${idEmpresa} AND fk_tipo_maquina = ${tipoMaquina};`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 
 function buscarUltimasMaquinas(idMaquina, latitudeServer, longitudeServer) {
@@ -42,9 +48,19 @@ function buscarUltimasMaquinas(idMaquina, latitudeServer, longitudeServer) {
     return database.executar(instrucaoSql);
 }
 
+function deletarMaquina(idMaquina) {
+
+    var instrucaoSql = `DELETE FROM maquina WHERE id= ${idMaquina}`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal, 
-    buscarUltimasMaquinas
+    buscarMedidasEmTempoReal,
+    buscarMaquina,
+    deletarMaquina
 }
+
+

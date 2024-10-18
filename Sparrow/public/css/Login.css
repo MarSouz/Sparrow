@@ -169,3 +169,68 @@ body{
     width: 12%;
     margin-bottom: -12px;
 }
+
+@media (max-width: 560px) {
+    
+    .login {
+        width: 350px;
+        height: 400px;
+        font-size: 14px;
+    }
+
+    .campo {
+        font-size: 10px;
+        padding: 8px 0;
+    }
+
+    .login .esqueceuSenha {
+        margin: 0 0 -15px 0;
+    }
+    
+    .login button {
+        padding: 4px 8px 4px 8px;
+    }
+    .ok {
+        margin-bottom: -10px;
+    }
+
+}
+
+@media (max-width: 420px) {
+    
+    .login {
+        width: 250px;
+        height: 370px;
+        font-size: 10px;
+        padding: 30px 20px 30px 20px;
+    }
+
+    .campo {
+        font-size: 8px;
+        padding: 6px 0;
+    }
+
+    .login .esqueceuSenha {
+        margin: 0 0 -10px 0;
+    }
+    
+    .login button {
+        padding: 3px 6px 3px 6px;
+    }
+    .ok {
+        margin-bottom: -8px;
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+
+@media screen and (max-width: 730px) {
+    .nav-bar {
+        padding: 1.5rem 4rem;
+    }
+    
+}

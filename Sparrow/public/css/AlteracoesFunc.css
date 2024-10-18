@@ -125,7 +125,8 @@ body {
         max-height: 50px;
         border-bottom: 2px solid gray;
 
-        display: grid;
+        display: flex;
+        justify-content: space-between;
         column-gap: 10px;
         grid-template-columns: 4fr 3fr 1fr 1fr;
 
@@ -148,14 +149,14 @@ body {
 
     & .backpage-row-card-func {
         padding: 0px 10px;
-        display: grid;
+        display: flex;
         column-gap: 10px;
-        grid-template-columns: 4fr 3fr 1fr 1fr;
+        /* grid-template-columns: 4fr 3fr 1fr 1fr; */
         background: white;
         border-radius: 7px;
         min-height: 50px;
         max-height: 50px;
-
+        justify-content: space-between;
         & .backpage-row-item {
             width: 100%;
             display: flex;
@@ -171,7 +172,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        background: white;
+        background: white;   
     }
 
     .backpage-row-itemED button,
@@ -185,7 +186,7 @@ body {
     }
 
 
-
+    
 }
 
 .center {
@@ -383,4 +384,12 @@ body {
     & button:hover {
         background-color: #a13f3f;
     }
+}
+
+.editar {
+    background-image: url('../assets/svg/icon-pencil.svg');
+}
+
+.deletar {
+    background-image: url('../assets/svg/icon-lixeira.svg');
 }

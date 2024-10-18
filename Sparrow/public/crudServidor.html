@@ -4,20 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/AlteracoesFunc.css">
-    <link rel="stylesheet" href="../public/css/dashboard/dashAnalista.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Alterar dados</title>
-
-    <!-- LINKS OBRIGATORIOS PARA A NAVBAR -->
-    <link rel="stylesheet" href="../css/dashboard/dashAnalista.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="./css/AlteracoesFunc.css">
+    <link rel="stylesheet" href="./css/dashboard/dashAnalista.css">
 
 </head>
 
-<body>
+<body onload="listar()">
     <section id="page-change">
         <div class="menu-lateral">
             <nav id="nav">
@@ -84,7 +83,16 @@
                 <div class="child-backpage-table-func">
                     <div class="backpage-coluns">
                         <div class="backpage-coluns-item">
-                            <p>Nome</p>
+                            <p>ID</p>
+                        </div>
+                        <div class="backpage-coluns-item">
+                            <p>Limite CPU:</p>
+                        </div>
+                        <div class="backpage-coluns-item">
+                            <p>Limite Memoria:</p>
+                        </div>
+                        <div class="backpage-coluns-item">
+                            <p>Limite Disco:</p>
                         </div>
                         <div class="backpage-coluns-item">
                             <p>Localização</p>
@@ -97,15 +105,14 @@
                         </div>
                     </div>
 
-                    <div class="backpage-row">
+                    <div id="FUNCIONARIO" class="backpage-row">
                         <!-- CARD DO FUNCIONARIO -->
                         <div class="backpage-row-card-func">
-                            <div class="backpage-row-item">
-                                <p>Máquina 1</p>
-                            </div>
-                            <div class="backpage-row-item">
-                                <p>latitude/longitude</p>
-                            </div>
+                            <span>ID</span>
+                            <span>CPU</span>
+                            <span>Memoria</span>
+                            <span>Disco</span>
+                            <span>Localização</span>
                             <div class="backpage-row-itemED">
 
                                 <button onclick="edit_func()">
@@ -115,6 +122,23 @@
                             <div class="backpage-row-itemEX">
                                 <button onclick="remove_func()">
                                     <img src="./assets/svg/icon-lixeira.svg" alt="">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="backpage-row-card-func">
+                            <span>ID</span>
+                            <span>CPU</span>
+                            <span>Memoria</span>
+                            <span>Disco</span>
+                            <span>Localização</span>
+                            <div class="backpage-row-itemED">
+
+                                <button onclick="edit_func()" class="editar">
+                                </button>
+                            </div>
+                            <div class="backpage-row-itemEX">
+                                <button onclick="remove_func()" class="deletar">
+                                    
                                 </button>
                             </div>
                         </div>
@@ -141,11 +165,13 @@
 
 
             <div class="input field">
-                <input type="input" class="campo" placeholder="Latitude" required="" id="latitude_input" autocomplete="off">
+                <input type="input" class="campo" placeholder="Latitude" required="" id="latitude_input"
+                    autocomplete="off">
                 <label for="name" class="caixa">Latitude</label>
             </div>
             <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="longitude_input" autocomplete="off">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="longitude_input"
+                    autocomplete="off">
                 <label for="name" class="caixa">Longitude</label>
             </div>
 
@@ -171,10 +197,8 @@
 </html>
 
 <script>
-    function edit_func() {
-        var edit = document.getElementById("edit-card");
-        edit.style.display = "block";
-        
+    function listar() {
+
         var nomeVar = nome_input.value;
         var longitudeVar = longitude_input.value;
         var latitudeVar = latitude_input.value;
@@ -190,89 +214,63 @@
         console.log("FORM LONGITUDE: ", longitudeVar);
         console.log("FORM LATITUDE: ", latitudeVar);
 
-        fetch("/ultimas/:idMaquina", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nomeServer: nomeVar,
-                longitudeServer: longitudeVar,
-                latitudeServer: latitudeVar
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+
+        fetch(`/medidas/buscar/${sessionStorage.ID_EMPRESA}/${1}`).then(function (resposta) {
             if (resposta.ok) {
-                console.log(resposta);
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    var resultado = json
-                    // console.log()
-                    // sessionStorage.EMAIL_USUARIO = resultado[0].email;
-                    // sessionStorage.NOME_USUARIO = resultado[0].nome;
-                    // sessionStorage.ID_USUARIO = resultado[0].id;
-                    // setTimeout(function () {
-                    //     if (sessionStorage.ID_EMPRESA == 1) {
-                    //         // window.location = "./dashboard/cards.html"
-                    //         console.log("Tropa da Sparrow")
-                    //     }
-                    //     else {
-                    //         if (sessionStorage.TIPO_USUARIO == 1) {
-                    //             // window.location = "./dashboard/mural.html"
-                    //             console.log("Dashboard1")
-                    //         }
-                    //         else if (sessionStorage.TIPO_USUARIO == 2) {
-                    //             window.location = "dashboard/preDashAnalista.html"
-                    //         }
-                    //         else {
-                    //             console.log("Tipo de usuário inválido")
-                    //         }
-                    //     }
-                    // }, 2000); 
-                    // apenas para exibir o loading
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    for (var index = 0; index < resposta.length; index++) {
+                        var maquina = resposta[index]
 
-                });
+                        console.log(maquina)
+                        var div_maquina = document.createElement("div")
+                        var spanID = document.createElement("span");
+                        var spanCpu = document.createElement("span");
+                        var spanMemoria = document.createElement("span");
+                        var spanDisco = document.createElement("span");
+                        var spanLocalização = document.createElement("span");
+                        var btnEditar = document.createElement("button");
+                        var btnDeletar = document.createElement("button");
+                        var divEditar = document.createElement("div")
+                        var divDeletar = document.createElement("div")
 
+
+                        spanID.innerHTML = "<b>" + maquina.id + "</b>";
+                        spanCpu.innerHTML = "<b>" + maquina.CPU + "</b>";
+                        spanMemoria.innerHTML = "<b>" + maquina.RAM + "</b>";
+                        spanDisco.innerHTML = "<b>" + maquina.Disco + "</b>";
+                        spanLocalização.innerHTML = "<b>" + maquina.lat +"/" + maquina.lon + "</b>";
+
+                        div_maquina.className = "backpage-row-card-func"
+                        div_maquina.id = maquina.id
+                        divEditar.className = "backpage-row-itemED"
+                        divDeletar.className = "backpage-row-itemEX"
+                        divEditar.appendChild(btnEditar)
+                        divDeletar.appendChild(btnDeletar)
+
+
+                        div_maquina.appendChild(spanID)
+                        div_maquina.appendChild(spanCpu)
+                        div_maquina.appendChild(spanMemoria)
+                        div_maquina.appendChild(spanDisco)
+                        div_maquina.appendChild(spanLocalização)
+                        div_maquina.appendChild(divEditar)
+                        div_maquina.appendChild(divDeletar)
+
+                        FUNCIONARIO.appendChild(div_maquina)
+                    }
+                }
+
+                )
             } else {
-
-                console.log("Houve um erro ao tentar editar máquina!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
+                throw ('Houve um erro na API!');
             }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
-
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
     }
-
-    function remove_func() {
-        var remove = document.getElementById("card-confirm")
-        remove.style.display = "flex"
-    }
-
-    function add_user() {
-        var add = document.getElementById("cadastrar-func")
-        add.style.display = "block"
-    }
-
-    function close_card(cardId) {
-        var card = document.getElementById(cardId)
-        card.style.display = "none"
-    }
-
-    function cancelar() {
-        var cancel = document.getElementById("card-confirm")
-        cancel.style.display = "none"
-    }
-
-
-   
-
 </script>

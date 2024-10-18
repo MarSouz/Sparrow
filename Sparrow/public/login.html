@@ -17,7 +17,7 @@
     <link rel="icon" href="./assets/icon/favicon2.ico" />
 </head>
 
-<body onload="listar()">
+<body>
     <div class="login">
 
         <div class="loginTexto">
@@ -93,8 +93,8 @@
                     setTimeout(function () {
                         if (sessionStorage.ID_EMPRESA == 1) {
                             // window.location = "./dashboard/cards.html"
-                            console.log("Tropa da Sparrow")
-                            //window.location = "./crudServidor.html"
+                            
+                            window.location = "crudServidor.html"
                         }
                         else {
                             if (sessionStorage.TIPO_USUARIO == 1) {
@@ -102,7 +102,7 @@
                                 console.log("Dashboard1")
                             }
                             else if (sessionStorage.TIPO_USUARIO == 2) {
-                                window.location = "dashboard/preDashAnalista.html"
+                                window.location = "crudServidor.html"
                             }
                             else {
                                 console.log("Tipo de usuário inválido")
