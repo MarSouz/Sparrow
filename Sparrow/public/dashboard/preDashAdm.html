@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/dashboard/preDashAnalista.css">
+    <link rel="stylesheet" href="../css/dashboard/preDashAdm.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
@@ -46,14 +46,14 @@
                 <li>
                     <a href="dashAnalista.html">
                         <i class="bx bx-radar"></i>
-                        <span class="nav-item">Terminal</span>
+                        <span class="nav-item">Terminais</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="dashAnalistaServidor.html">
                         <i class="bx bxs-server"></i>
-                        <span class="nav-item">Servidor</span>
+                        <span class="nav-item">Servidores</span>
                     </a>
                 </li>
 
@@ -72,13 +72,11 @@
                 </li>
 
                 <li>
-                    <a href="#">
-                        <i class="bx bx-log-out" style="margin-top:100px"></i>
+                    <a href="#" class="logout">
+                        <i class="bx bx-log-out"></i>
                         <span class="nav-item">Sair</span>
                     </a>
                 </li>
-
-               
             </ul>
         </nav>
     </div>
@@ -93,15 +91,8 @@
 
 
             <div class="content2">
-                <div class="container-descricao">
-                    <span class="titulo">Radares | Informações em tempo real</span>
-                    <span>Total:</span>
-                    <span>Online:</span>
-                    <span>Offline:</span>
-                </div>
+                <img src="../assets/imgs/Logo2.png" class="logo-content2">
             </div>
-
-
         </div>
 
 
@@ -116,7 +107,14 @@
                
             </div>
 
-            <div class="content4">
+            <div class="content4"> 
+                <span class="titulo">Cadastre</span>
+
+                <div class="botoes-content4">
+                    <button onclick="location.href='dashAdm.html';">Máquinas</button>
+                    <button onclick="location.href='dashAdmServidor.html';">Funcionários</button>
+                </div>
+               
             </div>
         </div>
     </div>

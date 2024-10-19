@@ -30,7 +30,7 @@
                 </li>
 
                 <li>
-                    <a href="./preDashAdm.html">
+                    <a href="./../index.html">
                         <i class="bx bxs-home"></i>
                         <span class="nav-item">Início</span>
                     </a>
@@ -44,16 +44,16 @@
                 </li>
 
                 <li>
-                    <a href="dashAdmTeste.html">
+                    <a href="dashAnalista.html">
                         <i class="bx bx-radar"></i>
-                        <span class="nav-item">Terminal</span>
+                        <span class="nav-item">Terminais</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="dashAdmServidor.html">
+                    <a href="dashAnalistaServidor.html">
                         <i class="bx bxs-server"></i>
-                        <span class="nav-item">Servidor</span>
+                        <span class="nav-item">Servidores</span>
                     </a>
                 </li>
 
@@ -71,14 +71,12 @@
                     </a>
                 </li>
 
-                <div class="container-logout">
-                    <li>
-                        <a href="#" class="logout">
-                            <i class="bx bx-log-out"></i>
-                            <span class="nav-item">Sair</span>
-                        </a>
-                    </li>
-                </div>
+                <li>
+                    <a href="#" class="logout">
+                        <i class="bx bx-log-out"></i>
+                        <span class="nav-item">Sair</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -101,13 +99,12 @@
 
 
             <div class="content2">
-
                 <div class="graficos">
-                    <div class="graficoLinha">
+                    <div class="graficoLinha" id="grafico" style="display: none;">
                         <canvas id="myChart"></canvas>
                     </div>
 
-                    <div class="histograma">
+                    <div class="histograma" id="histograma" style="display: none;">
                         <canvas id="myChart2"></canvas>
                     </div>
                 </div>
@@ -117,86 +114,157 @@
         <div class="father-content2">
             <div class="content3">
                 <span class="titulo">Histórico de alertas</span>
+                <div class="cards-scroll">
 
-                <div class="cards-content">
-                    <div class="card1">
-                        <span class="titulo-card">Nome da máquina: </span>
-                        <span class="subtitulo-card">Componente:</span>
-                        <span class="descricao-card">Descrição:</span>
+                    <div class="cards-content">
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
+                        <div class="card1">
+                            <span class="titulo-card">Máquina: </span>
+                            <span class="subtitulo-card">Componente: </span>
+                            <span class="subtitulo-card">Descrição: </span>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </body>
+
 </html>
 <script>
-    const ctx = document.getElementById('myChart');
-    const ctx2 = document.getElementById('myChart2');
+    const graficoContainer = document.getElementById('grafico');
+    const histogramaContainer = document.getElementById('histograma');
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    const buttons = document.querySelectorAll('.container-botoes button');
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Julho', 'Agosto', 'Setembro', 'Outubro'],
-            datasets: [{
-                label: '% de uso',
-                data: [70, 50, 40, 70],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+    let myChart; // Gráfico para CPU, RAM, Disco, Rede
+    let myChart2; // Gráfico para o histograma
+
+    const dados = {
+        'CPU': [30, 35, 25, 40],
+        'RAM': [50, 45, 55, 40],
+        'Disco': [70, 60, 80, 75],
+        'Rede': [500, 300, 400, 200]
+    };
+
+    const dadosHistograma = [70, 50, 40, 70]; // Dados fixos para o histograma
+
+    // Função para exibir gráficos
+    function exibirGraficos(tipo) {
+        graficoContainer.style.display = 'block'; // Mostra o gráfico de barras
+        histogramaContainer.style.display = 'block'; // Mostra o histograma
+
+        // Se já houver um gráfico, destruí-lo antes de criar um novo
+        if (myChart) {
+            myChart.destroy();
+        }
+
+        // Cria um novo gráfico de barras
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Julho', 'Agosto', 'Setembro', 'Outubro'],
+                datasets: [{
+                    label: tipo,
+                    data: dados[tipo],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
+        });
+
+        // Se já houver um gráfico de histograma, destruí-lo antes de criar um novo
+        if (myChart2) {
+            myChart2.destroy();
         }
-    });
 
-
-    new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['Julho', 'Agosto', 'Setembro', 'Outubro'],
-            datasets: [{
-                label: 'Histograma de alertas',
-                data: [70, 50, 40, 70],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        // Cria um novo gráfico de histograma
+        myChart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Julho', 'Agosto', 'Setembro', 'Outubro'],
+                datasets: [{
+                    label: 'Histograma de alertas',
+                    data: dadosHistograma,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
+        });
+    }
+
+    // Adiciona evento de clique para cada botão
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            const tipo = this.innerText; // Captura o texto do botão clicado
+            exibirGraficos(tipo); // Exibe os gráficos correspondentes
+        });
     });
-
-
-    const map = L.map('map').setView([-24.0833, -46.0000], 5); //ajuste do nivel inicial do zoom o ultimo numero 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 7,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    var marker = L.marker([-23.7951, -45.4146]).addTo(map);
-    var circle = L.circle([-23.7951, -45.4146], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 500
-    }).addTo(map);
-
-
-    const nav = document.getElementById('nav'); //Pegando o id da navbar
-    nav.addEventListener('mouseover', function () { //"Escutar" o mouse passando por cima da nav e criando um evento
-        nav.classList.add('expanded');
-    }); // O evento é a expansão da nav bar 
-
-    nav.addEventListener('mouseout', function () {
-        nav.classList.remove('expanded'); //quando o mouse nao esta sobre a navbar, a tela fica como original
-    });
-
 </script>

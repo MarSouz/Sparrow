@@ -1,5 +1,4 @@
-
-*{
+* {
     margin: 0;
     padding: 0;
     outline: none;
@@ -10,7 +9,7 @@
 }
 
 
-body{
+body {
     display: flex;
     overflow: hidden;
     background-color: #f8f1e1;
@@ -85,23 +84,23 @@ nav:hover{
 
 
 .logout{
-    bottom: 0;
+    margin-top: 150px;
 }
 
-.father{
+.father {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.father-content{
+.father-content {
     width: 100%;
     height: 50%;
     display: flex;
 }
 
-.father-content2{
+.father-content2 {
     width: 100%;
     height: 50%;
     display: flex;
@@ -111,13 +110,12 @@ nav:hover{
 .content1 {
     width: 50%;
     height: 100%;
-    /* background-color: orange; */
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.content1 .titulo{
+.content1 .titulo {
     font-size: 30px;
     font-weight: bold;
     margin-left: 30px;
@@ -125,12 +123,12 @@ nav:hover{
 
 }
 
-.content1 .subtitulo{
+.content1 .subtitulo {
     font-size: 25px;
     margin-left: 30px;
 }
 
-.content1 .apresentacao{
+.content1 .apresentacao {
     font-size: 20px;
     margin-left: 30px;
     margin-top: 50px;
@@ -138,67 +136,44 @@ nav:hover{
 
 
 
-.content2{
+.content2 {
     width: 50%;
     height: 100%;
-    /* background-color: purple; */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.container-descricao{   
-    width: 70%; 
-    height: 70%; 
-    border-radius: 8px;
-    color: black; 
-    background-color: white;
-    box-shadow: 0 0 15px 0 #5a5446;
-    padding: 15px; 
-}
 
-.container-descricao span{
-    display: flex;
-    flex-direction: column;
-    margin: 15px;
-    font-size: 20px;
-}
-
-.container-descricao .titulo{
-    text-align: center;
-    font-weight: bold;
-    margin: 20px;
-
-}
+/* CONTENT 3 */
 
 .content3 {
     width: 50%;
     height: 100%;
-    /* background-color: pink; */
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.content3 .titulo{
+.content3 .titulo {
     font-size: 25px;
     text-align: center;
 }
 
 
-.botoes-content3{
-    display: flex; 
+.botoes-content3 {
+    display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 15px;
 }
 
 .botoes-content3 button {
-    display: flex; 
+    display: flex;
     flex-direction: column;
-    width: 35%; 
+    width: 35%;
     color: #fff;
-    background-color: white; 
+    background-color: white;
     color: black;
     font-weight: bold;
     font-size: 15px;
@@ -223,29 +198,57 @@ nav:hover{
 }
 
 
+/* CONTENT 4 */
+
 
 .content4 {
+    width: 50%;
+    height: 100%;
     display: flex;
-    background-image: url(../assets/imgs/Logo3-FundoRemovido.png);
-    background-size: contain; 
-    background-repeat: no-repeat; 
-    background-position: center; 
-  
+    flex-direction: column;
+    justify-content: center; 
 }
 
 
+.content4 .titulo {
+        font-size: 25px;
+        text-align: center;
+    }
 
 
+.botoes-content4 {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+    }
 
+.botoes-content4 button {
+        display: flex;
+        flex-direction: column;
+        width: 35%;
+        color: #fff;
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        padding: 18px 0 18px 0;
+        cursor: pointer;
+        transition: 0.4s ease;
+    }
 
+.botoes-content4 button:hover {
+        background-color: rgb(206, 196, 174);
+        transition: 0.4s ease;
+    }
 
-
-
-
-
-
-
-
-
-
+.botoes-content4 button:focus {
+        background-color: black;
+        color: white;
+        transition: 0.4s ease;
+    }
 
