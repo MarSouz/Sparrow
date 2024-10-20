@@ -1,5 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
+var empresaModel = require("../models/empresaModel")
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -130,6 +130,21 @@ function trocarSenha(req, res) {
                 res.status(500).json(erro.sqlMessage);
             }
         );
+}
+
+function cadastrarPrimeiroFunc(req, res){
+    var nome = req.body.nomeServer
+    var email = req.body.emailServer
+    var senha = req.body.senhaServer
+    var cnpj = req.params.cnpj
+    var fkEmpresa
+    var fkCargo = 1
+
+    empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
+        fkEmpresa = resultado[0].id
+        usuarioModel.cadastrar(nome, email, senha, fkCargo, fkEmpresa)
+    }
+)
 
 }
 
@@ -138,5 +153,6 @@ module.exports = {
     verificarEmail,
     autenticar,
     cadastrar,
-    editarFuncionario
+    editarFuncionario,
+    cadastrarPrimeiroFunc
 }
