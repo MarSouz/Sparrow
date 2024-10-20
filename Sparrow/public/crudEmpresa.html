@@ -11,7 +11,7 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Alterar dados</title>
-    <link rel="stylesheet" href="./css/AlteracoesFunc.css">
+    <link rel="stylesheet" href="./css/CrudEmpresa.css">
     <link rel="stylesheet" href="./css/dashboard/dashAnalista.css">
 
 </head>
@@ -106,27 +106,6 @@
                     </div>
 
                     <div id="FUNCIONARIO" class="backpage-row">
-                        <!-- CARD DO FUNCIONARIO -->
-
-                        <!-- <div class="backpage-row-card-func">
-                            <span>ID</span>
-                            <span>CPU</span>
-                            <span>Memoria</span>
-                            <span>Disco</span>
-                            <span>Localização</span>
-
-                            <div class="backpage-row-itemED">
-
-                                <button onclick="edit_func()" class="editar" id>
-
-                                </button>
-                            </div>
-                            <div class="backpage-row-itemEX">
-                                <button onclick="remove_func()" class="deletar">
-
-                                </button>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
 
@@ -236,7 +215,7 @@
     <div id="card-confirm" class="card-confirm" style="display: none;">
         <div class="text">Deseja excluir este servidor?</div>
         <div class="btns">
-            <button onclick="excluir()" class="btnEx">Excluir</button>
+            <button onclick="deletar(removerEmpresa)" class="btnEx">Excluir</button>
             <button onclick="cancelar()" class="btnC">Cancelar</button>
         </div>
     </div>
@@ -247,6 +226,8 @@
 
 <script>
 var cnpjCadastrar
+
+var removerEmpresa
     function listar() {
         fetch(`/empresas/listar`).then(function (resposta) {
             if (resposta.ok) {
@@ -287,7 +268,7 @@ var cnpjCadastrar
 
                         btnDeletar.className = "backpage-row-itemEX"
                         btnDeletar.id = "btnDeletar" + empresa.id;
-                        btnDeletar.setAttribute("onclick", `deletar(${empresa.id})`);
+                        btnDeletar.setAttribute("onclick", `remove_func(${empresa.id})`);
 
                         div_empresa.className = "backpage-row-card-func"
                         div_empresa.id = empresa.id
@@ -425,8 +406,8 @@ var cnpjCadastrar
                     var add = document.getElementById("cadastrar-emp")
                     add.style.display = "none"
                     var edit = document.getElementById("cadastrar-func");
-                    edit.style.display = "block";
-                    cadastrarFuncionario(cpnj)
+                    edit.style.display = "none";
+                    window.location('crudEmpresa.html')
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
@@ -435,8 +416,8 @@ var cnpjCadastrar
                 console.log(`#ERRO: ${resposta}`);
             });
     }
-    function deletar(id) {
-        fetch(`/empresas/deletar/${id}`, {
+    function deletar(removerEmpresa) {
+        fetch(`/empresas/deletar/${removerEmpresa}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -444,8 +425,9 @@ var cnpjCadastrar
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-
+                var remove = document.getElementById("card-confirm")
+                remove.style.display = "none"
+                window.location('crudEmpresa.html')
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
             }
@@ -454,9 +436,12 @@ var cnpjCadastrar
         });
     }
 
-    function remove_func() {
+    function remove_func(id) {
         var remove = document.getElementById("card-confirm")
         remove.style.display = "flex"
+        console.log("Excluindo empresa com id: " + id)
+        removerEmpresa = id
+
     }
 
     function close_card(cardId) {
