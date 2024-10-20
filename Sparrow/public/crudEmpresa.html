@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Alterar dados</title>
+    <link rel="stylesheet" href="./css/AlteracoesFunc.css">
+    <link rel="stylesheet" href="./css/dashboard/dashAnalista.css">
+
+</head>
+
+<body onload="listar()">
+    <section id="page-change">
+        <div class="menu-lateral">
+            <nav id="nav">
+                <ul>
+                    <li>
+                        <a href="./index.html" class="logo">
+                            <img src="./assets/imgs/Logo2.png" alt="">
+                            <span class="nav-item">Sparrow</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./dashboard/dashAnalista.html">
+                            <i class="fas fa-home"></i>
+                            <span class="nav-item">Início</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./dashboard/dashAnalista.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span class="nav-item">Terminal</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./dashboard/dashAnalistaServidor.html">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="nav-item">Servidor</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="nav-item">Central de atendimento</span>
+                        </a>
+                    </li>
+
+                    <div class="container-logout">
+                        <li>
+                            <a href="#" class="logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="nav-item">Sair</span>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="father">
+            <div class="child-backpage">
+
+                <div class="child-backpage-title">
+                    <h1>Gerenciamento de Servidores</h1>
+                    <div class="backpage-icon-add">
+                        <button onclick="add_emp()">
+                            <p>Adicionar Empresa</p> <img src="./assets/svg/icon-user-add.svg" alt="">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="child-backpage-table-func">
+                    <div class="backpage-coluns">
+                        <div class="backpage-coluns-item">
+                            <p>ID</p>
+                        </div>
+                        <div class="backpage-coluns-item">
+                            <p>Nome da Empresa</p>
+                        </div>
+                        <div class="backpage-coluns-item">
+                            <p>Nome do Representante</p>
+                        </div>
+                        <div class="backpage-coluns-item">
+                            <p>Email Representante</p>
+                        </div>
+                        <div class="backpage-coluns-item">
+                            <p>CNPJ</p>
+                        </div>
+                        <div class="backpage-coluns-item center">
+                            <p>Editar</p>
+                        </div>
+                        <div class="backpage-coluns-item center">
+                            <p>Excluir</p>
+                        </div>
+                    </div>
+
+                    <div id="FUNCIONARIO" class="backpage-row">
+                        <!-- CARD DO FUNCIONARIO -->
+
+                        <!-- <div class="backpage-row-card-func">
+                            <span>ID</span>
+                            <span>CPU</span>
+                            <span>Memoria</span>
+                            <span>Disco</span>
+                            <span>Localização</span>
+
+                            <div class="backpage-row-itemED">
+
+                                <button onclick="edit_func()" class="editar" id>
+
+                                </button>
+                            </div>
+                            <div class="backpage-row-itemEX">
+                                <button onclick="remove_func()" class="deletar">
+
+                                </button>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </section>
+    <div id="cadastrar-func" class="card-funcionario" style="display: none;">
+        <div class="title">
+            <h3>Cadastrar funcionário</h3>
+            <div onclick="close_card('cadastrar-func')" class="icon-close"><img src="./assets/svg/icon-close.svg"
+                    alt=""></div>
+        </div>
+        <div class="child-input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome" required="" id="nome_funcionario" autocomplete="off">
+                <label for="name" class="caixa">Nome do funcionário</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="email_funcionario" autocomplete="off">
+                <label for="name" class="caixa">Email</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Senha" required="" id="senha_funcionario" autocomplete="off">
+                <label for="name" class="caixa">Senha</label>
+            </div>
+        </div>
+        <div class="btn">
+            <button onclick="cadastrarFuncionario(cnpjCadastrar)" class="btn-save">Cadastrar</button>
+        </div>
+    </div>
+
+    <div id="cadastrar-emp" class="card-funcionario" style="display: none;">
+        <div class="title">
+            <h3>Cadastrar Empresa</h3>
+            <div onclick="close_card('cadastrar-emp')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
+            </div>
+        </div>
+        <div class="child-input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome empresa" required="" id="cadastrar_nome"
+                    autocomplete="off">
+                <label for="name" class="caixa">Nome da Empresa</label>
+            </div>
+
+
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome representante" required="" id="cadastrar_nomeR"
+                    autocomplete="off">
+                <label for="name" class="caixa">Nome do Representante</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="cadastrar_email"
+                    autocomplete="off">
+                <label for="name" class="caixa">Email do Representante</label>
+            </div>
+
+
+            <div class="input field">
+                <input type="input" class="campo" placeholder="cnpj" required="" id="cadastrar_cnpj" autocomplete="off">
+                <label for="name" class="caixa">CNPJ</label>
+            </div>
+        </div>
+        <div class="btn">
+            <button onclick="cadastrar()" class="btn-save">Cadastrar</button>
+        </div>
+    </div>
+
+    <div id="edit-card" class="card-funcionario" style="display: none;">
+        <div class="title">
+            <h3>Editar Empresa</h3>
+            <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
+            </div>
+        </div>
+        <div class="child-input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome" required="" id="id_input" autocomplete="off"
+                    disabled>
+                <label for="name" class="caixa">Id</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
+                <label for="name" class="caixa">Nome da Empresa</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Latitude" required="" id="nomeR_input"
+                    autocomplete="off">
+                <label for="name" class="caixa">Nome do Representante</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="emailR_input" autocomplete="off">
+                <label for="name" class="caixa">Email do Representante</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="cnpj_input" autocomplete="off">
+                <label for="name" class="caixa">CNPJ</label>
+            </div>
+        </div>
+        <div class="btn">
+            <button class="btn-save" onclick="salvar()">Salvar</button>
+        </div>
+    </div>
+
+
+
+    <div id="card-confirm" class="card-confirm" style="display: none;">
+        <div class="text">Deseja excluir este servidor?</div>
+        <div class="btns">
+            <button onclick="excluir()" class="btnEx">Excluir</button>
+            <button onclick="cancelar()" class="btnC">Cancelar</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+var cnpjCadastrar
+    function listar() {
+        fetch(`/empresas/listar`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    for (var index = 0; index < resposta.length; index++) {
+                        var empresa = resposta[index]
+
+                        console.log(empresa)
+                        var div_empresa = document.createElement("div")
+                        var spanId = document.createElement("span");
+                        var spanNomeEm = document.createElement("span");
+                        var spanNomeRe = document.createElement("span");
+                        var spanEmailRe = document.createElement("span");
+                        var spanCNPJ = document.createElement("span");
+                        var btnEditar = document.createElement("button");
+                        var btnDeletar = document.createElement("button");
+                        var divEditar = document.createElement("div")
+                        var divDeletar = document.createElement("div")
+
+
+                        spanId.innerHTML = "<b>" + empresa.id + "</b>";
+                        spanNomeEm.innerHTML = "<b>" + empresa.nome_empresa + "</b>";
+                        spanNomeRe.innerHTML = "<b>" + empresa.nome_representante + "</b>";
+                        spanEmailRe.innerHTML = "<b>" + empresa.email_representante + "</b>";
+                        spanCNPJ.innerHTML = "<b>" + empresa.cnpj + "</b>";
+
+                        btnEditar.innerHTML = '<img src="./assets/svg/icon-pencil.svg" alt="Editar">';
+                        btnDeletar.innerHTML = '<img src="./assets/svg/icon-lixeira.svg" alt="Deletar">';
+
+                        btnEditar.className = "backpage-row-itemED"
+                        btnEditar.id = "btnEditar"
+                        btnEditar.setAttribute("onclick", `editar('${empresa.id}', '${empresa.nome_empresa}', '${empresa.nome_representante}', '${empresa.email_representante}', '${empresa.cnpj}')`);
+
+                        btnDeletar.className = "backpage-row-itemEX"
+                        btnDeletar.id = "btnDeletar" + empresa.id;
+                        btnDeletar.setAttribute("onclick", `deletar(${empresa.id})`);
+
+                        div_empresa.className = "backpage-row-card-func"
+                        div_empresa.id = empresa.id
+                        divEditar.className = "backpage-row-itemED"
+                        divDeletar.className = "backpage-row-itemEX"
+                        divEditar.appendChild(btnEditar)
+                        divDeletar.appendChild(btnDeletar)
+
+
+                        div_empresa.appendChild(spanId)
+                        div_empresa.appendChild(spanNomeEm)
+                        div_empresa.appendChild(spanNomeRe)
+                        div_empresa.appendChild(spanEmailRe)
+                        div_empresa.appendChild(spanCNPJ)
+                        div_empresa.appendChild(divEditar)
+                        div_empresa.appendChild(divDeletar)
+
+                        FUNCIONARIO.appendChild(div_empresa)
+                    }
+                }
+
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+    function editar(id, nomeE, nomeR, emailR, cnpj) {
+        id_input.value = id
+        nome_input.value = nomeE
+        nomeR_input.value = nomeR
+        emailR_input.value = emailR
+        cnpj_input.value = cnpj
+
+        var edit = document.getElementById("edit-card");
+        edit.style.display = "block";
+    }
+
+    function salvar() {
+        var nomeEmpresa = nome_input.value
+        var nomeRepresentante = nomeR_input.value
+        var emailRepresentante = emailR_input.value
+        var cnpj = cnpj_input.value
+
+        fetch(`/empresas/editar/${Number(id_input.value)}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeEmpresaServer: nomeEmpresa,
+                nomeRepresentanteServer: nomeRepresentante,
+                emailRepresentanteServer: emailRepresentante,
+                cnpjServer: cnpj
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.location = "crudEmpresa.html"
+            } else if (resposta.status == 404) {
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+    function cadastrar() {
+
+        var nomeEmpresa = cadastrar_nome.value
+        var nomeRepresentante = cadastrar_nomeR.value
+        var email = cadastrar_email.value
+        var cnpj = cadastrar_cnpj.value
+        cnpjCadastrar = cnpj
+
+        fetch("/empresas/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeEmpresaServer: nomeEmpresa,
+                nomeRepresentanteServer: nomeRepresentante,
+                emailRepresentanteServer: email,
+                cnpjServer: cnpj
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    var add = document.getElementById("cadastrar-emp")
+                    add.style.display = "none"
+                    var edit = document.getElementById("cadastrar-func");
+                    edit.style.display = "block";
+        
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function cadastrarFuncionario(cnpjCadastrar){
+
+        var nome = nome_funcionario.value
+        var email = email_funcionario.value
+        var senha = senha_funcionario.value
+        fetch(`/usuarios/cadastrar/${cnpjCadastrar}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    var add = document.getElementById("cadastrar-emp")
+                    add.style.display = "none"
+                    var edit = document.getElementById("cadastrar-func");
+                    edit.style.display = "block";
+                    cadastrarFuncionario(cpnj)
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+    function deletar(id) {
+        fetch(`/empresas/deletar/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function remove_func() {
+        var remove = document.getElementById("card-confirm")
+        remove.style.display = "flex"
+    }
+
+    function close_card(cardId) {
+        var card = document.getElementById(cardId)
+        card.style.display = "none"
+    }
+
+    function add_emp() {
+        var add = document.getElementById("cadastrar-emp")
+        add.style.display = "block"
+    }
+
+</script>
