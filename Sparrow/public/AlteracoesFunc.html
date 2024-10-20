@@ -4,15 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/AlteracoesFunc.css">
-    <link rel="stylesheet" href="../public/css/dashboard/dashAnalista.css">
+    <link rel="stylesheet" href="./css/AlteracoesFunc.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Alterar dados</title>
 
     <!-- LINKS OBRIGATORIOS PARA A NAVBAR -->
-    <link rel="stylesheet" href="../css/dashboard/dashAnalista.css">
+     <link rel="stylesheet" href="./css/dashboard/dashAnalista.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
@@ -76,7 +75,7 @@
                     <h1>Gerenciamento de funcionários</h1>
                     <div class="backpage-icon-add">
                         <button onclick="add_user()">
-                            <p>Add Funcionário</p> <img src="./assets/svg/icon-user-add.svg" alt="">
+                            <p>Adicionar Funcionário</p> <img src="./assets/svg/icon-user-add.svg" alt="">
                         </button>
                     </div>
                 </div>
@@ -130,7 +129,8 @@
     <div id="edit-card" class="card-funcionario" style="display: none;">
         <div class="title">
             <h3>Editar funcionário</h3>
-            <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt=""></div>
+            <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
+            </div>
         </div>
         <div class="child-input">
             <div class="input field">
@@ -162,32 +162,33 @@
     <div id="cadastrar-func" class="card-funcionario" style="display: none;">
         <div class="title">
             <h3>Cadastrar funcionário</h3>
-            <div onclick="close_card('cadastrar-func')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt=""></div>
+            <div onclick="close_card('cadastrar-func')" class="icon-close"><img src="./assets/svg/icon-close.svg"
+                    alt=""></div>
         </div>
         <div class="child-input">
             <div class="input field">
-                <input type="input" class="campo" placeholder="Nome" required="" id="email_input" autocomplete="off">
+                <input type="input" class="campo" placeholder="Nome" required="" id="ipt_nome" autocomplete="off">
                 <label for="name" class="caixa">Nome do funcionário</label>
             </div>
 
 
             <div class="input field">
-                <input type="input" class="campo" placeholder="Cargo" required="" id="senha_input" autocomplete="off">
+                <input type="input" class="campo" placeholder="Cargo" required="" id="ipt_cargo" autocomplete="off">
                 <label for="name" class="caixa">Cargo</label>
             </div>
             <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="ipt_email" autocomplete="off">
                 <label for="name" class="caixa">Email</label>
             </div>
 
 
             <div class="input field">
-                <input type="input" class="campo" placeholder="Senha" required="" id="senha_input" autocomplete="off">
+                <input type="input" class="campo" placeholder="Senha" required="" id="ipt_senha" autocomplete="off">
                 <label for="name" class="caixa">Senha</label>
             </div>
         </div>
         <div class="btn">
-            <button onclick="" class="btn-save">Cadastrar</button>
+            <button onclick="cadastrar()" class="btn-save">Cadastrar</button>
         </div>
     </div>
 
@@ -225,8 +226,46 @@
         card.style.display = "none"
     }
 
-    function cancelar(){
+    function cancelar() {
         var cancel = document.getElementById("card-confirm")
         cancel.style.display = "none"
     }
+
+    function cadastrar() {
+        var nome = ipt_nome.value
+        var cargo = ipt_cargo.value
+        var email = ipt_email.value
+        var senha = ipt_senha.value
+
+        if (nome == "" || cargo == "" || email == "" || senha == "") {
+            alert("Preencha todos os campos!")
+            return
+        }
+
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                cargoServer: cargo,
+                emailServer: email,
+                senhaServer: senha,
+                fkEmpresaServer: sessionStorage.ID_EMPRESA
+            })
+        })
+
+            .then(Response => {
+                if (!Response.ok) {
+                    throw new console.error("Erro ao cadastrar!");
+                }
+
+                return Response.json()
+            })
+
+            function listar() {
+                
+            }
+}
 </script>

@@ -24,4 +24,8 @@ router.put("/trocar/:idFuncionario", function (req, res) {
     usuarioController.trocarSenha(req, res);
 });
 
+router.post("/cadastrar", function (req, res) {
+    usuarioController.cadastrar(req, res);
+});
+
 module.exports = router;

@@ -41,7 +41,8 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkEmpresa = req.body.idEmpresaVincularServer;
+    var cargo = req.body.cargoServer;
+    var fkEmpresa = req.body.fkEmpresaServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -55,7 +56,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, senha, cargo, fkEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -131,6 +132,22 @@ function trocarSenha(req, res) {
             }
         );
 
+}
+
+function listarUsuarios(req, res) {
+    usuarioModel.listarTodos()
+        .then(
+            function (resultado) {
+                res.json(resultado)
+            }
+        )
+
+        .catch(
+            function(erro) {
+                console.log(erro)
+                res.status(500).json(erro.sqlMessage)
+            }
+        )
 }
 
 module.exports = {
