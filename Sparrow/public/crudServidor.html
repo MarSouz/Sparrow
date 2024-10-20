@@ -107,38 +107,23 @@
 
                     <div id="FUNCIONARIO" class="backpage-row">
                         <!-- CARD DO FUNCIONARIO -->
+
                         <div class="backpage-row-card-func">
                             <span>ID</span>
                             <span>CPU</span>
                             <span>Memoria</span>
                             <span>Disco</span>
                             <span>Localização</span>
+
                             <div class="backpage-row-itemED">
 
-                                <button onclick="edit_func()">
-                                    <img src="./assets/svg/icon-pencil.svg" alt="">
-                                </button>
-                            </div>
-                            <div class="backpage-row-itemEX">
-                                <button onclick="remove_func()">
-                                    <img src="./assets/svg/icon-lixeira.svg" alt="">
-                                </button>
-                            </div>
-                        </div>
-                        <div class="backpage-row-card-func">
-                            <span>ID</span>
-                            <span>CPU</span>
-                            <span>Memoria</span>
-                            <span>Disco</span>
-                            <span>Localização</span>
-                            <div class="backpage-row-itemED">
+                                <button onclick="edit_func()" class="editar" id>
 
-                                <button onclick="edit_func()" class="editar">
                                 </button>
                             </div>
                             <div class="backpage-row-itemEX">
                                 <button onclick="remove_func()" class="deletar">
-                                    
+
                                 </button>
                             </div>
                         </div>
@@ -162,8 +147,6 @@
                 <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
                 <label for="name" class="caixa">Nome do servidor</label>
             </div>
-
-
             <div class="input field">
                 <input type="input" class="campo" placeholder="Latitude" required="" id="latitude_input"
                     autocomplete="off">
@@ -174,11 +157,26 @@
                     autocomplete="off">
                 <label for="name" class="caixa">Longitude</label>
             </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteCPU_input"
+                    autocomplete="off">
+                <label for="name" class="caixa">Limite da CPU</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteRAM_input"
+                    autocomplete="off">
+                <label for="name" class="caixa">Limite da Mémoria</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteDisco_input"
+                    autocomplete="off">
+                <label for="name" class="caixa">Limite do disco</label>
+            </div>
 
 
         </div>
         <div class="btn">
-            <button class="btn-save">Salvar</button>
+            <button class="btn-save" onclick="salvar()">Salvar</button>
         </div>
     </div>
 
@@ -187,7 +185,7 @@
     <div id="card-confirm" class="card-confirm" style="display: none;">
         <div class="text">Deseja excluir este servidor?</div>
         <div class="btns">
-            <button class="btnEx">Excluir</button>
+            <button onclick="excluir()"  class="btnEx">Excluir</button>
             <button onclick="cancelar()" class="btnC">Cancelar</button>
         </div>
     </div>
@@ -243,7 +241,18 @@
                         spanCpu.innerHTML = "<b>" + maquina.CPU + "</b>";
                         spanMemoria.innerHTML = "<b>" + maquina.RAM + "</b>";
                         spanDisco.innerHTML = "<b>" + maquina.Disco + "</b>";
-                        spanLocalização.innerHTML = "<b>" + maquina.lat +"/" + maquina.lon + "</b>";
+                        spanLocalização.innerHTML = "<b>" + maquina.lat + "/" + maquina.lon + "</b>";
+
+                        btnEditar.innerHTML = '<img src="./assets/svg/icon-pencil.svg" alt="Editar">';
+                        btnDeletar.innerHTML = '<img src="./assets/svg/icon-lixeira.svg" alt="Deletar">';
+
+                        btnEditar.className = "backpage-row-itemED"
+                        btnEditar.id = "btnEditar" + maquina.lat + maquina.lon;
+                        btnEditar.setAttribute("onclick", `editar(${maquina.id})`);
+
+                        btnDeletar.className = "backpage-row-itemEX"
+                        btnDeletar.id = "btnDeletar" + maquina.id;
+                        btnDeletar.setAttribute("onclick", `remove_func()`);
 
                         div_maquina.className = "backpage-row-card-func"
                         div_maquina.id = maquina.id
@@ -273,4 +282,91 @@
             console.error(resposta);
         });
     }
+
+    function salvar(id) {
+
+        var longitudeVar = longitude_input.value;
+        var latitudeVar = latitude_input.value;
+        var limiteCPUVar = limiteCPU_input.value;
+        var limiteRAMVar = limiteRAM_input.value;
+        var limiteDiscoVar = limiteDisco_input.value;
+
+        fetch(`/medidas/editar/${sessionStorage.getItem("ID_MAQUINA")}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                longitudeServer: longitudeVar,
+                latitudeServer: latitudeVar,
+                limiteCPUServer: limiteCPUVar,
+                limiteRamServer: limiteRAMVar,
+                limiteDiscoServer: limiteDiscoVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                // resposta.json().then(json => {
+                //     console.log(json);
+                //     console.log(JSON.stringify(json));
+                //     sessionStorage.ID_MAQUINA = json.id;
+
+                // });
+
+            } else {
+
+                console.log("Houve um erro ou editar a máquina!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function editar(id) {
+        sessionStorage.ID_MAQUINA = id
+
+        edit_func()
+    }
+
+    function edit_func() {
+
+        var edit = document.getElementById("edit-card");
+        edit.style.display = "block";
+    }
+
+    function excluir(id) {
+        fetch(`/medidas/deletar/${sessionStorage.getItem("ID_MAQUINA")}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+    function remove_func() {
+        var remove = document.getElementById("card-confirm")
+        remove.style.display = "flex"
+    }
+
 </script>

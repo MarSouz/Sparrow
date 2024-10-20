@@ -28,7 +28,7 @@ function buscarMaquina(req, res) {
     var idEmpresa = req.params.idEmpresa;
     var tipoMaquina = req.params.tipoMaquina;
 
-    medidaModel.buscarMaquina(tipoMaquina,idEmpresa).then(function (resultado) {
+    medidaModel.buscarMaquina(tipoMaquina, idEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -42,13 +42,18 @@ function buscarMaquina(req, res) {
 }
 
 
-function buscarMedidasEmTempoReal(req, res) {
+function editarMaquinas(req, res) {
 
-    var idAquario = req.params.idAquario;
+    var idMaquina = req.params.idMaquina;
+    var longitude = req.body.longitudeServer
+    var latitude = req.body.latitudeServer
+    var limiteCPU = req.body.limiteCPUServer
+    var limiteRam = req.body.limiteRamServer
+    var limiteDisco = req.body.limiteDiscoServer
 
-    console.log(`Recuperando medidas em tempo real`);
+    console.log(`Editando informações!`);
 
-    medidaModel.buscarMedidasEmTempoReal(idAquario).then(function (resultado) {
+    medidaModel.editarMaquinas(idMaquina, longitude, latitude, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -67,7 +72,7 @@ function deletarMaquina(req, res) {
 
     console.log(`Deletando máquina!`);
 
-    medidaModel.buscarMedidasEmTempoReal(idMaquina).then(function (resultado) {
+    medidaModel.deletarMaquina(idMaquina).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -82,7 +87,7 @@ function deletarMaquina(req, res) {
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal, 
     buscarMaquina,
+    editarMaquinas,
     deletarMaquina
 }
