@@ -162,7 +162,8 @@ body {
             display: flex;
             justify-content: start;
             align-items: center;
-
+            justify-content: space-between;
+            align-items: center;
             background: white;
         }
     }
@@ -386,10 +387,10 @@ body {
     }
 }
 
-.editar {
+/* .editar {
     background-image: url('../assets/svg/icon-pencil.svg');
 }
 
 .deletar {
     background-image: url('../assets/svg/icon-lixeira.svg');
-}
+} */

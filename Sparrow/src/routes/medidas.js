@@ -18,10 +18,13 @@ router.get("/buscar/:idEmpresa/:tipoMaquina", function (req, res) {
 
 
 //EDITAR MÁQUINAS
-router.get("/ultimas/:idMaquina", function (req, res) {
-    medidaController.buscarMaquina(req, res);
+router.post("/editar/:idMaquina", function (req, res) {
+    medidaController.editarMaquinas(req, res);
 });
 
+router.delete("/deletar/:idMaquina", function (req, res) {
+    medidaController.deletarMaquina(req, res);
+});
 
 
 

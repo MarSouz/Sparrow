@@ -15,22 +15,6 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
-
-function buscarMedidasEmTempoReal(idAquario) {
-
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        FROM medida WHERE fk_aquario = ${idAquario} 
-                    ORDER BY id DESC LIMIT 1`;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-}
-
-
 function buscarMaquina(idEmpresa, tipoMaquina) {
 
     var instrucaoSql = `SELECT * FROM buscarMaquina WHERE idEmpresa = ${idEmpresa} AND fk_tipo_maquina = ${tipoMaquina};`;
@@ -39,14 +23,20 @@ function buscarMaquina(idEmpresa, tipoMaquina) {
     return database.executar(instrucaoSql);
 }
 
+function editarMaquinas(idMaquina, longitude, latitude, limiteCPU, limiteRam, limiteDisco) {
+    var instrucaoSql = `UPDATE localizacao SET latitude = ${latitude}, longitude = ${longitude} WHERE id = ${idMaquina}`;
+    var instrucaoSq2 = `UPDATE maquina_componente SET limite_componente = ${limiteCPU} WHERE fk_maquina = ${idMaquina} AND fk_componente_maquina = 1`;
+    var instrucaoSq3 = `UPDATE maquina_componente SET limite_componente = ${limiteRam} WHERE fk_maquina = ${idMaquina} AND fk_componente_maquina = 2`;
+    var instrucaoSq4 = `UPDATE maquina_componente SET limite_componente = ${limiteDisco} WHERE fk_maquina = ${idMaquina} AND fk_componente_maquina = 3`;
 
-function buscarUltimasMaquinas(idMaquina, latitudeServer, longitudeServer) {
+    console.log("Executando as instruções SQL: \n" + instrucaoSql + "\n" + instrucaoSq2 + "\n" + instrucaoSq3 + "\n" + instrucaoSq4);
 
-    var instrucaoSql = `UPDATE localizacao SET latitude = ${latitudeServer}, logintude= ${longitudeServer} WHERE id= ${idMaquina}`;
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql)
+        .then(() => database.executar(instrucaoSq2))
+        .then(() => database.executar(instrucaoSq3))
+        .then(() => database.executar(instrucaoSq4));
 }
+
 
 function deletarMaquina(idMaquina) {
 
@@ -58,8 +48,8 @@ function deletarMaquina(idMaquina) {
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal,
     buscarMaquina,
+    editarMaquinas,
     deletarMaquina
 }
 
