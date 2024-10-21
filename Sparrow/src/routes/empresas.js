@@ -28,4 +28,8 @@ router.post("/cadastrarContato", function (req, res) {
   empresaController.cadastrarContato(req, res);
 })
 
+router.delete("/deletar/:idEmpresa", function (req, res) {
+  empresaController.deletar(req, res);
+});
+
 module.exports = router;

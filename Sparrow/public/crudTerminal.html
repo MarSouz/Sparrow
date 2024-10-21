@@ -10,11 +10,11 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="./css/alteracoesCrud.css">
-        <link rel="stylesheet" href="./css/dashboard/dashAdm.css">
-    <title>Alterar dados</title>
-   
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./css/alteracoesCrud.css">
+    <link rel="stylesheet" href="./css/dashboard/dashAdm.css">
+
+    <title>Sparrow | Crud Terminal</title>
 
 </head>
 
@@ -93,8 +93,8 @@
             <div class="child-backpage">
 
                 <div class="child-backpage-title">
-                    <h1>Gerenciamento de Servidores</h1>
-                    
+                    <h1>Gerenciamento de Terminais</h1>
+
                 </div>
 
                 <div class="child-backpage-table-func">
@@ -103,16 +103,16 @@
                             <p>ID</p>
                         </div>
                         <div class="backpage-coluns-item">
-                            <p>Limite CPU:</p>
+                            <p>Limite CPU</p>
                         </div>
                         <div class="backpage-coluns-item">
-                            <p>Limite Memória:</p>
+                            <p>Limite memória</p>
                         </div>
                         <div class="backpage-coluns-item">
-                            <p>Limite Disco:</p>
+                            <p>Limite disco</p>
                         </div>
                         <div class="backpage-coluns-item">
-                            <p>Localização</p>
+                            <p>Latitude/ Longitude </p>
                         </div>
                         <div class="backpage-coluns-item center">
                             <p>Editar</p>
@@ -125,7 +125,7 @@
                     <div id="FUNCIONARIO" class="backpage-row">
                         <!-- CARD DO FUNCIONARIO -->
 
-                        <div class="backpage-row-card-func">
+                        <!-- <div class="backpage-row-card-func">
                             <span>ID</span>
                             <span>CPU</span>
                             <span>Memória</span>
@@ -143,7 +143,7 @@
 
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -155,37 +155,42 @@
 
     <div id="edit-card" class="card-funcionario" style="display: none;">
         <div class="title">
-            <h3>Editar servidor</h3>
+            <h3>Editar terminal</h3>
             <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
             </div>
         </div>
         <div class="child-input">
             <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteCPU_input"
-                    autocomplete="off">
-                <label for="name" class="caixa">Limite da CPU</label>
+                <input type="input" class="campo" placeholder="cpu" required="" id="limiteCPU_input" autocomplete="off">
+                <label for="name" class="caixa">Limite CPU</label>
             </div>
+
             <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteRAM_input"
+                <input type="input" class="campo" placeholder="memoria" required="" id="limiteRAM_input"
                     autocomplete="off">
-                <label for="name" class="caixa">Limite da Memória</label>
+                <label for="name" class="caixa">Limite memória</label>
             </div>
+
+
             <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteDisco_input"
+                <input type="input" class="campo" placeholder="disco" required="" id="limiteDisco_input"
                     autocomplete="off">
-                <label for="name" class="caixa">Limite do disco</label>
+                <label for="name" class="caixa">Limite disco</label>
             </div>
+
+
             <div class="input field">
-                <input type="input" class="campo" placeholder="Latitude" required="" id="latitude_input"
+                <input type="input" class="campo" placeholder="latitude" required="" id="latitude_input"
                     autocomplete="off">
                 <label for="name" class="caixa">Latitude</label>
             </div>
+
+
             <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="longitude_input"
+                <input type="input" class="campo" placeholder="longitude" required="" id="longitude_input"
                     autocomplete="off">
                 <label for="name" class="caixa">Longitude</label>
             </div>
-            
 
 
         </div>
@@ -197,9 +202,9 @@
 
 
     <div id="card-confirm" class="card-confirm" style="display: none;">
-        <div class="text">Deseja excluir este servidor?</div>
+        <div class="text">Deseja excluir este terminal?</div>
         <div class="btns">
-            <button onclick="excluir()"  class="btnEx">Excluir</button>
+            <button onclick="excluir()" class="btnEx">Excluir</button>
             <button onclick="cancelar()" class="btnC">Cancelar</button>
         </div>
     </div>
@@ -209,8 +214,9 @@
 </html>
 
 <script>
-    function listar() {
 
+    // LISTAR
+    function listar() {
         var longitudeVar = longitude_input.value;
         var latitudeVar = latitude_input.value;
 
@@ -225,7 +231,7 @@
         console.log("FORM LATITUDE: ", latitudeVar);
 
 
-        fetch(`/medidas/buscar/${sessionStorage.ID_EMPRESA}/${1}`).then(function (resposta) {
+        fetch(`/medidas/buscar/${sessionStorage.ID_EMPRESA}/${2}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     console.log("error")
@@ -260,7 +266,7 @@
 
                         btnEditar.className = "backpage-row-itemED"
                         btnEditar.id = "btnEditar" + maquina.lat + maquina.lon;
-                        btnEditar.setAttribute("onclick", `editar(${maquina.id})`);
+                        btnEditar.setAttribute("onclick", `editar('${maquina.id}', '${maquina.CPU}', '${maquina.RAM}', '${maquina.Disco}', '${maquina.lat}', '${maquina.lon}')`);
 
                         btnDeletar.className = "backpage-row-itemEX"
                         btnDeletar.id = "btnDeletar" + maquina.id;
@@ -318,7 +324,8 @@
             console.log("ESTOU NO THEN DO entrar()!")
 
             if (resposta.ok) {
-                window.location="crudServidor.html"
+                window.location = "crudTerminal.html"
+
                 // resposta.json().then(json => {
                 //     console.log(json);
                 //     console.log(JSON.stringify(json));
@@ -347,20 +354,58 @@
         sessionStorage.ID_MAQUINA = id
         limiteCPU_input.value = cpu
         limiteRAM_input.value = memoria,
-        limiteDisco_input.value = disco,
-        latitude_input.value = latitude,
-        longitude_input.value = longitude
+            limiteDisco_input.value = disco,
+            latitude_input.value = latitude,
+            longitude_input.value = longitude
 
         var edit = document.getElementById("edit-card");
         edit.style.display = "block";
     }
 
     function edit_func() {
+        var id = sessionStorage.ID_MAQUINA
+        var cpu = limiteCPU_input.value
+        var ram = limiteRAM_input.value
+        var disco = limiteDisco_input.value
+        var latitude = latitude_input.value
+        var longitude = longitude_input.value
+
+        fetch(`/medidas/editar/${Number(id)}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                longitudeServer: longitude,
+                latitudeServer: latitude,
+                limiteCPUServer: cpu,
+                limiteRamServer: ram,
+                limiteDiscoServer: disco,
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.location = "crudTerminal.html"
+            } else if (resposta.status == 404) {
+
+            } else {
+                throw ("Houve um erro. Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`ERRO: ${resposta}`);
+        });
 
         var edit = document.getElementById("edit-card");
         edit.style.display = "block";
     }
 
+    function close_card(cardId) { //do editar
+        var card = document.getElementById(cardId)
+        card.style.display = "none"
+    }
+
+
+    // EXCLUIR 
     function excluir(id) {
         fetch(`/medidas/deletar/${sessionStorage.getItem("ID_MAQUINA")}`, {
             method: "DELETE",
@@ -370,8 +415,9 @@
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-                
+                console.log("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+                window.location = "crudTerminal.html"
+
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
             }
@@ -380,18 +426,18 @@
         });
     }
 
-    function remove_func() {
+
+    function remove_func() { //do excluir 
         var remove = document.getElementById("card-confirm")
         remove.style.display = "flex"
     }
 
-    function close_card(cardId) {
-        var card = document.getElementById(cardId)
-        card.style.display = "none"
-    }
-
-    function cancelar(){
+    function cancelar() {
         var cancel = document.getElementById("card-confirm")
         cancel.style.display = "none"
     }
+
+
+
+
 </script>

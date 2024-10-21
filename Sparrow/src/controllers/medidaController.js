@@ -28,7 +28,7 @@ function buscarMaquina(req, res) {
     var idEmpresa = req.params.idEmpresa;
     var tipoMaquina = req.params.tipoMaquina;
 
-    medidaModel.buscarMaquina(tipoMaquina, idEmpresa).then(function (resultado) {
+    medidaModel.buscarMaquina(idEmpresa, tipoMaquina).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -43,7 +43,6 @@ function buscarMaquina(req, res) {
 
 
 function editarMaquinas(req, res) {
-
     var idMaquina = req.params.idMaquina;
     var longitude = req.body.longitudeServer
     var latitude = req.body.latitudeServer
@@ -85,9 +84,63 @@ function deletarMaquina(req, res) {
     });
 }
 
+
+
+// TERMINAL
+
+
+// function editarMaquinaTerminal(req, res) {
+
+//     var idMaquinaTerminal = req.params.idMaquinaTerminal;
+//     var longitude = req.body.longitudeServer
+//     var latitude = req.body.latitudeServer
+//     var limiteCPU = req.body.limiteCPUServer
+//     var limiteRam = req.body.limiteRamServer
+//     var limiteDisco = req.body.limiteDiscoServer
+
+//     console.log(`Editando informações!`);
+
+//     medidaModel.editarMaquinas(idMaquinaTerminal, longitude, latitude, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
+//         if (resultado.length > 0) {
+//             res.status(200).json(resultado);
+//         } else {
+//             res.status(204).send("Nenhum resultado encontrado!")
+//         }
+//     }).catch(function (erro) {
+//         console.log(erro);
+//         console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+//         res.status(500).json(erro.sqlMessage);
+//     });
+// }
+
+
+// function deletarMaquinaTerminal(req, res) {
+
+//     var idMaquinaTerminal = req.params.idMaquinaTerminal;
+
+//     console.log(`Deletando máquina!`);
+
+//     medidaModel.deletarMaquina(idMaquinaTerminal).then(function (resultado) {
+//         if (resultado.length > 0) {
+//             res.status(200).json(resultado);
+//         } else {
+//             res.status(204).send("Nenhum resultado encontrado!")
+//         }
+//     }).catch(function (erro) {
+//         console.log(erro);
+//         console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+//         res.status(500).json(erro.sqlMessage);
+//     });
+// }
+
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMaquina,
     editarMaquinas,
     deletarMaquina
+
+    // buscarMaquinaTerminal,
+    // editarMaquinaTerminal, 
+    // deletarMaquinaTerminal
 }

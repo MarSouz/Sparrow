@@ -34,6 +34,23 @@ function listar() {
   return database.executar(instrucaoSql);
 }
 
+function deletar(idEmpresa) {
+  var instrucaoSql = `DELETE FROM dado_capturado WHERE fk_maquina IN (SELECT id FROM maquina WHERE fk_empresa = ${idEmpresa});`;
+  database.executar(instrucaoSql);
+
+  instrucaoSql = `DELETE FROM maquina_componente WHERE fk_maquina IN (SELECT id FROM maquina WHERE fk_empresa = ${idEmpresa});`;
+  database.executar(instrucaoSql)
+
+  instrucaoSql = `DELETE FROM maquina WHERE fk_empresa = ${idEmpresa};`
+  database.executar(instrucaoSql)
+
+  instrucaoSql = `DELETE FROM funcionario WHERE fk_empresa = ${idEmpresa}`
+  database.executar(instrucaoSql)
+
+  instrucaoSql = `DELETE FROM empresa WHERE id = ${idEmpresa};`
+  return database.executar(instrucaoSql)
+}
+
 function buscarPorCnpj(cnpj) {
   var instrucaoSql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
 
@@ -46,4 +63,4 @@ function cadastrar(nomeEmpresa,nomeRepresentante,emailRepresentante ,cnpj) {
   return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, cadastrarContato, editarEmpresa };
+module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, cadastrarContato, editarEmpresa ,deletar};

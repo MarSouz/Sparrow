@@ -10,10 +10,10 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="./css/alteracoesCrud.css">
+        <link rel="stylesheet" href="./css/dashboard/dashAdm.css">
     <title>Alterar dados</title>
-    <link rel="stylesheet" href="./css/AlteracoesFunc.css">
-    <link rel="stylesheet" href="./css/dashboard/dashAnalista.css">
-
 </head>
 
 <body onload="listar()">
@@ -22,48 +22,67 @@
             <nav id="nav">
                 <ul>
                     <li>
-                        <a href="./index.html" class="logo">
+                        <a href="./../index.html" class="logo">
                             <img src="./assets/imgs/Logo2.png" alt="">
                             <span class="nav-item">Sparrow</span>
                         </a>
                     </li>
-
+    
                     <li>
-                        <a href="./dashboard/dashAnalista.html">
-                            <i class="fas fa-home"></i>
+                        <a href="./../index.html">
+                            <i class="bx bxs-home"></i>
                             <span class="nav-item">Início</span>
                         </a>
                     </li>
-
+    
                     <li>
-                        <a href="./dashboard/dashAnalista.html">
-                            <i class="fas fa-chart-bar"></i>
-                            <span class="nav-item">Terminal</span>
+                        <a href="./AlteracoesFunc.html">
+                            <i class="bx bxs-user"></i>
+                            <span class="nav-item">Funcionários</span>
                         </a>
                     </li>
-
+    
                     <li>
-                        <a href="./dashboard/dashAnalistaServidor.html">
-                            <i class="fas fa-chart-line"></i>
-                            <span class="nav-item">Servidor</span>
+                        <a href="./dashboard/dashAdm.html">
+                            <i class="bx bx-radar"></i>
+                            <span class="nav-item">Terminais</span>
                         </a>
                     </li>
-
+    
+                    <li>
+                        <a href="./dashboard/dashAdmServidor.html">
+                            <i class="bx bxs-server"></i>
+                            <span class="nav-item">Servidores</span>
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a href="./crudTerminal.html">
+                            <i class="bx bx-laptop"></i>
+                            <span class="nav-item">Cadastro de terminais</span>
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a href="./crudServidor.html">
+                            <i class="bx bx-laptop"></i>
+                            <span class="nav-item">Cadastro de servidores</span>
+                        </a>
+                    </li>
+    
                     <li>
                         <a href="#">
-                            <i class="fas fa-question-circle"></i>
+                            <i class="bx bxs-help-circle"></i>
                             <span class="nav-item">Central de atendimento</span>
                         </a>
                     </li>
-
-                    <div class="container-logout">
-                        <li>
-                            <a href="#" class="logout">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <span class="nav-item">Sair</span>
-                            </a>
-                        </li>
-                    </div>
+    
+                    <li>
+                        <a href="#" class="logout">
+                            <i class="bx bx-log-out"></i>
+                            <span class="nav-item">Sair</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -72,7 +91,7 @@
             <div class="child-backpage">
 
                 <div class="child-backpage-title">
-                    <h1>Gerenciamento de Servidores</h1>
+                    <h1>Gerenciamento de Empresas</h1>
                     <div class="backpage-icon-add">
                         <button onclick="add_emp()">
                             <p>Adicionar Empresa</p> <img src="./assets/svg/icon-user-add.svg" alt="">
@@ -106,27 +125,6 @@
                     </div>
 
                     <div id="FUNCIONARIO" class="backpage-row">
-                        <!-- CARD DO FUNCIONARIO -->
-
-                        <!-- <div class="backpage-row-card-func">
-                            <span>ID</span>
-                            <span>CPU</span>
-                            <span>Memoria</span>
-                            <span>Disco</span>
-                            <span>Localização</span>
-
-                            <div class="backpage-row-itemED">
-
-                                <button onclick="edit_func()" class="editar" id>
-
-                                </button>
-                            </div>
-                            <div class="backpage-row-itemEX">
-                                <button onclick="remove_func()" class="deletar">
-
-                                </button>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
 
@@ -236,7 +234,7 @@
     <div id="card-confirm" class="card-confirm" style="display: none;">
         <div class="text">Deseja excluir este servidor?</div>
         <div class="btns">
-            <button onclick="excluir()" class="btnEx">Excluir</button>
+            <button onclick="deletar(removerEmpresa)" class="btnEx">Excluir</button>
             <button onclick="cancelar()" class="btnC">Cancelar</button>
         </div>
     </div>
@@ -247,6 +245,8 @@
 
 <script>
 var cnpjCadastrar
+
+var removerEmpresa
     function listar() {
         fetch(`/empresas/listar`).then(function (resposta) {
             if (resposta.ok) {
@@ -287,7 +287,7 @@ var cnpjCadastrar
 
                         btnDeletar.className = "backpage-row-itemEX"
                         btnDeletar.id = "btnDeletar" + empresa.id;
-                        btnDeletar.setAttribute("onclick", `deletar(${empresa.id})`);
+                        btnDeletar.setAttribute("onclick", `remove_func(${empresa.id})`);
 
                         div_empresa.className = "backpage-row-card-func"
                         div_empresa.id = empresa.id
@@ -425,8 +425,8 @@ var cnpjCadastrar
                     var add = document.getElementById("cadastrar-emp")
                     add.style.display = "none"
                     var edit = document.getElementById("cadastrar-func");
-                    edit.style.display = "block";
-                    cadastrarFuncionario(cpnj)
+                    edit.style.display = "none";
+                    window.location('crudEmpresa.html')
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
@@ -435,8 +435,8 @@ var cnpjCadastrar
                 console.log(`#ERRO: ${resposta}`);
             });
     }
-    function deletar(id) {
-        fetch(`/empresas/deletar/${id}`, {
+    function deletar(removerEmpresa) {
+        fetch(`/empresas/deletar/${removerEmpresa}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -444,8 +444,9 @@ var cnpjCadastrar
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
-
+                var remove = document.getElementById("card-confirm")
+                remove.style.display = "none"
+                window.location('crudEmpresa.html')
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
             }
@@ -454,9 +455,12 @@ var cnpjCadastrar
         });
     }
 
-    function remove_func() {
+    function remove_func(id) {
         var remove = document.getElementById("card-confirm")
         remove.style.display = "flex"
+        console.log("Excluindo empresa com id: " + id)
+        removerEmpresa = id
+
     }
 
     function close_card(cardId) {
