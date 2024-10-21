@@ -1,5 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
-var aquarioModel = require("../models/aquarioModel");
+var empresaModel = require("../models/empresaModel")
 
 function autenticar(req, res) {
     var email = req.body.emailServer;
@@ -131,11 +131,43 @@ function trocarSenha(req, res) {
                 res.status(500).json(erro.sqlMessage);
             }
         );
+}
+
+function cadastrarPrimeiroFunc(req, res) {
+    var nome = req.body.nomeServer
+    var email = req.body.emailServer
+    var senha = req.body.senhaServer
+    var cnpj = req.params.cnpj
+    var fkEmpresa
+    var cargo = 1
+
+    empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
+        fkEmpresa = resultado[0].id
+        usuarioModel.cadastrar(nome, email, senha, cargo, fkEmpresa)
+    }
+    )
 
 }
 
-function listarUsuarios(req, res) {
-    usuarioModel.listarTodos()
+// function listarUsuarios(req, res) {
+//     usuarioModel.listarTodos()
+//         .then(
+//             function (resultado) {
+//                 res.json(resultado)
+//             }
+//         )
+
+//         .catch(
+//             function (erro) {
+//                 console.log(erro)
+//                 res.status(500).json(erro.sqlMessage)
+//             }
+//         )
+// }
+
+function listar(req, res) {
+    var idEmpresa = req.params.idEmpresa
+    usuarioModel.listar(idEmpresa)
         .then(
             function (resultado) {
                 res.json(resultado)
@@ -143,17 +175,39 @@ function listarUsuarios(req, res) {
         )
 
         .catch(
-            function(erro) {
+            function (erro) {
                 console.log(erro)
                 res.status(500).json(erro.sqlMessage)
             }
         )
 }
 
+function deletarFuncionario(req, res) {
+    const idFuncionario = req.params.id
+
+    usuarioModel.deletarFunc(idFuncionario)
+        .then(result => {
+            if (result.affectedRows > 0) {
+                res.status(200).json({ success: true, message: 'Funcionário excluído com sucesso.' });
+            } else {
+                res.status(404).json({ success: false, message: 'Funcionário não encontrado.' });
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            res.status(500).json({ success: false, message: 'Erro ao tentar excluir o funcionário.' });
+        });
+}
+
+
+
 module.exports = {
     trocarSenha,
     verificarEmail,
     autenticar,
     cadastrar,
-    editarFuncionario
+    editarFuncionario,
+    cadastrarPrimeiroFunc,
+    listar,
+    deletarFuncionario
 }

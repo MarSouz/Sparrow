@@ -11,12 +11,12 @@
     <title>Alterar dados</title>
 
     <!-- LINKS OBRIGATORIOS PARA A NAVBAR -->
-     <link rel="stylesheet" href="./css/dashboard/dashAnalista.css">
+    <link rel="stylesheet" href="./css/dashboard/dashAnalista.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 
-<body>
+<body onload="listar()">
     <section id="page-change">
         <div class="menu-lateral">
             <nav id="nav">
@@ -96,27 +96,9 @@
                         </div>
                     </div>
 
-                    <div class="backpage-row">
+                    <div class="backpage-row" id="FUNCIONARIO">
                         <!-- CARD DO FUNCIONARIO -->
-                        <div class="backpage-row-card-func">
-                            <div class="backpage-row-item">
-                                <p>Elerson Sabará</p>
-                            </div>
-                            <div class="backpage-row-item">
-                                <p>Analista</p>
-                            </div>
-                            <div class="backpage-row-itemED">
-
-                                <button onclick="edit_func()">
-                                    <img src="./assets/svg/icon-pencil.svg" alt="">
-                                </button>
-                            </div>
-                            <div class="backpage-row-itemEX">
-                                <button onclick="remove_func()">
-                                    <img src="./assets/svg/icon-lixeira.svg" alt="">
-                                </button>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -126,21 +108,30 @@
 
     </section>
 
-    <div id="edit-card" class="card-funcionario" style="display: none;">
+    <div id="edit-card" class="card-edit-funcionario" style="display: none;">
         <div class="title">
             <h3>Editar funcionário</h3>
             <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
             </div>
         </div>
+
+
         <div class="child-input">
+
             <div class="input field">
-                <input type="input" class="campo" placeholder="Nome" required="" id="email_input" autocomplete="off">
+                <input type="input" class="campo" placeholder="Nome" required="" id="idFunc" autocomplete="off"
+                    disabled>
+                <label for="name" class="caixa">ID</label>
+            </div>
+
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
                 <label for="name" class="caixa">Nome do funcionário</label>
             </div>
 
 
             <div class="input field">
-                <input type="input" class="campo" placeholder="Cargo" required="" id="senha_input" autocomplete="off">
+                <input type="input" class="campo" placeholder="Cargo" required="" id="cargo_input" autocomplete="off">
                 <label for="name" class="caixa">Cargo</label>
             </div>
             <div class="input field">
@@ -155,7 +146,7 @@
             </div>
         </div>
         <div class="btn">
-            <button class="btn-save">Salvar</button>
+            <button onclick="editarDadosFunc()" class="btn-save">Salvar</button>
         </div>
     </div>
 
@@ -195,7 +186,7 @@
     <div id="card-confirm" class="card-confirm" style="display: none;">
         <div class="text">Deseja excluir este funcionário?</div>
         <div class="btns">
-            <button class="btnEx">Excluir</button>
+            <button onclick="deletarFunc(removeFuncionario)" class="btnEx">Excluir</button>
             <button onclick="cancelar()" class="btnC">Cancelar</button>
         </div>
     </div>
@@ -205,15 +196,24 @@
 </html>
 
 <script>
-    function edit_func() {
+    var removeFuncionario
+
+    function editar(id, nome, cargo, email, senha) {
+        idFunc.value = id
+        nome_input.value = nome
+        cargo_input.value = cargo
+        email_input.value = email
+        senha_input.value = senha
 
         var edit = document.getElementById("edit-card");
         edit.style.display = "block";
     }
 
-    function remove_func() {
+    function remove_func(id) {
         var remove = document.getElementById("card-confirm")
         remove.style.display = "flex"
+        console.log("Excluindo funcionário com id:" + id)
+        removeFuncionario = id
     }
 
     function add_user() {
@@ -259,13 +259,141 @@
             .then(Response => {
                 if (!Response.ok) {
                     throw new console.error("Erro ao cadastrar!");
+                } else {
+                    window.location = "AlteracoesFunc.html"
                 }
 
                 return Response.json()
             })
+    }
+    function listar() {
+        fetch(`/usuarios/listar/${sessionStorage.ID_EMPRESA}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
 
-            function listar() {
-                
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    for (var index = 0; index < resposta.length; index++) {
+                        var funcionario = resposta[index]
+
+                        console.log(funcionario)
+
+                        var div_funcionario = document.createElement("div")
+                        var spanId = document.createElement("div");
+                        var spanNome = document.createElement("div");
+                        var spanCargo = document.createElement("div");
+                        var spanEmail = document.createElement("div");
+                        var btnEditar = document.createElement("button");
+                        var btnDeletar = document.createElement("button");
+                        var divEditar = document.createElement("div")
+                        var divDeletar = document.createElement("div")
+
+
+                        spanId.innerHTML = "<b>" + funcionario.id + "</b>";
+                        spanNome.innerHTML = "<b>" + funcionario.nome_completo + "</b>";
+                        spanCargo.innerHTML = "<b>" + funcionario.nome + "</b>";
+                        spanEmail.innerHTML = "<b>" + funcionario.email + "</b>";
+
+                        btnEditar.innerHTML = '<img src="./assets/svg/icon-pencil.svg" alt="Editar">';
+                        btnDeletar.innerHTML = '<img src="./assets/svg/icon-lixeira.svg" alt="Deletar">';
+
+                        btnEditar.className = "backpage-row-itemED"
+                        btnEditar.id = "btnEditar"
+                        btnEditar.onclick = function () {
+                            edit_func(funcionario.id)
+                        }
+                        btnEditar.setAttribute("onclick", `editar('${funcionario.id}', '${funcionario.nome_completo}', '${funcionario.fkcargo}', '${funcionario.email}', '${funcionario.senha}')`);
+
+                        btnDeletar.className = "backpage-row-itemEX"
+                        btnDeletar.id = "btnDeletar" + funcionario.id;
+                        btnDeletar.setAttribute("onclick", `remove_func(${funcionario.id})`)
+
+                        div_funcionario.className = "backpage-row-card-func"
+                        div_funcionario.id = funcionario.id
+                        divEditar.className = "backpage-row-itemED"
+                        divDeletar.className = "backpage-row-itemEX"
+                        spanId.className = "backpage-row-item"
+                        spanNome.className = "backpage-row-item"
+                        spanCargo.className = "backpage-row-item"
+                        spanEmail.className = "backpage-row-item"
+                        divEditar.appendChild(btnEditar)
+                        divDeletar.appendChild(btnDeletar)
+
+
+                        div_funcionario.appendChild(spanNome)
+                        div_funcionario.appendChild(spanCargo)
+                        div_funcionario.appendChild(divEditar)
+                        div_funcionario.appendChild(divDeletar)
+
+                        FUNCIONARIO.appendChild(div_funcionario)
+                    }
+                }
+
+                )
+            } else {
+                throw ('Houve um erro na API!');
             }
-}
+        }).catch(function (resposta) {
+            console.error(resposta)
+        })
+    }
+
+
+    function deletarFunc(idFuncionario) {
+
+        fetch(`usuarios/deletar/${idFuncionario}`, {
+            method: 'DELETE',
+        })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.success) {
+
+                    console.log('Funcionário excluído com sucesso.')
+                    window.location = "AlteracoesFunc.html"
+                } else {
+                    alert('Erro ao excluir funcionário.');
+                }
+            })
+            .catch(function (error) {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro ao tentar excluir o funcionário.');
+            });
+    }
+
+    function editarDadosFunc() {
+        var id = idFunc.value
+        var nome = nome_input.value 
+        var cargo = cargo_input.value 
+        var email = email_input.value
+        var senha = senha_input.value
+
+        fetch(`/usuarios/editar/${Number(id)}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeCompletoServer: nome,
+                emailServer: email,
+                senhaServer: senha,
+                cargoIdServer: Number(cargo)
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.location = "AlteracoesFunc.html"
+            } else if (resposta.status == 404) {
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
 </script>

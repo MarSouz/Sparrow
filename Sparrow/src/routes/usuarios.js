@@ -8,6 +8,10 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+router.post("/cadastrar/:cnpj", function (req, res) {
+    usuarioController.cadastrarPrimeiroFunc(req, res);
+})
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
@@ -24,8 +28,10 @@ router.put("/trocar/:idFuncionario", function (req, res) {
     usuarioController.trocarSenha(req, res);
 });
 
-router.post("/cadastrar", function (req, res) {
-    usuarioController.cadastrar(req, res);
+router.get("/listar/:idEmpresa", function (req, res) {
+    usuarioController.listar(req, res);
 });
+
+router.delete('/deletar/:id', usuarioController.deletarFuncionario)
 
 module.exports = router;

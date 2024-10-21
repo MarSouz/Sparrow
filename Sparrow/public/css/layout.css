@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
     font-style: normal;
+}
+
+body {
     overflow-x: hidden;
 }
 
