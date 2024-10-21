@@ -9,22 +9,38 @@ config = {
   'database': 'Sparrow'
 }
 
-
-qtdCpu = psutil.cpu_count(logical=True)
-
-bytes = 1073741824
-qtdRam = psutil.virtual_memory()[0] / bytes
-ramFormatada = "{:.1f}".format(qtdRam)
-
-qtdDisco = psutil.disk_usage("/")[0] / bytes
-discoFormatado = "{:.1f}".format(qtdDisco)
-
-print(f"Quantidade total de CPUs: {qtdCpu}")
-print(f"Quantidade total de RAM: {ramFormatada}Gib")
-print(f"Quantidade total de Disco: {discoFormatado}Gib")
+def get_mac_adress():
+    for interface, addrs in psutil.net_if_addrs().items():
+        for addr in addrs:
+            if addr.family == psutil.AF_LINK:
+                return addr.address
+            
+print(get_mac_adress())
 
 
-i = 0
+try:
+        db = connect(**config)
+        if db.is_connected():
+            db_info = db.get_server_info()
+            print('Connected to MySQL server version -', db_info)
+                    
+            with db.cursor() as cursor:
+                query1 = (f"SELECT * FROM maquina WHERE endereco_mac = '{get_mac_adress()}'")
+                        
+                cursor.execute(query1)
+                    
+                
+                result = cursor.fetchone()
+                print(result)
+                    
+            cursor.close()
+            db.close()
+
+except Error as e:
+    print('Error to connect with MySQL -', e) 
+
+if(result is not 0):
+     i = 0
 a = 0
 while i < 10: 
     while a < 10:
@@ -43,9 +59,9 @@ while i < 10:
             
             with db.cursor() as cursor:
                 query1 = ("INSERT INTO Sparrow.dado_capturado VALUES "
-                        f"(null, {cpu}, current_timestamp(), 1, 1)")
+                        f"(default, {cpu}, current_timestamp(), {result[0]}, 1)")
                 query2 = ("INSERT INTO Sparrow.dado_capturado VALUES "
-                        f"(null, {ram}, current_timestamp(), 1, 2)")
+                        f"(default, {ram}, current_timestamp(), {result[0]}, 2)")
                 
                 cursor.execute(query1)
                 cursor.execute(query2)
@@ -75,7 +91,7 @@ while i < 10:
             
             with db.cursor() as cursor:
                 query1 = ("INSERT INTO Sparrow.dado_capturado VALUES "
-                        f"(null, {disk}, current_timestamp(), 1, 3)")
+                        f"(default, {disk}, current_timestamp(), {result[0]}, 3)")
                 
                 cursor.execute(query1)
                 db.commit()
@@ -88,8 +104,3 @@ while i < 10:
         print('Error to connect with MySQL -', e) 
     i += 1
     a = 0
-
-    
-    
-    
-
