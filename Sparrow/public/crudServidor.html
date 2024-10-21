@@ -22,7 +22,7 @@
             <nav id="nav">
                 <ul>
                     <li>
-                        <a href="./index.html" class="logo">
+                        <a href="./dashboard/dashAnalista.html" class="logo">
                             <img src="./assets/imgs/Logo2.png" alt="">
                             <span class="nav-item">Sparrow</span>
                         </a>
@@ -73,11 +73,7 @@
 
                 <div class="child-backpage-title">
                     <h1>Gerenciamento de Servidores</h1>
-                    <div class="backpage-icon-add">
-                        <button onclick="add_user()">
-                            <p>Add Servidor</p> <img src="./assets/svg/icon-user-add.svg" alt="">
-                        </button>
-                    </div>
+                    
                 </div>
 
                 <div class="child-backpage-table-func">
@@ -89,7 +85,7 @@
                             <p>Limite CPU:</p>
                         </div>
                         <div class="backpage-coluns-item">
-                            <p>Limite Memoria:</p>
+                            <p>Limite Memória:</p>
                         </div>
                         <div class="backpage-coluns-item">
                             <p>Limite Disco:</p>
@@ -111,7 +107,7 @@
                         <div class="backpage-row-card-func">
                             <span>ID</span>
                             <span>CPU</span>
-                            <span>Memoria</span>
+                            <span>Memória</span>
                             <span>Disco</span>
                             <span>Localização</span>
 
@@ -144,8 +140,19 @@
         </div>
         <div class="child-input">
             <div class="input field">
-                <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
-                <label for="name" class="caixa">Nome do servidor</label>
+                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteCPU_input"
+                    autocomplete="off">
+                <label for="name" class="caixa">Limite da CPU</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteRAM_input"
+                    autocomplete="off">
+                <label for="name" class="caixa">Limite da Memória</label>
+            </div>
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteDisco_input"
+                    autocomplete="off">
+                <label for="name" class="caixa">Limite do disco</label>
             </div>
             <div class="input field">
                 <input type="input" class="campo" placeholder="Latitude" required="" id="latitude_input"
@@ -157,21 +164,7 @@
                     autocomplete="off">
                 <label for="name" class="caixa">Longitude</label>
             </div>
-            <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteCPU_input"
-                    autocomplete="off">
-                <label for="name" class="caixa">Limite da CPU</label>
-            </div>
-            <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteRAM_input"
-                    autocomplete="off">
-                <label for="name" class="caixa">Limite da Mémoria</label>
-            </div>
-            <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="limiteDisco_input"
-                    autocomplete="off">
-                <label for="name" class="caixa">Limite do disco</label>
-            </div>
+            
 
 
         </div>
@@ -197,18 +190,16 @@
 <script>
     function listar() {
 
-        var nomeVar = nome_input.value;
         var longitudeVar = longitude_input.value;
         var latitudeVar = latitude_input.value;
 
-        if (nomeVar == "" || longitudeVar == "" || latitudeVar == "") {
+        if (longitudeVar == "" || latitudeVar == "") {
             console.log("Campos vazios")
         }
         else {
             setInterval(5000)
         }
 
-        console.log("FORM NOME: ", nomeVar);
         console.log("FORM LONGITUDE: ", longitudeVar);
         console.log("FORM LATITUDE: ", latitudeVar);
 
@@ -369,4 +360,13 @@
         remove.style.display = "flex"
     }
 
+    function close_card(cardId) {
+        var card = document.getElementById(cardId)
+        card.style.display = "none"
+    }
+
+    function cancelar(){
+        var cancel = document.getElementById("card-confirm")
+        cancel.style.display = "none"
+    }
 </script>
