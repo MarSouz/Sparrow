@@ -156,7 +156,7 @@ nav:hover{
 }
 
 .info-container .subtitulo{
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .info1, 
@@ -165,7 +165,7 @@ nav:hover{
 .info4{
     display: flex; 
     flex-direction: column;
-    width: 20%; 
+    width: 30%; 
     height: 70%;
     color: #fff;
     background-color: white; 
@@ -176,6 +176,7 @@ nav:hover{
     border-radius: 8px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     padding: 18px 0 18px 0;
+    margin: 2px;
 }
 
 
