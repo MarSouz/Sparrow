@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS `Sparrow`;
-USE `Sparrow` ;
 
+USE `Sparrow` ;
 
 CREATE TABLE IF NOT EXISTS `Sparrow`.`empresa` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -10,13 +10,10 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`empresa` (
   `cnpj` CHAR(14) NULL,
   PRIMARY KEY (`id`));
 
-
 CREATE TABLE IF NOT EXISTS `Sparrow`.`cargo` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
-
-
 
 CREATE TABLE IF NOT EXISTS `Sparrow`.`funcionario` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -33,19 +30,16 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`funcionario` (
     FOREIGN KEY (`fk_cargo`)
     REFERENCES `Sparrow`.`cargo` (`id`));
 
-
 CREATE TABLE IF NOT EXISTS `Sparrow`.`tipo_maquina` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
-
 
 CREATE TABLE IF NOT EXISTS `Sparrow`.`localizacao` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `latitude` DECIMAL(9,6) NULL,
   `longitude` DECIMAL(9,6) NULL,
   PRIMARY KEY (`id`));
-
 
 CREATE TABLE IF NOT EXISTS `Sparrow`.`maquina` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -67,18 +61,13 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`maquina` (
     REFERENCES `Sparrow`.`localizacao` (`id`)
     ON DELETE CASCADE);
 
-
-
 CREATE TABLE IF NOT EXISTS `Sparrow`.`tipo_componente` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome_componente` VARCHAR(45) NULL,
   `unidade_medida` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
-
-
-    
+   
 CREATE TABLE IF NOT EXISTS `Sparrow`.`maquina_componente` (
-<<<<<<< HEAD
     `fk_maquina` INT NOT NULL,
     `fk_componente_maquina` INT NOT NULL,
     `limite_componente` INT NULL,
@@ -92,19 +81,6 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`maquina_componente` (
         REFERENCES `Sparrow`.`tipo_componente` (`id`)
         ON DELETE CASCADE);
 
-=======
-  `fk_maquina` INT NOT NULL,
-  `fk_componente_maquina` INT NOT NULL,
-  `limite_componente` INT NULL,
-  PRIMARY KEY (`fk_maquina`, `fk_componente_maquina`),
-  CONSTRAINT `fk_componentes_servidor_has_servidor_componentes_servidor1`
-    FOREIGN KEY (`fk_maquina`)
-    REFERENCES `Sparrow`.`maquina` (`id`),
-  CONSTRAINT `fk_componentes_servidor_has_servidor_servidor1`
-    FOREIGN KEY (`fk_componente_maquina`)
-    REFERENCES `Sparrow`.`tipo_componente` (`id`));
->>>>>>> aa053c5574548dc7ebf9d473ad1240fb8075dd9a
-
 CREATE TABLE IF NOT EXISTS `Sparrow`.`dado_capturado` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `registro` INT NULL,
@@ -116,8 +92,6 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`dado_capturado` (
     FOREIGN KEY (`fk_maquina` , `fk_componente_maquina`)
     REFERENCES `Sparrow`.`maquina_componente` (`fk_maquina` , `fk_componente_maquina`));
 
-
-
 CREATE TABLE IF NOT EXISTS `Sparrow`.`alerta` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_dado_maquina` INT NOT NULL,
@@ -125,8 +99,6 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`alerta` (
   CONSTRAINT `fk_alertas_dados_servidor1`
     FOREIGN KEY (`fk_dado_maquina`)
     REFERENCES `Sparrow`.`dado_capturado` (`id`));
-
-
 
 CREATE TABLE IF NOT EXISTS `Sparrow`.`lead` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -136,8 +108,7 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`lead` (
   `cnpj` CHAR(14) NULL,
   `descricao` VARCHAR(255) NULL,
   PRIMARY KEY (`id`));
-  
-  
+ 
 INSERT INTO empresa VALUES (default, "Sparrow", "Dominique", "sparrow@gmail.com", 12345678912345);
 
 INSERT INTO cargo VALUES (default, "Administrador");
@@ -158,43 +129,95 @@ SELECT * FROM tipo_componente;
 INSERT INTO localizacao VALUES (default, -23.5546, -46.6593);
 
 INSERT INTO maquina VALUES (default, 1, 1,  "C8-5E-A9-FB-64-8B", 1);
+INSERT INTO maquina VALUES (default, 1, 2,  "C8-5E-A9-FB-64-8B", 1);
+INSERT INTO maquina_componente VALUES (1, 1, 10000);
+INSERT INTO maquina_componente VALUES (1, 2, 10000);
+INSERT INTO maquina_componente VALUES (1, 3, 10000);
 INSERT INTO maquina_componente VALUES (1, 4, 10000);
 INSERT INTO maquina_componente VALUES (1, 5, 10000);
 
-select* from maquina_componente;
-select * from maquina;
-select * from maquina_componente;
+INSERT INTO maquina_componente VALUES (2, 1, 10000);
+INSERT INTO maquina_componente VALUES (2, 2, 10000);
+INSERT INTO maquina_componente VALUES (2, 3, 10000);
+INSERT INTO maquina_componente VALUES (2, 4, 10000);
+INSERT INTO maquina_componente VALUES (2, 5, 10000);
 
 SELECT * FROM maquina_componente;
 SELECT * FROM dado_capturado;
 
-SELECT * FROM FUNCIONARIO;
-
-
-SELECT 
+SELECT
     m.id,
     e.nome_empresa,
     tm.nome AS tipo_maquina
+FROM
+    maquina m
+JOIN
+    empresa e ON m.fk_empresa = e.id
+JOIN
+    tipo_maquina tm ON m.fk_tipo_maquina = tm.id
+WHERE
+    e.nome_empresa = 'Sparrow';
+ 
+SELECT
+    m.id AS id,
+    m.fk_tipo_maquina,
+    m.fk_empresa AS fk_empresa,
+    l.latitude AS lat,
+    l.longitude AS lon,
+    MAX(CASE WHEN tc.nome_componente = 'CPU' THEN mc.limite_componente END) AS CPU,
+    MAX(CASE WHEN tc.nome_componente = 'RAM' THEN mc.limite_componente END) AS RAM,
+    MAX(CASE WHEN tc.nome_componente = 'Disco' THEN mc.limite_componente END) AS Disco
+FROM
+    maquina m
+JOIN
+    maquina_componente mc ON mc.fk_maquina = m.id
+JOIN
+    tipo_componente tc ON mc.fk_componente_maquina = tc.id
+JOIN
+    localizacao l ON l.id = m.fk_localizacao
+WHERE
+    fk_empresa = 1
+    AND fk_tipo_maquina = 2
+GROUP BY
+    m.id;
+   
+UPDATE maquina_componente SET limite_componente = 70 WHERE fk_maquina = 3 AND fk_componente_maquina = 1;
+
+INSERT INTO maquina values (default, 1, 2, "C8-5E-A9-FB-64-8B", 1);
+SELECT * FROM maquina;
+
+-- -----READ-----
+
+CREATE VIEW maquinaComponente AS
+SELECT 
+    e.id AS idEmpresa,
+    e.nome_empresa,
+    m.fk_tipo_maquina AS fk_tipo_maquina,
+    m.id,
+    MAX(CASE WHEN tc.nome_componente = 'CPU' THEN mc.limite_componente END) AS CPU,
+    MAX(CASE WHEN tc.nome_componente = 'RAM' THEN mc.limite_componente END) AS RAM,
+    MAX(CASE WHEN tc.nome_componente = 'Disco' THEN mc.limite_componente END) AS Disco,
+    MAX(CASE WHEN tc.nome_componente = 'Pacotes Enviados' THEN mc.limite_componente END) AS Pacotes_Enviados,
+    MAX(CASE WHEN tc.nome_componente = 'Pacotes Recebidos' THEN mc.limite_componente END) AS Pacotes_Recebidos,
+    l.latitude AS lat,
+    l.longitude AS lon
 FROM 
     maquina m
 JOIN 
     empresa e ON m.fk_empresa = e.id
 JOIN 
-    tipo_maquina tm ON m.fk_tipo_maquina = tm.id
+    maquina_componente mc ON m.id = mc.fk_maquina
+JOIN 
+    tipo_componente tc ON tc.id = mc.fk_componente_maquina
+JOIN 
+    localizacao l ON m.fk_localizacao = l.id
 WHERE 
-    e.nome_empresa = 'Sparrow';
-    
-    
-UPDATE localizacao SET latitude = -25.5500, longitude= 48.6500 WHERE id= 1;    
+    fk_empresa = 1 AND fk_tipo_maquina = 1
+GROUP BY 
+    e.id, e.nome_empresa, m.fk_tipo_maquina, m.id, l.latitude, l.longitude;
 
-   
--- DELETE FROM maquina WHERE id = 1;     
+SELECT * FROM maquinaComponente;
 
+-- -----DELETE-----
 
-
-
-
-
-
-
-
+-- DELETE FROM maquina WHERE id = 1;  
