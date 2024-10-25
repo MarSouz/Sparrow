@@ -23,7 +23,7 @@
         <nav id="nav">
             <ul>
                 <li>
-                    <a href="./../index.html" class="logo">
+                    <a href="#" class="logo">
                         <img src="../assets/imgs/Logo2.png" alt="">
                         <span class="nav-item">Sparrow</span>
                     </a>
@@ -79,7 +79,7 @@
                 </li>
 
                 <li>
-                    <a href="#" class="logout">
+                    <a href="#" id="logoutBotao" class="logout">
                         <i class="bx bx-log-out"></i>
                         <span class="nav-item">Sair</span>
                     </a>
@@ -127,71 +127,57 @@
                             <span class="titulo-card">Máquina: </span>
                             <span class="subtitulo-card">Componente: </span>
                             <span class="subtitulo-card">Descrição: </span>
+                            <span class="subtitulo-card">Data: </span>
                         </div>
 
                         <div class="card1">
                             <span class="titulo-card">Máquina: </span>
                             <span class="subtitulo-card">Componente: </span>
                             <span class="subtitulo-card">Descrição: </span>
+                            <span class="subtitulo-card">Data: </span>
                         </div>
 
                         <div class="card1">
                             <span class="titulo-card">Máquina: </span>
                             <span class="subtitulo-card">Componente: </span>
                             <span class="subtitulo-card">Descrição: </span>
+                            <span class="subtitulo-card">Data: </span>
                         </div>
 
                         <div class="card1">
                             <span class="titulo-card">Máquina: </span>
                             <span class="subtitulo-card">Componente: </span>
                             <span class="subtitulo-card">Descrição: </span>
+                            <span class="subtitulo-card">Data: </span>
                         </div>
 
                         <div class="card1">
                             <span class="titulo-card">Máquina: </span>
                             <span class="subtitulo-card">Componente: </span>
                             <span class="subtitulo-card">Descrição: </span>
-                        </div>
-
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                        </div>
-
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                        </div>
-
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                        </div>
-
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                        </div>
-
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
+                            <span class="subtitulo-card">Data: </span>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-</div>
+    </div>
 </body>
+
 </html>
 <script>
-   const graficoContainer = document.getElementById('grafico');
+    function logout() {
+        sessionStorage.clear();
+        window.location.replace('../index.html');
+    }
+
+    document.getElementById('logoutBotao').addEventListener('click', function (event) {
+        event.preventDefault();
+        logout();
+    });
+
+    const graficoContainer = document.getElementById('grafico');
     const histogramaContainer = document.getElementById('histograma');
     const ctx = document.getElementById('myChart').getContext('2d');
     const ctx2 = document.getElementById('myChart2').getContext('2d');
