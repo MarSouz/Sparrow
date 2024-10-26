@@ -92,13 +92,14 @@ nav:hover{
     width: 100%;
     height: 100%;
     display: flex;
-    /* flex-direction: column; */
 }
 
 .father-content{
     width: 100%;
     height: 100%;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .father-content2{
@@ -106,114 +107,24 @@ nav:hover{
     height: 100%;
     display: flex;
     /* background-color: orange; */
-}
-
-
-.content-maior1{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.content1{
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    /* background-color: pink; */
-}
-
-.content1 .titulo{
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 30px;
-    margin-top: 30px;
-
-}
-
-.content1 .subtitulo{
-    font-size: 25px;
-    margin-left: 30px;
-}
-
-.content1 .apresentacao{
-    font-size: 20px;
-    margin-left: 30px;
-    margin-top: 50px;
-}
-
-/* CONTENT 2 */
-
-.content2{
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    /* background-color: brown; */
-}
-
-
-.content2 .titulo{
-    font-size: 20px;
-    text-align: center;
-    align-items: center;
-    margin-top: 90px;
-}
-
-
-.botoes-content2{
-    display: flex; 
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.botoes-content2 button {
-    display: flex; 
-    flex-direction: column;
-    width: 35%; 
-    color: #fff;
-    background-color: white; 
-    color: black;
-    font-weight: bold;
-    font-size: 15px;
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    padding: 18px 0 18px 0;
-    cursor: pointer;
-    transition: 0.4s ease;
 }
 
-.botoes-content2 button:hover {
-    background-color: rgb(206, 196, 174);
-    transition: 0.4s ease;
-}
 
-.botoes-content2 button:focus {
-    background-color: black;
-    color: white;
-    transition: 0.4s ease;
-}
 
-.content2 .titulo{
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 10px;
-}
 
 /* CONTENT 3 */
 
 .content3 {
     display: flex;
-    height: 100%;
-    width: 50%;
+    width: 70%;
+    height: 92%;
     flex-direction: column;
-    /* background-color: pink; */
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px 0 #c3bba8;
 }
 
 
@@ -227,39 +138,30 @@ nav:hover{
 
 
 
-/* CONTENT 4 */
-.content4 {
-    display: flex;
-    height: 100%;
-    width: 50%;
-    flex-direction: column;
-}
-
-
-.content4 .titulo{
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 10px;
-    margin-left: 30px;
-    margin-top: 30px;
-}
-
 /* CARDS */
 
 .cards-content {
     display: flex;
     flex-direction: column;
     gap: 10px;
-   
-}
+    justify-content: center;
+    align-items: center;
+    height: 95%;
+    font-size: 14px;
+    font-weight: 200;
+ }
+
 
 .card1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 16px;
-    width: 300px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 95%;
+    height: 90%;
 }
 
 .card1 span{

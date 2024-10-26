@@ -18,9 +18,11 @@ open class Main {
                     repositorio.cadastrarMaquina(novaMaquina)
 
                     val maquinaCadastrada = repositorio.buscarPorMac(interfaces[0].enderecoMac)
-
-                    repositorio.cadastrarComponente(maquinaCadastrada.id, 4)
-                    repositorio.cadastrarComponente(maquinaCadastrada.id, 5)
+                    repositorio.cadastrarComponente(maquinaCadastrada.id, 1, 80)
+                    repositorio.cadastrarComponente(maquinaCadastrada.id,2,80)
+                    repositorio.cadastrarComponente(maquinaCadastrada.id,3,80)
+                    repositorio.cadastrarComponente(maquinaCadastrada.id, 4,null)
+                    repositorio.cadastrarComponente(maquinaCadastrada.id, 5,null)
                     println("Cadastrando máquina no sistema. Iniciando captura...")
 
                 }
