@@ -243,7 +243,7 @@
         console.log("FORM LATITUDE: ", latitudeVar);
 
 
-        fetch(`/medidas/buscar/${sessionStorage.ID_EMPRESA}/${1}`).then(function (resposta) {
+        fetch(`/medidas/buscar/${sessionStorage.ID_EMPRESA}/${2}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     console.log("error")
@@ -353,7 +353,7 @@
             console.log("ESTOU NO THEN DO entrar()!")
 
             if (resposta.ok) {
-                window.location = "crudServidor.html"
+                window.location = "crudTerminal.html"
 
             } else {
 
@@ -409,7 +409,7 @@
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                window.location = "crudServidor.html"
+                window.location = "crudTerminal.html"
             } else if (resposta.status == 404) {
 
             } else {
@@ -428,8 +428,8 @@
         card.style.display = "none"
     }
 
-    function excluir(idmaquina) {
-        fetch(`/medidas/deletar/${idmaquina}`, {
+    function excluir(idmaquinaexcluir) {
+        fetch(`/medidas/deletar/${idmaquinaexcluir}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -437,7 +437,7 @@
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                window.location = "crudServidor.html"
+                window.location = "crudTerminal.html"
 
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);

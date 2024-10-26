@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`funcionario` (
   `senha` VARCHAR(45) NULL,
   `fk_empresa` INT NOT NULL,
   `fk_cargo` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`,`fk_empresa`),
   CONSTRAINT `fk_funcionario_empresa1`
     FOREIGN KEY (`fk_empresa`)
     REFERENCES `Sparrow`.`empresa` (`id`),
@@ -47,19 +47,17 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`maquina` (
   `fk_tipo_maquina` INT NOT NULL,
   `endereco_mac` CHAR(20) NULL,
   `fk_localizacao` INT NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`, `fk_empresa`),
   CONSTRAINT `fk_servidor_empresa1`
     FOREIGN KEY (`fk_empresa`)
-    REFERENCES `Sparrow`.`empresa` (`id`)
-    ON DELETE CASCADE,
+    REFERENCES `Sparrow`.`empresa` (`id`),
   CONSTRAINT `fk_maquina_tipo_maquina1`
     FOREIGN KEY (`fk_tipo_maquina`)
     REFERENCES `Sparrow`.`tipo_maquina` (`id`)
     ON DELETE CASCADE,
   CONSTRAINT `fk_maquina_localizacao1`
     FOREIGN KEY (`fk_localizacao`)
-    REFERENCES `Sparrow`.`localizacao` (`id`)
-    ON DELETE CASCADE);
+    REFERENCES `Sparrow`.`localizacao` (`id`));
 
 CREATE TABLE IF NOT EXISTS `Sparrow`.`tipo_componente` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -100,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`alerta` (
     FOREIGN KEY (`fk_dado_maquina`)
     REFERENCES `Sparrow`.`dado_capturado` (`id`));
 
-CREATE TABLE IF NOT EXISTS `Sparrow`.`lead` (
+CREATE TABLE IF NOT EXISTS `Sparrow`.`possivel_cliente` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome_empresa` VARCHAR(255) NULL,
   `nome_representante` VARCHAR(255) NULL,
@@ -125,22 +123,6 @@ INSERT INTO tipo_componente VALUES (default, "Disco", "Porcentagem");
 INSERT INTO tipo_componente VALUES (default, "Pacotes Enviados", "Inteiro");
 INSERT INTO tipo_componente VALUES (default, "Pacotes Recebidos", "Inteiro");
 SELECT * FROM tipo_componente;
-
-INSERT INTO localizacao VALUES (default, -23.5546, -46.6593);
-
-INSERT INTO maquina VALUES (default, 1, 1,  "C8-5E-A9-FB-64-8B", 1);
-INSERT INTO maquina VALUES (default, 1, 2,  "C8-5E-A9-FB-64-8B", 1);
-INSERT INTO maquina_componente VALUES (1, 1, 10000);
-INSERT INTO maquina_componente VALUES (1, 2, 10000);
-INSERT INTO maquina_componente VALUES (1, 3, 10000);
-INSERT INTO maquina_componente VALUES (1, 4, 10000);
-INSERT INTO maquina_componente VALUES (1, 5, 10000);
-
-INSERT INTO maquina_componente VALUES (2, 1, 10000);
-INSERT INTO maquina_componente VALUES (2, 2, 10000);
-INSERT INTO maquina_componente VALUES (2, 3, 10000);
-INSERT INTO maquina_componente VALUES (2, 4, 10000);
-INSERT INTO maquina_componente VALUES (2, 5, 10000);
 
 SELECT * FROM maquina_componente;
 SELECT * FROM dado_capturado;
@@ -183,7 +165,6 @@ GROUP BY
    
 UPDATE maquina_componente SET limite_componente = 70 WHERE fk_maquina = 3 AND fk_componente_maquina = 1;
 
-INSERT INTO maquina values (default, 1, 2, "C8-5E-A9-FB-64-8B", 1);
 SELECT * FROM maquina;
 
 -- -----READ-----
@@ -217,7 +198,3 @@ GROUP BY
     e.id, e.nome_empresa, m.fk_tipo_maquina, m.id, l.latitude, l.longitude;
 
 SELECT * FROM maquinaComponente;
-
--- -----DELETE-----
-
--- DELETE FROM maquina WHERE id = 1;  
