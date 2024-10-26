@@ -63,12 +63,13 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
 
 
 
-     fun cadastrarComponente(fkMaquina:Int, componente:Int):Boolean{
+     fun cadastrarComponente(fkMaquina:Int, componente:Int, limite:Int?):Boolean{
          val qtdLinhasAfetadas = jdbcTemplate.update(
              "INSERT INTO maquina_componente (fk_maquina, fk_componente_maquina, limite_componente)"+
-             "VALUES (?,?,50000)",
+             "VALUES (?,?,?)",
              fkMaquina,
-             componente
+             componente,
+             limite
          )
          return qtdLinhasAfetadas > 0
      }
