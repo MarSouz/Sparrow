@@ -8,10 +8,10 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="../css/alteracoesCrud.css">
-        <link rel="stylesheet" href="../css/dashboard/dashAdm.css">
-        <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/mural.css">
+    <link rel="stylesheet" href="../css/dashboard/dashAdm.css">
+    <link rel="shortcut icon" href="../assets/imgs/Logo2.png" type="image/x-icon">
     <title>Sparrow | Mural</title>
 </head>
 
@@ -26,21 +26,21 @@
                             <span class="nav-item">Sparrow</span>
                         </a>
                     </li>
-    
+
                     <li>
                         <a href="../crudEmpresa.html">
                             <i class="bx bxs-user"></i>
                             <span class="nav-item">Empresas</span>
                         </a>
                     </li>
-    
+
                     <li>
                         <a href="muralContato.html">
                             <i class="bx bxs-help-circle"></i>
                             <span class="nav-item">Mural</span>
                         </a>
                     </li>
-                    
+
                     <li>
                         <a href="#" class="logout">
                             <i class="bx bx-log-out"></i>
@@ -56,18 +56,65 @@
 
                 <div class="child-backpage-title">
                     <h1>Mural de Contato</h1>
-                    <div class="backpage-icon-add">
-                        <button onclick="add_emp()">
-                            <p>Adicionar Empresa</p> <img src="./assets/svg/icon-user-add.svg" alt="">
-                        </button>
-                    </div>
                 </div>
 
                 <div class="child-backpage-table-func">
+
                     <div class="backpage-coluns">
+                        <h3>Empresas interessadas</h3>
                     </div>
 
                     <div id="FUNCIONARIO" class="backpage-row">
+
+                        <div id="FUNCIONARIO">
+
+                            <div class="backpage-row-card-func">
+
+                                <div class="text-mural">
+                                    
+                                    <div class="espaco-geral">
+
+                                        <div class="titulo">
+                                            <h2>Nova empresa interessada!</h2>
+                                            
+                                            <div class="data-hora">
+                                                <p>DD/MM/AAAA</p>
+                                                <p>00:00</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="espaco-info">
+                                            <div class="info-empresa">
+                                                <h3>Empresa:</h3>
+        
+                                                <h3>Representante:</h3>
+                                            </div>
+        
+                                            <div class="info-email">
+                                                <h3>E-mail:</h3>
+        
+                                                <h3>CNPJ:</h3>
+                                            </div>
+        
+                                            <div class="info-descricao">
+                                                <h3>Especificação:</h3>
+        
+                                                <div class="especificacao"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="backpage-icon-add" onclick="add_emp()">
+                                        <button>
+                                            <img src="../assets/svg/icon-user-add.svg" alt="">
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -76,11 +123,28 @@
 
 
     </section>
+
+    <div id="cadastrar-emp" class="card-funcionario" style="display: none;">
+        <div class="title">
+            
+            <div class="titulo-card"><h2>Verificar Dados</h2></div>
+
+            <div onclick="close_card('cadastrar-emp')" class="icon-close">
+                <img src="../assets/svg/icon-close.svg" alt=""> 
+            </div>
+
+        </div>
+
+        <div class="btn">
+            <button onclick="cadastrar()" class="btn-save">Cadastrar</button>
+        </div>
+    </div>
+
     <div id="cadastrar-func" class="card-funcionario" style="display: none;">
         <div class="title">
-            <h3>Cadastrar funcionário</h3>
-            <div onclick="close_card('cadastrar-func')" class="icon-close"><img src="./assets/svg/icon-close.svg"
-                    alt=""></div>
+
+            <div class="titulo-card"><h2>Cadastrar Funcionário</h2></div>
+
         </div>
 
         <div class="btn">
@@ -88,85 +152,25 @@
         </div>
     </div>
 
-    <div id="cadastrar-emp" class="card-funcionario" style="display: none;">
-        <div class="title">
-            <h3>Cadastrar Empresa</h3>
-            <div onclick="close_card('cadastrar-emp')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
-            </div>
-        </div>
-        <div class="child-input">
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Nome empresa" required="" id="cadastrar_nome"
-                    autocomplete="off">
-                <label for="name" class="caixa">Nome da Empresa</label>
-            </div>
-
-
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Nome representante" required="" id="cadastrar_nomeR"
-                    autocomplete="off">
-                <label for="name" class="caixa">Nome do Representante</label>
-            </div>
-            <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="cadastrar_email"
-                    autocomplete="off">
-                <label for="name" class="caixa">Email do Representante</label>
-            </div>
-
-
-            <div class="input field">
-                <input type="input" class="campo" placeholder="cnpj" required="" id="cadastrar_cnpj" autocomplete="off">
-                <label for="name" class="caixa">CNPJ</label>
-            </div>
-        </div>
-        <div class="btn">
-            <button onclick="cadastrar()" class="btn-save">Cadastrar</button>
-        </div>
-    </div>
-
-    <div id="edit-card" class="card-funcionario" style="display: none;">
-        <div class="title">
-            <h3>Editar Empresa</h3>
-            <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
-            </div>
-        </div>
-        <div class="child-input">
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Nome" required="" id="id_input" autocomplete="off"
-                    disabled>
-                <label for="name" class="caixa">Id</label>
-            </div>
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
-                <label for="name" class="caixa">Nome da Empresa</label>
-            </div>
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Latitude" required="" id="nomeR_input"
-                    autocomplete="off">
-                <label for="name" class="caixa">Nome do Representante</label>
-            </div>
-            <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="emailR_input" autocomplete="off">
-                <label for="name" class="caixa">Email do Representante</label>
-            </div>
-            <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="cnpj_input" autocomplete="off">
-                <label for="name" class="caixa">CNPJ</label>
-            </div>
-        </div>
-        <div class="btn">
-            <button class="btn-save" onclick="salvar()">Salvar</button>
-        </div>
-    </div>
-
-
-    <div id="card-confirm" class="card-confirm" style="display: none;">
-        <div class="text">Deseja excluir este servidor?</div>
-        <div class="btns">
-            <button onclick="cancelar()" class="btnC">Cancelar</button>
-        </div>
-    </div>
-
 </body>
-
 </html>
+<script>
+
+    function add_emp() {
+        var add = document.getElementById("cadastrar-emp")
+        add.style.display = "block"
+    }
+
+    function close_card(cardId) {
+        var card = document.getElementById(cardId)
+        card.style.display = "none"
+    }
+
+    function cadastrar() {
+        var add = document.getElementById("cadastrar-emp")
+        add.style.display = "none"
+        var edit = document.getElementById("cadastrar-func");
+        edit.style.display = "block";
+    }
+
+</script>
