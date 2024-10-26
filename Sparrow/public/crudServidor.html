@@ -204,7 +204,7 @@
     <div id="card-confirm" class="card-confirm" style="display: none;">
         <div class="text">Deseja excluir este servidor?</div>
         <div class="btns">
-            <button onclick="excluir()" class="btnEx">Excluir</button>
+            <button onclick="excluir(idmaquinaexcluir)" class="btnEx">Excluir</button>
             <button onclick="cancelar()" class="btnC">Cancelar</button>
         </div>
     </div>
@@ -214,6 +214,8 @@
 </html>
 
 <script>
+var idmaquinaexcluir
+var idlocalizacao_editar
      function logout() {
         sessionStorage.clear(); 
         window.location.replace('../index.html'); 
@@ -264,23 +266,39 @@
                         var divEditar = document.createElement("div")
                         var divDeletar = document.createElement("div")
 
+                        if(maquina.CPU == null){
+                            maquina.CPU = "-"
+                        }
+                        if(maquina.RAM == null){
+                            maquina.RAM = "-"
+                        }
+                        if(maquina.Disco == null){
+                            maquina.Disco = "-"
+                        }
+                        if(maquina.lon == null){
+                            spanLocalização.innerHTML = "-";
+                        }
+                        else{
+                            spanLocalização.innerHTML = "<b>" + maquina.lat + "/" + maquina.lon + "</b>";
+                        }
+
 
                         spanID.innerHTML = "<b>" + maquina.id + "</b>";
                         spanCpu.innerHTML = "<b>" + maquina.CPU + "</b>";
                         spanMemoria.innerHTML = "<b>" + maquina.RAM + "</b>";
                         spanDisco.innerHTML = "<b>" + maquina.Disco + "</b>";
-                        spanLocalização.innerHTML = "<b>" + maquina.lat + "/" + maquina.lon + "</b>";
+                        
 
                         btnEditar.innerHTML = '<img src="./assets/svg/icon-pencil.svg" alt="Editar">';
                         btnDeletar.innerHTML = '<img src="./assets/svg/icon-lixeira.svg" alt="Deletar">';
 
                         btnEditar.className = "backpage-row-itemED"
                         btnEditar.id = "btnEditar" + maquina.lat + maquina.lon;
-                        btnEditar.setAttribute("onclick", `editar('${maquina.id}', '${maquina.CPU}', '${maquina.RAM}', '${maquina.Disco}', '${maquina.lat}', '${maquina.lon}')`);
+                        btnEditar.setAttribute("onclick", `editar('${maquina.id}', '${maquina.CPU}', '${maquina.RAM}', '${maquina.Disco}', '${maquina.lat}', '${maquina.lon}', '${maquina.idlocalizacao}')`);
 
                         btnDeletar.className = "backpage-row-itemEX"
                         btnDeletar.id = "btnDeletar" + maquina.id;
-                        btnDeletar.setAttribute("onclick", `remove_func()`);
+                        btnDeletar.setAttribute("onclick", `remove_func('${maquina.id}')`);
 
                         div_maquina.className = "backpage-row-card-func"
                         div_maquina.id = maquina.id
@@ -328,19 +346,14 @@
                 latitudeServer: latitudeVar,
                 limiteCPUServer: limiteCPUVar,
                 limiteRamServer: limiteRAMVar,
-                limiteDiscoServer: limiteDiscoVar
+                limiteDiscoServer: limiteDiscoVar,
+                idLocalizacaoServer: idlocalizacao_editar,
             })
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO entrar()!")
 
             if (resposta.ok) {
                 window.location = "crudServidor.html"
-                // resposta.json().then(json => {
-                //     console.log(json);
-                //     console.log(JSON.stringify(json));
-                //     sessionStorage.ID_MAQUINA = json.id;
-
-                // });
 
             } else {
 
@@ -359,9 +372,10 @@
         return false;
     }
 
-    function editar(id, cpu, memoria, disco, latitude, longitude) {
-        sessionStorage.ID_MAQUINA = id
-        limiteCPU_input.value = cpu
+    function editar(id, cpu, memoria, disco, latitude, longitude, idlocalizacao) {
+        idlocalizacao_editar = Number(idlocalizacao),
+        sessionStorage.ID_MAQUINA = id,
+        limiteCPU_input.value = cpu,
         limiteRAM_input.value = memoria,
             limiteDisco_input.value = disco,
             latitude_input.value = latitude,
@@ -390,11 +404,12 @@
                 limiteCPUServer: cpu,
                 limiteRamServer: ram,
                 limiteDiscoServer: disco,
+                idLocalizacaoServer: idlocalizacao_editar
             })
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                window.location = "crudservidor.html"
+                window.location = "crudServidor.html"
             } else if (resposta.status == 404) {
 
             } else {
@@ -413,8 +428,8 @@
         card.style.display = "none"
     }
 
-    function excluir(id) {
-        fetch(`/medidas/deletar/${sessionStorage.getItem("ID_MAQUINA")}`, {
+    function excluir(idmaquina) {
+        fetch(`/medidas/deletar/${idmaquina}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -422,7 +437,7 @@
         }).then(function (resposta) {
 
             if (resposta.ok) {
-                window.alert("Post deletado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+               window.location = "crudServidor.html"
 
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
@@ -432,7 +447,8 @@
         });
     }
 
-    function remove_func() {
+    function remove_func(idmaquina) {
+        idmaquinaexcluir = Number(idmaquina)
         var remove = document.getElementById("card-confirm")
         remove.style.display = "flex"
     }
