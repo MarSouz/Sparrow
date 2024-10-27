@@ -423,7 +423,7 @@ var removerEmpresa
             if (resposta.ok) {
                 var remove = document.getElementById("card-confirm")
                 remove.style.display = "none"
-                window.location('crudEmpresa.html')
+                window.location = 'crudEmpresa.html'
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
             }

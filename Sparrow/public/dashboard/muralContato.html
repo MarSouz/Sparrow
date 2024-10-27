@@ -15,7 +15,7 @@
     <title>Sparrow | Mural</title>
 </head>
 
-<body onload="listar()">
+<body onload="atualizarFeed()">
     <section id="page-change">
         <div class="menu-lateral">
             <nav id="nav">
@@ -66,54 +66,54 @@
 
                     <div id="FUNCIONARIO" class="backpage-row">
 
-                        <div id="FUNCIONARIO">
 
-                            <div class="backpage-row-card-func">
 
-                                <div class="text-mural">
-                                    
-                                    <div class="espaco-geral">
+                        <div class="backpage-row-card-func">
 
-                                        <div class="titulo">
-                                            <h2>Nova empresa interessada!</h2>
-                                            
-                                            <div class="data-hora">
-                                                <p>DD/MM/AAAA</p>
-                                                <p>00:00</p>
-                                            </div>
+                            <div class="text-mural">
+
+                                <div class="espaco-geral">
+
+                                    <div class="titulo">
+                                        <h2>Nova empresa interessada!</h2>
+
+                                        <div class="data-hora">
+                                            <p>DD/MM/AAAA</p>
+                                            <p>00:00</p>
                                         </div>
-
-                                        <div class="espaco-info">
-                                            <div class="info-empresa">
-                                                <h3>Empresa:</h3>
-        
-                                                <h3>Representante:</h3>
-                                            </div>
-        
-                                            <div class="info-email">
-                                                <h3>E-mail:</h3>
-        
-                                                <h3>CNPJ:</h3>
-                                            </div>
-        
-                                            <div class="info-descricao">
-                                                <h3>Especificação:</h3>
-        
-                                                <div class="especificacao"></div>
-                                            </div>
-                                        </div>
-
                                     </div>
 
-                                    <div class="backpage-icon-add" onclick="add_emp()">
-                                        <button>
-                                            <img src="../assets/svg/icon-user-add.svg" alt="">
-                                        </button>
-                                    </div>
+                                    <div class="espaco-info">
+                                        <div class="info-empresa">
+                                            <h3>Empresa:</h3>
 
+                                            <h3>Representante:</h3>
+                                        </div>
+
+                                        <div class="info-email">
+                                            <h3>E-mail:</h3>
+
+                                            <h3>CNPJ:</h3>
+                                        </div>
+
+                                        <div class="info-descricao">
+                                            <h3>Especificação:</h3>
+
+                                            <div class="especificacao"></div>
+                                        </div>
+                                    </div>
+                                    <p></p>
                                 </div>
+
+                                <div class="backpage-icon-add" onclick="add_emp()">
+                                    <button>
+                                        <img src="../assets/svg/icon-user-add.svg" alt="">
+                                    </button>
+                                </div>
+
                             </div>
                         </div>
+
 
                     </div>
                 </div>
@@ -125,40 +125,207 @@
     </section>
 
     <div id="cadastrar-emp" class="card-funcionario" style="display: none;">
-        <div class="title">
-            
-            <div class="titulo-card"><h2>Verificar Dados</h2></div>
+        <div onclick="close_card('cadastrar-emp')" class="icon-close">
+            <img src="../assets/svg/icon-close.svg" alt="">
+        </div>
 
-            <div onclick="close_card('cadastrar-emp')" class="icon-close">
-                <img src="../assets/svg/icon-close.svg" alt=""> 
-            </div>
+        <div class="title">
+
+            <div class="titulo-card">
+                <h2>Verificar Dados</h2>
+            </div><br>
+
+        </div>
+        <div class="input_empresa">
+            <h3>Nome da Empresa</h3>
+            <input type="text" name="" id="nome_empresa_input">
+
+            <h3>Email de Contato</h3>
+            <input type="text" name="" id="email_empresa_input">
+
+            <h3>Nome do Representante</h3>
+            <input type="text" name="" id="nome_representante_input">
+
+            <h3>CNPJ</h3>
+            <input type="text" name="" id="cnpj_input">
 
         </div>
 
         <div class="btn">
-            <button onclick="cadastrar()" class="btn-save">Cadastrar</button>
+            <button onclick="cadastrarEmpresa()" class="btn-save">Cadastrar</button>
         </div>
     </div>
 
     <div id="cadastrar-func" class="card-funcionario" style="display: none;">
         <div class="title">
 
-            <div class="titulo-card"><h2>Cadastrar Funcionário</h2></div>
+            <div class="titulo-card">
+                <h2>Cadastrar Funcionário</h2>
+            </div><br>
+        </div>
+
+        <div class="input_empresa">
+            <h3>Nome do Funcionário Representante</h3>
+            <input type="text" name="" id="nome_func_input">
+
+            <h3>Email</h3>
+            <input type="text" name="" id="email_func_input">
+
+            <h3>Senha</h3>
+            <input type="password" name="" id="senha_input">
+
+            <h3>Confirmar Senha</h3>
+            <input type="password" name="" id="senha_confirmar_input">
 
         </div>
 
+
         <div class="btn">
-            <button onclick="cadastrarFuncionario(cnpjCadastrar)" class="btn-save">Cadastrar</button>
+            <button onclick="cadastrarFuncionario(cnpjGlobal)" class="btn-save">Cadastrar</button>
         </div>
     </div>
 
 </body>
+
 </html>
 <script>
+    var cnpjGlobal
 
-    function add_emp() {
+    function atualizarFeed() {
+        fetch("/empresas/contato").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado.";
+
+                    throw "Nenhum resultado encontrado!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+
+
+
+                    for (var index = 0; index < resposta.length; index++) {
+                        var contato = resposta[index]
+
+                        console.log(contato)
+                        var div_text_mural = document.createElement("div");
+                        var div_espaco_geral = document.createElement("div");
+
+                        var div_titulo = document.createElement("div");
+
+                        var div_espaco_info = document.createElement("div");
+
+                        var div_info_empresa = document.createElement("div");
+
+                        var div_info_email = document.createElement("div");
+
+                        var div_info_descricao = document.createElement("div");
+                        var div_especificacao = document.createElement("div");
+
+                        var spanTitulo = document.createElement("h3");
+
+
+                        var h3NomeEm = document.createElement("h4");
+                        var h3NomeRe = document.createElement("h4");
+                        var h3EmailRe = document.createElement("h4");
+                        var h3CNPJ = document.createElement("h4");
+                        var h3descricao = document.createElement("h4");
+                        var spanEspecificacao = document.createElement("h5")
+
+                        var div_add = document.createElement("div")
+                        var btnAdd = document.createElement("button");
+
+
+
+
+
+
+                        spanTitulo.innerHTML = "<b>" + "Nova empresa interessada!" + "</b>"
+                        h3NomeEm.innerHTML = "<b>" + "Empresa: " + contato.nome_empresa + "</b>";
+                        h3NomeRe.innerHTML = "<b>" + "Representante: " + contato.nome_representante + "</b>";
+                        h3EmailRe.innerHTML = "<b>" + "E-mail: " + contato.email_representante + "</b>";
+                        h3CNPJ.innerHTML = "<b>" + "CNPJ: " + contato.cnpj + "</b>";
+                        h3descricao.innerHTML = "<b>" + "Especificação" + "</b>";
+                        spanEspecificacao.innerHTML = contato.descricao;
+
+                        btnAdd.innerHTML = "<img src='../assets/svg/icon-user-add.svg'>"
+
+
+
+
+                        btnAdd.setAttribute("onclick", `add_emp('${contato.nome_empresa}', '${contato.nome_representante}', '${contato.email_representante}', '${contato.cnpj}')`);
+
+
+                        div_text_mural.className = "text-mural"
+                        div_espaco_geral.className = "especo-geral"
+
+                        div_titulo.className = "titulo"
+
+                        div_espaco_info.className = "espaco-info"
+
+                        div_info_empresa.className = "info-empresa"
+
+                        div_info_email.className = "info-email"
+
+                        div_info_descricao.className = "info-descricao"
+                        div_especificacao.className = "especificacao"
+                        div_text_mural.id = contato.id
+
+                        div_add.className = "backpage-icon-add"
+                        // btnAdd.className = "backpage-icon-add button"
+                        // divEditar.className = "backpage-row-itemED"
+                        // divDeletar.className = "backpage-row-itemEX"
+                        // divEditar.appendChild(btnEditar)
+                        // divDeletar.appendChild(btnDeletar)
+                        div_text_mural.appendChild(div_espaco_geral)
+                        div_espaco_geral.appendChild(div_titulo)
+
+                        div_titulo.appendChild(spanTitulo)
+
+                        div_espaco_geral.appendChild(div_espaco_info)
+                        div_espaco_info.appendChild(div_info_empresa)
+                        div_info_empresa.appendChild(h3NomeEm)
+                        div_info_empresa.appendChild(h3NomeRe)
+
+                        div_espaco_info.appendChild(div_info_email)
+                        div_info_email.appendChild(h3EmailRe)
+                        div_info_email.appendChild(h3CNPJ)
+
+                        div_espaco_info.appendChild(div_info_descricao)
+                        div_info_descricao.appendChild(h3descricao)
+                        div_info_descricao.appendChild(div_especificacao)
+                        div_especificacao.appendChild(spanEspecificacao)
+
+                        div_add.appendChild(btnAdd)
+                        div_text_mural.appendChild(div_add)
+
+
+
+                        FUNCIONARIO.appendChild(div_text_mural)
+                    }
+                });
+            } else {
+                throw 'Houve um erro na API!';
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+
+    function add_emp(nome_empresa, nome_representante, email_representante, cnpj) {
         var add = document.getElementById("cadastrar-emp")
         add.style.display = "block"
+
+        nome_empresa_input.value = nome_empresa
+        nome_representante_input.value = nome_representante
+        email_empresa_input.value = email_representante
+        cnpj_input.value = cnpj
+
     }
 
     function close_card(cardId) {
@@ -166,11 +333,122 @@
         card.style.display = "none"
     }
 
-    function cadastrar() {
+    function cadastrarEmpresa() {
         var add = document.getElementById("cadastrar-emp")
         add.style.display = "none"
-        var edit = document.getElementById("cadastrar-func");
-        edit.style.display = "block";
+
+
+        var nomeEmpresaVar = nome_empresa_input.value;
+        var nomeRepresentanteVar = nome_representante_input.value
+        var emailVar = email_empresa_input.value
+        var cnpjVar = cnpj_input.value
+        cnpjGlobal = cnpjVar
+
+        if (
+            nomeEmpresaVar == "" ||
+            emailVar == "" ||
+            nomeRepresentanteVar == "" ||
+            cnpjVar == ""
+        ) {
+            console.log("Campos em branco")
+
+
+            return false;
+        } else {
+            setInterval(5000);
+        }
+
+
+        fetch("/empresas/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeEmpresaServer: nomeEmpresaVar,
+                nomeRepresentanteServer: nomeRepresentanteVar,
+                emailRepresentanteServer: emailVar,
+                cnpjServer: cnpjVar,
+
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+                    var edit = document.getElementById("cadastrar-func");
+                    edit.style.display = "block";
+                    nome_func_input.value = nomeRepresentanteVar
+                    email_func_input.value = emailVar
+
+
+                    var add = document.getElementById("cadastrar-emp")
+                    add.style.display = "none"
+
+
+                } else {
+                    window.alert("Essa empresa já foi cadastrada!")
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+
+                    window.location = "muralContato.html"
+                }
+
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+
+        return false;
     }
 
+    function cadastrarFuncionario(cnpjGlobal) {
+
+        var nome = nome_func_input.value
+        var email = email_func_input.value
+        var senha = senha_input.value
+        var confirmarSenha = senha_confirmar_input.value
+
+        if (nome == "" || email == "" || senha == "") {
+            alert("Preencha todos os campos!")
+            return
+        }
+
+        if (senha != confirmarSenha) {
+            alert("As senhas não estão idênticas!")
+            return
+        }
+
+        fetch(`/usuarios/cadastrar/${cnpjGlobal}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                emailServer: email,
+                senhaServer: senha,
+            })
+        })
+            .then(Response => {
+                if (!Response.ok) {
+                    throw new console.error("Erro ao cadastrar!");
+                } else {
+                    console.log("Cadastro efetuado")
+                    window.location = "muralContato.html"
+                    var edit = document.getElementById("cadastrar-func");
+                    edit.style.display = "none";
+                    alert("Funcionário cadastrado com sucesso!")
+
+                }
+            })
+            .catch (function(Response){
+                console.log(Response)
+            })
+
+            
+    }
 </script>

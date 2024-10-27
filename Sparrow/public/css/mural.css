@@ -144,16 +144,20 @@ body {
 .especificacao {
     background-color: white;
     border: 1px solid black;
-    width: 100%;
+    width: 500px;
     height: 100%;
     border-radius: 6px;
     padding: 5px;
+    overflow-x: hidden;
+    overflow-y: visible;
+    word-break: break-all;
 }
 
 .backpage-icon-add {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 60px;
     height: 60px;
     background-color: #fbe5b2;
     padding: 20px;
@@ -238,6 +242,7 @@ body {
         display: flex;
         justify-content: space-around;
         align-items: center;
+        flex-direction: column;
         border-radius: 10px;
     }
 
@@ -251,14 +256,15 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
+    
     }
-
+    
     & .btn-save {
         height: 55%;
         width: 30%;
         justify-content: center;
     }
-
+    
     & button {
         width: 8%;
         height: 44px;
@@ -271,11 +277,13 @@ body {
         border: none;
         transition: 0.3s ease;
     }
-
+    
     & button:hover {
         background-color: #927348;
     }
+    
 }
+
 
 .icon-close {
     width: 30px;
@@ -411,6 +419,14 @@ body {
     }
 }
 
+.input_empresa {
+    
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    
+}
 /* .editar {
     background-image: url('../assets/svg/icon-pencil.svg');
 }

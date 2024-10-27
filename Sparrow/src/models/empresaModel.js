@@ -63,4 +63,10 @@ function cadastrar(nomeEmpresa,nomeRepresentante,emailRepresentante ,cnpj) {
   return database.executar(instrucaoSql);
 }
 
-module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, cadastrarContato, editarEmpresa ,deletar};
+function contato() {
+  var instrucaoSql = 'SELECT * FROM possivel_cliente ORDER BY id DESC' ;
+
+  return database.executar(instrucaoSql);
+}
+
+module.exports = { buscarPorCnpj, buscarPorId, cadastrar, listar, cadastrarContato, editarEmpresa ,deletar, contato};

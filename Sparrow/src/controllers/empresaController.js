@@ -121,6 +121,13 @@ function deletar(req, res) {
       );
 }
 
+function contato(req, res) {
+
+  empresaModel.contato().then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
 module.exports = {
   buscarPorCnpj,
   buscarPorId,
@@ -128,5 +135,6 @@ module.exports = {
   listar,
   cadastrarContato,
   editarEmpresa,
-  deletar
+  deletar,
+  contato
 };

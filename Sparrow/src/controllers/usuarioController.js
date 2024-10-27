@@ -143,10 +143,22 @@ function cadastrarPrimeiroFunc(req, res) {
 
     empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
         fkEmpresa = resultado[0].id
-        usuarioModel.cadastrar(nome, email, senha, cargo, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, senha, cargo, fkEmpresa) 
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
     }
     )
-
+    
 }
 
 // function listarUsuarios(req, res) {

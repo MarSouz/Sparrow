@@ -32,4 +32,8 @@ router.delete("/deletar/:idEmpresa", function (req, res) {
   empresaController.deletar(req, res);
 });
 
+router.get("/contato", function (req, res) {
+  empresaController.contato(req, res);
+});
+
 module.exports = router;

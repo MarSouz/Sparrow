@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`maquina` (
   `fk_empresa` INT NOT NULL,
   `fk_tipo_maquina` INT NOT NULL,
   `endereco_mac` CHAR(20) NULL,
-  `fk_localizacao` INT NOT NULL,
+  `fk_localizacao` INT NULL,
   PRIMARY KEY (`id`, `fk_empresa`),
   CONSTRAINT `fk_servidor_empresa1`
     FOREIGN KEY (`fk_empresa`)
@@ -107,19 +107,19 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`possivel_cliente` (
   `descricao` VARCHAR(255) NULL,
   PRIMARY KEY (`id`));
  
-INSERT INTO empresa VALUES (default, "Sparrow", "Dominique", "sparrow@gmail.com", 12345678912345);
+INSERT INTO empresa VALUES (default, "Sparrow", "sparrow", "sparrow@gmail.com", 12345678912345);
 
 INSERT INTO cargo VALUES (default, "Administrador");
 INSERT INTO cargo VALUES (default, "Analista");
 
-INSERT INTO funcionario VALUES (default, "Dominique Falcone Dornan", "dominique.dornan@sptech.school", "sparrow", 1, 1);
+INSERT INTO funcionario VALUES (default, "Sparrow", "sparrow@sptech.school", "sparrow", 1, 1);
 
 INSERT INTO tipo_maquina VALUES (default, "Servidor");
 INSERT INTO tipo_maquina VALUES (default, "Terminal");
 
-INSERT INTO tipo_componente VALUES (default, "CPU", "Porcentagem");
-INSERT INTO tipo_componente VALUES (default, "RAM", "Porcentagem");
-INSERT INTO tipo_componente VALUES (default, "Disco", "Porcentagem");
+INSERT INTO tipo_componente VALUES (default, "Uso de CPU", "Porcentagem");
+INSERT INTO tipo_componente VALUES (default, "Uso de RAM", "Porcentagem");
+INSERT INTO tipo_componente VALUES (default, "Uso do Disco", "Porcentagem");
 INSERT INTO tipo_componente VALUES (default, "Pacotes Enviados", "Inteiro");
 INSERT INTO tipo_componente VALUES (default, "Pacotes Recebidos", "Inteiro");
 SELECT * FROM tipo_componente;
