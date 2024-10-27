@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
 
-    <title>Sparrow | Dash Servidor</title>
+    <title>Sparrow | Dashboard Servidor</title>
 </head>
 
 <body>
@@ -45,14 +45,14 @@
                 </li>
 
                 <li>
-                    <a href="dashAdm.html">
+                    <a href="./dashAdm.html">
                         <i class="bx bx-radar"></i>
                         <span class="nav-item">Terminais</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="dashAdmServidor.html">
+                    <a href="./dashAdmServidor.html">
                         <i class="bx bxs-server"></i>
                         <span class="nav-item">Servidores</span>
                     </a>
@@ -90,10 +90,10 @@
     </div>
 
     <div class="father">
-        <div class="father-content1">
+        <div class="father-content">
             <div class="content1">
                 <div class="terminal-botao">
-                    <span class="subtitulo">Servidor</span>
+                    <span class="subtitulo">Servidores</span>
 
                     <div class="container-botoes">
                         <button>CPU</button>
@@ -102,7 +102,6 @@
                         <button>Rede</button>
                     </div>
                 </div>
-
             </div>
 
             <div class="content2">
@@ -110,57 +109,27 @@
                     <div class="graficoLinha" id="grafico" style="display: none;">
                         <canvas id="myChart"></canvas>
                     </div>
-
+    
                     <div class="histograma" id="histograma" style="display: none;">
                         <canvas id="myChart2"></canvas>
                     </div>
-                </div>
+                </div> 
+
             </div>
         </div>
 
+
         <div class="father-content2">
             <div class="content3">
-                <span class="titulo">Histórico de alertas</span>
-                <div class="cards-scroll">
+                
+            </div>
 
-                    <div class="cards-content">
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                            <span class="subtitulo-card">Data: </span>
-                        </div>
+            <div class="content4">
+                <div class="map-content">
+                    <div id="map"></div>
 
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                            <span class="subtitulo-card">Data: </span>
-                        </div>
-
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                            <span class="subtitulo-card">Data: </span>
-                        </div>
-
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                            <span class="subtitulo-card">Data: </span>
-                        </div>
-
-                        <div class="card1">
-                            <span class="titulo-card">Máquina: </span>
-                            <span class="subtitulo-card">Componente: </span>
-                            <span class="subtitulo-card">Descrição: </span>
-                            <span class="subtitulo-card">Data: </span>
-                        </div>
-
-                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -260,4 +229,18 @@
         });
     });
 
+
+    const map = L.map('map').setView([-24.0833, -46.0000], 5); //ajuste do nivel inicial do zoom o ultimo numero 
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 7,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var marker = L.marker([-23.7951, -45.4146]).addTo(map);
+    var circle = L.circle([-23.7951, -45.4146], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: 500
+    }).addTo(map);  
 </script>

@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
 
-    <title>Sparrow | Dash Servidor</title>
+    <title>Sparrow | Dashboard Servidor</title>
 </head>
 
 <body>
@@ -95,7 +95,7 @@
                         <button>CPU</button>
                         <button>RAM</button>
                         <button>Disco</button>
-                        <button>Rede</button>
+                        <button>Pacotes recebidos</button>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class="info3">
                             <span class="subtitulo">Disco</span>
-                            <span class="descricao">70GB</span>
+                            <span class="descricao">95%</span>
                         </div>
                         <div class="info4">
                             <span class="subtitulo">Pacotes recebidos</span>
@@ -157,10 +157,10 @@
     let myChart; // Variável global para manter a instância do gráfico
 
     const dados = {
-        'CPU': [30, 35, 25, 40],
-        'RAM': [50, 45, 55, 40],
-        'Disco': [70, 60, 80, 75],
-        'Rede': [500, 300, 400, 200]
+        'CPU': [30, 35, 25, 30],
+        'RAM': [50, 45, 55, 50],
+        'Disco': [95, 80, 90, 95],
+        'Pacotes recebidos': [500, 400, 500, 500]
     };
 
     // Função para exibir o gráfico

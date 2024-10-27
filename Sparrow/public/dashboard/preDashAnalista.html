@@ -16,7 +16,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
 
-    <title>Sparrow | Pré Dashboard</title>
+    <title>Sparrow | Pré Dashboard Analista</title>
 </head>
 
 <body>
@@ -65,12 +65,14 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="#" id="logoutBotao" class="logout">
-                        <i class="bx bx-log-out"></i>
-                        <span class="nav-item">Sair</span>
-                    </a>
-                </li>
+                <div class="container-logout">
+                    <li>
+                        <a href="#" id="logoutBotao" class="logout">
+                            <i class="bx bx-log-out"></i>
+                            <span class="nav-item">Sair</span>
+                        </a>
+                    </li>
+                </div>
             </ul>
         </nav>
     </div>
@@ -81,18 +83,23 @@
                 <span class="titulo">Servidores</span>
                 <div class="cards-scroll">
                     <div class="cards-content">
-                        <div class="card1" style="background-color: red; color: white;">
-                            <div>
-                                <span class="titulo-card">Servidor: 1 </span>
-                                <span class="subtitulo-card">Situação: Crítico</span>
-                            </div>
 
-                            <div>
-                                <span class="subtitulo-card">Uso de CPU: 30% </span>
-                                <span class="subtitulo-card">Uso de RAM: 50% </span>
-                                <span class="subtitulo-card">Uso de Disco: 95%</span>
-                            </div>
+                        <div class="card1" style="background-color: red; color: white;">
+                            <!-- <a href="./dashAnalistaServidor.html"> -->
+
+                                <div>
+                                    <span class="titulo-card">Servidor: 1 </span>
+                                    <span class="subtitulo-card">Situação: Crítico</span>
+                                </div>
+
+                                <div>
+                                    <span class="subtitulo-card">Uso de CPU: 30% </span>
+                                    <span class="subtitulo-card">Uso de RAM: 50% </span>
+                                    <span class="subtitulo-card">Uso de Disco: 95%</span>
+                                </div>
+                            <!-- </a> -->
                         </div>
+
 
                         <div class="card1">
                             <div>

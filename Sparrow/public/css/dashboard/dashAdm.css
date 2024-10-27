@@ -90,42 +90,36 @@ nav:hover{
 
 
 .father {
-    width: 100%;
-    height: 100%;
     display: flex;
+    height: 100%;
+    width: 100%;
 }
 
-.father-content1 {
-    width: 100%;
-    height: 100%;
+.father-content {
     display: flex;
     flex-direction: column;
-}
-
-.content1 {
-    display: flex;
-    height: 50%;
     width: 100%;
-    padding: 65px 40px 55px 65px;
-    flex-direction: column;
-   
+    height: 100%;
+    /* background-color: purple; */
 }
-
-.content2{
-    display: flex;
-    height: 50%;
-    width: 100%;
-    /* background-color: aqua; */
-}
-
 
 .father-content2 {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
-    display: flex;
+    /* background-color: pink; */
 }
 
-/* FATHER-CONTENT 1 */
+.content1{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+    padding: 65px 40px 55px 65px;
+    justify-content: space-between;
+    /* background-color: yellow; */
+}
 
 .content1 .subtitulo{
     font-size: 30px;
@@ -133,7 +127,23 @@ nav:hover{
     margin-left: 10px;
 }
 
-.container-botoes{
+.terminal-botao{
+    flex-direction: column;
+}
+
+.terminal-botao select{
+    width: 35%;
+    height: 35%;
+    margin-left: 35px;
+    font-size: 15px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 10px;
+
+}
+
+
+.container-botoes {
     display: flex; 
     gap: 15px;
     margin-top: 15px;
@@ -168,6 +178,16 @@ nav:hover{
     transition: 0.4s ease;
 }
 
+
+
+.content2{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+    /* background-color: blue; */
+}
+
 .graficos {
     display: flex; 
     flex-direction: column;
@@ -177,6 +197,18 @@ nav:hover{
     margin-top: -150px;
     margin-left: 65px;
 }
+
+.graficoLinha {
+    width: 40%; 
+    height: 35%;
+    padding: 20px;
+    border-radius: 8px;
+    color: black; 
+    background-color: white;
+    box-shadow: 0 0 15px 0 #5a5446;
+}
+
+
 
 .graficoLinha, 
 .histograma{
@@ -190,62 +222,47 @@ nav:hover{
 }
 
 
-/* FATHER-CONTENT-2 */
-.content3 {
-    display: flex;
-    height: 100%;
-    width: 50%;
-    flex-direction: column;
-}
 
-
-.content3 .titulo{
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 10px;
-    margin-top: 30px;
-    margin-top: 65px;
-}
-
-.cards-content {
+.content3{
     display: flex;
     flex-direction: column;
-    gap: 10px;
-   
-}
-
-.card1 {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    width: 300px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card1 span{
-    display: block;
-    margin-bottom: 8px;
-}
-.cards-scroll {
-    height: 100%; 
     width: 100%;
-    overflow-y: auto; /* Adiciona a rolagem vertical */
-    padding: 10px; 
-    margin-top: 15px;
+    height: 50%;
+    justify-content: space-evenly;
+    /* gap: 100px; */
+    /* background-color: cadetblue; */
 }
 
 
-.cards-scroll::-webkit-scrollbar {
-    width: 10px;
+.content4{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+  
 }
 
-.cards-scroll::-webkit-scrollbar-track {
-    background: #f8f1e1; 
-    border-radius: 10px; 
+.map-content {
+    display: flex; 
+    justify-content: space-evenly;
+    gap: 100px;
+    width: 100%;
 }
 
-.cards-scroll::-webkit-scrollbar-thumb {
-    background: #000; 
-    border-radius: 10px; 
+
+#map {
+    width: 90%; 
+    height: 305px; 
+    padding: 20px;
+    border-radius: 8px;
+    color: black; 
+    background-color: white;
+    box-shadow: 0 0 15px 0 #5a5446;
 }
+
+
+
+
+
+
+
