@@ -260,9 +260,9 @@ nav:hover{
     box-shadow: 0 0 15px 0 #5a5446;
 }
 
-
-
-
-
-
-
+#select_cargo {
+    height: 35px;
+    border-radius: 8px;
+    background-color: #b38648;
+    color: white;
+}
