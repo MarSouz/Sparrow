@@ -61,14 +61,14 @@
                 <li>
                     <a href="./../crudTerminal.html">
                         <i class="bx bx-laptop"></i>
-                        <span class="nav-item">Cadastro de terminais</span>
+                        <span class="nav-item">Gerenciamento de terminais</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="./../crudServidor.html">
                         <i class="bx bx-laptop"></i>
-                        <span class="nav-item">Cadastro de servidores</span>
+                        <span class="nav-item">Gerenciamento de servidores</span>
                     </a>
                 </li>
 
@@ -99,7 +99,8 @@
                         <button>CPU</button>
                         <button>RAM</button>
                         <button>Disco</button>
-                        <button>Rede</button>
+                        <button>Pacotes enviados</button>
+                        <button>Pacotes recebidos</button>
                     </div>
                 </div>
             </div>
@@ -160,7 +161,9 @@
         'CPU': [30, 35, 25, 40],
         'RAM': [50, 45, 55, 40],
         'Disco': [70, 60, 80, 75],
-        'Rede': [500, 300, 400, 200]
+        'Pacotes enviados': [500, 300, 400, 200],
+        'Pacotes recebidos': [500, 300, 400, 200],
+
     };
 
     const dadosHistograma = [70, 50, 40, 70]; // Dados fixos para o histograma
