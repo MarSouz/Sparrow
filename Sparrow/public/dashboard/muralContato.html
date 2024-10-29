@@ -10,7 +10,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/mural.css">
-    <!-- <link rel="stylesheet" href="../css/dashboard/dashAnalista.css"> -->
     <link rel="shortcut icon" href="../assets/imgs/Logo2.png" type="image/x-icon">
     <title>Sparrow | Mural</title>
 </head>
@@ -65,7 +64,7 @@
                     </div>
 
                     <div id="FUNCIONARIO" class="backpage-row">
-                        <div class="backpage-row-card-func">
+                        <div class= "backpage-row-card-func">
                         </div>
                     </div>
                 </div>
@@ -89,17 +88,26 @@
 
         </div>
         <div class="input_empresa">
-            <h3>Nome da Empresa</h3>
-            <input type="text" name="" id="nome_empresa_input">
+            
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome empresa" required="" id="nome_empresa_input" autocomplete="off">
+                <label for="name" class="caixa">Nome da empresa</label>
+            </div>
+    
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome representante" required="" id="nome_representante_input" autocomplete="off">
+                <label for="name" class="caixa">Nome do representante</label>
+            </div>
+    
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="email_empresa_input" autocomplete="off">
+                <label for="name" class="caixa">E-mail de contato</label>
+            </div>
 
-            <h3>Email de Contato</h3>
-            <input type="text" name="" id="email_empresa_input">
-
-            <h3>Nome do Representante</h3>
-            <input type="text" name="" id="nome_representante_input">
-
-            <h3>CNPJ</h3>
-            <input type="text" name="" id="cnpj_input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="CNPJ" required="" id="cnpj_input" autocomplete="off">
+                <label for="name" class="caixa">CNPJ</label>
+            </div>
 
         </div>
 
@@ -117,17 +125,25 @@
         </div>
 
         <div class="input_empresa">
-            <h3>Nome do Funcionário Representante</h3>
-            <input type="text" name="" id="nome_func_input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="Nome representante" required="" id="nome_func_input" autocomplete="off">
+                <label for="name" class="caixa">Nome do representante</label>
+            </div>
 
-            <h3>Email</h3>
-            <input type="text" name="" id="email_func_input">
+            <div class="input field">
+                <input type="input" class="campo" placeholder="E-mail" required="" id="email_func_input" autocomplete="off">
+                <label for="name" class="caixa">E-mail</label>
+            </div>
 
-            <h3>Senha</h3>
-            <input type="password" name="" id="senha_input">
+            <div class="input field">
+                <input type="password" class="campo" placeholder="Senha" required="" id="senha_input" autocomplete="off">
+                <label for="name" class="caixa">Senha</label>
+            </div>
 
-            <h3>Confirmar Senha</h3>
-            <input type="password" name="" id="senha_confirmar_input">
+            <div class="input field">
+                <input type="password" class="campo" placeholder="Confirmar senha" required="" id="senha_confirmar_input" autocomplete="off">
+                <label for="name" class="caixa">Confirmar senha</label>
+            </div>
 
         </div>
 

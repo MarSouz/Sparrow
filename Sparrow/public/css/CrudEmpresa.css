@@ -7,6 +7,78 @@
     font-style: normal;
 }
 
+nav{
+    height: 100vh;
+    background-color: white ;
+    width: 5.5vw;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0,0,0 0.1);
+}
+
+
+.logo{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    transition: all 0.5 ease;
+    padding: 0;
+}
+
+
+.logo img{
+    width: 30%;   
+}
+
+.logo span{
+    margin-top: -20px;
+    font-weight: bold;
+    font-size: 22px;
+    text-decoration: none;
+}
+
+
+a{
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+    text-decoration: none;
+}
+
+ .bx{
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+    color: #000;
+}
+
+.nav-item{
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+    color: #000;
+}
+
+a:hover{
+    background: #eee;
+}
+
+nav:hover{
+    width: 280px;
+    transition: all 0.5 ease;
+}
+
+
+.logout{
+    margin-top: 400px;
+} 
+
 ::-webkit-scrollbar {
     width: 7px;
 }

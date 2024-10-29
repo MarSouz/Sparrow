@@ -9,9 +9,9 @@ function buscarMaquina(idEmpresa, tipoMaquina) {
     l.latitude as lat, 
     l.longitude as lon,
     l.id as idlocalizacao,
-    MAX(CASE WHEN tc.nome_componente = 'CPU' THEN mc.limite_componente END) AS CPU,
-    MAX(CASE WHEN tc.nome_componente = 'RAM' THEN mc.limite_componente END) AS RAM,
-    MAX(CASE WHEN tc.nome_componente = 'Disco' THEN mc.limite_componente END) AS Disco
+    MAX(CASE WHEN tc.nome_componente = 'Uso de CPU' THEN mc.limite_componente END) AS CPU,
+    MAX(CASE WHEN tc.nome_componente = 'Uso de RAM' THEN mc.limite_componente END) AS RAM,
+    MAX(CASE WHEN tc.nome_componente = 'Uso do Disco' THEN mc.limite_componente END) AS Disco
 FROM 
     maquina m
 JOIN 
