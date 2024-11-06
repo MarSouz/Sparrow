@@ -17,29 +17,13 @@ router.get("/buscar/:idEmpresa/:tipoMaquina", function (req, res) {
 });
 
 
-router.post("/editar/:idMaquina", function (req, res) {
+router.post("/editar/:idEmpresa/:idMaquina", function (req, res) {
     medidaController.editarMaquinas(req, res);
 });
 
-router.delete("/deletar/:idMaquina", function (req, res) {
+router.delete("/deletar/:idEmpresa/:idMaquina", function (req, res) {
     medidaController.deletarMaquina(req, res);
 });
-
-// TERMINAIS
-
-// router.get("/buscar/:idEmpresa/:tipoTerminal", function (req, res) {
-//     medidaController.buscarMaquina(req, res);
-// });
-
-
-// router.post("/editar/:idMaquinaTerminal", function (req, res) {
-//     medidaController.editarMaquinas(req, res);
-// });
-
-// router.delete("/deletar/:idMaquinaTerminal", function (req, res) {
-//     medidaController.deletarMaquina(req, res);
-// });
-
 
 
 module.exports = router;

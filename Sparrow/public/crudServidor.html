@@ -315,8 +315,9 @@ var idlocalizacao_editar
         var limiteCPUVar = Number(limiteCPU_input.value);
         var limiteRAMVar = Number(limiteRAM_input.value);
         var limiteDiscoVar = Number(limiteDisco_input.value);
+        var idEmpresa = sessionStorage.ID_EMPRESA
 
-        fetch(`/medidas/editar/${sessionStorage.getItem("ID_MAQUINA")}`, {
+        fetch(`/medidas/editar/${idEmpresa}/${sessionStorage.getItem("ID_MAQUINA")}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -367,13 +368,14 @@ var idlocalizacao_editar
 
     function edit_func() {
         var id = sessionStorage.ID_MAQUINA
+        var idEmpresa = sessionStorage.ID_EMPRESA
         var cpu = limiteCPU_input.value
         var ram = limiteRAM_input.value
         var disco = limiteDisco_input.value
         var latitude = latitude_input.value
         var longitude = longitude_input.value
 
-        fetch(`/medidas/editar/${Number(id)}`, {
+        fetch(`/medidas/editar/${idEmpresa}/${Number(id)}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -409,7 +411,8 @@ var idlocalizacao_editar
     }
 
     function excluir(idmaquina) {
-        fetch(`/medidas/deletar/${idmaquina}`, {
+        var idEmpresa = sessionStorage.ID_EMPRESA
+        fetch(`/medidas/deletar/${idEmpresa}/${idmaquina}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

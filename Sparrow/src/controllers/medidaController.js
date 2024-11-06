@@ -20,7 +20,8 @@ function buscarMaquina(req, res) {
 
 
 function editarMaquinas(req, res) {
-    var idMaquina = req.params.idMaquina;
+    var idMaquina = req.params.idMaquina
+    var idEmpresa = req.params.idEmpresa
     var longitude = req.body.longitudeServer
     var latitude = req.body.latitudeServer
     var limiteCPU = req.body.limiteCPUServer
@@ -31,7 +32,7 @@ function editarMaquinas(req, res) {
 
     if (idlocalizacao != null) {
         medidaModel.atualizarLocalizacao(latitude, longitude, idlocalizacao)
-        medidaModel.editarMaquinas(idMaquina, idlocalizacao, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
+        medidaModel.editarMaquinas(idMaquina, idEmpresa, idlocalizacao, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {
@@ -48,10 +49,10 @@ function editarMaquinas(req, res) {
             medidaModel.inserirLocalizacao(latitude, longitude)
             medidaModel.buscarLocalizacao(latitude, longitude).then(function (resultado) {
                 idlocalizacao = resultado[0].id
-                medidaModel.atribuirLocalizacao(idlocalizacao, idMaquina)
+                medidaModel.atribuirLocalizacao(idlocalizacao, idMaquina, idEmpresa)
             })
         }
-        medidaModel.editarMaquinas(idMaquina, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
+        medidaModel.editarMaquinas(idMaquina, idEmpresa, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {
@@ -69,11 +70,13 @@ function editarMaquinas(req, res) {
 
 function deletarMaquina(req, res) {
 
+    var idEmpresa = req.params.idEmpresa;
+
     var idMaquina = req.params.idMaquina;
 
     console.log(`Deletando máquina!`);
 
-    medidaModel.deletarMaquina(idMaquina).then(function (resultado) {
+    medidaModel.deletarMaquina(idMaquina, idEmpresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

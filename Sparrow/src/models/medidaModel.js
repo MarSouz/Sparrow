@@ -9,17 +9,17 @@ function buscarMaquina(idEmpresa, tipoMaquina) {
     l.latitude as lat, 
     l.longitude as lon,
     l.id as idlocalizacao,
-    MAX(CASE WHEN tc.nome_componente = 'Uso de CPU' THEN mc.limite_componente END) AS CPU,
-    MAX(CASE WHEN tc.nome_componente = 'Uso de RAM' THEN mc.limite_componente END) AS RAM,
-    MAX(CASE WHEN tc.nome_componente = 'Uso do Disco' THEN mc.limite_componente END) AS Disco
+    MAX(CASE WHEN tc.nome = 'Uso de CPU' THEN mc.limite_componente END) AS CPU,
+    MAX(CASE WHEN tc.nome = 'Uso de RAM' THEN mc.limite_componente END) AS RAM,
+    MAX(CASE WHEN tc.nome = 'Uso do Disco' THEN mc.limite_componente END) AS Disco
 FROM 
     maquina m
 JOIN 
-    maquina_componente mc ON mc.fk_maquina = m.id
+    maquina_dado_monitorado mc ON mc.fk_maquina = m.id
 JOIN 
-    tipo_componente tc ON mc.fk_componente_maquina = tc.id
+    dado_monitorado tc ON mc.fk_dado_monitorado = tc.id
 LEFT JOIN 
-		localizacao l ON l.id = m.fk_localizacao 
+		coordenada l ON l.id = m.fk_coordenada 
 WHERE 
     m.fk_empresa = ${idEmpresa} and m.fk_tipo_maquina = ${tipoMaquina}
 GROUP BY 
@@ -47,16 +47,16 @@ function atualizarLocalizacao(latitude, longitude, idlocalizacao){
     return database.executar(instrucaoSql)
 }
 
-function atribuirLocalizacao(idlocalizacao, idMaquina){
-    var instrucaoSql = `UPDATE maquina SET fk_localizacao = ${idlocalizacao} WHERE id = ${idMaquina}`;
+function atribuirLocalizacao(idlocalizacao, idMaquina, idEmpresa){
+    var instrucaoSql = `UPDATE maquina SET fk_localizacao = ${idlocalizacao} WHERE id = ${idMaquina} AND fk_empresa = ${idEmpresa}`;
 
     return database.executar(instrucaoSql)
 }
 
-function editarMaquinas(idMaquina,limiteCPU, limiteRam, limiteDisco) {
-    var instrucaoSql2 = `UPDATE maquina_componente SET limite_componente = ${limiteCPU} WHERE fk_maquina = ${idMaquina} AND fk_componente_maquina = 1`;
-    var instrucaoSql3 = `UPDATE maquina_componente SET limite_componente = ${limiteRam} WHERE fk_maquina = ${idMaquina} AND fk_componente_maquina = 2`;
-    var instrucaoSql4 = `UPDATE maquina_componente SET limite_componente = ${limiteDisco} WHERE fk_maquina = ${idMaquina} AND fk_componente_maquina = 3`;
+function editarMaquinas(idMaquina, idEmpresa, limiteCPU, limiteRam, limiteDisco) {
+    var instrucaoSql2 = `UPDATE maquina_dado_monitorado SET limite_componente = ${limiteCPU} WHERE fk_maquina = ${idMaquina} AND fk_empresa = ${idEmpresa} AND fk_dado_monitorado = 1`;
+    var instrucaoSql3 = `UPDATE maquina_dado_monitorado SET limite_componente = ${limiteRam} WHERE fk_maquina = ${idMaquina} AND fk_empresa = ${idEmpresa} AND fk_dado_monitorado = 2`;
+    var instrucaoSql4 = `UPDATE maquina_dado_monitorado SET limite_componente = ${limiteDisco} WHERE fk_maquina = ${idMaquina} AND fk_empresa = ${idEmpresa} AND fk_dado_monitorado = 3`;
 
 
     console.log("Executando as instruções SQL: \n" + instrucaoSql2 + "\n" + instrucaoSql3 + "\n" + instrucaoSql4 );
@@ -67,16 +67,16 @@ function editarMaquinas(idMaquina,limiteCPU, limiteRam, limiteDisco) {
 }
 
 
-function deletarMaquina(idMaquina) {
-    var instrucaoSql = `DELETE FROM dado_capturado WHERE fk_maquina = ${idMaquina}`
+function deletarMaquina(idMaquina, idEmpresa) {
+    var instrucaoSql = `DELETE FROM dado_capturado WHERE fk_maquina = ${idMaquina} AND fk_empresa = ${idEmpresa}`
 
     database.executar(instrucaoSql)
 
-    var instrucaoSql = `DELETE FROM maquina_componente WHERE fk_maquina = ${idMaquina}`
+    var instrucaoSql = `DELETE FROM maquina_dado_monitorado WHERE fk_maquina = ${idMaquina} and fk_empresa = ${idEmpresa}`
 
     database.executar(instrucaoSql)
 
-    var instrucaoSql = `DELETE FROM maquina WHERE id = ${idMaquina}`;
+    var instrucaoSql = `DELETE FROM maquina WHERE id = ${idMaquina} and fk_empresa = ${idEmpresa}`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

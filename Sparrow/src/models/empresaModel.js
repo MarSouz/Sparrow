@@ -20,10 +20,7 @@ function editarEmpresa(nomeEmpresa, nomeRepresentante, emailRepresentante, cnpj,
 
 function cadastrarContato(nomeEmpresa, nomeRepresentante, email, cnpj, descricao) {
   console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nomeEmpresa, nomeRepresentante, email, descricao,cnpj);
-  
-  var instrucaoSql = `
-      INSERT INTO possivel_cliente (id, nome_empresa, nome_representante, email_representante, cnpj, descricao) VALUES (DEFAULT,'${nomeEmpresa}', '${nomeRepresentante}', '${email}', '${cnpj}', '${descricao}');
-  `;
+  var instrucaoSql = ` INSERT INTO \`lead\` (id, nome_empresa, nome_representante, email_representante, cnpj, descricao) VALUES (DEFAULT, '${nomeEmpresa}', '${nomeRepresentante}', '${email}', '${cnpj}', '${descricao}'); `
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
@@ -38,7 +35,7 @@ function deletar(idEmpresa) {
   var instrucaoSql = `DELETE FROM dado_capturado WHERE fk_maquina IN (SELECT id FROM maquina WHERE fk_empresa = ${idEmpresa});`;
   database.executar(instrucaoSql);
 
-  instrucaoSql = `DELETE FROM maquina_componente WHERE fk_maquina IN (SELECT id FROM maquina WHERE fk_empresa = ${idEmpresa});`;
+  instrucaoSql = `DELETE FROM maquina_dado_monitorado WHERE fk_maquina IN (SELECT id FROM maquina WHERE fk_empresa = ${idEmpresa});`;
   database.executar(instrucaoSql)
 
   instrucaoSql = `DELETE FROM maquina WHERE fk_empresa = ${idEmpresa};`
@@ -64,7 +61,7 @@ function cadastrar(nomeEmpresa,nomeRepresentante,emailRepresentante ,cnpj) {
 }
 
 function contato() {
-  var instrucaoSql = 'SELECT * FROM possivel_cliente ORDER BY id DESC' ;
+  var instrucaoSql = 'SELECT * FROM `lead` ORDER BY id DESC' ;
 
   return database.executar(instrucaoSql);
 }
