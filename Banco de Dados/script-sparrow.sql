@@ -262,6 +262,26 @@ insert into maquina_dado_monitorado (limite_componente, fk_empresa, fk_maquina, 
 
 select * from maquina;
 
+DELIMITER //
+CREATE TRIGGER verificar_uso_componentes
+AFTER INSERT ON dado_capturado
+FOR EACH ROW 
+BEGIN
+	DECLARE limite INT;
+    
+    SELECT limite_componente INTO limite
+    FROM maquina_dado_monitorado
+    WHERE fk_maquina = NEW.fk_maquina AND fk_dado_monitorado = NEW.fk_dado_monitorado;
+    
+    IF NEW.registro >= limite THEN
+    INSERT INTO alerta (fk_dado_maquina)
+    VALUES (NEW.id);
+    END IF;
+END;
+//
+DELIMITER ;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
