@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Fale Conosco | Cadastra-se</title>
+
+  <script src="./js/sessao.js"></script>
+  <link rel="stylesheet" href="../css/Cadastrar.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="../assets/imgs/Logo2.png" type="image/x-icon">
+  <link rel="icon" href="./assets/icon/favicon2.ico" />
+</head>
+
+<body onload="listar()">
+  <section id="page-contact">
+    <main class="father-contact">
+      <div class="child-contact-image">
+        <div class="contact-text">
+          <h1>O monitoramento adequado para o seu negócio</h1> 
+          <p>Explique aqui um pouco melhor sobre o seu negócio e o monitoramento adequado para seus dispositivos.</p>
+        </div>
+        <div class="contact-svg">
+          <img class="svg-contact" src="../assets/imgs/Contact us-cuate.svg" alt="">
+        </div>
+      </div>
+
+      <div class="child-contact-card">
+        <img class="contact-logo" src="../assets/imgs/Logo3-FundoRemovido.png" alt="">
+        <div class="contact-card-form">
+          FALE CONOSCO
+          <div class="contact-input">
+            <p>Nome da Empresa:</p>
+            <input type="text">
+          </div>
+
+
+          <div class="contact-input">
+            <p>Nome do representante:</p>
+            <input type="text">
+          </div>
+
+          <div class="contact-input">
+            <p>Insira um email:</p>
+            <input type="text">
+          </div>
+
+          <div class="contact-input">
+            <p>CNPJ:</p>
+            <input type="text">
+          </div>
+
+          <div class="contact-input">
+            <p>Especifique o monitoramento ideal para sua empresa:</p>
+            <textarea name="" id=""></textarea>
+          </div>
+          
+          <button class="btn-contact">Enviar</button>
+
+        </div>
+
+      </div>
+    </main>
+  </section>
+</body>
+
+</html>
+
+<script>
+
+  // Array para armazenar empresas cadastradas para validação de código de ativação 
+  let listaEmpresasCadastradas = [];
+
+  function cadastrar() {
+    // aguardar();
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var codigoVar = codigo_input.value;
+    var idEmpresaVincular
+
+    // Verificando se há algum campo em branco
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      confirmacaoSenhaVar == "" ||
+      codigoVar == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro para todos os campos em branco)";
+
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    // Verificando se o código de ativação é de alguma empresa cadastrada
+    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+        idEmpresaVincular = listaEmpresasCadastradas[i].id
+        console.log("Código de ativação válido.");
+        break;
+      } else {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+        finalizarAguardar();
+      }
+    }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        idEmpresaVincularServer: idEmpresaVincular
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
+  }
+
+  // Listando empresas cadastradas 
+  function listar() {
+    fetch("/empresas/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            listaEmpresasCadastradas.push(empresa);
+
+            console.log("listaEmpresasCadastradas")
+            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+</script>

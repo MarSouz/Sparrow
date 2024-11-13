@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`empresa` (
   `email_representante` VARCHAR(255) NULL,
   `cnpj` CHAR(14) NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+AUTO_INCREMENT = 1000;
 
 
 -- -----------------------------------------------------
@@ -199,8 +199,23 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`lead` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `Sparrow`.`elerson_dados_tratados` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_maquina` INT NOT NULL,
+  `fk_empresa` INT NOT NULL,
+  `fk_dado_monitorado` INT NOT NULL,
+  `media` FLOAT NULL,
+  `minimo` FLOAT NULL,
+  `primeiro_quartil` FLOAT NULL,
+  `mediana` FLOAT NULL,
+  `terceiro_quartil` FLOAT NULL,
+  `maximo` FLOAT NULL,
+  `periodo_dias` INT NOT NULL,
+  PRIMARY KEY (`id`)
+);
 
-INSERT INTO empresa VALUES (default, "Sparrow", "sparrow", "sparrow@gmail.com", 12345678912345);
+
+INSERT INTO empresa VALUES (1, "Sparrow", "sparrow", "sparrow@gmail.com", 12345678912345);
 
 INSERT INTO cargo VALUES (default, "Administrador");
 INSERT INTO cargo VALUES (default, "Analista");
