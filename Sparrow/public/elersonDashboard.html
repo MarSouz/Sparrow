@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="buscarMedidasDispersao()">
+    <canvas id="scatterChart" style="width: 30vw; height: 30vh;"></canvas>
+</body>
+
+</html>
+
+<script>
+    // Dados de exemplo
+    const dadosMedias = [
+        { maquina: "1", media_pacotes_enviados: 300, media_pacotes_recebidos: 450 },
+        { maquina: "2", media_pacotes_enviados: 500, media_pacotes_recebidos: 550 },
+        { maquina: "3", media_pacotes_enviados: 200, media_pacotes_recebidos: 300 },
+        { maquina: "4", media_pacotes_enviados: 400, media_pacotes_recebidos: 600 }
+    ];
+    function buscarMedidasDispersao() {
+        fetch(`/elerson/buscar/${sessionStorage.ID_EMPRESA}/${7}/${1}/${2}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    plotarDispersao(resposta)
+                }
+
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+    // Preparando os dados para o Chart.js
+    function plotarDispersao(dadosMedias) {
+        const data = {
+            datasets: [{
+                label: 'Máquinas',
+                data: dadosMedias.map(d => ({
+                    x: d.dado1,
+                    y: d.dado2,
+                    maquina: d.fk_maquina // Armazena o ID da máquina para os rótulos
+                })),
+                backgroundColor: 'blue',
+                pointRadius: 5
+            }]
+        };
+
+        // Configurações do gráfico
+        const config = {
+            type: 'scatter',
+            data: data,
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Média de Pacotes Enviados'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Média de Pacotes Recebidos'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                const maquina = context.raw.maquina;
+                                const xValue = context.raw.x;
+                                const yValue = context.raw.y;
+                                return `Máquina ${maquina}: Enviados ${xValue}, Recebidos ${yValue}`;
+                            }
+                        }
+                    }
+                },
+                // Função de evento onClick
+                onClick: (event, elements) => {
+                    if (elements.length > 0) {
+                        // Obtendo o índice do ponto clicado
+                        const index = elements[0].index;
+                        const machineData = data.datasets[0].data[index];
+
+                        // Exibindo o ID da máquina e os dados
+                        alert(`Máquina ${machineData.maquina}: Média de Pacotes Enviados = ${machineData.x}, Média de Pacotes Recebidos = ${machineData.y}`);
+
+                        // Aqui você pode chamar uma função para exibir um boxplot
+                        // exemplo: exibirBoxplot(machineData.maquina);
+                    }
+                }
+            }
+        };
+
+        // Inicializando o gráfico
+        const ctx = document.getElementById('scatterChart').getContext('2d');
+        new Chart(ctx, config);
+    }
+
+</script>
