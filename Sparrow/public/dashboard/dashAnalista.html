@@ -13,13 +13,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXLI2oA3eAbE_cbBKHI_5BThK0QoOYjao"></script>
 
     <title>Sparrow | Dashboard Terminal</title>
 </head>
 
-<body>
+<body onload="buscarMedidasTempoReal()">
     <div class="menu-lateral">
         <nav id="nav">
             <ul>
@@ -33,7 +32,7 @@
                 <li>
                     <a href="./preDashAnalista.html">
                         <i class="bx bxs-home"></i>
-                        <span class="nav-item">Início</span>
+                        <span class="nav-item">Pré-dashboard</span>
                     </a>
                 </li>
 
@@ -78,108 +77,192 @@
     </div>
 
     <div class="father">
-        <div class="descricao-inicial">
-            <div class="father-content">
-                <div class="content1">
+        <div class="father-content">
+            <div class="content1">
 
-                    <div class="terminal-botao">
-                        <span class="subtitulo">Terminal</span>
+                <div class="terminal-botao">
+                    <span class="subtitulo">Terminal</span>
 
-                        <select name="select-terminal" id="select-terminal">
-                            <option value="#" selected disabled>Escolha qual monitorar</option>
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                        </select>
+                    <select name="select-terminal" id="selectTerminal">
+                        <option value="0" selected disabled>Escolha qual monitorar</option>
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                    </select>
 
-                        <div class="container-botoes">
-                            <button>CPU</button>
-                            <button>RAM</button>
-                            <button>Disco</button>
-                            <button>Pacotes enviados</button>
-                        </div>
+                    <div class="container-botoes">
+                        <button onclick="definirCpu()">CPU</button>
+                        <button onclick="definirRam()">RAM</button>
+                        <button onclick="definirDisco()">Disco</button>
+                        <button onclick="definirEnviados()">Pacotes enviados</button>
                     </div>
                 </div>
-
-                <div class="content2">
-                    <div class="content-infos">
-                        <span class="titulo">Atualização do uso dos componentes</span>
-
-                        <div class="info-container">
-                            <div class="info1">
-                                <span class="subtitulo">CPU</span>
-                                <span class="descricao">30%</span>
-                            </div>
-                            <div class="info2">
-                                <span class="subtitulo">RAM</span>
-                                <span class="descricao">50%</span>
-                            </div>
-                            <div class="info3">
-                                <span class="subtitulo">Disco</span>
-                                <span class="descricao">95%</span>
-                            </div>
-                            <div class="info4">
-                                <span class="subtitulo">Pacotes recebidos</span>
-                                <span class="descricao">500 pacotes</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
+            <div class="content2">
+                <div class="content-infos">
+                    <span class="titulo">Atualização do uso dos componentes</span>
+
+                    <div class="info-container">
+                        <div class="info1">
+                            <span class="subtitulo">CPU</span>
+                            <span class="descricao" id="spanCpu">30%</span>
+                        </div>
+                        <div class="info2">
+                            <span class="subtitulo">RAM</span>
+                            <span class="descricao" id="spanRam">50%</span>
+                        </div>
+                        <div class="info3">
+                            <span class="subtitulo">Disco</span>
+                            <span class="descricao" id="spanDisco">95%</span>
+                        </div>
+                        <div class="info4">
+                            <span class="subtitulo">Pacotes enviados</span>
+                            <span class="descricao" id="spanEnviados">500 pacotes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="father-content2">
             <div class="content3">
-                <div class="map-grafico">
+                <div class="graficos">
                     <div class="graficoLinha" id="grafico" style="display: none;">
                         <canvas id="myChart"></canvas>
                     </div>
-                    <div id="map"></div>
+
+                    <div class="histograma" id="histograma" style="display: none;">
+                        <canvas id="myChart2"></canvas>
+                    </div>
                 </div>
             </div>
+
+            <div class="content4">
+                <div id="map"></div>
+            </div>
+
         </div>
     </div>
 </body>
 
 </html>
 <script>
-     function logout() {
-        sessionStorage.clear(); 
-        window.location.replace('../index.html'); 
+    const graficoContainer = document.getElementById('grafico');
+    const histogramaContainer = document.getElementById('histograma');
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx2 = document.getElementById('myChart2').getContext('2d');
+    const buttons = document.querySelectorAll('.container-botoes button');
+
+
+</script>
+<script>
+    function logout() {
+        sessionStorage.clear();
+        window.location.replace('../index.html');
     }
 
     document.getElementById('logoutBotao').addEventListener('click', function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         logout();
     });
-    const graficoContainer = document.getElementById('grafico');
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const buttons = document.querySelectorAll('.container-botoes button');
 
-    let myChart; // Variável global para manter a instância do gráfico
 
-    const dados = {
-        'CPU': [30, 35, 25, 30],
-        'RAM': [50, 45, 55, 50],
-        'Disco': [95, 80, 90, 95],
-        'Pacotes recebidos': [500, 400, 500, 500]
-    };
+    // GRAFICOS
 
-    // Função para exibir o gráfico
-    function exibirGrafico(tipo) {
-        graficoContainer.style.display = 'block'; // Mostra o gráfico
+    
 
-        // Se já houver um gráfico, destruí-lo antes de criar um novo
-        if (myChart) {
-            myChart.destroy();
+    var tipoDado = 1
+    var nomeLabel = ''
+    let dados = [];
+    let horarios = [];
+    
+    let myChart2; // Gráfico para o histograma
+    let myChart; // Gráfico para CPU, RAM, Disco, Rede
+
+    myChart = new Chart(
+        ctx,
+        {
+            type: 'line',
+            labels: horarios,
+            data: {
+
+                datasets: [{
+                    type: 'line', 
+                    label: nomeLabel,
+                    borderColor: ['#08241c'],
+                    backgroundColor: ['#08241c']
+                }]
+            },
+        }
+    );
+
+    function buscarMedidasTempoReal() {
+        fetch(`/manu/buscar/${sessionStorage.ID_EMPRESA}/${Number(selectTerminal.value)}/${tipoDado}/${1}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    resposta = resposta.reverse()
+                    dados = [];
+                    horarios = [];
+                    for (let index = 0; index < resposta.length; index++) {
+                        const element = resposta[index];
+                        dados.push(element.registro)
+                        horarios.push(element.horario)
+                    }
+                    myChart.data.datasets[0].data = dados
+                    myChart.data.labels = horarios
+                    myChart.update()
+                    setTimeout(function () {
+                        buscarMedidasTempoReal()
+                    }, 1000)
+                }
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+    function plotarTempoReal(resposta) {
+
+
+    }
+    console.log(dados)
+
+  
+
+
+
+    const dadosHistograma = [70, 50, 40, 70]; // Dados fixos para o histograma
+
+    // Função para exibir gráficos
+    function exibirGraficos(tipo) {
+        graficoContainer.style.display = 'block'; // Mostra o gráfico de barras
+        histogramaContainer.style.display = 'block'; // Mostra o histograma
+
+
+
+
+        // Se já houver um gráfico de histograma, destruí-lo antes de criar um novo
+        if (myChart2) {
+            myChart2.destroy();
         }
 
-        // Cria um novo gráfico
-        myChart = new Chart(ctx, {
-            type: 'line',
+        // Cria um novo gráfico de histograma
+        myChart2 = new Chart(ctx2, {
+            type: 'bar',
             data: {
-                labels: ['13:10', '13:11', '13:12', '13:13'],
+                labels: ['13:00', '14:00', '15:00', '16:00'],
                 datasets: [{
-                    label: tipo,
-                    data: dados[tipo],
+                    label: 'Quantidade de alertas por hora',
+                    data: dadosHistograma,
                     borderWidth: 1
                 }]
             },
@@ -197,36 +280,73 @@
     buttons.forEach(button => {
         button.addEventListener('click', function () {
             const tipo = this.innerText; // Captura o texto do botão clicado
-            graficoContainer.style.display = 'none'; // Oculta o gráfico antes de atualizar
-            exibirGrafico(tipo); // Exibe o gráfico correspondente
+            exibirGraficos(tipo); // Exibe os gráficos correspondentes
         });
     });
 
+    // MAPA
+    let map;
+    let marker;
+
+    function initMap() {
+        const radarLocation = { lat: -23.5505, lng: -46.6333 };
+
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: radarLocation,
+        });
+
+        marker = new google.maps.Marker({
+            position: radarLocation,
+            map: map,
+        });
+        marker = new google.maps.Marker({
+            position: radarLocation2,
+            map: map,
+        });
+
+        // Atualiza a posição do radar a cada 5 segundos
+        setInterval(updateRadarLocation, 5000);
+    }
+
+    function updateRadarLocation() {
+        // Aqui você deve fazer uma chamada à sua API para obter novas coordenadas
+        const newLocation = { lat: -23.5500, lng: -46.6340 }; // Nova posição do radar
+
+        marker.setPosition(newLocation);
+        map.setCenter(newLocation);
+    }
 
 
 
-    const map = L.map('map').setView([-24.0833, -46.0000], 5); //ajuste do nivel inicial do zoom o ultimo numero 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 7,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    function definirCpu() {
+        tipoDado = 1
+        nomeLabel = "Uso de CPU"
+        buscarMedidasTempoReal()
+    }
 
-    var marker = L.marker([-23.7951, -45.4146]).addTo(map);
-    var circle = L.circle([-23.7951, -45.4146], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 500
-    }).addTo(map);
+    function definirRam() {
+        tipoDado = 2
+        nomeLabel = "Uso de RAM"
+        buscarMedidasTempoReal()
+    }
+
+    function definirDisco() {
+        tipoDado = 3
+        nomeLabel = "Uso de Disco"
+        buscarMedidasTempoReal()
+    }
+
+    function definirEnviados() {
+        tipoDado = 4
+        nomeLabel = "Uso de Pacotes Enviados"
+        buscarMedidasTempoReal()
+    }
 
 
-    const nav = document.getElementById('nav'); //Pegando o id da navbar
-    nav.addEventListener('mouseover', function () { //"Escutar" o mouse passando por cima da nav e criando um evento
-        nav.classList.add('expanded');
-    }); // O evento é a expansão da nav bar 
+    // const ctx = document.getElementById('scatterChart').getContext('2d');
+    // new Chart(ctx, config);
 
-    nav.addEventListener('mouseout', function () {
-        nav.classList.remove('expanded'); //quando o mouse nao esta sobre a navbar, a tela fica como original
-    });
+
 
 </script>
