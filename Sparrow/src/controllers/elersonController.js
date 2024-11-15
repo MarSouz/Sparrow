@@ -11,6 +11,18 @@ function buscarMedidasDispersao(req, res) {
     });
   }
 
+function buscarMedidasBoxplot(req,res){
+  var idEmpresa = req.params.idEmpresa
+  var idMaquina = req.params.idMaquina
+  var idPeriodo = req.params.periodo
+  var idDado1 = req.params.dado1
+  var idDado2 = req.params.dado2
+  elersonModel.buscarMedidasBoxplot(idEmpresa,idMaquina,idPeriodo, idDado1,idDado2).then((resultado) =>{
+    res.status(200).json(resultado)
+  })
+}
+
 module.exports = {
-    buscarMedidasDispersao
+    buscarMedidasDispersao,
+    buscarMedidasBoxplot
 }
