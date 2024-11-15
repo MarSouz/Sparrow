@@ -2,16 +2,18 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/dashboard/dashAdm.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="shortcut icon" href="./assets/imgs/Logo2.png" type="image/x-icon">
+    <title>Dashboard | Visão geral das máquinas</title>
 </head>
 
 <body onload="buscarMedidasDispersao()">
@@ -83,22 +85,38 @@
             </ul>
         </nav>
     </div>
-<div class="father">
-    <div>
-        <button onclick="periodo7()">7 dias</button>
-        <button onclick="perido15()">15 dias</button>
-        <button onclick="periodo30()">30 dias</button>
-    </div>
 
-    <div>
-        <button onclick="cpuXram()">CPU x Ram</button>
-        <button onclick="pacotes()">Pacotes Enviados x Recebidos</button>
+    <div class="father">
+        <div class="content1">
+            <span class="titulo">Dashboard | Visão geral das máquinas</span>
+            <div class="periodo">
+                <button onclick="periodo7()">7 dias</button>
+                <button onclick="perido15()">15 dias</button>
+                <button onclick="periodo30()">30 dias</button>
+            </div>
+            <div class="dados">
+                <button onclick="cpuXram()">CPU x RAM</button>
+                <button onclick="pacotes()">Pacotes Enviados x Recebidos</button>
+            </div>
+        </div>
+        <div class="content2">
+            <div class="graficoLinha">
+                <canvas id="scatterChart"></canvas>
+            </div>
+            <div class="card">
+                <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati aspernatur laboriosam, unde
+                    quasi quidem in soluta, ipsam quod eligendi eveniet, reprehenderit repellendus sunt quis aliquid
+                    voluptatem. Nobis veritatis alias qui!</span>
+            </div>
+        </div>
+        <div class="boxplot" style="display: none;" id="lero">
+            <div onclick="toggleLero()" class="fechar">
+                <img src="./assets/svg/icon-close.svg" alt="">
+            </div>
+            <div id="boxplot"></div>
+        </div>
+        <div id="blurOverlay" class="blur-overlay"></div>
     </div>
-    <div class="graficoLinha">
-    <canvas id="scatterChart" style="width: 30vw; height: 30vh;"></canvas>
-</div>
-    <div id="boxplot"></div>
-</div>
 </body>
 
 </html>
@@ -208,7 +226,12 @@
                                 const maquina = context.raw.maquina;
                                 const xValue = context.raw.x;
                                 const yValue = context.raw.y;
-                                return `Máquina ${maquina}: Enviados ${xValue}, Recebidos ${yValue}`;
+                                if (texto1 == 'Media de Uso de CPU') {
+                                    return `Máquina ${maquina}: CPU ${xValue}, RAM ${yValue}`;
+                                }
+                                else {
+                                    return `Máquina ${maquina}: Enviados ${xValue}, Recebidos ${yValue}`;
+                                }
                             }
                         }
                     }
@@ -257,6 +280,18 @@
     }
 
     function plotarBoxplot(resposta) {
+        const lero = document.getElementById("lero");
+        const blurOverlay = document.getElementById("blurOverlay");
+
+        // Alterna entre mostrar ou esconder
+        if (lero.style.display === "none" || lero.style.display === "") {
+            lero.style.display = "flex"; // Mostra a div
+            blurOverlay.style.display = "block"; // Mostra o fundo embaçado
+        } else {
+            lero.style.display = "none"; // Esconde a div
+            blurOverlay.style.display = "none"; // Esconde o fundo embaçado
+        }
+        lero.style.display = 'block';
         var data = []
         for (var index = 0; index < resposta.length; index++) {
             var box = {
@@ -279,6 +314,11 @@
         };
         Plotly.newPlot('boxplot', data, layout);
 
+
+    }
+    function toggleLero() {
+        lero.style.display = "none"; // Esconde a div
+        blurOverlay.style.display = "none"; // Esconde o fundo embaçado
     }
 
 </script>
