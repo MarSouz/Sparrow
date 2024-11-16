@@ -172,6 +172,13 @@ body {
     transition: 0.4s ease;
 }
 
+.opcao-grafico.selected {
+    background-color: #504e4a;
+    color: white;
+    height: 100%;
+    transition: 0.4s ease;
+}
+
 .grafico {
     background-color: white;
     height: 95%;
@@ -262,33 +269,15 @@ body {
 .dash-right {
     height: 100vh;
     width: 40%;
-}
-
-.espaco-pacotes {
-    height: 25%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: end;
-    gap: 80px;
-}
-
-.text-pacotes {
-    height: 40%;
-    width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
-.text-pacotes p {
-    font-size: 18px;
-}
-
-.num-pacotes {
-    background-color: white;
-    height: 80%;
-    width: 100%;
-    border-radius: 6px;
+.card-right {
+    background-color: #d6d09a;
+    height: 84%;
+    width: 75%;
+    border-radius: 4px;
+    box-shadow: 0 0 8px 0 #504e4a;
 }

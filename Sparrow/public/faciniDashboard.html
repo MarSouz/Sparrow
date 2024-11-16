@@ -69,10 +69,10 @@
                             <p>Gráfico de uso dos componentes (em %)</p>
 
                             <div class="escolha-componente">
-                                <button class="opcao-grafico" >CPU</button>
-                                <button class="opcao-grafico">RAM</button>
-                                <button class="opcao-grafico">Disco</button>
-                                <button class="opcao-grafico">Pacotes</button>
+                                <button class="opcao-grafico" onclick="selecionarBotao(this)">CPU</button>
+                                <button class="opcao-grafico" onclick="selecionarBotao(this)">RAM</button>
+                                <button class="opcao-grafico" onclick="selecionarBotao(this)">Disco</button>
+                                <button class="opcao-grafico" onclick="selecionarBotao(this)">Pacotes</button>
                             </div>
 
                         </div>
@@ -128,23 +128,7 @@
     
             <div class="dash-right">
 
-                <div class="espaco-pacotes">
-
-                    <div class="text-pacotes">
-                        <p>Pacotes enviados</p>
-                        <div class="num-pacotes">
-
-                        </div>
-                    </div>
-
-                    <div class="text-pacotes">
-                        <p>Pacotes recebidos</p>
-                        <div class="num-pacotes">
-
-                        </div>
-                    </div>
-
-                </div>
+                <div class="card-right"></div>
                 
             </div>
 
@@ -154,3 +138,12 @@
     
 </body>
 </html>
+<script>
+
+    function selecionarBotao(botao) {
+        const botoes = document.querySelectorAll('.opcao-grafico');
+        botoes.forEach(b => b.classList.remove('selected'));
+        botao.classList.add('selected');
+    }
+
+</script>
