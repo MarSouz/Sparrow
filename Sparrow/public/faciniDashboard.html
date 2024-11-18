@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/dashboard/dashFacini.css">
     <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard Eduardo</title>
 </head>
+
 <body>
-    
+
     <section id="page-change">
         <div class="menu-lateral">
             <nav id="nav">
@@ -69,16 +72,20 @@
                             <p>Gráfico de uso dos componentes (em %)</p>
 
                             <div class="escolha-componente">
-                                <button class="opcao-grafico" onclick="selecionarBotao(this)">CPU</button>
-                                <button class="opcao-grafico" onclick="selecionarBotao(this)">RAM</button>
-                                <button class="opcao-grafico" onclick="selecionarBotao(this)">Disco</button>
-                                <button class="opcao-grafico" onclick="selecionarBotao(this)">Pacotes</button>
+                                <button class="opcao-grafico" onclick="selecionarCPU(this)">CPU</button>
+                                <button class="opcao-grafico" onclick="selecionarRAM(this)">RAM</button>
+                                <button class="opcao-grafico" onclick="selecionarDisco(this)">Disco</button>
+                                <button class="opcao-grafico" onclick="selecionarPacotes(this)">Pacotes</button>
                             </div>
 
                         </div>
 
                         <div class="grafico">
-                        
+
+                            <canvas id="grafico"></canvas>
+                            <script src="script.js"></script>
+
+
                         </div>
 
                     </div>
@@ -88,6 +95,15 @@
                 <div class="espaco-medias">
 
                     <div class="card-medias">
+
+                        <div class="father-tips">
+                            <div class="tooltip tooltip-white">
+                                <img src="assets/svg/info.svg" class="info">
+                                <span class="tooltiptext tooltip-left" style="text-align: left">
+                                    texto
+                                </span>
+                            </div>
+                        </div>
 
                         <div class="titulo-medias">
                             <div class="contorno-titulo">
@@ -110,7 +126,7 @@
                                     <h4>Estável</h4>
                                 </div>
                             </div>
-                             
+
                             <div class="text-medias">
                                 <p>DISCO</p>
                                 <div class="medias">
@@ -125,25 +141,204 @@
                 </div>
 
             </div>
-    
+
             <div class="dash-right">
 
-                <div class="card-right"></div>
-                
+                <div class="card-right">
+
+                    <div class="text-CPU" style="display: none;"></div>
+
+                    <div class="text-RAM" style="display: none;"></div>
+
+                    <div class="text-Disco" style="display: none;"></div>
+
+                    <div class="text-pacotes" id="text-pacotes" style="display: none;">
+
+
+                        <div class="titulo">
+                            <div class="contorno-titulo-pacotes">
+                                <h2>PACOTES</h2>
+                            </div>
+                        </div>
+
+                        <div class="legenda-pacotes">
+
+                            <!-- <div class="pacotes">
+                                <p>Enviados</p>
+                                <div class="valor-pacotes-1">
+                                </div>
+                            </div>
+
+                            <div class="pacotes">
+                                <p>Recebidos</p>
+                                <div class="valor-pacotes-2">
+                                </div>
+                            </div> -->
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
     </section>
-    
+
 </body>
+
 </html>
 <script>
 
-    function selecionarBotao(botao) {
+    let grafico = null
+    var tituloGrafico = ""
+
+    function plotarGrafico(dados, listaLabels) {
+
+        if(grafico) {
+            grafico.destroy()
+        }
+
+        const ctx = document.getElementById('grafico').getContext('2d');
+
+        grafico = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: listaLabels,
+                datasets: [{
+                    label: tituloGrafico,
+                    data: dados,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    }
+
+    function selecionarCPU(botao) {
         const botoes = document.querySelectorAll('.opcao-grafico');
         botoes.forEach(b => b.classList.remove('selected'));
         botao.classList.add('selected');
+
+        var pacotes = document.getElementById("text-pacotes")
+        pacotes.style.display = "none"
+
+        var listaLabels = ['Janeiro', 'Fevereiro', 'Marco', 'Abril']
+        var dados = [50, 60, 70, 40]
+        tituloGrafico = "Porcentagem de uso da CPU"
+        plotarGrafico(dados, listaLabels)
+
+
+    }
+
+    function selecionarRAM(botao) {
+        const botoes = document.querySelectorAll('.opcao-grafico');
+        botoes.forEach(b => b.classList.remove('selected'));
+        botao.classList.add('selected');
+
+        var pacotes = document.getElementById("text-pacotes")
+        pacotes.style.display = "none"
+
+        var listaLabels = ['Maio', 'Junho', 'Julho', 'Agosto']
+        var dados = [25, 50, 75, 100]
+        tituloGrafico = "Porcentagem de uso de RAM"
+        plotarGrafico(dados, listaLabels)
+
+    }
+
+    function selecionarDisco(botao) {
+        const botoes = document.querySelectorAll('.opcao-grafico');
+        botoes.forEach(b => b.classList.remove('selected'));
+        botao.classList.add('selected');
+
+        var pacotes = document.getElementById("text-pacotes")
+        pacotes.style.display = "none"
+
+        var listaLabels = ['Setembro', 'Outubro', 'Novembro', 'Dezembro']
+        var dados = [2, 5, 10, 7]
+        tituloGrafico = "Porcentagem de uso do Disco"
+        plotarGrafico(dados, listaLabels)
+
+    }
+
+    function selecionarPacotes(botao) {
+        const botoes = document.querySelectorAll('.opcao-grafico');
+        botoes.forEach(b => b.classList.remove('selected'));
+        botao.classList.add('selected');
+
+        var pacotes = document.getElementById("text-pacotes")
+        pacotes.style.display = "block"
+
+        if(grafico) {
+            grafico.destroy()
+        }
+
+        var listaLabels = ['dfafas', 'ewqkopr', 'aiofja', 'omfpsd']
+        var dados1 = [25, 50, 75, 100]
+        var dados2 = [10, 40, 90, 50]
+
+        const ctx = document.getElementById('grafico').getContext('2d');
+
+        grafico = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: listaLabels,
+                datasets: [
+                {
+                    label: 'Pacotes enviados',
+                    data: dados1,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Pacotes recebidos',
+                    data: dados2,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1
+                }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
 
 </script>
