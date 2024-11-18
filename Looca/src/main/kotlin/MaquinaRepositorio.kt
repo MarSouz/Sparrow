@@ -12,9 +12,9 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
          fun configurar() {
              val dataSource = BasicDataSource()
              dataSource.driverClassName = "com.mysql.cj.jdbc.Driver"
-             dataSource.url = "jdbc:mysql://52.71.94.239:3306/Sparrow"
+             dataSource.url = "jdbc:mysql://localhost:3306/Sparrow"
              dataSource.username = "root"
-             dataSource.password = "urubu100"
+             dataSource.password = "12345678"
 
              jdbcTemplate = JdbcTemplate(dataSource);
          }
@@ -22,9 +22,10 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
 
     fun inserir(novoDado: DadoCapturado): Boolean {
         val qtdLinhasAfetadas = jdbcTemplate.update(
-            "INSERT INTO dado_capturado(registro, data_hora, fk_maquina, fk_componente_maquina) " +
-                    "values(?,current_timestamp(),?,?)",
+            "INSERT INTO dado_capturado(registro, data_hora,fk_empresa, fk_maquina, fk_dado_monitorado) " +
+                    "values(?,current_timestamp(),?,?,?)",
             novoDado.registro,
+            novoDado.fk_empresa,
             novoDado.fk_maquina,
             novoDado.fk_componente_maquina
         )

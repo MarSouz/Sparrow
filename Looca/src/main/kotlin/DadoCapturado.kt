@@ -12,6 +12,13 @@ class DadoCapturado() {
     var fk_componente_maquina: Int = 0
         private set
 
+    var fk_empresa:Int = 0
+        private set
+
+    fun setFkEmpresa(novoValor: Int){
+        fk_empresa = novoValor
+    }
+
     fun setRegistro(novoValor: Long){
         registro = novoValor
     }
