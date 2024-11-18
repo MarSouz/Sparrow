@@ -7,4 +7,8 @@ router.get("/buscar/:idEmpresa/:idMaquina/:idDadoMonitorado/:tipoMaquina", funct
     manuController.buscarMedidasTempoReal(req, res);
 });
 
+router.get("/buscarBarplot/:idEmpresa/:idMaquina/:idDadoMonitorado", function(req,res){
+    manuController.buscarMedidasBarplot(req,res)
+})
+
 module.exports = router;

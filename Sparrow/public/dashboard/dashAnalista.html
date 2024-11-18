@@ -18,7 +18,7 @@
     <title>Sparrow | Dashboard Terminal</title>
 </head>
 
-<body onload="buscarMedidasTempoReal()">
+<body>
     <div class="menu-lateral">
         <nav id="nav">
             <ul>
@@ -148,37 +148,37 @@
 
 </html>
 <script>
-    const graficoContainer = document.getElementById('grafico');
-    const histogramaContainer = document.getElementById('histograma');
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const ctx2 = document.getElementById('myChart2').getContext('2d');
-    const buttons = document.querySelectorAll('.container-botoes button');
+    let graficoContainer = document.getElementById('grafico');
+    let histogramaContainer = document.getElementById('histograma');
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let ctx2 = document.getElementById('myChart2').getContext('2d');
+    let buttons = document.querySelectorAll('.container-botoes button');
 
 
-</script>
-<script>
-    function logout() {
-        sessionStorage.clear();
-        window.location.replace('../index.html');
-    }
-
-    document.getElementById('logoutBotao').addEventListener('click', function (event) {
-        event.preventDefault();
-        logout();
+       // Adiciona evento de clique para cada botão
+       buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            const tipo = this.innerText; // Captura o texto do botão clicado
+            exibirGraficos(tipo); // Exibe os gráficos correspondentes
+        });
     });
 
 
-    // GRAFICOS
+    function exibirGraficos(tipo) {
+        graficoContainer.style.display = 'block'; // Mostra o gráfico de barras
+        histogramaContainer.style.display = 'block'; // Mostra o histograma
+    }
 
-    
 
+  
     var tipoDado = 1
     var nomeLabel = ''
     let dados = [];
     let horarios = [];
-    
     let myChart2; // Gráfico para o histograma
     let myChart; // Gráfico para CPU, RAM, Disco, Rede
+
+
 
     myChart = new Chart(
         ctx,
@@ -188,7 +188,7 @@
             data: {
 
                 datasets: [{
-                    type: 'line', 
+                    type: 'line',
                     label: nomeLabel,
                     borderColor: ['#08241c'],
                     backgroundColor: ['#08241c']
@@ -198,7 +198,7 @@
     );
 
     function buscarMedidasTempoReal() {
-        fetch(`/manu/buscar/${sessionStorage.ID_EMPRESA}/${Number(selectTerminal.value)}/${tipoDado}/${1}`).then(function (resposta) {
+        fetch(`/manu/buscar/${sessionStorage.ID_EMPRESA}/${5}/${tipoDado}/${2}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     console.log("error")
@@ -219,7 +219,7 @@
                     myChart.update()
                     setTimeout(function () {
                         buscarMedidasTempoReal()
-                    }, 1000)
+                    }, 5000)
                 }
                 )
             } else {
@@ -230,40 +230,58 @@
         });
     }
 
-    function plotarTempoReal(resposta) {
 
-
-    }
     console.log(dados)
 
-  
-
-
-
-    const dadosHistograma = [70, 50, 40, 70]; // Dados fixos para o histograma
-
-    // Função para exibir gráficos
-    function exibirGraficos(tipo) {
-        graficoContainer.style.display = 'block'; // Mostra o gráfico de barras
-        histogramaContainer.style.display = 'block'; // Mostra o histograma
 
 
 
 
-        // Se já houver um gráfico de histograma, destruí-lo antes de criar um novo
+    function buscarMedidasBarplot() {
+        fetch(`/manu/buscarBarplot/${sessionStorage.ID_EMPRESA}/${Number(selectTerminal.value)}/${tipoDado}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    plotarBarplot(resposta)
+                }
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+
+    function plotarBarplot(resposta) {
         if (myChart2) {
-            myChart2.destroy();
+        myChart2.destroy();
+    }
+
+        var dados = [];
+        var nomeLabel = [];
+    
+        for (let index = 0; index < resposta.length; index++) {
+            const element = resposta[index]
+            dados.push(element.total_alertas)
+            nomeLabel.push(element.hora)
         }
 
-        // Cria um novo gráfico de histograma
         myChart2 = new Chart(ctx2, {
             type: 'bar',
             data: {
-                labels: ['13:00', '14:00', '15:00', '16:00'],
+                labels: nomeLabel,
                 datasets: [{
                     label: 'Quantidade de alertas por hora',
-                    data: dadosHistograma,
-                    borderWidth: 1
+                    data: dados,
+                    borderWidth: 1,
+                    borderColor: ['#08241c'],
+                    backgroundColor: ['#08241c']
                 }]
             },
             options: {
@@ -274,18 +292,42 @@
                 }
             }
         });
+        
     }
 
-    // Adiciona evento de clique para cada botão
-    buttons.forEach(button => {
-        button.addEventListener('click', function () {
-            const tipo = this.innerText; // Captura o texto do botão clicado
-            exibirGraficos(tipo); // Exibe os gráficos correspondentes
-        });
-    });
 
-    // MAPA
-    let map;
+    function definirCpu() {
+        tipoDado = 1
+        nomeLabel = "Uso de CPU"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    function definirRam() {
+        tipoDado = 2
+        nomeLabel = "Uso de RAM"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    function definirDisco() {
+        tipoDado = 3
+        nomeLabel = "Uso de Disco"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    function definirEnviados() {
+        tipoDado = 4
+        nomeLabel = "Uso de Pacotes Enviados"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+
+
+      // MAPA
+      let map;
     let marker;
 
     function initMap() {
@@ -319,34 +361,14 @@
 
 
 
-    function definirCpu() {
-        tipoDado = 1
-        nomeLabel = "Uso de CPU"
-        buscarMedidasTempoReal()
+    function logout() {
+        sessionStorage.clear();
+        window.location.replace('../index.html');
     }
 
-    function definirRam() {
-        tipoDado = 2
-        nomeLabel = "Uso de RAM"
-        buscarMedidasTempoReal()
-    }
-
-    function definirDisco() {
-        tipoDado = 3
-        nomeLabel = "Uso de Disco"
-        buscarMedidasTempoReal()
-    }
-
-    function definirEnviados() {
-        tipoDado = 4
-        nomeLabel = "Uso de Pacotes Enviados"
-        buscarMedidasTempoReal()
-    }
-
-
-    // const ctx = document.getElementById('scatterChart').getContext('2d');
-    // new Chart(ctx, config);
-
-
+    document.getElementById('logoutBotao').addEventListener('click', function (event) {
+        event.preventDefault();
+        logout();
+    });
 
 </script>
