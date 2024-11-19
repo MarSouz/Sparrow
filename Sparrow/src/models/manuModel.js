@@ -17,6 +17,18 @@ LIMIT 10;  `;
   return database.executar(instrucaoSql);
 }
 
+function buscarCards(idEmpresa, idMaquina) {
+
+  var instrucaoSql = `SELECT 
+(select registro from dado_capturado where fk_empresa= ${idEmpresa} and fk_maquina = ${idMaquina} and fk_dado_monitorado = 1 order by id desc limit 1) AS cpu,
+(select registro from dado_capturado where fk_empresa= ${idEmpresa} and fk_maquina = ${idMaquina} and fk_dado_monitorado =  2 order by id desc limit 1) AS ram,
+(select registro from dado_capturado where fk_empresa= ${idEmpresa} and fk_maquina = ${idMaquina} and fk_dado_monitorado = 3 order by id desc  limit 1) AS disco,
+(select registro from dado_capturado where fk_empresa= ${idEmpresa} and fk_maquina = ${idMaquina} and fk_dado_monitorado = 4 order by id desc  limit 1) AS pacotes_enviados,
+(select registro from dado_capturado where fk_empresa= ${idEmpresa} and fk_maquina = ${idMaquina} and fk_dado_monitorado = 5 order by id desc limit 1) AS pacotes_recebidos;`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 
 function buscarMedidasBarplot(idEmpresa, idMaquina, idDadoMonitorado) {
 
@@ -42,7 +54,41 @@ ORDER BY
   return database.executar(instrucaoSql);
 }
 
+
+
+function buscarSelect(idEmpresa) {
+
+  var instrucaoSql = `select id from maquina where fk_empresa = ${idEmpresa};`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+
+function buscarMapa(idEmpresa, idMaquina) {
+
+  var instrucaoSql = `SELECT 
+    m.id AS id_maquina,
+    m.fk_empresa AS id_empresa,
+    c.latitude AS lat,
+    c.longitude AS lon
+FROM 
+    Sparrow.maquina m
+LEFT JOIN 
+    Sparrow.coordenada c ON c.id = m.fk_coordenada
+WHERE 
+    m.fk_empresa = ${idEmpresa}
+AND 
+	m.id = ${idMaquina};`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarMedidasTempoReal,
-  buscarMedidasBarplot
+  buscarCards,
+  buscarMedidasBarplot, 
+  buscarMapa,
+  buscarSelect
 }

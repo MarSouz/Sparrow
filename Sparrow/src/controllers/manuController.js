@@ -12,6 +12,25 @@ function buscarMedidasTempoReal(req, res) {
 }
 
 
+function buscarCards(req, res) {
+  var idEmpresa = req.params.idEmpresa;
+  var idMaquina = req.params.idMaquina;
+
+  manuModel.buscarCards(idEmpresa, idMaquina).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
+
+function buscarSelect(req, res) {
+  var idEmpresa = req.params.idEmpresa;
+
+  manuModel.buscarSelect(idEmpresa).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
+
 
 function buscarMedidasBarplot(req, res) {
   var idEmpresa = req.params.idEmpresa
@@ -22,7 +41,19 @@ function buscarMedidasBarplot(req, res) {
   })
 }
 
+
+function buscarMapa(req, res) {
+  var idEmpresa = req.params.idEmpresa
+  var idMaquina = req.params.idMaquina
+  manuModel.buscarMapa(idEmpresa, idMaquina).then((resultado) => {
+    res.status(200).json(resultado)
+  })
+}
+
 module.exports = {
   buscarMedidasTempoReal,
-  buscarMedidasBarplot
+  buscarMedidasBarplot,
+  buscarMapa,
+  buscarCards, 
+  buscarSelect,
 }

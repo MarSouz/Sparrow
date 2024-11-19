@@ -13,7 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXLI2oA3eAbE_cbBKHI_5BThK0QoOYjao"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXLI2oA3eAbE_cbBKHI_5BThK0QoOYjao&callback=initMap"
+        async defer></script>
+
 
     <title>Sparrow | Dashboard Terminal</title>
 </head>
@@ -83,10 +85,8 @@
                 <div class="terminal-botao">
                     <span class="subtitulo">Terminal</span>
 
-                    <select name="select-terminal" id="selectTerminal">
+                    <select name="select-terminal" id="selectTerminal" onclick="buscarMapa(sessionStorage.ID_EMPRESA, Number(selectTerminal.value))">
                         <option value="0" selected disabled>Escolha qual monitorar</option>
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
                     </select>
 
                     <div class="container-botoes">
@@ -105,19 +105,19 @@
                     <div class="info-container">
                         <div class="info1">
                             <span class="subtitulo">CPU</span>
-                            <span class="descricao" id="spanCpu">30%</span>
+                            <span class="descricao" id="spanCpu"></span>
                         </div>
                         <div class="info2">
                             <span class="subtitulo">RAM</span>
-                            <span class="descricao" id="spanRam">50%</span>
+                            <span class="descricao" id="spanRam"></span>
                         </div>
                         <div class="info3">
                             <span class="subtitulo">Disco</span>
-                            <span class="descricao" id="spanDisco">95%</span>
+                            <span class="descricao" id="spanDisco"></span>
                         </div>
                         <div class="info4">
                             <span class="subtitulo">Pacotes enviados</span>
-                            <span class="descricao" id="spanEnviados">500 pacotes</span>
+                            <span class="descricao" id="spanEnviados"></span>
                         </div>
                     </div>
                 </div>
@@ -155,8 +155,15 @@
     let buttons = document.querySelectorAll('.container-botoes button');
 
 
-       // Adiciona evento de clique para cada botão
-       buttons.forEach(button => {
+    // declarando essas variáveis para mudar nos cards
+    let cpuData = 0;
+    let ramData = 0;
+    let discoData = 0;
+    let pacotesEnviadosData = 0;
+    buscarMapa(sessionStorage.ID_EMPRESA, Number(selectTerminal.value))
+
+    // Adiciona evento de clique para cada botão
+    buttons.forEach(button => {
         button.addEventListener('click', function () {
             const tipo = this.innerText; // Captura o texto do botão clicado
             exibirGraficos(tipo); // Exibe os gráficos correspondentes
@@ -170,7 +177,18 @@
     }
 
 
-  
+
+
+    // Função para atualizar os cards de CPU, RAM, Disco e Pacotes Enviados
+    function atualizarCards(resposta) {
+        document.getElementById('spanCpu').innerText = `${resposta[0].cpu}%`;
+        document.getElementById('spanRam').innerText = `${resposta[0].ram}%`;
+        document.getElementById('spanDisco').innerText = `${resposta[0].disco}%`;
+        document.getElementById('spanEnviados').innerText = `${resposta[0].pacotes_enviados} pacotes`;
+    }
+
+    buscarCards()
+
     var tipoDado = 1
     var nomeLabel = ''
     let dados = [];
@@ -198,7 +216,7 @@
     );
 
     function buscarMedidasTempoReal() {
-        fetch(`/manu/buscar/${sessionStorage.ID_EMPRESA}/${5}/${tipoDado}/${2}`).then(function (resposta) {
+        fetch(`/manu/buscar/${sessionStorage.ID_EMPRESA}/${Number(selectTerminal.value)}/${tipoDado}/${2}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     console.log("error")
@@ -209,6 +227,7 @@
                     resposta = resposta.reverse()
                     dados = [];
                     horarios = [];
+
                     for (let index = 0; index < resposta.length; index++) {
                         const element = resposta[index];
                         dados.push(element.registro)
@@ -216,6 +235,7 @@
                     }
                     myChart.data.datasets[0].data = dados
                     myChart.data.labels = horarios
+                    myChart.data.datasets[0].label = nomeLabel;
                     myChart.update()
                     setTimeout(function () {
                         buscarMedidasTempoReal()
@@ -229,12 +249,60 @@
             console.error(resposta);
         });
     }
-
-
     console.log(dados)
 
 
+    function buscarCards() {
+        fetch(`/manu/buscarCards/${sessionStorage.ID_EMPRESA}/${Number(selectTerminal.value)}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    atualizarCards(resposta)
 
+                    setTimeout(function () {
+                        buscarCards()
+                    }, 5000)
+                })
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+
+
+    function buscarSelect() {
+        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}`, {
+            method: "GET"  // Aqui, o método GET é passado na configuração do fetch.
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        console.log("Nenhum dado encontrado");
+                        return;
+                    }
+                    // Caso a resposta seja OK, converte o JSON
+                    resposta.json().then(function (dados) {
+                        dados.forEach((dado) => {
+                            selectTerminal.innerHTML += `<option value='${dado.id}'>${dado.id}</option>`;
+                        });
+                        console.log("Dados recebidos: ", JSON.stringify(dados));
+                    });
+                } else {
+                    console.log("Erro na resposta", resposta.status);
+                }
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+    }
+
+    buscarSelect()
 
 
     function buscarMedidasBarplot() {
@@ -260,12 +328,12 @@
 
     function plotarBarplot(resposta) {
         if (myChart2) {
-        myChart2.destroy();
-    }
+            myChart2.destroy();
+        }
 
         var dados = [];
         var nomeLabel = [];
-    
+
         for (let index = 0; index < resposta.length; index++) {
             const element = resposta[index]
             dados.push(element.total_alertas)
@@ -292,7 +360,7 @@
                 }
             }
         });
-        
+
     }
 
 
@@ -326,40 +394,64 @@
 
 
 
-      // MAPA
-      let map;
-    let marker;
+    // MAPA
+    window.onload = function () {
+        var script = document.createElement('script');
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBXLI2oA3eAbE_cbBKHI_5BThK0QoOYjao&callback=initMap";
+        script.async = true;
+        script.defer = true;
+        document.head.appendChild(script);
+    };
 
-    function initMap() {
-        const radarLocation = { lat: -23.5505, lng: -46.6333 };
+    function initMap(dados) {
+        // Aqui as coordenadas são reais, vindas do banco
+        console.log(dados)
+        const radarLocation = {
+            lat: Number(dados[0].lat),  // Usando a latitude do banco
+            lng: Number(dados[0].lon)  // Usando a longitude do banco
+        };
 
+        // Inicializa o mapa
         map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,
             center: radarLocation,
         });
 
-        marker = new google.maps.Marker({
-            position: radarLocation,
-            map: map,
-        });
-        marker = new google.maps.Marker({
-            position: radarLocation2,
-            map: map,
-        });
-
-        // Atualiza a posição do radar a cada 5 segundos
-        setInterval(updateRadarLocation, 5000);
-    }
-
-    function updateRadarLocation() {
-        // Aqui você deve fazer uma chamada à sua API para obter novas coordenadas
-        const newLocation = { lat: -23.5500, lng: -46.6340 }; // Nova posição do radar
-
-        marker.setPosition(newLocation);
-        map.setCenter(newLocation);
+        // Cria o marcador inicial
+        addMarker(radarLocation);
     }
 
 
+    function buscarMapa(idEmpresa, idMaquina) {
+        fetch(`/manu/buscarMapa/${idEmpresa}/${Number(selectTerminal.value)}`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        console.log("Nenhum dado encontrado");
+                        return;
+                    }
+                    resposta.json().then(function (dados) {
+                        console.log("Dados recebidos: ", JSON.stringify(dados));
+                        initMap(dados)
+                    });
+                } else {
+                    throw new Error('Houve um erro na API!');
+                }
+            })
+            .catch(function (erro) {
+                console.error(erro);
+            });
+    }
+
+    // Função para adicionar um marcador
+    function addMarker(location) {
+        const marker = new google.maps.Marker({
+            position: location,
+            map: map,
+        });
+        markers.push(marker); // Armazena o marcador para referência futura
+    }
 
     function logout() {
         sessionStorage.clear();
