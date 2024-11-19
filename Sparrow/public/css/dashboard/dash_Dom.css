@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+body {
+    display: flex;
+    overflow: hidden;
+    background-color: #f8f1e1;
+    width: 100vw;
+    height: 100vh;
+}
+
+nav{
+    height: 100vh;
+    background-color: white ;
+    width: 5.5vw;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0,0,0 0.1);
+}
+
+
+.logo{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    transition: all 0.5 ease;
+    padding: 0;
+}
+
+
+.logo img{
+    width: 30%;   
+}
+
+.logo span{
+    margin-top: -20px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+
+a{
+    position: relative;
+    color: rgb(85,83,83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+}
+
+.bx{
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+    color: #000;
+}
+
+.nav-item{
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+    color: #000;
+}
+
+a:hover{
+    background: #eee;
+}
+
+nav:hover{
+    width: 280px;
+    transition: all 0.5 ease;
+}
+
+
+.logout{
+    margin-top: 100px;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dropdown {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dropdown select {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.header {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.header div {
+    background-color: #d6d09a;
+    border-radius: 10px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    font-weight: bold;
+}
+.charts {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    width: 100%;
+}
+.chart {
+    background-color: #d6d09a;
+    border-radius: 10px;
+    width: 450px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+canvas {
+    width: 80%; /* Largura do gráfico */
+    height: 400px; /* Altura do gráfico */
+    margin: auto;
+}
+
+.top {
+    align-items: center;
+    justify-content: start;
+    flex-direction: row;
+}
+.quadro {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1)
+}
