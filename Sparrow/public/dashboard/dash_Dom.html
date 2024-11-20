@@ -20,6 +20,7 @@
 </head>
 
 <body onload="qtdServidor(), qtdTerminal(), qtdAlertaAtualS(), qtdAlertaPassadoS(), qtdAlertaAtualT(), qtdAlertaPassadoT()">
+
     <div class="menu-lateral">
         <nav id="nav">
             <ul>
@@ -89,61 +90,138 @@
         </nav>
     </div>
 
-    <div class="content">
-        <div class="top">
-            <p><b>Título</b></p>
-            <div class="dropdown">
-                <select>
-                    <option>Servidores</option>
-                    <option>Terminais</option>
-                </select>
-            </div>
-        </div>
+    <!-- SERVIDORES -->
+    <div id="servidores" class="global" style="display: block;">
+
         <div class="header">
-            <div class="quadro">
-               <p> Quantidade de Servidores</p>
+            <h1>Relatório de Alertas</h1>
+            <select name="" id="select_tipo" onchange="select()">
+                <option value=1>Servidores</option>
+                <option value=2>Terminais</option>
+            </select>
+            <h2>Semana Atual:</h2>
+        </div>
+
+        <div class="content1">
+            <div class="card">
                 <br>
-                <span id="qtdServidor" style="font-size: 24px;"></span>
+                <center>
+                    <h2>Quantidade de Servidores</h2><br><br><br>
+                    <h2><b>3</b></h2>
+                </center>
             </div>
-            <div class="quadro">
-                <p>Essa semana </p>
-                
-               <p>Quantidade de Alertas</p>
-                
-                
-                <span id="qtdAlertaAtualS" style="font-size: 24px;"></span>
+            <div class="card"><br>
+                <center>
+                    <h2>Quantidade de Alertas</h2><br>
+                    <h3>Semana Atual</h3><br>
+                    <h2><b>3</b></h2>
+                </center>
             </div>
-            <div class="quadro">
-                <p>Última semana</p>
-                
-                <p>Quantidade de Alertas</p>
-                
-                
-                <span id="qtdAlertaPassadoS" style="font-size: 24px;"></span>
+            <div class="card">
+                <br>
+                <center>
+                    <h2>Quantidade de Alertas</h2><br>
+                    <h3>Semana Passada</h3><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card1"><br>
+                <center><h2>Quantidade de Alertas por Componente</h2></center>
+                <br>
+                <div class="componente">
+                    <h2>CPU <br><br>12</h2>
+                    <h2>RAM <br><br>12</h2>
+                    <h2>Disco <br><br>12</h2>
+                </div>
             </div>
         </div>
-        <br><br><br><br><br>
-        <div class="charts">
-            <div>
-                <center><b>Histograma de alertas</b><br>Por componente</center>
-                <canvas id="HistComponente" class="chart"></canvas>
-            </div>
 
-            <div>
-                <center><b>Histograma de alertas</b><br>Por servidor</center>
-                <canvas id="HistServidor" class="chart"></canvas>
+        <div class="content2">
+            <div class="treemap"><br>
+                <center><h2>Treemap de Alertas</h2></center>
             </div>
-
-            <div>
-                <center><b>Regressão Polinomial</b><br>Alertas</center>
-                <canvas id="Previsao" class="chart"></canvas>
+            <div class="prev"><br>
+                <center><h2>Previsão de Alertas</h2></center>
             </div>
+        </div>
+    </div>
 
+    <!-- Terminais -->
+    <div id="terminais" class="globalT" style="display: none;">
+
+        <div class="header">
+            <h1>Relatório de Alertas</h1>
+            <select name="" id="select_tipo" onchange="select()">
+                <option value=1>Servidores</option>
+                <option value=2>Terminais</option>
+            </select>
+            <h2>Semana Atual:</h2>
+        </div>
+
+        <div class="content1">
+            <div class="card">
+                <br>
+                <center>
+                    <h2>Quantidade de Terminais</h2><br><br><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card"><br>
+                <center>
+                    <h2>Quantidade de Alertas</h2><br>
+                    <h3>Semana Atual</h3><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card">
+                <br>
+                <center>
+                    <h2>Quantidade de Alertas</h2><br>
+                    <h3>Semana Passada</h3><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card1"><br>
+                <center><h2>Quantidade de Alertas por Componente</h2></center>
+                <br>
+                <div class="componente">
+                    <h2>CPU <br><br>12</h2>
+                    <h2>RAM <br><br>12</h2>
+                    <h2>Disco <br><br>12</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="content2">
+            <div class="treemap"><br>
+                <center><h2>Treemap de Alertas</h2></center>
+            </div>
+            <div class="prev"><br>
+                <center><h2>Previsão de Alertas</h2></center>
+            </div>
         </div>
     </div>
 
 </html>
 <script>
+    function select(){
+
+        var select_tipo = document.getElementById("select_tipo")
+        var terminais = document.getElementById("terminais")
+        var servidores = document.getElementById("servidores")
+
+        if (select_tipo.value == 1){
+
+            terminais.style.display = 'none'
+            servidores.style.display = 'block'
+
+        } else if (select_tipo.value == 2) {
+
+            terminais.style.display = 'block'
+            servidores.style.display = 'none'
+        }
+    }
+
     function logout() {
         sessionStorage.clear();
         window.location.replace('../index.html');
