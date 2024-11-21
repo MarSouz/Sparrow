@@ -130,57 +130,69 @@
     </div>
 
     <script>
-        const data = {
-            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            datasets: [{
-                label: 'Uso (%)',
-                data: [20, 35, 50, 70, 65, 80, 40], 
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: true,
-            }]
-        };
+// Configuração inicial do gráfico de linha
+const data = {
+    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+    datasets: [{
+        label: 'Uso (%)',
+        // data: [20, 35, 50, 70, 65, 80, 40],  // Dados iniciais
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: true,
+    }]
+};
 
-        // Configuração do gráfico
-        const config = {
-            type: 'line', // Tipo do gráfico (linha)
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100 // Limite máximo de 100%
-                    }
-                }
+// Configuração do gráfico
+const config = {
+    type: 'line', // Tipo do gráfico (linha)
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
             }
-        };
-
-        // Renderizando o gráfico
-        const ctx = document.getElementById('graficSm').getContext('2d');
-        const usageChart = new Chart(ctx, config);
-
-        // Alterar o gráfico com base no tipo de dado selecionado
-        document.getElementById('componentes').addEventListener('change', (e) => {
-            const selected = e.target.value;
-            if (selected === 'cpu') {
-                usageChart.data.datasets[0].data = [20, 35, 50, 70, 65, 80, 40];
-            } else if (selected === 'ram') {
-                usageChart.data.datasets[0].data = [30, 45, 60, 75, 50, 90, 50];
-            } else if (selected === 'disk') {
-                usageChart.data.datasets[0].data = [10, 25, 35, 40, 50, 70, 30];
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100 // Limite máximo de 100%
             }
-            usageChart.update();
+        }
+    }
+};
+
+// Renderizando o gráfico de linha
+const ctx = document.getElementById('graficSm').getContext('2d');
+const usageChart = new Chart(ctx, config);
+
+document.getElementById('componentes').addEventListener('change', () => {
+    fetch(`/grafico/dados-semana/${document.getElementById("componentes").value}`, {  // Corrigindo para usar GET e parâmetro na URL
+        method: "GET",  
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro ao obter dados do gráfico semanal!");
+            }
+            return response.json(); 
+        })
+        .then(dados => {
+            // Atualizar o gráfico de linha com os dados recebidos
+            usageChart.data.datasets[0].data = dados.valores;  // Atualizando os dados de acordo com o componente selecionado
+            usageChart.update(); // Atualiza o gráfico
+        })
+        .catch(error => {
+            console.error("Erro no fetch:", error);
         });
+});
+
+
+
+
 
 
         const dataB = {
