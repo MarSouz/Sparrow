@@ -1,0 +1,367 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+body {
+    display: flex;
+    overflow: hidden;
+    background-color: #f8f1e1;
+    width: 100vw;
+    height: 100vh;
+}
+
+#page-change {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    height: 100vh;
+    background-color: white;
+    width: 5.5vw;
+    overflow: hidden;
+    transition: width 0.2s linear;
+    box-shadow: 0 20px 35px rgba(0, 0, 0 0.1);
+}
+
+
+.logo {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    transition: all 0.5 ease;
+    padding: 0;
+}
+
+
+.logo img {
+    width: 30%;
+}
+
+.logo span {
+    margin-top: -20px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+
+a {
+    position: relative;
+    color: rgb(85, 83, 83);
+    font-size: 14px;
+    display: table;
+    width: 300px;
+    padding: 10px;
+}
+
+.bx {
+    position: relative;
+    width: 70px;
+    height: 40px;
+    top: 14px;
+    font-size: 20px;
+    text-align: center;
+    color: #000;
+}
+
+.nav-item {
+    position: relative;
+    top: 12px;
+    margin-left: 10px;
+    color: #000;
+}
+
+a:hover {
+    background: #eee;
+}
+
+nav:hover {
+    width: 280px;
+    transition: all 0.5 ease;
+}
+
+
+.logout {
+    margin-top: 290px;
+}
+
+
+.father {
+    display: flex;
+    width: 60%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.father-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.father-container2 {
+    display: flex;
+    width: 100%;
+    height: 50%;
+}
+
+.father-container3 {
+    display: flex;
+    width: 50%;
+    height: 100%;
+}
+
+/* CONTAINER 1 */
+.container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    padding: 40px 0px 0px 40px;
+    transition: margin-left 0.5s ease;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.titulo {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.container .titulo {
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.container .subtitulo {
+    display: flex;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.terminal-botao {
+    flex-direction: column;
+}
+
+.terminal-botao select {
+    width: 25vh;
+    height: 4vh;
+    margin-left: 35px;
+    font-size: 18px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.container-botoes button {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    color: white;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 18px 0 18px 0;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.container-botoes button:hover {
+    background-color: rgb(193, 193, 193);
+    transition: 0.4s ease;
+}
+
+.container-botoes button:focus {
+    background-color: black;
+    color: white;
+    transition: 0.4s ease;
+}
+
+.container2 {
+    display: flex;
+    height: 100%;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+    height: 85%;
+    gap: 15px;
+    font-size: 12px;
+    text-align: center;
+    padding: 18px 0 18px 0;
+}
+
+.content-infos .titulo {
+    display: flex;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 25px;
+    color: red;
+}
+
+.info-container {
+    display: flex;
+    width: 140%;
+    height: 100%;
+    font-size: 15px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.info-container .subtitulo {
+    margin-bottom: 10px;
+}
+
+.info1,
+.info2,
+.info3,
+.info4 {
+    display: flex;
+    flex-direction: column;
+    width: 17%;
+    height: 12vh;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 18px 0 18px 0;
+    margin: 2px;
+    justify-content: center;
+}
+
+/* CONTAINER 2 */
+.container2 {
+    display: flex;
+    width: 100%;
+    height: 55%;
+    align-items: center;
+    justify-content: center;
+}
+
+#map {
+    display: flex;
+    justify-content: center;
+    width: 85%;
+    height: 310px;
+    border-radius: 8px;
+    color: black;
+    background-color: white;
+    box-shadow: 0 0 15px 0 #5a5446;
+}
+
+.content3 {
+    display: flex;
+    width: 70%;
+    height: 92%;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px 0 #c3bba8;
+}
+
+.content3 .titulo{
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.cards-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 95%;
+    font-size: 14px;
+    font-weight: 200;
+    margin-top: 12%;
+ }
+
+ .cards-content a {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    height: 95%;
+    /* font-size: 14px; */
+    font-weight: 200;
+    text-decoration: none;
+    color: #fff;
+}
+
+.cards-content a:hover {
+    background-color: transparent;
+}
+
+.card1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: 95%;
+    height: 90%;
+    font-size: 16px;
+}
+
+.card1 span{
+    display: block;
+    margin-bottom: 8px;
+}
+
+
+.cards-scroll {
+    height: 100%; 
+    width: 100%;
+    overflow-y: auto;
+    padding: 10px; 
+    margin-top: 15px;
+}
+
+
+.cards-scroll::-webkit-scrollbar {
+    width: 10px;
+}
+
+.cards-scroll::-webkit-scrollbar-track {
+    background: #f8f1e1; 
+    border-radius: 10px; 
+}
+
+.cards-scroll::-webkit-scrollbar-thumb {
+    background: #000; 
+    border-radius: 10px; 
+}

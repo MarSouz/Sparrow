@@ -9,6 +9,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../assets/imgs/Logo2.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Sparrow | Dashboard análise de uso e desgaste</title>
 </head>
 
@@ -90,19 +91,22 @@
                         <h2>Picos de uso diário</h2>
                     </div>
                     <div class="backpage-coluns-item">
-                        <select name="" id="">
-                            <option value="">CPU</option>
-                            <option value="">RAM</option>
-                            <option value="">Disco</option>
+                        <select name="" id="componentes">
+                            <option value="cpu">CPU</option>
+                            <option value="ram">RAM</option>
+                            <option value="disk">Disco</option>
                         </select>
                     </div>
                 </div>
+                <canvas id="graficSm"></canvas>
+
             </div>
 
             <div class="graficBar">
                 <div class="titleB">
                     <h2>Contador de ultrapassagem do limite</h2>
                 </div>
+                <canvas id="graficBar"></canvas>
             </div>
         </div>
 
@@ -124,3 +128,107 @@
             </div>
         </div>
     </div>
+
+    <script>
+// Configuração inicial do gráfico de linha
+const data = {
+    labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+    datasets: [{
+        label: 'Uso (%)',
+        // data: [20, 35, 50, 70, 65, 80, 40],  // Dados iniciais
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: true,
+    }]
+};
+
+// Configuração do gráfico
+const config = {
+    type: 'line', // Tipo do gráfico (linha)
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100 // Limite máximo de 100%
+            }
+        }
+    }
+};
+
+// Renderizando o gráfico de linha
+const ctx = document.getElementById('graficSm').getContext('2d');
+const usageChart = new Chart(ctx, config);
+
+document.getElementById('componentes').addEventListener('change', () => {
+    fetch(`/grafico/dados-semana/${document.getElementById("componentes").value}`, {  // Corrigindo para usar GET e parâmetro na URL
+        method: "GET",  
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erro ao obter dados do gráfico semanal!");
+            }
+            return response.json(); 
+        })
+        .then(dados => {
+            // Atualizar o gráfico de linha com os dados recebidos
+            usageChart.data.datasets[0].data = dados.valores;  // Atualizando os dados de acordo com o componente selecionado
+            usageChart.update(); // Atualiza o gráfico
+        })
+        .catch(error => {
+            console.error("Erro no fetch:", error);
+        });
+});
+
+
+
+
+
+
+        const dataB = {
+            labels: ['CPU', 'RAM', 'DISCO'],
+            datasets: [{
+                label: 'Uso (%)',
+                data: [2, 5, 4], 
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: true,
+            }]
+        };
+
+        const configB = {
+            type: 'bar',
+            data: dataB,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10 
+                    }
+                }
+            }
+        };
+
+        const ctxB = document.getElementById('graficBar').getContext('2d');
+        const usageChartB = new Chart(ctxB, configB);
+    </script>

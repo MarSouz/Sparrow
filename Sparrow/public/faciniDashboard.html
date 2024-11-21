@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/dashboard/dashFacini.css">
     <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard Eduardo</title>
 </head>
+
 <body>
-    
+
     <section id="page-change">
         <div class="menu-lateral">
             <nav id="nav">
@@ -60,34 +63,18 @@
 
             <div class="dash-left">
 
-                <div class="espaco-grafico">
-
-                    <div class="text-grafico">
-
-                        <div class="titulo-botao-grafico">
-
-                            <p>Gráfico de uso dos componentes (em %)</p>
-
-                            <div class="escolha-componente">
-                                <button class="opcao-grafico" onclick="selecionarBotao(this)">CPU</button>
-                                <button class="opcao-grafico" onclick="selecionarBotao(this)">RAM</button>
-                                <button class="opcao-grafico" onclick="selecionarBotao(this)">Disco</button>
-                                <button class="opcao-grafico" onclick="selecionarBotao(this)">Pacotes</button>
-                            </div>
-
-                        </div>
-
-                        <div class="grafico">
-                        
-                        </div>
-
-                    </div>
-
-                </div>
-
                 <div class="espaco-medias">
 
                     <div class="card-medias">
+
+                        <div class="father-tips">
+                            <div class="tooltip tooltip-white">
+                                <img src="assets/svg/info.svg" class="info">
+                                <span class="tooltiptext tooltip-left" style="text-align: left">
+                                    texto
+                                </span>
+                            </div>
+                        </div>
 
                         <div class="titulo-medias">
                             <div class="contorno-titulo">
@@ -110,7 +97,7 @@
                                     <h4>Estável</h4>
                                 </div>
                             </div>
-                             
+
                             <div class="text-medias">
                                 <p>DISCO</p>
                                 <div class="medias">
@@ -124,26 +111,324 @@
 
                 </div>
 
+                <div class="espaco-grafico">
+
+                    <div class="text-grafico">
+
+                        <div class="titulo-botao-grafico">
+
+                            <p id="titulo-grafico">Gráfico de uso dos componentes (em %)</p>
+
+                            <div class="escolha-componente">
+                                <button class="opcao-grafico" onclick="selecionarCPU(this)">CPU</button>
+                                <button class="opcao-grafico" onclick="selecionarRAM(this)">RAM</button>
+                                <button class="opcao-grafico" onclick="selecionarDisco(this)">Disco</button>
+                                <button class="opcao-grafico" onclick="selecionarPacotes(this)">Pacotes</button>
+                            </div>
+
+                        </div>
+
+                        <div class="grafico">
+
+                            <canvas id="grafico"></canvas>
+                            <script src="script.js"></script>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-    
+
             <div class="dash-right">
 
-                <div class="card-right"></div>
-                
+                <div class="card-right">
+
+                    <div class="text-pacotes" id="text-CPU" style="display: none;">
+
+                        <div class="titulo">
+                            <div class="contorno-titulo-pacotes">
+                                <h2>CPU</h2>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-pacotes" id="text-RAM" style="display: none;">
+
+                        <div class="titulo">
+                            <div class="contorno-titulo-pacotes">
+                                <h2>RAM</h2>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-pacotes" id="text-Disco" style="display: none;">
+
+                        <div class="titulo">
+                            <div class="contorno-titulo-pacotes">
+                                <h2>DISCO</h2>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-pacotes" id="text-pacotes" style="display: none;">
+
+
+                        <div class="titulo">
+                            <div class="contorno-titulo-pacotes">
+                                <h2>PACOTES</h2>
+                            </div>
+                        </div>
+
+                        <div class="legenda-pacotes"></div>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
     </section>
-    
+
 </body>
+
 </html>
 <script>
 
-    function selecionarBotao(botao) {
+    let grafico
+    var tituloGrafico = ""
+    let dado = 1
+    let listaLabels
+
+
+    let ctx = document.getElementById('grafico').getContext('2d');
+
+    grafico = new Chart(
+        ctx,
+        {
+            type: 'line',
+            labels: listaLabels,
+            data: {
+
+                datasets: [{
+                    type: 'line',
+                    label: tituloGrafico,
+                    borderColor: ['#00ffff'],
+                    backgroundColor: ['#01dada']
+                }]
+            },
+        }
+    );
+
+
+    function selecionarCPU(botao) {
         const botoes = document.querySelectorAll('.opcao-grafico');
         botoes.forEach(b => b.classList.remove('selected'));
         botao.classList.add('selected');
+
+        var titulo = document.getElementById("titulo-grafico")
+        titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
+        var CPU = document.getElementById("text-CPU")
+        CPU.style.display = "block"
+        var RAM = document.getElementById("text-RAM")
+        RAM.style.display = "none"
+        var Disco = document.getElementById("text-Disco")
+        Disco.style.display = "none"
+        var pacotes = document.getElementById("text-pacotes")
+        pacotes.style.display = "none"
+
+        tituloGrafico = "CPU"
+        dado = 1
+
+        buscarTempoReal(dado)
+
     }
+
+    function selecionarRAM(botao) {
+        const botoes = document.querySelectorAll('.opcao-grafico');
+        botoes.forEach(b => b.classList.remove('selected'));
+        botao.classList.add('selected');
+
+        var titulo = document.getElementById("titulo-grafico")
+        titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
+        var CPU = document.getElementById("text-CPU")
+        CPU.style.display = "none"
+        var RAM = document.getElementById("text-RAM")
+        RAM.style.display = "block"
+        var Disco = document.getElementById("text-Disco")
+        Disco.style.display = "none"
+        var pacotes = document.getElementById("text-pacotes")
+        pacotes.style.display = "none"
+
+        tituloGrafico = "RAM"
+        dado = 2
+
+        buscarTempoReal(dado)
+
+    }
+
+    function selecionarDisco(botao) {
+        const botoes = document.querySelectorAll('.opcao-grafico');
+        botoes.forEach(b => b.classList.remove('selected'));
+        botao.classList.add('selected');
+
+        var titulo = document.getElementById("titulo-grafico")
+        titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
+        var CPU = document.getElementById("text-CPU")
+        CPU.style.display = "none"
+        var RAM = document.getElementById("text-RAM")
+        RAM.style.display = "none"
+        var Disco = document.getElementById("text-Disco")
+        Disco.style.display = "block"
+        var pacotes = document.getElementById("text-pacotes")
+        pacotes.style.display = "none"
+
+        tituloGrafico = "Disco"
+        dado = 3
+
+        buscarTempoReal(dado)
+    }
+
+    function selecionarPacotes(botao) {
+        const botoes = document.querySelectorAll('.opcao-grafico');
+        botoes.forEach(b => b.classList.remove('selected'));
+        botao.classList.add('selected');
+
+        var titulo = document.getElementById("titulo-grafico")
+        titulo.innerHTML = "Pacotes Recebidos x Pacotes Enviados"
+        var CPU = document.getElementById("text-CPU")
+        CPU.style.display = "none"
+        var RAM = document.getElementById("text-RAM")
+        RAM.style.display = "none"
+        var Disco = document.getElementById("text-Disco")
+        Disco.style.display = "none"
+        var pacotes = document.getElementById("text-pacotes")
+        pacotes.style.display = "block"
+
+        if (grafico) {
+            grafico.destroy()
+        }
+
+        buscarPacotesTempoReal()
+
+        const ctx = document.getElementById('grafico').getContext('2d');
+
+
+
+        grafico = new Chart(
+            ctx,
+            {
+                type: 'line',
+                labels: listaLabels,
+                data: {
+    
+                    datasets: [{
+                        type: 'line',
+                        label: 'Pacotes Enviados',
+                        borderColor: ['#00ffb3'],
+                        backgroundColor: ['#00de9b']
+                    }, {
+                        type: 'line',
+                        label: 'Pacotes Recebidos',
+                        borderColor: ['#dc143c'],
+                        backgroundColor: ['#a51230']
+                    }]
+                },
+            }
+        );
+    }
+
+    function buscarTempoReal(dado) {
+
+        fetch(`/facini/buscar/${dado}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    resposta = resposta.reverse()
+                    dados = [];
+                    listaLabels = [];
+
+                    for (let index = 0; index < resposta.length; index++) {
+                        const element = resposta[index];
+                        dados.push(element.registro)
+                        listaLabels.push(element.horario)
+                    }
+
+                    grafico.data.datasets[0].data = dados
+                    grafico.data.labels = listaLabels
+                    grafico.data.datasets[0].label = tituloGrafico;
+                    grafico.update()
+                    setTimeout(function () {
+                        buscarTempoReal(dado)
+                    }, 5000)
+                }
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+    function buscarPacotesTempoReal() {
+        fetch(`/facini/buscarPacotes`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    resposta = resposta.reverse()
+                    dados = [];
+                    listaLabels = [];
+                    dados2 = [];
+                    let listaLabels2 = [];
+
+                    for (let index = 0; index < resposta.length; index++) {
+                        const element = resposta[index];
+                        
+                        if (element.fk_dado_monitorado == 4) {
+                            dados.push(element.registro)
+                            listaLabels.push(element.horario)
+                        } else {
+                            dados2.push(element.registro)
+                            listaLabels2.push(element.horario)
+                        }
+
+                    }
+
+                    console.log(dados, listaLabels, dados2, listaLabels2, "DADOS PACOTES ENVIADOS E RECEBIDOS")
+
+                    grafico.data.datasets[0].data = dados
+                    grafico.data.datasets[1].data = dados2
+                    grafico.data.labels = listaLabels
+                    grafico.update()
+                    setTimeout(function () {
+                        buscarPacotesTempoReal()
+                    }, 5000)
+
+                }
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
 
 </script>

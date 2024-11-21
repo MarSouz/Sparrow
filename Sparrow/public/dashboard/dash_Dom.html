@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/dashboard/dash_Dom.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/imgs/Logo2.png" type="image/x-icon">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Sparrow | Pré Dashboard</title>
+</head>
+
+<body onload="qtdServidor(), qtdTerminal(), qtdAlertaAtualS(), qtdAlertaPassadoS(), qtdAlertaAtualT(), qtdAlertaPassadoT()">
+
+    <div class="menu-lateral">
+        <nav id="nav">
+            <ul>
+                <li>
+                    <a href="#" class="logo">
+                        <img src="../assets/imgs/Logo2.png" alt="">
+                        <span class="nav-item">Sparrow</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./preDashAdm.html">
+                        <i class="bx bxs-home"></i>
+                        <span class="nav-item">Início</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./../AlteracoesFunc.html">
+                        <i class="bx bxs-user"></i>
+                        <span class="nav-item">Funcionários</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashAdm.html">
+                        <i class="bx bx-radar"></i>
+                        <span class="nav-item">Terminais</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashAdmServidor.html">
+                        <i class="bx bxs-server"></i>
+                        <span class="nav-item">Servidores</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./../crudTerminal.html">
+                        <i class="bx bx-laptop"></i>
+                        <span class="nav-item">Gerenciamento de terminais</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./../crudServidor.html">
+                        <i class="bx bx-laptop"></i>
+                        <span class="nav-item">Gerenciamento de servidores</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="bx bxs-help-circle"></i>
+                        <span class="nav-item">Central de atendimento</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="logoutBotao" class="logout">
+                        <i class="bx bx-log-out"></i>
+                        <span class="nav-item">Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- SERVIDORES -->
+    <div id="servidores" class="global" style="display: block;">
+
+        <div class="header">
+            <h1>Relatório de Alertas</h1>
+            <select name="" id="select_tipo" onchange="select()">
+                <option value=1>Servidores</option>
+                <option value=2>Terminais</option>
+            </select>
+            <h2>Semana Atual:</h2>
+        </div>
+
+        <div class="content1">
+            <div class="card">
+                <br>
+                <center>
+                    <h2>Quantidade de Servidores</h2><br><br><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card"><br>
+                <center>
+                    <h2>Quantidade de Alertas</h2><br>
+                    <h3>Semana Atual</h3><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card">
+                <br>
+                <center>
+                    <h2>Quantidade de Alertas</h2><br>
+                    <h3>Semana Passada</h3><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card1"><br>
+                <center><h2>Quantidade de Alertas por Componente</h2></center>
+                <br>
+                <div class="componente">
+                    <h2>CPU <br><br>12</h2>
+                    <h2>RAM <br><br>12</h2>
+                    <h2>Disco <br><br>12</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="content2">
+            <div class="treemap"><br>
+                <center><h2>Treemap de Alertas</h2></center>
+            </div>
+            <div class="prev"><br>
+                <center><h2>Previsão de Alertas</h2></center>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terminais -->
+    <div id="terminais" class="globalT" style="display: none;">
+
+        <div class="header">
+            <h1>Relatório de Alertas</h1>
+            <select name="" id="select_tipo" onchange="select()">
+                <option value=1>Servidores</option>
+                <option value=2>Terminais</option>
+            </select>
+            <h2>Semana Atual:</h2>
+        </div>
+
+        <div class="content1">
+            <div class="card">
+                <br>
+                <center>
+                    <h2>Quantidade de Terminais</h2><br><br><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card"><br>
+                <center>
+                    <h2>Quantidade de Alertas</h2><br>
+                    <h3>Semana Atual</h3><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card">
+                <br>
+                <center>
+                    <h2>Quantidade de Alertas</h2><br>
+                    <h3>Semana Passada</h3><br>
+                    <h2><b>3</b></h2>
+                </center>
+            </div>
+            <div class="card1"><br>
+                <center><h2>Quantidade de Alertas por Componente</h2></center>
+                <br>
+                <div class="componente">
+                    <h2>CPU <br><br>12</h2>
+                    <h2>RAM <br><br>12</h2>
+                    <h2>Disco <br><br>12</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="content2">
+            <div class="treemap"><br>
+                <center><h2>Treemap de Alertas</h2></center>
+            </div>
+            <div class="prev"><br>
+                <center><h2>Previsão de Alertas</h2></center>
+            </div>
+        </div>
+    </div>
+
+</html>
+<script>
+    function select(){
+
+        var select_tipo = document.getElementById("select_tipo")
+        var terminais = document.getElementById("terminais")
+        var servidores = document.getElementById("servidores")
+
+        if (select_tipo.value == 1){
+
+            terminais.style.display = 'none'
+            servidores.style.display = 'block'
+
+        } else if (select_tipo.value == 2) {
+
+            terminais.style.display = 'block'
+            servidores.style.display = 'none'
+        }
+    }
+
+    function logout() {
+        sessionStorage.clear();
+        window.location.replace('../index.html');
+    }
+
+
+    function qtdServidor() {
+
+        fetch(`/dom/qtdServidor/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    const qtd = resposta.length; // Exemplo de como pegar a quantidade
+                    document.getElementById("qtdServidor").textContent = qtd;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function qtdAlertaAtualS() {
+
+        fetch(`/dom/qtdAlertaAtualS/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    const qtd = resposta.length; 
+                    document.getElementById("qtdAlertaAtualS").textContent = qtd;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function qtdAlertaPassadoS() {
+
+        fetch(`/dom/qtdAlertaPassadoS/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    const qtd = resposta.length; 
+                    document.getElementById("qtdAlertaPassadoS").textContent = qtd;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function qtdTerminal() {
+
+        fetch(`/dom/qtdTerminal/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function qtdAlertaAtualT() {
+
+        fetch(`/dom/qtdAlertaAtualT/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function qtdAlertaPassadoT() {
+
+        fetch(`/dom/qtdAlertaPassadoT/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+
+</script>

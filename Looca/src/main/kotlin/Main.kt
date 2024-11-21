@@ -7,9 +7,30 @@ open class Main {
             val repositorio = MaquinaRepositorio()
             repositorio.configurar()
             val looca = Looca()
+            var interfaces = looca.rede.grupoDeInterfaces.interfaces
+            val interfacesPrincipal = interfaces.filter{it.nome.lowercase().contains("wlan2")}
+            val existeMac = repositorio.existePorMac(interfaces[0].enderecoMac)
+            if (existeMac) {
+                println("Máquina já cadastrada. Iniciando captura...")
+            } else {
+
+                val novaMaquina = Maquina()
+                novaMaquina.setEnderecoMac(interfaces[0].enderecoMac)
+                repositorio.cadastrarMaquina(novaMaquina)
+
+                val maquinaCadastrada = repositorio.buscarPorMac(interfaces[0].enderecoMac)
+                repositorio.cadastrarComponente(maquinaCadastrada.id, maquinaCadastrada.fk_empresa,1, 80)
+                repositorio.cadastrarComponente(maquinaCadastrada.id,maquinaCadastrada.fk_empresa,2,80)
+                repositorio.cadastrarComponente(maquinaCadastrada.id,maquinaCadastrada.fk_empresa,3,80)
+                repositorio.cadastrarComponente(maquinaCadastrada.id,maquinaCadastrada.fk_empresa, 4,null)
+                repositorio.cadastrarComponente(maquinaCadastrada.id,maquinaCadastrada.fk_empresa, 5,null)
+                println("Cadastrando máquina no sistema. Iniciando captura...")
+
+            }
             while (true) {
                 val interfaces = looca.rede.grupoDeInterfaces.interfaces
-                val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan2") };
+                println(interfaces)
+                val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan") };
                 println(interfaceDeConexaoPrincipal[0].pacotesEnviados)
                 if (interfaces.isNotEmpty()) {
                     val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados

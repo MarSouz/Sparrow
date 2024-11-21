@@ -14,7 +14,7 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
              dataSource.driverClassName = "com.mysql.cj.jdbc.Driver"
              dataSource.url = "jdbc:mysql://localhost:3306/Sparrow"
              dataSource.username = "root"
-             dataSource.password = "12345678"
+             dataSource.password = "280406"
 
              jdbcTemplate = JdbcTemplate(dataSource);
          }
@@ -64,11 +64,12 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
 
 
 
-     fun cadastrarComponente(fkMaquina:Int, componente:Int, limite:Int?):Boolean{
+     fun cadastrarComponente(fkMaquina:Int, fkEmpresa: Int, componente:Int, limite:Int?):Boolean{
          val qtdLinhasAfetadas = jdbcTemplate.update(
-             "INSERT INTO maquina_componente (fk_maquina, fk_componente_maquina, limite_componente)"+
-             "VALUES (?,?,?)",
+             "INSERT INTO maquina_dado_monitorado (fk_maquina, fk_empresa, fk_dado_monitorado, limite_componente)"+
+             "VALUES (?,?,?, ?)",
              fkMaquina,
+             fkEmpresa,
              componente,
              limite
          )
