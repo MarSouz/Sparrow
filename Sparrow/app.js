@@ -23,6 +23,7 @@ var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
 var elersonRouter = require("./src/routes/elerson");
 var manuRouter = require("./src/routes/manu")
+var faciniRouter = require("./src/routes/facini")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,6 +39,7 @@ app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 app.use("/elerson", elersonRouter);
 app.use("/manu", manuRouter)
+app.use("/facini", faciniRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`
