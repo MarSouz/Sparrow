@@ -4,13 +4,13 @@ from mysql.connector import connect, Error
 
 config = {
   'user': 'root',
-  'password': '#Gf23636497880',
+  'password': 'manu',
   'host': 'localhost',
   'database': 'Sparrow'
 }
 
                                                                                     
-def get_mac_address(interface_name='enX0'):
+def get_mac_address(interface_name='wlan2'):
     addrs = psutil.net_if_addrs()
     if interface_name in addrs:
         for addr in addrs[interface_name]:
@@ -18,7 +18,7 @@ def get_mac_address(interface_name='enX0'):
                 return addr.address
     return None
 
-mac_address = get_mac_address('enX0')  # ou 'wlan0' para Wi-Fi
+mac_address = get_mac_address('wlan0')  # ou 'wlan0' para Wi-Fi
 print(f"MAC Address: {mac_address}")
 
 
@@ -45,6 +45,8 @@ try:
 except Error as e:
     print('Error to connect with MySQL -', e) 
 
+
+print(result)
 tamanho = len(result)
 
 

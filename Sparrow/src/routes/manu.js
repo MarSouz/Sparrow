@@ -7,4 +7,20 @@ router.get("/buscar/:idEmpresa/:idMaquina/:idDadoMonitorado/:tipoMaquina", funct
     manuController.buscarMedidasTempoReal(req, res);
 });
 
+router.get("/buscarCards/:idEmpresa/:idMaquina", function (req, res) {
+    manuController.buscarCards(req, res);
+});
+
+router.get("/buscarSelect/:idEmpresa", function (req, res) {
+    manuController.buscarSelect(req, res);
+});
+
+router.get("/buscarBarplot/:idEmpresa/:idMaquina/:idDadoMonitorado", function(req,res){
+    manuController.buscarMedidasBarplot(req,res)
+})
+
+router.get("/buscarMapa/:idEmpresa/:idMaquina", function(req,res){
+    manuController.buscarMapa(req,res)
+})
+
 module.exports = router;
