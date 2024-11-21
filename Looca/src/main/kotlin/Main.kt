@@ -8,6 +8,7 @@ open class Main {
             repositorio.configurar()
             val looca = Looca()
             var interfaces = looca.rede.grupoDeInterfaces.interfaces
+            val interfacesPrincipal = interfaces.filter{it.nome.lowercase().contains("wlan2")}
             val existeMac = repositorio.existePorMac(interfaces[0].enderecoMac)
             if (existeMac) {
                 println("Máquina já cadastrada. Iniciando captura...")
@@ -29,7 +30,7 @@ open class Main {
             while (true) {
                 val interfaces = looca.rede.grupoDeInterfaces.interfaces
                 println(interfaces)
-                val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan2") };
+                val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan") };
                 println(interfaceDeConexaoPrincipal[0].pacotesEnviados)
                 if (interfaces.isNotEmpty()) {
                     val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados

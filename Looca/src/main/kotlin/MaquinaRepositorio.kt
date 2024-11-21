@@ -14,7 +14,7 @@ class MaquinaRepositorio() //(private val jdbcTemplate: JdbcTemplate)
              dataSource.driverClassName = "com.mysql.cj.jdbc.Driver"
              dataSource.url = "jdbc:mysql://localhost:3306/Sparrow"
              dataSource.username = "root"
-             dataSource.password = "manu"
+             dataSource.password = "280406"
 
              jdbcTemplate = JdbcTemplate(dataSource);
          }
