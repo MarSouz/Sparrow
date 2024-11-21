@@ -11,6 +11,8 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./assets/imgs/Logo2.png" type="image/x-icon">
     <title>Dashboard | Visão geral das máquinas</title>
@@ -42,7 +44,7 @@
                 </li>
 
                 <li>
-                    <a href="./dashAdm.html">
+                    <a href="elersonDashboard.html">
                         <i class="bx bx-radar"></i>
                         <span class="nav-item">Terminais</span>
                     </a>
@@ -104,9 +106,10 @@
                 <canvas id="scatterChart"></canvas>
             </div>
             <div class="card">
-                <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Obcaecati aspernatur laboriosam, unde
-                    quasi quidem in soluta, ipsam quod eligendi eveniet, reprehenderit repellendus sunt quis aliquid
-                    voluptatem. Nobis veritatis alias qui!</span>
+                <span id="titulo">Descrição do gráfico de dispersão</span>
+                <span id="info1"></span>
+                <span id="info2"></span>
+                <span id="info3"></span>
             </div>
         </div>
         <div class="boxplot" style="display: none;" id="lero">
@@ -180,6 +183,8 @@
         });
     }
 
+
+
     // Preparando os dados para o Chart.js
     function plotarDispersao(dadosMedias) {
 
@@ -187,20 +192,47 @@
             scatterChartInstance.destroy();
         }
 
+        const mediaX = calcularMediaX(dadosMedias); // Cálculo da média X
+        const mediaY = calcularMediaY(dadosMedias); // Cálculo da média Y
+
+        let acimaDasDuasMedias = []
+        let acimaX = []
+        let acimaY = []
+
+        for (let index = 0; index < dadosMedias.length; index++) {
+            const element = dadosMedias[index];
+            if (element.dado1 > mediaX && element.dado2 > mediaY) {
+                acimaDasDuasMedias.push(element.fk_maquina)
+            }
+            if (element.dado1 > mediaX) {
+                acimaX.push(element.fk_maquina)
+            }
+            if(element.dado2 > mediaY){
+                acimaY.push(element.fk_maquina)
+            }
+        }
+
+        console.log(acimaDasDuasMedias, acimaX, acimaY)
+        info1.innerHTML = `Máquinas acima da média de CPU e RAM: ${acimaDasDuasMedias}`
+        info2.innerHTML = `Máquinas acima de CPU: ${acimaX}`
+        info3.innerHTML = `Máquinas acima da média de RAM: ${acimaY}`
+
+        console.log('Média X:', mediaX);
+        console.log('Média Y:', mediaY);
+
         const data = {
             datasets: [{
                 label: 'Máquinas',
                 data: dadosMedias.map(d => ({
                     x: d.dado1,
                     y: d.dado2,
-                    maquina: d.fk_maquina // Armazena o ID da máquina para os rótulos
+                    maquina: d.fk_maquina
                 })),
                 backgroundColor: 'blue',
                 pointRadius: 5
             }]
         };
 
-        // Configurações do gráfico
         const config = {
             type: 'scatter',
             data: data,
@@ -226,37 +258,70 @@
                                 const maquina = context.raw.maquina;
                                 const xValue = context.raw.x;
                                 const yValue = context.raw.y;
-                                if (texto1 == 'Media de Uso de CPU') {
+                                if (texto1 === 'Media de Uso de CPU') {
                                     return `Máquina ${maquina}: CPU ${xValue}, RAM ${yValue}`;
-                                }
-                                else {
+                                } else {
                                     return `Máquina ${maquina}: Enviados ${xValue}, Recebidos ${yValue}`;
+                                }
+                            }
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            linhaMediaX: {
+                                type: 'line',
+                                scaleID: 'x',
+                                value: mediaX,
+                                borderColor: 'black',
+                                borderWidth: 2,
+                                label: {
+                                    enabled: true,
+                                    content: `Média X: ${mediaX}`,
+                                    position: 'start'
+                                }
+                            },
+                            linhaMediaY: {
+                                type: 'line',
+                                scaleID: 'y',
+                                value: mediaY,
+                                borderColor: 'black',
+                                borderWidth: 2,
+                                label: {
+                                    enabled: true,
+                                    content: `Média Y: ${mediaY}`,
+                                    position: 'start'
                                 }
                             }
                         }
                     }
                 },
-                // Função de evento onClick
-                onClick: (event, elements) => {
-                    if (elements.length > 0) {
+                onClick: (event, activeElements) => {
+                    if (activeElements.length > 0) {
                         // Obtendo o índice do ponto clicado
-                        const index = elements[0].index;
-                        const machineData = data.datasets[0].data[index];
+                        const datasetIndex = activeElements[0].datasetIndex;
+                        const index = activeElements[0].index;
+                        const machineData = data.datasets[datasetIndex].data[index];
 
-                        // Exibindo o ID da máquina e os dados
-                        // alert(`Máquina ${machineData.maquina}: Média de Pacotes Enviados = ${machineData.x}, Média de Pacotes Recebidos = ${machineData.y}`);
-                        buscarMedidasBoxplot(machineData.maquina, perido, dado1, dado2)
-                        // Aqui você pode chamar uma função para exibir um boxplot
-                        // exemplo: exibirBoxplot(machineData.maquina);
+                        // Exibindo os dados da máquina
+                        buscarMedidasBoxplot(machineData.maquina, perido, dado1, dado2);
                     }
                 }
             }
         };
 
-        // Inicializando o gráfico
         const ctx = document.getElementById('scatterChart').getContext('2d');
         scatterChartInstance = new Chart(ctx, config);
     }
+    // Funções para calcular médias
+    function calcularMediaX(dados) {
+        return dados.reduce((acc, d) => acc + d.dado1, 0) / dados.length;
+    }
+
+    function calcularMediaY(dados) {
+        console.log('Dados recebidos:', dados);
+        return dados.reduce((acc, d) => acc + d.dado2, 0) / dados.length;
+    }
+    // Inicializando o gráfico
 
     function buscarMedidasBoxplot(fk_maquina, periodo, dado1, dado2) {
         fetch(`/elerson/buscar/boxplot/${sessionStorage.ID_EMPRESA}/${fk_maquina}/${periodo}/${dado1}/${dado2}`).then(function (resposta) {
@@ -320,5 +385,18 @@
         lero.style.display = "none"; // Esconde a div
         blurOverlay.style.display = "none"; // Esconde o fundo embaçado
     }
+
+    //DEIXAR A PARTE DA NAV BAR QUE EU TO USANDO SELECIONADA
+    // Espera o DOM estar totalmente carregado antes de executar
+    document.addEventListener("DOMContentLoaded", function () {
+        // Obtém o URL da página atual
+        const urlAtual = window.location.href;
+
+
+        if (urlAtual.includes("elersonDashboard.html")) {
+            const terminaisNavItem = document.querySelector('a[href="elersonDashboard.html"]');
+            terminaisNavItem.classList.add('nav-item-ativo');
+        }
+    });
 
 </script>
