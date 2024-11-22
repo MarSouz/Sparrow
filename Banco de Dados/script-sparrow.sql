@@ -298,6 +298,34 @@ END;
 //
 DELIMITER ;
 
+SELECT 
+    data,
+    MAX(registro) AS maior_registro,
+    CASE DAYOFWEEK(data)
+        WHEN 1 THEN 'Domingo'
+        WHEN 2 THEN 'Segunda-feira'
+        WHEN 3 THEN 'Terça-feira'
+        WHEN 4 THEN 'Quarta-feira'
+        WHEN 5 THEN 'Quinta-feira'
+        WHEN 6 THEN 'Sexta-feira'
+        WHEN 7 THEN 'Sábado'
+    END AS dia_da_semana
+FROM (
+    SELECT 
+        DATE(data_hora) AS data,
+        registro
+    FROM 
+        Sparrow.dado_capturado
+    WHERE 
+        DATE(data_hora) >= CURDATE() - INTERVAL 7 DAY -- Filtra os últimos 7 dias
+) AS dados_agrupados
+GROUP BY 
+    data
+ORDER BY 
+    data ASC, -- Organiza por data (do mais antigo para o mais recente)
+    DAYOFWEEK(data) -- Organiza os dias da semana (de segunda a domingo)
+LIMIT 7;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

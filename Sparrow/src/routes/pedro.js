@@ -1,7 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const pedroController = require('../controllers/pedroController');
+var express = require('express');
+var router = express.Router();
+var pedroController = require('../controllers/pedroController');
 
-router.get('/dados-semana/:componente', pedroController.buscarDadosSemanalController);
+router.get('/dados-semana/:componente', function (req, res) {
+    pedroController.buscarDadosSemanalController(req, res)
+});
+
 
 module.exports = router;
