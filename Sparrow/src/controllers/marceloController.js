@@ -1,4 +1,4 @@
-var elersonModel = require("../models/elersonModel");
+var marceloModel = require("../models/marceloModel");
 
 function buscarTotalAlertas(req, res) {
     var idEmpresa = req.params.idEmpresa;
