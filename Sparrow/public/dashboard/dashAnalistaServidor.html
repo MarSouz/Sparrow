@@ -13,8 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXLI2oA3eAbE_cbBKHI_5BThK0QoOYjao&callback=initMap"
+        async defer></script>
+
 
     <title>Sparrow | Dashboard Servidor</title>
 </head>
@@ -29,32 +30,24 @@
                         <span class="nav-item">Sparrow</span>
                     </a>
                 </li>
-
-                <li>
-                    <a href="./preDashAnalista.html">
-                        <i class="bx bxs-home"></i>
-                        <span class="nav-item">Início</span>
-                    </a>
-                </li>
-
-                <!-- <li>
-                    <a href="#">
-                        <i class="fas fa-user"></i>
-                        <span class="nav-item">Usuários</span>
-                    </a>
-                </li> -->
-
                 <li>
                     <a href="dashAnalista.html">
-                        <i class="bx bx-radar"></i>
-                        <span class="nav-item">Terminais</span>
+                        <i class='bx bx-line-chart'></i>
+                        <span class="nav-item">Análise diária</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="dashAnalistaServidor.html">
-                        <i class="bx bxs-server"></i>
-                        <span class="nav-item">Servidores</span>
+                    <a href="./dashDesgaste.html">
+                        <i class='bx bxs-bar-chart-alt-2'></i>
+                        <span class="nav-item">Análise semanal</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./marceloDashboard.html">
+                        <i class='bx bxs-calendar'></i>
+                        <span class="nav-item"> Análise mensal</span>
                     </a>
                 </li>
 
@@ -78,109 +71,298 @@
     </div>
 
     <div class="father">
-        <div class="descricao-inicial">
         <div class="father-content">
             <div class="content1">
 
                 <div class="terminal-botao">
                     <span class="subtitulo">Servidor</span>
 
-                    <select name="select-terminal" id="select-terminal">
-                        <option value="#" selected  disabled>Escolha qual monitorar</option>
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
+                    <select name="select-terminal" id="selectServidor"
+                        onclick="buscarMapa(sessionStorage.ID_EMPRESA, Number(selectServidor.value))">
+                        <option value="0" selected disabled>Escolha qual monitorar</option>
                     </select>
 
                     <div class="container-botoes">
-                        <button>CPU</button>
-                        <button>RAM</button>
-                        <button>Disco</button>
-                        <button>Pacotes recebidos</button>
+                        <button onclick="definirCpu()">CPU</button>
+                        <button onclick="definirRam()">RAM</button>
+                        <!-- <button onclick="definirDisco()">Disco</button> -->
+                        <button onclick="definirRecebidos()">Pacotes recebidos</button>
                     </div>
                 </div>
             </div>
-
             <div class="content2">
                 <div class="content-infos">
                     <span class="titulo">Atualização do uso dos componentes</span>
-                    
+
                     <div class="info-container">
-                        <div class="info1">
+                        <div class="info1" id="cardCpu">
                             <span class="subtitulo">CPU</span>
-                            <span class="descricao">30%</span>
+                            <span class="descricao" id="spanCpu"></span>
                         </div>
-                        <div class="info2">
+                        <div class="info2" id="cardRam">
                             <span class="subtitulo">RAM</span>
-                            <span class="descricao">50%</span>
+                            <span class="descricao" id="spanRam"></span>
                         </div>
-                        <div class="info3">
+                        <div class="info3" id="cardDisco">
                             <span class="subtitulo">Disco</span>
-                            <span class="descricao">95%</span>
+                            <span class="descricao" id="spanDisco"></span>
                         </div>
-                        <div class="info4">
-                            <span class="subtitulo">Pacotes enviados</span>
-                            <span class="descricao">500 pacotes</span>
+                        <div class="info4" id="cardRecebidos">
+                            <span class="subtitulo">Pacotes recebidos</span>
+                            <span class="descricao" id="spanRecebidos"></span>
                         </div>
+                    </div>
+
+                    <div class="legenda">
+                        <span>Vermelho: Acima de 80% — Estado crítico</span>
+                        <span>Amarelo: Entre 50% e 70% — Estado de atenção</span>
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
-        <div class="content3">
-            <div class="map-grafico">
-                <div class="graficoLinha" id="grafico" style="display: none;">
-                    <canvas id="myChart"></canvas>
+        <div class="father-content2">
+            <div class="content3">
+                <div class="graficos">
+                    <div class="graficoLinha" id="grafico" style="display: none;">
+                        <canvas id="myChart"></canvas>
+                    </div>
+
+                    <div class="histograma" id="histograma" style="display: none;">
+                        <canvas id="myChart2"></canvas>
+                    </div>
                 </div>
-                <div id="map"></div>
             </div>
+
+            <div class="content4">
+                <div id="map"></div>
+                <span class="tituloMapa">Localização atual do radar</span>
+            </div>
+
         </div>
     </div>
-</div>
 </body>
 
 </html>
 <script>
-     function logout() {
-        sessionStorage.clear(); 
-        window.location.replace('../index.html'); 
+    let graficoContainer = document.getElementById('grafico');
+    let histogramaContainer = document.getElementById('histograma');
+    let ctx = document.getElementById('myChart').getContext('2d');
+    let ctx2 = document.getElementById('myChart2').getContext('2d');
+    let buttons = document.querySelectorAll('.container-botoes button');
+
+
+    // variáveis para tempo real
+    var tipoDado = 1
+    var nomeLabel = ''
+    let dados = [];
+    let horarios = [];
+    let myChart2; // Gráfico para o histograma
+    let myChart; // Gráfico para CPU, RAM, Disco, Rede
+
+
+
+
+    //variaveis para mudar a label dos gráficos de acordo com o botão que é clicado 
+    function definirCpu() {
+        tipoDado = 1
+        nomeLabel = "Uso de CPU"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
     }
 
-    document.getElementById('logoutBotao').addEventListener('click', function (event) {
-        event.preventDefault(); 
-        logout();
+    function definirRam() {
+        tipoDado = 2
+        nomeLabel = "Uso de RAM"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    function definirDisco() {
+        tipoDado = 3
+        nomeLabel = "Uso de Disco"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    function definirRecebidos() {
+        tipoDado = 5
+        nomeLabel = "Uso de Pacotes Recebidos"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    // declarando essas variáveis para mudar nos cards
+    let cpuData = 0;
+    let ramData = 0;
+    let discoData = 0;
+    let pacotesRecebidosData = 0;
+    buscarMapa(sessionStorage.ID_EMPRESA, Number(selectServidor.value))
+
+
+    //LISTAR MÁQUINAS
+    function buscarSelect() {
+        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}`, {
+            method: "GET"  // Aqui, o método GET é passado na configuração do fetch.
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        console.log("Nenhum dado encontrado");
+                        return;
+                    }
+                    // Caso a resposta seja OK, converte o JSON
+                    resposta.json().then(function (dados) {
+                        dados.forEach((dado) => {
+                            selectServidor.innerHTML += `<option value='${dado.id}'>${dado.id}</option>`;
+                        });
+                        console.log("Dados recebidos: ", JSON.stringify(dados));
+                    });
+                } else {
+                    console.log("Erro na resposta", resposta.status);
+                }
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+    }
+
+    buscarSelect()
+
+    // APARECER OS GRÁFICOS
+    buttons.forEach(button => {  // Adiciona evento de clique para cada botão
+        button.addEventListener('click', function () {
+            const tipo = this.innerText; // Captura o texto do botão clicado
+            exibirGraficos(tipo); // Exibe os gráficos correspondentes
+        });
     });
-     const graficoContainer = document.getElementById('grafico');
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const buttons = document.querySelectorAll('.container-botoes button');
 
-    let myChart; // Variável global para manter a instância do gráfico
 
-    const dados = {
-        'CPU': [30, 35, 25, 30],
-        'RAM': [50, 45, 55, 50],
-        'Disco': [95, 80, 90, 95],
-        'Pacotes enviados': [500, 400, 500, 500]
-    };
+    function exibirGraficos(tipo) {
+        graficoContainer.style.display = 'block'; // Mostra o gráfico de barras
+        histogramaContainer.style.display = 'block'; // Mostra o histograma
+    }
 
-    // Função para exibir o gráfico
-    function exibirGrafico(tipo) {
-        graficoContainer.style.display = 'block'; // Mostra o gráfico
 
-        // Se já houver um gráfico, destruí-lo antes de criar um novo
-        if (myChart) {
-            myChart.destroy();
+    // ATUALIZAR GRAFICO TEMPO REAL
+    function buscarMedidasTempoReal() {
+        fetch(`/manu/buscar/${sessionStorage.ID_EMPRESA}/${Number(selectServidor.value)}/${tipoDado}/${1}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    resposta = resposta.reverse()
+                    dados = [];
+                    horarios = [];
+
+                    for (let index = 0; index < resposta.length; index++) {
+                        const element = resposta[index];
+                        dados.push(element.registro)
+                        horarios.push(element.horario)
+                    }
+                    myChart.data.datasets[0].data = dados
+                    myChart.data.labels = horarios
+                    myChart.data.datasets[0].label = nomeLabel;
+                    myChart.update()
+                    setTimeout(function () {
+                        buscarMedidasTempoReal()
+                    }, 5000)
+                }
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+    console.log(dados)
+
+
+    myChart = new Chart(
+        ctx,
+        {
+            type: 'line',
+            labels: horarios,
+            data: {
+
+                datasets: [{
+                    type: 'line',
+                    label: nomeLabel,
+                    borderColor: ['#08241c'],
+                    backgroundColor: ['#08241c']
+                }]
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Monitoramento em tempo real',
+                        font: {
+                            size: 14,
+                            // weight: 'bold'
+                        },
+                        color: '#333',
+                        padding: {
+                            bottom: 2
+                        }
+                    }
+                }
+            }
+        });
+
+
+
+    // PLOTAR GRÁFICO EM BARRAS
+    function buscarMedidasBarplot() {
+        fetch(`/manu/buscarBarplot/${sessionStorage.ID_EMPRESA}/${Number(selectServidor.value)}/${tipoDado}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    plotarBarplot(resposta)
+                }
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+
+
+    function plotarBarplot(resposta) {
+        if (myChart2) {
+            myChart2.destroy();
         }
 
-        // Cria um novo gráfico
-        myChart = new Chart(ctx, {
-            type: 'line',
+        var dados = [];
+        var nomeLabel = [];
+
+        for (let index = 0; index < resposta.length; index++) {
+            const element = resposta[index]
+            dados.push(element.total_alertas)
+            nomeLabel.push(element.hora)
+        }
+
+        myChart2 = new Chart(ctx2, {
+            type: 'bar',
             data: {
-                labels: ['13:10', '13:11', '13:12', '13:13'],
+                labels: nomeLabel,
                 datasets: [{
-                    label: tipo,
-                    data: dados[tipo],
-                    borderWidth: 1
+                    label: 'Quantidade de alertas por hora',
+                    data: dados,
+                    borderWidth: 1,
+                    borderColor: ['#08241c'],
+                    backgroundColor: ['#08241c']
                 }]
             },
             options: {
@@ -191,42 +373,143 @@
                 }
             }
         });
+
     }
 
-    // Adiciona evento de clique para cada botão
-    buttons.forEach(button => {
-        button.addEventListener('click', function () {
-            const tipo = this.innerText; // Captura o texto do botão clicado
-            graficoContainer.style.display = 'none'; // Oculta o gráfico antes de atualizar
-            exibirGrafico(tipo); // Exibe o gráfico correspondente
+
+    //BUSCAR OS CARDS E ATUALIZA-LOS EM TEMPO REAL
+
+    function buscarCards() {
+        fetch(`/manu/buscarCards/${sessionStorage.ID_EMPRESA}/${Number(selectServidor.value)}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    atualizarCards(resposta)
+
+                    setTimeout(function () {
+                        buscarCards()
+                    }, 5000)
+                })
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
         });
+    }
+
+    buscarCards()
+    
+    function atualizarCards(dados) {
+
+    const cpu = dados[0]?.cpu;
+    const ram = dados[0]?.ram;
+    const disco = dados[0]?.disco;
+    const pacotesRecebidos = dados[0]?.pacotes_recebidos;
+
+    document.getElementById('spanCpu').innerText = cpu ? `${cpu}%` : '';
+    document.getElementById('spanRam').innerText = ram ? `${ram}%` : '';
+    document.getElementById('spanDisco').innerText = disco ? `${disco}%` : '';
+    document.getElementById('spanRecebidos').innerText = pacotesRecebidos ? `${pacotesRecebidos} pacotes` : '';
+
+    aplicarCorCard('cardCpu', cpu);  
+    aplicarCorCard('cardRam', ram);
+    aplicarCorCard('cardDisco', disco);
+    aplicarCorCard('cardRecebidos', pacotesRecebidos);
+}
+
+function aplicarCorCard(idCard, valor) {
+    let corTexto = '';  
+    let corFundo = ''; 
+
+    if (valor >= 80) {
+        corTexto = 'white';  
+        corFundo = 'red';   
+    } else if (valor >= 50 && valor < 80) {
+        corTexto = 'black';  
+        corFundo = 'yellow'; 
+    }
+
+    const cardElement = document.getElementById(idCard);
+    if (cardElement) {
+        cardElement.style.color = corTexto; 
+        cardElement.style.backgroundColor = corFundo;  
+    }
+}
+
+    // MAPA
+    function initMap(dados) {
+        console.log(dados)
+        const radarLocation = {
+            lat: Number(dados[0].lat),
+            lng: Number(dados[0].lon)
+        };
+        // Inicializa o mapa
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: radarLocation,
+        });
+        // Cria o marcador inicial
+        addMarker(radarLocation);
+    }
+
+
+    function buscarMapa(idEmpresa, idMaquina) {
+        fetch(`/manu/buscarMapa/${idEmpresa}/${Number(selectServidor.value)}`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        console.log("Nenhum dado encontrado");
+                        return;
+                    }
+                    resposta.json().then(function (dados) {
+                        console.log("Dados recebidos: ", JSON.stringify(dados));
+                        initMap(dados)
+                    });
+                } else {
+                    throw new Error('Houve um erro na API!');
+                }
+            })
+            .catch(function (erro) {
+                console.error(erro);
+            });
+    }
+
+    // Função para adicionar um marcador
+    function addMarker(location) {
+        const marker = new google.maps.Marker({
+            position: location,
+            map: map,
+        });
+        markers.push(marker); // Armazena o marcador para referência futura
+    }
+
+
+    // SAIR DA PÁGINA
+
+    function logout() {
+        sessionStorage.clear();
+        window.location.replace('../index.html');
+    }
+
+    document.getElementById('logoutBotao').addEventListener('click', function (event) {
+        event.preventDefault();
+        logout();
     });
 
 
+    //DEIXAR A PARTE DA NAV BAR QUE EU TO USANDO SELECIONADA
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlAtual = window.location.href;
 
-    const map = L.map('map').setView([-24.0833, -46.0000], 5); //ajuste do nivel inicial do zoom o ultimo numero 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 7,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-
-    var marker = L.marker([-23.7951, -45.4146]).addTo(map);
-    var circle = L.circle([-23.7951, -45.4146], {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.5,
-        radius: 500
-    }).addTo(map);
-
-
-    const nav = document.getElementById('nav'); //Pegando o id da navbar
-    nav.addEventListener('mouseover', function () { //"Escutar" o mouse passando por cima da nav e criando um evento
-        nav.classList.add('expanded');
-    }); // O evento é a expansão da nav bar 
-
-    nav.addEventListener('mouseout', function () {
-        nav.classList.remove('expanded'); //quando o mouse nao esta sobre a navbar, a tela fica como original
+        if (urlAtual.includes("dashAnalista.html")) {
+            const terminaisNavItem = document.querySelector('a[href="dashAnalista.html"]');
+            terminaisNavItem.classList.add('nav-item-ativo');
+        }
     });
-
 
 </script>

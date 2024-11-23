@@ -32,14 +32,14 @@
                 </li>
                 <li>
                     <a href="dashAnalista.html">
-                        <i class='bx bx-line-chart' ></i>
+                        <i class='bx bx-line-chart'></i>
                         <span class="nav-item">Análise diária</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="./dashDesgaste.html">
-                        <i class='bx bxs-bar-chart-alt-2' ></i>
+                        <i class='bx bxs-bar-chart-alt-2'></i>
                         <span class="nav-item">Análise semanal</span>
                     </a>
                 </li>
@@ -96,22 +96,27 @@
                     <span class="titulo">Atualização do uso dos componentes</span>
 
                     <div class="info-container">
-                        <div class="info1">
+                        <div class="info1" id="cardCpu">
                             <span class="subtitulo">CPU</span>
                             <span class="descricao" id="spanCpu"></span>
                         </div>
-                        <div class="info2">
+                        <div class="info2" id="cardRam">
                             <span class="subtitulo">RAM</span>
                             <span class="descricao" id="spanRam"></span>
                         </div>
-                        <div class="info3">
+                        <div class="info3" id="cardDisco">
                             <span class="subtitulo">Disco</span>
                             <span class="descricao" id="spanDisco"></span>
                         </div>
-                        <div class="info4">
+                        <div class="info4" id="cardEnviados">
                             <span class="subtitulo">Pacotes enviados</span>
                             <span class="descricao" id="spanEnviados"></span>
                         </div>
+                    </div>
+
+                    <div class="legenda">
+                        <span>Vermelho: Acima de 80% — Estado crítico</span>
+                        <span>Amarelo: Entre 50% e 70% — Estado de atenção</span>
                     </div>
                 </div>
             </div>
@@ -189,15 +194,12 @@
         buscarMedidasBarplot()
     }
 
-
-
     // declarando essas variáveis para mudar nos cards
     let cpuData = 0;
     let ramData = 0;
     let discoData = 0;
     let pacotesEnviadosData = 0;
     buscarMapa(sessionStorage.ID_EMPRESA, Number(selectTerminal.value))
-
 
 
     //LISTAR MÁQUINAS
@@ -228,9 +230,6 @@
     }
 
     buscarSelect()
-
-
-
 
     // APARECER OS GRÁFICOS
     buttons.forEach(button => {  // Adiciona evento de clique para cada botão
@@ -404,16 +403,43 @@
     }
 
     buscarCards()
+    
+    function atualizarCards(dados) {
 
-    // Função para atualizar os cards de CPU, RAM, Disco e Pacotes Enviados
-    function atualizarCards(resposta) {
-        document.getElementById('spanCpu').innerText = resposta[0]?.cpu ? `${resposta[0].cpu}%` : '';
-        document.getElementById('spanRam').innerText = resposta[0]?.ram ? `${resposta[0].ram}%` : '';
-        document.getElementById('spanDisco').innerText = resposta[0]?.disco ? `${resposta[0].disco}%` : '';
-        document.getElementById('spanEnviados').innerText = resposta[0]?.pacotes_enviados ? `${resposta[0].pacotes_enviados} pacotes` : '';
+    const cpu = dados[0]?.cpu;
+    const ram = dados[0]?.ram;
+    const disco = dados[0]?.disco;
+    const pacotesEnviados = dados[0]?.pacotes_enviados;
+
+    document.getElementById('spanCpu').innerText = cpu ? `${cpu}%` : '';
+    document.getElementById('spanRam').innerText = ram ? `${ram}%` : '';
+    document.getElementById('spanDisco').innerText = disco ? `${disco}%` : '';
+    document.getElementById('spanEnviados').innerText = pacotesEnviados ? `${pacotesEnviados} pacotes` : '';
+
+    aplicarCorCard('cardCpu', cpu);  
+    aplicarCorCard('cardRam', ram);
+    aplicarCorCard('cardDisco', disco);
+    aplicarCorCard('cardEnviados', pacotesEnviados);
+}
+
+function aplicarCorCard(idCard, valor) {
+    let corTexto = '';  
+    let corFundo = ''; 
+
+    if (valor >= 80) {
+        corTexto = 'white';  
+        corFundo = 'red';   
+    } else if (valor >= 50 && valor < 80) {
+        corTexto = 'black';  
+        corFundo = 'yellow'; 
     }
 
-
+    const cardElement = document.getElementById(idCard);
+    if (cardElement) {
+        cardElement.style.color = corTexto; 
+        cardElement.style.backgroundColor = corFundo;  
+    }
+}
 
     // MAPA
     function initMap(dados) {
@@ -478,15 +504,11 @@
 
 
     //DEIXAR A PARTE DA NAV BAR QUE EU TO USANDO SELECIONADA
-    // Espera o DOM estar totalmente carregado antes de executar
     document.addEventListener("DOMContentLoaded", function () {
-        // Obtém o URL da página atual
         const urlAtual = window.location.href;
 
-    
         if (urlAtual.includes("dashAnalista.html")) {
             const terminaisNavItem = document.querySelector('a[href="dashAnalista.html"]');
-            // Adiciona a classe para destacar o item
             terminaisNavItem.classList.add('nav-item-ativo');
         }
     });

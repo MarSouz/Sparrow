@@ -50,10 +50,20 @@ function buscarMapa(req, res) {
   })
 }
 
+function buscarValoresCriticos(req, res) {
+  var idEmpresa = req.params.idEmpresa;
+  var idMaquina = req.params.idMaquina; // Adicionando o idMaquina
+  manuModel.buscarValoresCriticos(idEmpresa, idMaquina).then((resultado) => {
+    res.status(200).json(resultado)
+  })
+}
+
+
 module.exports = {
   buscarMedidasTempoReal,
   buscarMedidasBarplot,
   buscarMapa,
   buscarCards, 
   buscarSelect,
+  buscarValoresCriticos
 }
