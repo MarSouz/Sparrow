@@ -31,7 +31,7 @@ GROUP BY
 
 function inserirLocalizacao(latitude, longitude){
     var instrucaoSql = `INSERT INTO coordenada VALUES (DEFAULT, ${latitude}, ${longitude})`
-
+    console.log("Executando as instruções SQL: \n" + instrucaoSql );
     return database.executar(instrucaoSql)
 }
 
