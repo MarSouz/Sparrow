@@ -11,7 +11,7 @@ router.get("/buscarCards/:idEmpresa/:idMaquina", function (req, res) {
     manuController.buscarCards(req, res);
 });
 
-router.get("/buscarSelect/:idEmpresa", function (req, res) {
+router.get("/buscarSelect/:idEmpresa/:tipoMaquina", function (req, res) {
     manuController.buscarSelect(req, res);
 });
 

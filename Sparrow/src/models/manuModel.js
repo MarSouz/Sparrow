@@ -56,9 +56,9 @@ ORDER BY
 
 
 
-function buscarSelect(idEmpresa) {
+function buscarSelect(idEmpresa, tipoMaquina) {
 
-  var instrucaoSql = `select id from maquina where fk_empresa = ${idEmpresa};`;
+  var instrucaoSql = `select id from maquina where fk_empresa = ${idEmpresa} and fk_tipo_maquina = ${tipoMaquina};`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

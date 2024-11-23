@@ -16,6 +16,8 @@ open class Main {
 
                 val novaMaquina = Maquina()
                 novaMaquina.setEnderecoMac(interfaces[0].enderecoMac)
+                println("Digite o número de qual tipo de máquina deseja cadastrar: 1. Servidor ou 2.Terminal ")
+                novaMaquina.setFkTipoMaquina(readln().toInt())
                 repositorio.cadastrarMaquina(novaMaquina)
 
                 val maquinaCadastrada = repositorio.buscarPorMac(interfaces[0].enderecoMac)
@@ -30,7 +32,7 @@ open class Main {
             while (true) {
                 val interfaces = looca.rede.grupoDeInterfaces.interfaces
                 println(interfaces)
-                val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan") };
+                val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan2") };
                 println(interfaceDeConexaoPrincipal[0].pacotesEnviados)
                 if (interfaces.isNotEmpty()) {
                     val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados

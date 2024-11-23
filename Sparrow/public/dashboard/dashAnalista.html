@@ -204,7 +204,7 @@
 
     //LISTAR MÁQUINAS
     function buscarSelect() {
-        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}`, {
+        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}/${1}`, {
             method: "GET"  // Aqui, o método GET é passado na configuração do fetch.
         })
             .then(function (resposta) {
@@ -419,7 +419,7 @@
     aplicarCorCard('cardCpu', cpu);  
     aplicarCorCard('cardRam', ram);
     aplicarCorCard('cardDisco', disco);
-    aplicarCorCard('cardEnviados', pacotesEnviados);
+    // aplicarCorCard('cardEnviados', pacotesEnviados);
 }
 
 function aplicarCorCard(idCard, valor) {
@@ -448,12 +448,10 @@ function aplicarCorCard(idCard, valor) {
             lat: Number(dados[0].lat),
             lng: Number(dados[0].lon)
         };
-        // Inicializa o mapa
         map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,
             center: radarLocation,
         });
-        // Cria o marcador inicial
         addMarker(radarLocation);
     }
 

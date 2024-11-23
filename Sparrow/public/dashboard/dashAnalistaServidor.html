@@ -203,7 +203,7 @@
 
     //LISTAR MÁQUINAS
     function buscarSelect() {
-        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}`, {
+        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}/${1}`, {
             method: "GET"  // Aqui, o método GET é passado na configuração do fetch.
         })
             .then(function (resposta) {
@@ -418,7 +418,7 @@
     aplicarCorCard('cardCpu', cpu);  
     aplicarCorCard('cardRam', ram);
     aplicarCorCard('cardDisco', disco);
-    aplicarCorCard('cardRecebidos', pacotesRecebidos);
+    // aplicarCorCard('cardRecebidos', pacotesRecebidos);
 }
 
 function aplicarCorCard(idCard, valor) {

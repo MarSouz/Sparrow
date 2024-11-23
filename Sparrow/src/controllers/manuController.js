@@ -24,8 +24,9 @@ function buscarCards(req, res) {
 
 function buscarSelect(req, res) {
   var idEmpresa = req.params.idEmpresa;
+  var tipoMaquina = req.params.tipoMaquina;
 
-  manuModel.buscarSelect(idEmpresa).then((resultado) => {
+  manuModel.buscarSelect(idEmpresa, tipoMaquina).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
