@@ -25,7 +25,7 @@
                 <ul>
                     <li>
                         <a href="#" class="logo">
-                            <img src="../assets/imgs/Logo2.png" alt="">
+                            <img src="./assets/imgs/Logo2.png" alt="">
                             <span class="nav-item">Sparrow</span>
                         </a>
                     </li>
@@ -38,7 +38,7 @@
                     </li> -->
 
                     <li>
-                        <a href="./../AlteracoesFunc.html">
+                        <a href="AlteracoesFunc.html">
                             <i class="bx bxs-user"></i>
                             <span class="nav-item">Funcionários</span>
                         </a>
@@ -437,5 +437,14 @@
         });
 
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlAtual = window.location.href;
+
+        if (urlAtual.includes("AlteracoesFunc.html")) {
+            const terminaisNavItem = document.querySelector('a[href="AlteracoesFunc.html"]');
+            terminaisNavItem.classList.add('nav-item-ativo');
+        }
+    });
 
 </script>

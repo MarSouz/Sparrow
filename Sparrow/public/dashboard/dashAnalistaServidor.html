@@ -31,12 +31,17 @@
                     </a>
                 </li>
                 <li>
-                    <a href="dashAnalista.html">
-                        <i class='bx bx-line-chart'></i>
-                        <span class="nav-item">Análise diária</span>
+                    <a href="dashAnalistaServidor.html">
+                        <i class='bx bxs-server'></i>
+                        <span class="nav-item">Análise diária servidor</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="dashAnalista.html">
+                        <i class='bx bx-line-chart'></i>
+                        <span class="nav-item">Análise diária terminal</span>
+                    </a>
+                </li>
                 <li>
                     <a href="./dashDesgaste.html">
                         <i class='bx bxs-bar-chart-alt-2'></i>
@@ -504,12 +509,16 @@ function aplicarCorCard(idCard, valor) {
 
     //DEIXAR A PARTE DA NAV BAR QUE EU TO USANDO SELECIONADA
     document.addEventListener("DOMContentLoaded", function () {
-        const urlAtual = window.location.href;
-
-        if (urlAtual.includes("dashAnalista.html")) {
-            const terminaisNavItem = document.querySelector('a[href="dashAnalista.html"]');
-            terminaisNavItem.classList.add('nav-item-ativo');
+    const urlAtual = window.location.href;
+    
+    // Verifica se a URL contém "dashAnalistaServidor.html"
+    if (urlAtual.includes("dashAnalistaServidor.html")) {
+        const servidorNavItem = document.querySelector('a[href="dashAnalistaServidor.html"]');
+        if (servidorNavItem) {
+            servidorNavItem.classList.add('nav-item-ativo');
         }
-    });
+    }
+});
+
 
 </script>

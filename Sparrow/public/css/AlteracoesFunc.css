@@ -444,6 +444,11 @@ body {
     }
 }
 
+.nav-item-ativo {
+    background-color: #eee !important; 
+}
+
+
 /* .editar {
     background-image: url('../assets/svg/icon-pencil.svg');
 }

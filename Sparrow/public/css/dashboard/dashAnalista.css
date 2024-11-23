@@ -89,7 +89,7 @@ nav:hover {
 
 /* Deixar nav bar pintada */
 .nav-item-ativo {
-    background-color: #eee;; 
+    background-color: #eee !important; 
 }
 
 
