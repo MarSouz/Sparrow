@@ -215,6 +215,13 @@ nav:hover {
     /* color: red; */
 }
 
+.content-infos .legenda {
+    display: flex;
+    flex-direction: column;
+    margin-top: -30px;
+    font-size: 12px;
+}
+
 .info-container {
     display: flex;
     align-items: center;

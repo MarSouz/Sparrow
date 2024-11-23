@@ -462,6 +462,10 @@ nav:hover{
     }
 }
 
+.nav-item-ativo {
+    background-color: #eee;
+}
+
 /* .editar {
     background-image: url('../assets/svg/icon-pencil.svg');
 }

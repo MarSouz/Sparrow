@@ -23,4 +23,8 @@ router.get("/buscarMapa/:idEmpresa/:idMaquina", function(req,res){
     manuController.buscarMapa(req,res)
 })
 
+router.get("/buscarValoresCriticos/:idEmpresa/:idMaquina", function (req, res) {
+    manuController.buscarValoresCriticos(req, res);
+});
+
 module.exports = router;
