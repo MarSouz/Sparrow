@@ -2,7 +2,6 @@ class Maquina {
     var id: Int = 0
     var fk_empresa: Int = 1
     var fk_tipo_maquina: Int = 2
-        private set
     var endereco_mac: String = ""
         private set
 
@@ -10,7 +9,11 @@ class Maquina {
         endereco_mac = novoValor
     }
 
-    fun setFkTipoMaquina(novoValor: Int){
+    fun setFkEmpresa(novoValor: Int){
+        fk_empresa = novoValor
+    }
+
+    fun serFkTipoMaquina(novoValor: Int){
         fk_tipo_maquina = novoValor
     }
 }
