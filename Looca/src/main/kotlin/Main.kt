@@ -7,8 +7,7 @@ open class Main {
             val repositorio = MaquinaRepositorio()
             repositorio.configurar()
             val looca = Looca()
-            var interfaces = looca.rede.grupoDeInterfaces.interfaces
-            val interfacesPrincipal = interfaces.filter{it.nome.lowercase().contains("wlan2")}
+            val interfaces = looca.rede.grupoDeInterfaces.interfaces
             val existeMac = repositorio.existePorMac(interfaces[0].enderecoMac)
             if (existeMac) {
                 println("Máquina já cadastrada. Iniciando captura...")
@@ -16,8 +15,14 @@ open class Main {
 
                 val novaMaquina = Maquina()
                 novaMaquina.setEnderecoMac(interfaces[0].enderecoMac)
-                println("Digite o número de qual tipo de máquina deseja cadastrar: 1. Servidor ou 2.Terminal ")
-                novaMaquina.setFkTipoMaquina(readln().toInt())
+                print("Digite seu token de ativação: ")
+                novaMaquina.setFkEmpresa(readln().toInt())
+                print("""
+                    1 - Servidor
+                    2 - Terminal
+                    Digite o tipo da máquina:
+                """.trimIndent())
+                novaMaquina.serFkTipoMaquina(readln().toInt())
                 repositorio.cadastrarMaquina(novaMaquina)
 
                 val maquinaCadastrada = repositorio.buscarPorMac(interfaces[0].enderecoMac)
@@ -31,9 +36,7 @@ open class Main {
             }
             while (true) {
                 val interfaces = looca.rede.grupoDeInterfaces.interfaces
-                println(interfaces)
                 val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan2") };
-                println(interfaceDeConexaoPrincipal[0].pacotesEnviados)
                 if (interfaces.isNotEmpty()) {
                     val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados
                     val pacotesRecebidos = interfaceDeConexaoPrincipal[0].pacotesRecebidos
