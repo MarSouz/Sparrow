@@ -107,6 +107,7 @@ nav:hover {
     height: 90%;
     border-radius: 3px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    padding: 12px;
 }
 
 .graficBar {
@@ -115,6 +116,7 @@ nav:hover {
     height: 90%;
     border-radius: 3px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    padding: 12px;
 }
 
 .itemsDown {
@@ -132,6 +134,69 @@ nav:hover {
     border-radius: 3px;
     display: flex;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.father-backpage {
+    width: 100%;
+    background-color: red;
+    padding: 10px 7.5%;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    /* ou outro valor fixo/relativo */
+
+
+
+    & .backpage-colunsS {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        background: purple;
+
+
+        & .backpage-coluns-itemM {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    & hr {
+        border: 2px solid gray;
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+    }
+
+    & .child-cards-machine {
+
+        flex: 1;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        background-color: green;
+        height: 200px;
+
+
+        & .card-machine {
+            width: 100%;
+            height: 35px;
+            background-color: aqua;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            border-radius: 10px;
+
+            & .item {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
 }
 
 .alerts {
@@ -150,17 +215,28 @@ nav:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+    position: relative;
 
     & .backpage-coluns-item {
         padding: 0px 10px;
         min-height: 50px;
         max-height: 50px;
-        /* border-bottom: 2px solid gray; */
-        display: grid;
-        /* column-gap: 10px; */
-        grid-template-columns: 10fr 2fr;
+        width: 20%;
+        display: flex;
+        justify-content: center;
         align-items: center;
-        margin-left: 100px;
+        position: absolute;
+        top: 10;
+        right: 0;
+    }
+
+    & .backpage-coluns-title {
+        width: 100%;
+        text-align: center;
+    }
+
+    & h2 {
+        width: 100%;
     }
 }
 
@@ -181,7 +257,7 @@ select {
     height: 15%;
     margin-top: 10px;
 
-    & select{
+    & select {
         width: 85%;
         text-align: center;
         background-color: black;
@@ -205,9 +281,20 @@ select {
     width: 100%;
     height: 15%;
     margin-top: 5px;
+    text-align: center;
 }
 
 canvas {
     max-width: 100%;
     height: auto;
+}
+
+.backpage-colunsS {
+    padding: 0px 10px;
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
 }

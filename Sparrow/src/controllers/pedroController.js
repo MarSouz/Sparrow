@@ -8,6 +8,15 @@ function buscarDadosSemanalController (req, res) {
       });
 };
 
+function buscarDadosLimiteController (req, res) {
+    const componente = req.params.componente; // Pegando o componente da URL ou do corpo da requisição
+
+    pedroModel.buscarDadosLimiteSemanal(componente).then((resultado) => {
+        res.status(200).json(resultado);
+      });
+};
+
 module.exports = {
-    buscarDadosSemanalController
+    buscarDadosSemanalController,
+    buscarDadosLimiteController
 };

@@ -13,7 +13,7 @@
     <title>Sparrow | Dashboard análise de uso e desgaste</title>
 </head>
 
-<body>
+<body onload="">
     <div class="menu-lateral">
         <nav id="nav">
             <ul>
@@ -84,10 +84,83 @@
     </div>
 
     <div class="father">
+
+        <div class="itemsDown">
+            <div class="cardListar">
+                <div class="titleL">
+                    <select name="" id="">
+                        <option value="">Terminais</option>
+                        <option value="">Servidores</option>
+                    </select>
+                </div>
+
+                <div class="father-backpage">
+                    <div class="backpage-colunsS">
+                        <div class="backpage-coluns-itemM">
+                            <p>ID da máquina</p>
+                        </div>
+                        <div class="backpage-coluns-itemM">
+                            <p>Alertas nos últimos 7 dias</p>
+                        </div>
+                        <div class="backpage-coluns-itemM">
+                            <p>Ações</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="child-cards-machine">
+                        <div class="card-machine">
+                            <div class="item"> <p>15</p></div>
+                            <div class="item"><p>100</p></div>
+                            <div class="item"><p>Detalhes</p></div>
+                        </div>
+                        <div class="card-machine">
+                            <div class="item"> <p>15</p></div>
+                            <div class="item"><p>100</p></div>
+                            <div class="item"><p>Detalhes</p></div>
+                        </div>
+                        <div class="card-machine">
+                            <div class="item"> <p>15</p></div>
+                            <div class="item"><p>100</p></div>
+                            <div class="item"><p>Detalhes</p></div>
+                        </div>
+                        <div class="card-machine">
+                            <div class="item"> <p>15</p></div>
+                            <div class="item"><p>100</p></div>
+                            <div class="item"><p>Detalhes</p></div>
+                        </div>
+                        <div class="card-machine">
+                            <div class="item"> <p>15</p></div>
+                            <div class="item"><p>100</p></div>
+                            <div class="item"><p>Detalhes</p></div>
+                        </div>
+                        <div class="card-machine">
+                            <div class="item"> <p>15</p></div>
+                            <div class="item"><p>100</p></div>
+                            <div class="item"><p>Detalhes</p></div>
+                        </div>
+                        <div class="card-machine">
+                            <div class="item"> <p>15</p></div>
+                            <div class="item"><p>100</p></div>
+                            <div class="item"><p>Detalhes</p></div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+            </div>
+
+            <div class="alerts">
+                <div class="titleA">
+                    <h2>Alertas</h2>
+                </div>
+            </div>
+        </div>
+
         <div class="itemsUp">
             <div class="graficSem">
                 <div class="backpage-coluns">
-                    <div class="backpage-coluns-item">
+                    <div class="backpage-coluns-title">
                         <h2>Picos de uso diário</h2>
                     </div>
                     <div class="backpage-coluns-item">
@@ -104,35 +177,19 @@
 
             <div class="graficBar">
                 <div class="titleB">
-                    <h2>Contador de ultrapassagem do limite</h2>
+                    <h2>Contador de ultrapassagem do limite <br> dos últimos sete dias</h2>
                 </div>
                 <canvas id="graficBar"></canvas>
             </div>
         </div>
 
-        <div class="itemsDown">
-            <div class="cardListar">
-                <div class="titleL">
-                    <select name="" id="">
-                        <option value="">Terminais</option>
-                        <option value="">Servidores</option>
-                    </select>
-                </div>
 
-            </div>
-
-            <div class="alerts">
-                <div class="titleA">
-                    <h2>Alertas</h2>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
         // Configuração inicial do gráfico de linha
         let data = {
-            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            labels: [],
             datasets: [{
                 label: 'Uso (%)',
                 // data: [20, 35, 50, 70, 65, 80, 40],  // Dados iniciais
@@ -145,7 +202,7 @@
 
         // Configuração do gráfico
         let config = {
-            type: 'line', // Tipo do gráfico (linha)
+            type: 'bar', // Tipo do gráfico (linha)
             data: data,
             options: {
                 responsive: true,
@@ -205,7 +262,8 @@
                 const element = resposta[index];
 
                 dados.push(element.maior_registro)
-                labels.push(`${element.dia_da_semana} ${element.data_formatada}`)
+                labels.push([element.dia_da_semana, element.data_formatada]);
+
             }
 
             let data = {
@@ -234,6 +292,16 @@
                             display: true,
                         }
                     },
+
+                    x: {
+                        ticks: {
+                            callback: function (val, index) {
+                                return this.getLabelForValue(index).replace("\n", " ");
+                            },
+                            autoSkip: false,
+                        },
+                    },
+
                     scales: {
                         y: {
                             beginAtZero: true,
@@ -248,43 +316,78 @@
         }
 
 
-
-
-
-        const dataB = {
-            labels: ['CPU', 'RAM', 'DISCO'],
-            datasets: [{
-                label: 'Uso (%)',
-                data: [2, 5, 4],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: true,
-            }]
-        };
-
-        const configB = {
-            type: 'bar',
-            data: dataB,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
+        buscarDadosLimite()
+        function buscarDadosLimite(componente) {
+            fetch(`/pedro/limite-componente/${componente}`).then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        console.log("Nenhum dado encontrado para o componente:", componente)
                     }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 10
+
+                    else {
+                        resposta.json().then(function (resposta) {
+                            console.log("Dados recebidos: ", JSON.stringify(resposta));
+                            plotarGraficoLimite(resposta)
+                        })
                     }
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            }).catch(function (resposta) {
+                console.error(resposta);
+            });
+        }
+
+        function plotarGraficoLimite(resposta) {
+
+            var dados = []
+            var labels = []
+
+            for (let i = 0; i < resposta.length; i++) {
+                if (resposta[i].fk_dado_monitorado == 1) { // CPU
+                    dados[0] = resposta[i].ultrapassagens;
+                } else if (resposta[i].fk_dado_monitorado == 2) { // RAM
+                    dados[1] = resposta[i].ultrapassagens;
+                } else if (resposta[i].fk_dado_monitorado == 3) { // DISCO
+                    dados[2] = resposta[i].ultrapassagens;
                 }
             }
-        };
 
-        const ctxB = document.getElementById('graficBar').getContext('2d');
-        const usageChartB = new Chart(ctxB, configB);
+            let dataB = {
+                labels: ['CPU', 'RAM', 'DISCO'],
+                datasets: [{
+                    label: 'Uso (%)',
+                    data: dados,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                }]
+            };
+
+            let configB = {
+                type: 'bar',
+                data: dataB,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 20
+                        }
+                    }
+                }
+            };
+
+            const ctxB = document.getElementById('graficBar').getContext('2d');
+            const usageChartB = new Chart(ctxB, configB);
+        }
     </script>

@@ -39,6 +39,25 @@ LIMIT 7;
     return database.executar(instrucaoSql);
 };
 
+
+function buscarDadosLimiteSemanal() {
+    let instrucaoSql = `
+    SELECT 
+    fk_dado_monitorado,
+    COUNT(*) AS ultrapassagens
+FROM 
+    dado_capturado
+WHERE 
+    data_hora >= CURDATE() - INTERVAL 7 DAY
+    AND registro > 70
+GROUP BY 
+    fk_dado_monitorado;`
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarDadosSemanal,
+    buscarDadosLimiteSemanal
 };
