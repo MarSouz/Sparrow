@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 // Função para buscar os dados do gráfico semanal com base no componente selecionado
-function buscarDadosSemanal(componenteSelecionado) {
+function buscarDadosSemanal(componente, idEmpresa, tipoMaquina) {
     // Consulta SQL que retorna o maior valor de 'registro' para cada dia dos últimos 7 dias
     const instrucaoSql = `
         SELECT 
@@ -24,7 +24,9 @@ FROM (
         Sparrow.dado_capturado 
     WHERE 
         DATE(data_hora) >= CURDATE() - INTERVAL 7 DAY 
-        AND Sparrow.dado_capturado.fk_dado_monitorado = ${componenteSelecionado}
+        AND fk_dado_monitorado = ${componente}
+        AND fk_empresa = ${idEmpresa}
+        AND fk_maquina = ${tipoMaquina}
 ) AS dados_agrupados 
 GROUP BY 
     dados 
@@ -32,6 +34,7 @@ ORDER BY
     dados ASC, 
     DAYOFWEEK(dados) 
 LIMIT 7;
+
 
     `;
 
@@ -57,7 +60,30 @@ GROUP BY
     return database.executar(instrucaoSql);
 }
 
+function listar(idEmpresa, tipoMaquina) {
+    var instrucaoSql = `
+    SELECT 
+        COALESCE(COUNT(a.id), 0) AS total_alertas,
+        m.id AS fk_maquina
+    FROM Sparrow.maquina m
+    LEFT JOIN Sparrow.dado_capturado dc
+        ON m.id = dc.fk_maquina
+        AND m.fk_empresa = dc.fk_empresa
+        AND dc.data_hora >= NOW() - INTERVAL 7 DAY
+    LEFT JOIN Sparrow.alerta a
+        ON a.fk_dado_maquina = dc.id
+    WHERE m.fk_empresa = ${idEmpresa} 
+    AND m.fk_tipo_maquina = ${tipoMaquina}
+    GROUP BY m.id;
+`;
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+
+}
+
 module.exports = {
     buscarDadosSemanal,
-    buscarDadosLimiteSemanal
+    buscarDadosLimiteSemanal,
+    listar
 };

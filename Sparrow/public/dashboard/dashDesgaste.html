@@ -88,9 +88,9 @@
         <div class="itemsDown">
             <div class="cardListar">
                 <div class="titleL">
-                    <select name="" id="">
-                        <option value="">Terminais</option>
-                        <option value="">Servidores</option>
+                    <select name="" id="tipoMaquina">
+                        <option value="1">Terminais</option>
+                        <option value="2">Servidores</option>
                     </select>
                 </div>
 
@@ -109,42 +109,17 @@
                     <hr>
                     <div class="child-cards-machine">
                         <div class="card-machine">
-                            <div class="item"> <p>15</p></div>
-                            <div class="item"><p>100</p></div>
-                            <div class="item"><p>Detalhes</p></div>
+                            <div class="item">
+                                <p>15</p>
+                            </div>
+                            <div class="item">
+                                <p>100</p>
+                            </div>
+                            <div class="item"><button class="visualizarG">Visualizar</button></div>
                         </div>
-                        <div class="card-machine">
-                            <div class="item"> <p>15</p></div>
-                            <div class="item"><p>100</p></div>
-                            <div class="item"><p>Detalhes</p></div>
-                        </div>
-                        <div class="card-machine">
-                            <div class="item"> <p>15</p></div>
-                            <div class="item"><p>100</p></div>
-                            <div class="item"><p>Detalhes</p></div>
-                        </div>
-                        <div class="card-machine">
-                            <div class="item"> <p>15</p></div>
-                            <div class="item"><p>100</p></div>
-                            <div class="item"><p>Detalhes</p></div>
-                        </div>
-                        <div class="card-machine">
-                            <div class="item"> <p>15</p></div>
-                            <div class="item"><p>100</p></div>
-                            <div class="item"><p>Detalhes</p></div>
-                        </div>
-                        <div class="card-machine">
-                            <div class="item"> <p>15</p></div>
-                            <div class="item"><p>100</p></div>
-                            <div class="item"><p>Detalhes</p></div>
-                        </div>
-                        <div class="card-machine">
-                            <div class="item"> <p>15</p></div>
-                            <div class="item"><p>100</p></div>
-                            <div class="item"><p>Detalhes</p></div>
-                        </div>
+
                     </div>
-                    
+
                 </div>
 
 
@@ -229,7 +204,15 @@
 
         function buscarDados() {
             document.getElementById('componentes').addEventListener('change', () => {
-                fetch(`/pedro/dados-semana/${Number(document.getElementById("componentes").value)}`).then(function (resposta) {
+
+                var idEmpresa = 1; // Defina ou recupere o id da empresa
+                var tipoMaquina = 1; // Defina ou recupere o tipo de máquina
+
+                var componente = Number(document.getElementById("componentes").value);
+
+                console.log(`Consultando: /pedro/dados-semana/${idEmpresa}/${tipoMaquina}/${componente}`);
+
+                fetch(`/pedro/dados-semana/${idEmpresa}/${tipoMaquina}/${componente}`).then(function (resposta) {
                     if (resposta.ok) {
                         if (resposta.status == 204) {
                             console.log("error")
@@ -390,4 +373,77 @@
             const ctxB = document.getElementById('graficBar').getContext('2d');
             const usageChartB = new Chart(ctxB, configB);
         }
+
+
+        function listar() {
+            // Obtém o valor selecionado no <select>
+            var tipoMaquina = Number(document.getElementById("tipoMaquina").value);
+
+            fetch(`/pedro/listarMaquinas/${2}/${tipoMaquina}}`)
+                .then(function (resposta) {
+                    if (resposta.ok) {
+                        if (resposta.status == 204) {
+                            console.log("Nenhum dado encontrado.");
+                            var containerCards = document.querySelector(".child-cards-machine");
+                            containerCards.innerHTML = "<p>Nenhum dado encontrado.</p>"; // Mensagem de aviso no contêiner
+                            return;
+                        }
+
+                        resposta.json().then(function (resposta) {
+                            console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                            // Seleciona o contêiner que conterá os cards
+                            var containerCards = document.querySelector(".child-cards-machine");
+                            containerCards.innerHTML = ""; // Limpa o contêiner antes de adicionar novos elementos
+
+                            for (var index = 0; index < resposta.length; index++) {
+                                var maquina = resposta[index];
+
+                                // Cria a estrutura do card
+                                var divCard = document.createElement("div");
+                                divCard.className = "card-machine";
+
+                                var divId = document.createElement("div");
+                                divId.className = "item";
+                                divId.innerHTML = "<p>" + maquina.fk_maquina + "</p>";
+
+                                var divAlertas = document.createElement("div");
+                                divAlertas.className = "item";
+                                divAlertas.innerHTML = "<p>" + (maquina.total_alertas || 0) + "</p>"; // Exibe 0 se não houver alertas
+
+                                var divAcoes = document.createElement("div");
+                                divAcoes.className = "item";
+
+                                var btnVisualizar = document.createElement("button");
+                                btnVisualizar.className = "visualizarG";
+                                btnVisualizar.textContent = "Visualizar";
+                                btnVisualizar.setAttribute("onclick", `buscarDadosLimite('${maquina.fk_maquina}', ${componente}, ${idEmpresa}, ${tipoMaquina});`);
+
+
+                                divAcoes.appendChild(btnVisualizar);
+
+                                // Adiciona os itens ao card
+                                divCard.appendChild(divId);
+                                divCard.appendChild(divAlertas);
+                                divCard.appendChild(divAcoes);
+
+                                // Adiciona o card ao contêiner
+                                containerCards.appendChild(divCard);
+                            }
+                        });
+                    } else {
+                        console.error("Erro ao buscar dados da API.");
+                    }
+                })
+                .catch(function (erro) {
+                    console.error("Erro na requisição:", erro);
+                });
+        }
+
+        // Adiciona o evento de mudança no <select> para chamar a função listar
+        document.getElementById("tipoMaquina").addEventListener("change", listar);
+
+        // Chama listar ao carregar a página para exibir dados iniciais
+        listar();
+
     </script>
