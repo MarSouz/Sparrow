@@ -24,6 +24,7 @@ var empresasRouter = require("./src/routes/empresas");
 var elersonRouter = require("./src/routes/elerson");
 var manuRouter = require("./src/routes/manu")
 var pedroRouter = require("./src/routes/pedro")
+var marceloRouter = require("./src/routes/marcelo")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +41,7 @@ app.use("/empresas", empresasRouter);
 app.use("/elerson", elersonRouter);
 app.use("/manu", manuRouter)
 app.use("/pedro", pedroRouter)
+app.use("/marcelo", marceloRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`

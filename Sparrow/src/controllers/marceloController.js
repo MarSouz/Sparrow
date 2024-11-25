@@ -2,11 +2,10 @@ var marceloModel = require("../models/marceloModel");
 
 function buscarTotalAlertas(req, res) {
     var idEmpresa = req.params.idEmpresa;
-    var tipoMaquina = req.params.periodo;
-    var nomeComponente = req.params.dado1;
-    var totalAlertas = req.params.dado2;
+    var idMaquina = req.params.idMaquina;
+    var tipoMaquina = req.params.tipoMaquina;
   
-    marceloModel.buscarTotalAlertas(idEmpresa, TipoMaquina, NomeComponente, TotalAlertas).then((resultado) => {
+    marceloModel.buscarTotalAlertas(idEmpresa, idMaquina, tipoMaquina).then((resultado) => {
       res.status(200).json(resultado);
     });
   }
