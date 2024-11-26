@@ -3,17 +3,18 @@ var pedroModel = require('../models/pedroModel');
 function buscarDadosSemanalController (req, res) {
     const componente = req.params.componente; // Pegando o componente da URL ou do corpo da requisição
     const idEmpresa = req.params.idEmpresa;
-    const tipoMaquina = req.params.tipoMaquina
 
-    pedroModel.buscarDadosSemanal(componente, idEmpresa, tipoMaquina).then((resultado) => {
+    const idMaquina = req.params.fkMaquina
+
+    pedroModel.buscarDadosSemanal(componente, idEmpresa, idMaquina).then((resultado) => {
         res.status(200).json(resultado);
       });
 };
 
-function buscarDadosLimiteController (req, res) {
-    const componente = req.params.componente; // Pegando o componente da URL ou do corpo da requisição
-
-    pedroModel.buscarDadosLimiteSemanal(componente).then((resultado) => {
+function buscarDadosLimiteController (req, res) { // Pegando o componente da URL ou do corpo da requisição
+    const idMaquina = req.params.fkMaquina
+    const idEmpresa = req.params.idEmpresa;
+    pedroModel.buscarDadosLimiteSemanal(idEmpresa,idMaquina).then((resultado) => {
         res.status(200).json(resultado);
       });
 };

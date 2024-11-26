@@ -1,7 +1,7 @@
 var database = require("../database/config");
 
 // Função para buscar os dados do gráfico semanal com base no componente selecionado
-function buscarDadosSemanal(componente, idEmpresa, tipoMaquina) {
+function buscarDadosSemanal(componente, idEmpresa, idMaquina) {
     // Consulta SQL que retorna o maior valor de 'registro' para cada dia dos últimos 7 dias
     const instrucaoSql = `
         SELECT 
@@ -26,7 +26,7 @@ FROM (
         DATE(data_hora) >= CURDATE() - INTERVAL 7 DAY 
         AND fk_dado_monitorado = ${componente}
         AND fk_empresa = ${idEmpresa}
-        AND fk_maquina = ${tipoMaquina}
+        AND fk_maquina = ${idMaquina}
 ) AS dados_agrupados 
 GROUP BY 
     dados 
@@ -43,7 +43,7 @@ LIMIT 7;
 };
 
 
-function buscarDadosLimiteSemanal() {
+function buscarDadosLimiteSemanal(idEmpresa, idMaquina) {
     let instrucaoSql = `
     SELECT 
     fk_dado_monitorado,
@@ -53,6 +53,8 @@ FROM
 WHERE 
     data_hora >= CURDATE() - INTERVAL 7 DAY
     AND registro > 70
+    AND fk_empresa = ${idEmpresa}
+    AND fk_maquina = ${idMaquina}
 GROUP BY 
     fk_dado_monitorado;`
 
@@ -74,8 +76,7 @@ function listar(idEmpresa, tipoMaquina) {
         ON a.fk_dado_maquina = dc.id
     WHERE m.fk_empresa = ${idEmpresa} 
     AND m.fk_tipo_maquina = ${tipoMaquina}
-    GROUP BY m.id;
-`;
+    GROUP BY m.id;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

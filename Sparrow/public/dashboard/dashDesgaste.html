@@ -125,11 +125,11 @@
 
             </div>
 
-            <div class="alerts">
+            <!-- <div class="alerts">
                 <div class="titleA">
                     <h2>Alertas</h2>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="itemsUp">
@@ -139,7 +139,7 @@
                         <h2>Picos de uso diário</h2>
                     </div>
                     <div class="backpage-coluns-item">
-                        <select name="" id="componentes">
+                        <select name="" id="componentes" onchange="buscarDados(idmaquina), buscarDadosLimite(idmaquina)">
                             <option value="1">CPU</option>
                             <option value="2">RAM</option>
                             <option value="3">Disco</option>
@@ -162,6 +162,9 @@
     </div>
 
     <script>
+
+        let idmaquina = 1
+        let usageChartB
         // Configuração inicial do gráfico de linha
         let data = {
             labels: [],
@@ -197,22 +200,19 @@
                 }
             }
         };
-        buscarDados()
         // Renderizando o gráfico de linha
         const ctx = document.getElementById('graficSm').getContext('2d');
         let usageChart = new Chart(ctx, config);
 
-        function buscarDados() {
-            document.getElementById('componentes').addEventListener('change', () => {
+        function buscarDados(fkmaquina) {
 
-                var idEmpresa = 1; // Defina ou recupere o id da empresa
-                var tipoMaquina = 1; // Defina ou recupere o tipo de máquina
-
+                var idEmpresa = 2; // Defina ou recupere o id da empresa
+                
                 var componente = Number(document.getElementById("componentes").value);
 
-                console.log(`Consultando: /pedro/dados-semana/${idEmpresa}/${tipoMaquina}/${componente}`);
+                console.log(`Consultando: /pedro/dados-semana/${idEmpresa}/${componente}/${idmaquina}`);
 
-                fetch(`/pedro/dados-semana/${idEmpresa}/${tipoMaquina}/${componente}`).then(function (resposta) {
+                fetch(`/pedro/dados-semana/${idEmpresa}/${componente}/${idmaquina}`).then(function (resposta) {
                     if (resposta.ok) {
                         if (resposta.status == 204) {
                             console.log("error")
@@ -230,7 +230,6 @@
                 }).catch(function (resposta) {
                     console.error(resposta);
                 });
-            });
         }
 
         function plotarGrafico(resposta) {
@@ -299,9 +298,10 @@
         }
 
 
-        buscarDadosLimite()
-        function buscarDadosLimite(componente) {
-            fetch(`/pedro/limite-componente/${componente}`).then(function (resposta) {
+
+        function buscarDadosLimite(idmaquina) {
+            var componente = Number(document.getElementById("componentes").value);
+            fetch(`/pedro/limite-componente/${2}/${idmaquina}`).then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
                         console.log("Nenhum dado encontrado para o componente:", componente)
@@ -322,7 +322,9 @@
         }
 
         function plotarGraficoLimite(resposta) {
-
+            if(usageChartB){
+                usageChartB.destroy()
+            }
             var dados = []
             var labels = []
 
@@ -371,15 +373,16 @@
             };
 
             const ctxB = document.getElementById('graficBar').getContext('2d');
-            const usageChartB = new Chart(ctxB, configB);
+            usageChartB = new Chart(ctxB, configB);
         }
+
+        
 
 
         function listar() {
             // Obtém o valor selecionado no <select>
             var tipoMaquina = Number(document.getElementById("tipoMaquina").value);
-
-            fetch(`/pedro/listarMaquinas/${2}/${tipoMaquina}}`)
+            fetch(`/pedro/listarMaquinas/${2}/${tipoMaquina}`)
                 .then(function (resposta) {
                     if (resposta.ok) {
                         if (resposta.status == 204) {
@@ -413,11 +416,11 @@
 
                                 var divAcoes = document.createElement("div");
                                 divAcoes.className = "item";
-
+                                idmaquina = maquina.fk_maquina
                                 var btnVisualizar = document.createElement("button");
                                 btnVisualizar.className = "visualizarG";
                                 btnVisualizar.textContent = "Visualizar";
-                                btnVisualizar.setAttribute("onclick", `buscarDadosLimite('${maquina.fk_maquina}', ${componente}, ${idEmpresa}, ${tipoMaquina});`);
+                                btnVisualizar.setAttribute("onclick", `buscarDados('${idmaquina}'), buscarDadosLimite('${idmaquina}')`);
 
 
                                 divAcoes.appendChild(btnVisualizar);
