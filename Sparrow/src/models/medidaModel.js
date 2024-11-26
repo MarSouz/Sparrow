@@ -6,9 +6,9 @@ function buscarMaquina(idEmpresa, tipoMaquina) {
     var instrucaoSql = `SELECT 
     m.id AS id,
     m.fk_empresa as fk_empresa,
-    l.latitude as lat, 
-    l.longitude as lon,
-    l.id as idlocalizacao,
+    c.latitude as lat, 
+    c.longitude as lon,
+    c.id as idcoordenada,
     MAX(CASE WHEN tc.nome = 'Uso de CPU' THEN mc.limite_componente END) AS CPU,
     MAX(CASE WHEN tc.nome = 'Uso de RAM' THEN mc.limite_componente END) AS RAM,
     MAX(CASE WHEN tc.nome = 'Uso do Disco' THEN mc.limite_componente END) AS Disco
@@ -19,36 +19,36 @@ JOIN
 JOIN 
     dado_monitorado tc ON mc.fk_dado_monitorado = tc.id
 LEFT JOIN 
-		coordenada l ON l.id = m.fk_coordenada 
+    coordenada c ON c.id = m.fk_coordenada 
 WHERE 
     m.fk_empresa = ${idEmpresa} and m.fk_tipo_maquina = ${tipoMaquina}
 GROUP BY 
-    m.id;`;
+    m.id`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 function inserirLocalizacao(latitude, longitude){
-    var instrucaoSql = `INSERT INTO localizacao VALUES (DEFAULT, ${latitude}, ${longitude})`
-
+    var instrucaoSql = `INSERT INTO coordenada VALUES (DEFAULT, ${latitude}, ${longitude})`
+    console.log("Executando as instruções SQL: \n" + instrucaoSql );
     return database.executar(instrucaoSql)
 }
 
 function buscarLocalizacao(latitude, longitude){
-    var instrucaoSql = `SELECT * FROM localizacao WHERE latitude = ${latitude} AND longitude = ${longitude}`
+    var instrucaoSql = `SELECT * FROM coordenada WHERE latitude = ${latitude} AND longitude = ${longitude}`
 
     return database.executar(instrucaoSql)
 }
 
-function atualizarLocalizacao(latitude, longitude, idlocalizacao){
-    var instrucaoSql = `UPDATE localizacao SET latitude = ${latitude}, longitude = ${longitude} WHERE id = ${idlocalizacao}`;
+function atualizarLocalizacao(latitude, longitude, idcoordenada){
+    var instrucaoSql = `UPDATE coordenada SET latitude = ${latitude}, longitude = ${longitude} WHERE id = ${idcoordenada}`;
 
     return database.executar(instrucaoSql)
 }
 
-function atribuirLocalizacao(idlocalizacao, idMaquina, idEmpresa){
-    var instrucaoSql = `UPDATE maquina SET fk_localizacao = ${idlocalizacao} WHERE id = ${idMaquina} AND fk_empresa = ${idEmpresa}`;
+function atribuirLocalizacao(idcoordenada, idMaquina, idEmpresa){
+    var instrucaoSql = ` UPDATE maquina SET fk_coordenada = ${idcoordenada} WHERE id = ${idMaquina} AND fk_empresa = ${idEmpresa}`;
 
     return database.executar(instrucaoSql)
 }

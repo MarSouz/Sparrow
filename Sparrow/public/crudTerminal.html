@@ -25,61 +25,61 @@
             <nav id="nav">
                 <ul>
                     <li>
-                        <a href="./../index.html" class="logo">
+                        <a href="#" class="logo">
                             <img src="./assets/imgs/Logo2.png" alt="">
                             <span class="nav-item">Sparrow</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a href="./../index.html">
+    
+                    <!-- <li>
+                        <a href="./preDashAdm.html">
                             <i class="bx bxs-home"></i>
                             <span class="nav-item">Início</span>
                         </a>
-                    </li>
-
+                    </li> -->
+    
                     <li>
-                        <a href="./AlteracoesFunc.html">
+                        <a href="./../AlteracoesFunc.html">
                             <i class="bx bxs-user"></i>
                             <span class="nav-item">Funcionários</span>
                         </a>
                     </li>
-
+    
                     <li>
-                        <a href="./dashboard/dashAdm.html">
+                        <a href="elersonDashboard.html">
                             <i class="bx bx-radar"></i>
-                            <span class="nav-item">Terminais</span>
+                            <span class="nav-item">Visão geral das máquinas</span>
                         </a>
                     </li>
-
+    
                     <li>
-                        <a href="./dashboard/dashAdmServidor.html">
-                            <i class="bx bxs-server"></i>
-                            <span class="nav-item">Servidores</span>
+                        <a href="./dashboard/dash_Dom.html">
+                            <i class='bx bxs-bar-chart-alt-2' ></i>
+                            <span class="nav-item">Relatório de alertas</span>
                         </a>
                     </li>
-
+    
                     <li>
-                        <a href="./crudTerminal.html">
+                        <a href="crudTerminal.html">
                             <i class="bx bx-laptop"></i>
                             <span class="nav-item">Gerenciamento de terminais</span>
                         </a>
                     </li>
-
+    
                     <li>
-                        <a href="./crudServidor.html">
+                        <a href="./../crudServidor.html">
                             <i class="bx bx-laptop"></i>
                             <span class="nav-item">Gerenciamento de servidores</span>
                         </a>
                     </li>
-
+    
                     <li>
                         <a href="#">
                             <i class="bx bxs-help-circle"></i>
                             <span class="nav-item">Central de atendimento</span>
                         </a>
                     </li>
-
+    
                     <li>
                         <a href="#" id="logoutBotao" class="logout">
                             <i class="bx bx-log-out"></i>
@@ -191,12 +191,11 @@
     </div>
 
 </body>
-
 </html>
 
 <script>
     var idmaquinaexcluir
-    var idlocalizacao_editar
+    var idcoordenada_editar
     function logout() {
         sessionStorage.clear();
         window.location.replace('../index.html');
@@ -274,7 +273,7 @@
 
                         btnEditar.className = "backpage-row-itemED"
                         btnEditar.id = "btnEditar" + maquina.lat + maquina.lon;
-                        btnEditar.setAttribute("onclick", `editar('${maquina.id}', '${maquina.CPU}', '${maquina.RAM}', '${maquina.Disco}', '${maquina.lat}', '${maquina.lon}', '${maquina.idlocalizacao}')`);
+                        btnEditar.setAttribute("onclick", `editar('${maquina.id}', '${maquina.CPU}', '${maquina.RAM}', '${maquina.Disco}', '${maquina.lat}', '${maquina.lon}', '${maquina.idcoordenada}')`);
 
                         btnDeletar.className = "backpage-row-itemEX"
                         btnDeletar.id = "btnDeletar" + maquina.id;
@@ -316,6 +315,9 @@
         var limiteRAMVar = Number(limiteRAM_input.value);
         var limiteDiscoVar = Number(limiteDisco_input.value);
         var idEmpresa = sessionStorage.ID_EMPRESA
+        var idcoordenada = sessionStorage.ID_COORDENADA
+
+        console.log(longitudeVar)
 
         fetch(`/medidas/editar/${idEmpresa}/${sessionStorage.getItem("ID_MAQUINA")}`, {
             method: "POST",
@@ -328,7 +330,7 @@
                 limiteCPUServer: limiteCPUVar,
                 limiteRamServer: limiteRAMVar,
                 limiteDiscoServer: limiteDiscoVar,
-                idLocalizacaoServer: idlocalizacao_editar,
+                idcoordenadaServer: idcoordenada,
             })
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO entrar()!")
@@ -341,7 +343,7 @@
                 console.log("Houve um erro ou editar a máquina!");
 
                 resposta.text().then(texto => {
-                    console.error(texto);
+                    //console.error(texto);
 
                 });
             }
@@ -353,15 +355,15 @@
         return false;
     }
 
-    function editar(id, cpu, memoria, disco, latitude, longitude, idlocalizacao) {
-        idlocalizacao_editar = Number(idlocalizacao),
+    function editar(id, cpu, memoria, disco, latitude, longitude, idcoordenada) {
+        idcoordenada_editar = Number(idcoordenada),
             sessionStorage.ID_MAQUINA = id,
             limiteCPU_input.value = cpu,
             limiteRAM_input.value = memoria,
             limiteDisco_input.value = disco,
             latitude_input.value = latitude,
             longitude_input.value = longitude
-
+            sessionStorage.ID_COORDENADA = idcoordenada
         var edit = document.getElementById("edit-card");
         edit.style.display = "block";
     }
@@ -386,7 +388,7 @@
                 limiteCPUServer: cpu,
                 limiteRamServer: ram,
                 limiteDiscoServer: disco,
-                idLocalizacaoServer: idlocalizacao_editar
+                idcoordenadaServer: idcoordenada_editar
             })
         }).then(function (resposta) {
 
@@ -440,4 +442,14 @@
         var cancel = document.getElementById("card-confirm")
         cancel.style.display = "none"
     }
+
+     //DEIXAR A PARTE DA NAV BAR QUE EU TO USANDO SELECIONADA
+     document.addEventListener("DOMContentLoaded", function () {
+        const urlAtual = window.location.href;
+
+        if (urlAtual.includes("crudTerminal.html")) {
+            const terminaisNavItem = document.querySelector('a[href="crudTerminal.html"]');
+            terminaisNavItem.classList.add('nav-item-ativo');
+        }
+    });
 </script>

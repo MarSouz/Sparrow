@@ -56,9 +56,9 @@ ORDER BY
 
 
 
-function buscarSelect(idEmpresa) {
+function buscarSelect(idEmpresa, tipoMaquina) {
 
-  var instrucaoSql = `select id from maquina where fk_empresa = ${idEmpresa};`;
+  var instrucaoSql = `select id from maquina where fk_empresa = ${idEmpresa} and fk_tipo_maquina = ${tipoMaquina};`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -85,10 +85,34 @@ AND
   return database.executar(instrucaoSql);
 }
 
+
+function buscarValoresCriticos(idEmpresa, idMaquina) {
+  var instrucaoSql = `SELECT 
+    mdm.fk_maquina,
+    dm.nome AS dado_monitorado_nome,
+    mdm.limite_componente AS valor_critico,
+    m.endereco_mac,
+    m.id AS id_maquina
+FROM 
+    maquina_dado_monitorado mdm
+JOIN 
+    dado_monitorado dm ON mdm.fk_dado_monitorado = dm.id
+JOIN 
+    maquina m ON mdm.fk_maquina = m.id
+WHERE 
+    mdm.fk_empresa = ${idEmpresa}
+    AND m.id = ${idMaquina}`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
   buscarMedidasTempoReal,
   buscarCards,
   buscarMedidasBarplot, 
   buscarMapa,
-  buscarSelect
+  buscarSelect,
+  buscarValoresCriticos
 }

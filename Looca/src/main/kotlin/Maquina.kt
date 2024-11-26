@@ -8,4 +8,12 @@ class Maquina {
     fun setEnderecoMac(novoValor: String) {
         endereco_mac = novoValor
     }
+
+    fun setFkEmpresa(novoValor: Int){
+        fk_empresa = novoValor
+    }
+
+    fun serFkTipoMaquina(novoValor: Int){
+        fk_tipo_maquina = novoValor
+    }
 }

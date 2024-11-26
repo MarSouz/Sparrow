@@ -24,8 +24,9 @@ function buscarCards(req, res) {
 
 function buscarSelect(req, res) {
   var idEmpresa = req.params.idEmpresa;
+  var tipoMaquina = req.params.tipoMaquina;
 
-  manuModel.buscarSelect(idEmpresa).then((resultado) => {
+  manuModel.buscarSelect(idEmpresa, tipoMaquina).then((resultado) => {
     res.status(200).json(resultado);
   });
 }
@@ -50,10 +51,20 @@ function buscarMapa(req, res) {
   })
 }
 
+function buscarValoresCriticos(req, res) {
+  var idEmpresa = req.params.idEmpresa;
+  var idMaquina = req.params.idMaquina; // Adicionando o idMaquina
+  manuModel.buscarValoresCriticos(idEmpresa, idMaquina).then((resultado) => {
+    res.status(200).json(resultado)
+  })
+}
+
+
 module.exports = {
   buscarMedidasTempoReal,
   buscarMedidasBarplot,
   buscarMapa,
   buscarCards, 
   buscarSelect,
+  buscarValoresCriticos
 }

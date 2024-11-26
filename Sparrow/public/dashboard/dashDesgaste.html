@@ -13,7 +13,7 @@
     <title>Sparrow | Dashboard análise de uso e desgaste</title>
 </head>
 
-<body>
+<body onload="">
     <div class="menu-lateral">
         <nav id="nav">
             <ul>
@@ -84,17 +84,65 @@
     </div>
 
     <div class="father">
+
+        <div class="itemsDown">
+            <div class="cardListar">
+                <div class="titleL">
+                    <select name="" id="tipoMaquina">
+                        <option value="1">Terminais</option>
+                        <option value="2">Servidores</option>
+                    </select>
+                </div>
+
+                <div class="father-backpage">
+                    <div class="backpage-colunsS">
+                        <div class="backpage-coluns-itemM">
+                            <p>ID da máquina</p>
+                        </div>
+                        <div class="backpage-coluns-itemM">
+                            <p>Alertas nos últimos 7 dias</p>
+                        </div>
+                        <div class="backpage-coluns-itemM">
+                            <p>Ações</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="child-cards-machine">
+                        <div class="card-machine">
+                            <div class="item">
+                                <p>15</p>
+                            </div>
+                            <div class="item">
+                                <p>100</p>
+                            </div>
+                            <div class="item"><button class="visualizarG">Visualizar</button></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- <div class="alerts">
+                <div class="titleA">
+                    <h2>Alertas</h2>
+                </div>
+            </div> -->
+        </div>
+
         <div class="itemsUp">
             <div class="graficSem">
                 <div class="backpage-coluns">
-                    <div class="backpage-coluns-item">
+                    <div class="backpage-coluns-title">
                         <h2>Picos de uso diário</h2>
                     </div>
                     <div class="backpage-coluns-item">
-                        <select name="" id="componentes">
-                            <option value="cpu">CPU</option>
-                            <option value="ram">RAM</option>
-                            <option value="disk">Disco</option>
+                        <select name="" id="componentes" onchange="buscarDados(idmaquina), buscarDadosLimite(idmaquina)">
+                            <option value="1">CPU</option>
+                            <option value="2">RAM</option>
+                            <option value="3">Disco</option>
                         </select>
                     </div>
                 </div>
@@ -104,37 +152,25 @@
 
             <div class="graficBar">
                 <div class="titleB">
-                    <h2>Contador de ultrapassagem do limite</h2>
+                    <h2>Contador de ultrapassagem do limite <br> dos últimos sete dias</h2>
                 </div>
                 <canvas id="graficBar"></canvas>
             </div>
         </div>
 
-        <div class="itemsDown">
-            <div class="cardListar">
-                <div class="titleL">
-                    <select name="" id="">
-                        <option value="">Terminais</option>
-                        <option value="">Servidores</option>
-                    </select>
-                </div>
 
-            </div>
-
-            <div class="alerts">
-                <div class="titleA">
-                    <h2>Alertas</h2>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
-        const data = {
-            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+
+        let idmaquina = 1
+        let usageChartB
+        // Configuração inicial do gráfico de linha
+        let data = {
+            labels: [],
             datasets: [{
                 label: 'Uso (%)',
-                data: [20, 35, 50, 70, 65, 80, 40], 
+                // data: [20, 35, 50, 70, 65, 80, 40],  // Dados iniciais
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
@@ -143,8 +179,8 @@
         };
 
         // Configuração do gráfico
-        const config = {
-            type: 'line', // Tipo do gráfico (linha)
+        let config = {
+            type: 'bar', // Tipo do gráfico (linha)
             data: data,
             options: {
                 responsive: true,
@@ -164,59 +200,253 @@
                 }
             }
         };
-
-        // Renderizando o gráfico
+        // Renderizando o gráfico de linha
         const ctx = document.getElementById('graficSm').getContext('2d');
-        const usageChart = new Chart(ctx, config);
+        let usageChart = new Chart(ctx, config);
 
-        // Alterar o gráfico com base no tipo de dado selecionado
-        document.getElementById('componentes').addEventListener('change', (e) => {
-            const selected = e.target.value;
-            if (selected === 'cpu') {
-                usageChart.data.datasets[0].data = [20, 35, 50, 70, 65, 80, 40];
-            } else if (selected === 'ram') {
-                usageChart.data.datasets[0].data = [30, 45, 60, 75, 50, 90, 50];
-            } else if (selected === 'disk') {
-                usageChart.data.datasets[0].data = [10, 25, 35, 40, 50, 70, 30];
-            }
-            usageChart.update();
-        });
+        function buscarDados(fkmaquina) {
 
+                var idEmpresa = 2; // Defina ou recupere o id da empresa
+                
+                var componente = Number(document.getElementById("componentes").value);
 
-        const dataB = {
-            labels: ['CPU', 'RAM', 'DISCO'],
-            datasets: [{
-                label: 'Uso (%)',
-                data: [2, 5, 4], 
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: true,
-            }]
-        };
+                console.log(`Consultando: /pedro/dados-semana/${idEmpresa}/${componente}/${idmaquina}`);
 
-        const configB = {
-            type: 'bar',
-            data: dataB,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
+                fetch(`/pedro/dados-semana/${idEmpresa}/${componente}/${idmaquina}`).then(function (resposta) {
+                    if (resposta.ok) {
+                        if (resposta.status == 204) {
+                            console.log("error")
+                        }
+
+                        resposta.json().then(function (resposta) {
+                            console.log("Dados recebidos: ", JSON.stringify(resposta));
+                            plotarGrafico(resposta)
+                        }
+
+                        )
+                    } else {
+                        throw ('Houve um erro na API!');
                     }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 10 
+                }).catch(function (resposta) {
+                    console.error(resposta);
+                });
+        }
+
+        function plotarGrafico(resposta) {
+            if (usageChart) {
+                usageChart.destroy()
+            }
+
+            var dados = []
+            var labels = []
+
+            for (let index = 0; index < resposta.length; index++) {
+                const element = resposta[index];
+
+                dados.push(element.maior_registro)
+                labels.push([element.dia_da_semana, element.data_formatada]);
+
+            }
+
+            let data = {
+                labels: labels,
+                datasets: [{
+                    label: 'Uso (%)',
+                    data: dados,  // Dados iniciais
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                }]
+            };
+
+            // Configuração do gráfico
+            let config = {
+                type: 'bar', // Tipo do gráfico (linha)
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                        }
+                    },
+
+                    x: {
+                        ticks: {
+                            callback: function (val, index) {
+                                return this.getLabelForValue(index).replace("\n", " ");
+                            },
+                            autoSkip: false,
+                        },
+                    },
+
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100 // Limite máximo de 100%
+                        }
                     }
                 }
-            }
-        };
+            };
+            // Renderizando o gráfico de linha
+            const ctx = document.getElementById('graficSm').getContext('2d');
+            usageChart = new Chart(ctx, config);
+        }
 
-        const ctxB = document.getElementById('graficBar').getContext('2d');
-        const usageChartB = new Chart(ctxB, configB);
+
+
+        function buscarDadosLimite(idmaquina) {
+            var componente = Number(document.getElementById("componentes").value);
+            fetch(`/pedro/limite-componente/${2}/${idmaquina}`).then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        console.log("Nenhum dado encontrado para o componente:", componente)
+                    }
+
+                    else {
+                        resposta.json().then(function (resposta) {
+                            console.log("Dados recebidos: ", JSON.stringify(resposta));
+                            plotarGraficoLimite(resposta)
+                        })
+                    }
+                } else {
+                    throw ('Houve um erro na API!');
+                }
+            }).catch(function (resposta) {
+                console.error(resposta);
+            });
+        }
+
+        function plotarGraficoLimite(resposta) {
+            if(usageChartB){
+                usageChartB.destroy()
+            }
+            var dados = []
+            var labels = []
+
+            for (let i = 0; i < resposta.length; i++) {
+                if (resposta[i].fk_dado_monitorado == 1) { // CPU
+                    dados[0] = resposta[i].ultrapassagens;
+                } else if (resposta[i].fk_dado_monitorado == 2) { // RAM
+                    dados[1] = resposta[i].ultrapassagens;
+                } else if (resposta[i].fk_dado_monitorado == 3) { // DISCO
+                    dados[2] = resposta[i].ultrapassagens;
+                }
+            }
+
+            let dataB = {
+                labels: ['CPU', 'RAM', 'DISCO'],
+                datasets: [{
+                    label: 'Uso (%)',
+                    data: dados,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                }]
+            };
+
+            let configB = {
+                type: 'bar',
+                data: dataB,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 20
+                        }
+                    }
+                }
+            };
+
+            const ctxB = document.getElementById('graficBar').getContext('2d');
+            usageChartB = new Chart(ctxB, configB);
+        }
+
+        
+
+
+        function listar() {
+            // Obtém o valor selecionado no <select>
+            var tipoMaquina = Number(document.getElementById("tipoMaquina").value);
+            fetch(`/pedro/listarMaquinas/${2}/${tipoMaquina}`)
+                .then(function (resposta) {
+                    if (resposta.ok) {
+                        if (resposta.status == 204) {
+                            console.log("Nenhum dado encontrado.");
+                            var containerCards = document.querySelector(".child-cards-machine");
+                            containerCards.innerHTML = "<p>Nenhum dado encontrado.</p>"; // Mensagem de aviso no contêiner
+                            return;
+                        }
+
+                        resposta.json().then(function (resposta) {
+                            console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                            // Seleciona o contêiner que conterá os cards
+                            var containerCards = document.querySelector(".child-cards-machine");
+                            containerCards.innerHTML = ""; // Limpa o contêiner antes de adicionar novos elementos
+
+                            for (var index = 0; index < resposta.length; index++) {
+                                var maquina = resposta[index];
+
+                                // Cria a estrutura do card
+                                var divCard = document.createElement("div");
+                                divCard.className = "card-machine";
+
+                                var divId = document.createElement("div");
+                                divId.className = "item";
+                                divId.innerHTML = "<p>" + maquina.fk_maquina + "</p>";
+
+                                var divAlertas = document.createElement("div");
+                                divAlertas.className = "item";
+                                divAlertas.innerHTML = "<p>" + (maquina.total_alertas || 0) + "</p>"; // Exibe 0 se não houver alertas
+
+                                var divAcoes = document.createElement("div");
+                                divAcoes.className = "item";
+                                idmaquina = maquina.fk_maquina
+                                var btnVisualizar = document.createElement("button");
+                                btnVisualizar.className = "visualizarG";
+                                btnVisualizar.textContent = "Visualizar";
+                                btnVisualizar.setAttribute("onclick", `buscarDados('${idmaquina}'), buscarDadosLimite('${idmaquina}')`);
+
+
+                                divAcoes.appendChild(btnVisualizar);
+
+                                // Adiciona os itens ao card
+                                divCard.appendChild(divId);
+                                divCard.appendChild(divAlertas);
+                                divCard.appendChild(divAcoes);
+
+                                // Adiciona o card ao contêiner
+                                containerCards.appendChild(divCard);
+                            }
+                        });
+                    } else {
+                        console.error("Erro ao buscar dados da API.");
+                    }
+                })
+                .catch(function (erro) {
+                    console.error("Erro na requisição:", erro);
+                });
+        }
+
+        // Adiciona o evento de mudança no <select> para chamar a função listar
+        document.getElementById("tipoMaquina").addEventListener("change", listar);
+
+        // Chama listar ao carregar a página para exibir dados iniciais
+        listar();
+
     </script>

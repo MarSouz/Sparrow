@@ -11,7 +11,7 @@ router.get("/buscarCards/:idEmpresa/:idMaquina", function (req, res) {
     manuController.buscarCards(req, res);
 });
 
-router.get("/buscarSelect/:idEmpresa", function (req, res) {
+router.get("/buscarSelect/:idEmpresa/:tipoMaquina", function (req, res) {
     manuController.buscarSelect(req, res);
 });
 
@@ -22,5 +22,9 @@ router.get("/buscarBarplot/:idEmpresa/:idMaquina/:idDadoMonitorado", function(re
 router.get("/buscarMapa/:idEmpresa/:idMaquina", function(req,res){
     manuController.buscarMapa(req,res)
 })
+
+router.get("/buscarValoresCriticos/:idEmpresa/:idMaquina", function (req, res) {
+    manuController.buscarValoresCriticos(req, res);
+});
 
 module.exports = router;

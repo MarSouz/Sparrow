@@ -10,12 +10,12 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="./css/alteracoesCrud.css">
-        <link rel="stylesheet" href="./css/dashboard/dashAdm.css">
-        <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./css/alteracoesCrud.css">
+    <link rel="stylesheet" href="./css/dashboard/dashAdm.css">
+    <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
     <title>Sparrow | Servidores</title>
-   
+
 
 </head>
 
@@ -25,49 +25,49 @@
             <nav id="nav">
                 <ul>
                     <li>
-                        <a href="./../index.html" class="logo">
+                        <a href="#" class="logo">
                             <img src="./assets/imgs/Logo2.png" alt="">
                             <span class="nav-item">Sparrow</span>
                         </a>
                     </li>
 
-                    <li>
-                        <a href="./../index.html">
+                    <!-- <li>
+                        <a href="./preDashAdm.html">
                             <i class="bx bxs-home"></i>
                             <span class="nav-item">Início</span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li>
-                        <a href="./AlteracoesFunc.html">
+                        <a href="./../AlteracoesFunc.html">
                             <i class="bx bxs-user"></i>
                             <span class="nav-item">Funcionários</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="./dashboard/dashAdm.html">
+                        <a href="elersonDashboard.html">
                             <i class="bx bx-radar"></i>
-                            <span class="nav-item">Terminais</span>
+                            <span class="nav-item">Visão geral das máquinas</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="./dashboard/dashAdmServidor.html">
-                            <i class="bx bxs-server"></i>
-                            <span class="nav-item">Servidores</span>
+                        <a href="./dashboard/dash_Dom.html">
+                            <i class='bx bxs-bar-chart-alt-2'></i>
+                            <span class="nav-item">Relatório de alertas</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="./crudTerminal.html">
+                        <a href="crudTerminal.html">
                             <i class="bx bx-laptop"></i>
                             <span class="nav-item">Gerenciamento de terminais</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="./crudServidor.html">
+                        <a href="crudServidor.html">
                             <i class="bx bx-laptop"></i>
                             <span class="nav-item">Gerenciamento de servidores</span>
                         </a>
@@ -124,7 +124,7 @@
                     </div>
 
                     <div id="FUNCIONARIO" class="backpage-row">
-                       
+
                     </div>
                 </div>
 
@@ -194,19 +194,19 @@
 </html>
 
 <script>
-var idmaquinaexcluir
-var idlocalizacao_editar
-     function logout() {
-        sessionStorage.clear(); 
-        window.location.replace('../index.html'); 
+    var idmaquinaexcluir
+    var idcoordenada_editar
+    function logout() {
+        sessionStorage.clear();
+        window.location.replace('../index.html');
     }
 
     document.getElementById('logoutBotao').addEventListener('click', function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         logout();
     });
 
-    
+
     function listar() {
 
         var longitudeVar = longitude_input.value;
@@ -246,19 +246,19 @@ var idlocalizacao_editar
                         var divEditar = document.createElement("div")
                         var divDeletar = document.createElement("div")
 
-                        if(maquina.CPU == null){
+                        if (maquina.CPU == null) {
                             maquina.CPU = "-"
                         }
-                        if(maquina.RAM == null){
+                        if (maquina.RAM == null) {
                             maquina.RAM = "-"
                         }
-                        if(maquina.Disco == null){
+                        if (maquina.Disco == null) {
                             maquina.Disco = "-"
                         }
-                        if(maquina.lon == null){
+                        if (maquina.lon == null) {
                             spanLocalização.innerHTML = "-";
                         }
-                        else{
+                        else {
                             spanLocalização.innerHTML = "<b>" + maquina.lat + "/" + maquina.lon + "</b>";
                         }
 
@@ -267,14 +267,15 @@ var idlocalizacao_editar
                         spanCpu.innerHTML = "<b>" + maquina.CPU + "</b>";
                         spanMemoria.innerHTML = "<b>" + maquina.RAM + "</b>";
                         spanDisco.innerHTML = "<b>" + maquina.Disco + "</b>";
-                        
+
 
                         btnEditar.innerHTML = '<img src="./assets/svg/icon-pencil.svg" alt="Editar">';
                         btnDeletar.innerHTML = '<img src="./assets/svg/icon-lixeira.svg" alt="Deletar">';
 
                         btnEditar.className = "backpage-row-itemED"
                         btnEditar.id = "btnEditar" + maquina.lat + maquina.lon;
-                        btnEditar.setAttribute("onclick", `editar('${maquina.id}', '${maquina.CPU}', '${maquina.RAM}', '${maquina.Disco}', '${maquina.lat}', '${maquina.lon}', '${maquina.idlocalizacao}')`);
+                        btnEditar.setAttribute("onclick", `editar('${maquina.id}', '${maquina.CPU}', '${maquina.RAM}', '${maquina.Disco}', '${maquina.lat}', '${maquina.lon}', '${maquina.idcoordenada}')`);
+                        console.log(maquina.idcoordenada)
 
                         btnDeletar.className = "backpage-row-itemEX"
                         btnDeletar.id = "btnDeletar" + maquina.id;
@@ -316,6 +317,7 @@ var idlocalizacao_editar
         var limiteRAMVar = Number(limiteRAM_input.value);
         var limiteDiscoVar = Number(limiteDisco_input.value);
         var idEmpresa = sessionStorage.ID_EMPRESA
+        var idcoordenada = sessionStorage.ID_COORDENADA
 
         fetch(`/medidas/editar/${idEmpresa}/${sessionStorage.getItem("ID_MAQUINA")}`, {
             method: "POST",
@@ -328,7 +330,7 @@ var idlocalizacao_editar
                 limiteCPUServer: limiteCPUVar,
                 limiteRamServer: limiteRAMVar,
                 limiteDiscoServer: limiteDiscoVar,
-                idLocalizacaoServer: idlocalizacao_editar,
+                idcoordenadaServer: idcoordenada,
             })
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO entrar()!")
@@ -353,14 +355,15 @@ var idlocalizacao_editar
         return false;
     }
 
-    function editar(id, cpu, memoria, disco, latitude, longitude, idlocalizacao) {
-        idlocalizacao_editar = Number(idlocalizacao),
-        sessionStorage.ID_MAQUINA = id,
-        limiteCPU_input.value = cpu,
-        limiteRAM_input.value = memoria,
+    function editar(id, cpu, memoria, disco, latitude, longitude, idcoordenada) {
+        idcoordenada_editar = Number(idcoordenada),
+            sessionStorage.ID_MAQUINA = id,
+            limiteCPU_input.value = cpu,
+            limiteRAM_input.value = memoria,
             limiteDisco_input.value = disco,
             latitude_input.value = latitude,
             longitude_input.value = longitude
+            sessionStorage.ID_COORDENADA = idcoordenada
 
         var edit = document.getElementById("edit-card");
         edit.style.display = "block";
@@ -374,6 +377,7 @@ var idlocalizacao_editar
         var disco = limiteDisco_input.value
         var latitude = latitude_input.value
         var longitude = longitude_input.value
+        var idEmpresa = sessionStorage.ID_EMPRESA
 
         fetch(`/medidas/editar/${idEmpresa}/${Number(id)}`, {
             method: "PUT",
@@ -386,7 +390,7 @@ var idlocalizacao_editar
                 limiteCPUServer: cpu,
                 limiteRamServer: ram,
                 limiteDiscoServer: disco,
-                idLocalizacaoServer: idlocalizacao_editar
+                idcoordenadaServer: idcoordenada_editar
             })
         }).then(function (resposta) {
 
@@ -405,7 +409,7 @@ var idlocalizacao_editar
         edit.style.display = "block";
     }
 
-    function close_card(cardId) { 
+    function close_card(cardId) {
         var card = document.getElementById(cardId)
         card.style.display = "none"
     }
@@ -420,7 +424,7 @@ var idlocalizacao_editar
         }).then(function (resposta) {
 
             if (resposta.ok) {
-               window.location = "crudServidor.html"
+                window.location = "crudServidor.html"
 
             } else {
                 throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
@@ -440,4 +444,14 @@ var idlocalizacao_editar
         var cancel = document.getElementById("card-confirm")
         cancel.style.display = "none"
     }
+
+     //DEIXAR A PARTE DA NAV BAR QUE EU TO USANDO SELECIONADA
+     document.addEventListener("DOMContentLoaded", function () {
+        const urlAtual = window.location.href;
+
+        if (urlAtual.includes("crudServidor.html")) {
+            const terminaisNavItem = document.querySelector('a[href="crudServidor.html"]');
+            terminaisNavItem.classList.add('nav-item-ativo');
+        }
+    });
 </script>

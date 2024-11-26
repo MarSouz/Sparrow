@@ -30,25 +30,24 @@
                             <span class="nav-item">Sparrow</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a href="./preDashAnalista.html">
-                            <i class="bx bxs-home"></i>
-                            <span class="nav-item">Início</span>
-                        </a>
-                    </li>
-
                     <li>
                         <a href="dashAnalista.html">
-                            <i class="bx bx-radar"></i>
-                            <span class="nav-item">Terminais</span>
+                            <i class='bx bx-line-chart'></i>
+                            <span class="nav-item">Análise diária</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="dashAnalistaServidor.html">
-                            <i class="bx bxs-server"></i>
-                            <span class="nav-item">Servidores</span>
+                        <a href="./dashDesgaste.html">
+                            <i class='bx bxs-bar-chart-alt-2'></i>
+                            <span class="nav-item">Análise semanal</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./marceloDashboard.html">
+                            <i class='bx bxs-calendar'></i>
+                            <span class="nav-item"> Análise mensal</span>
                         </a>
                     </li>
 
@@ -74,28 +73,27 @@
         <div class="father">
             <div class="father-container">
                 <div class="container">
-
                     <div class="terminal-botao">
                         <span class="titulo">Servidor</span>
 
-                        <select name="select-terminal" id="select-terminal">
+                        <select name="select-servidor" id="select_servidor">
                             <option value="#" selected disabled>Escolha qual monitorar</option>
                             <option value="1" selected>1</option>
                             <option value="2">2</option>
                         </select>
 
                         <div class="info-container">
-                            <div class="info1">
+                            <div class="info1" id="total-alerta-cpu">
                                 <span class="subtitulo">CPU</span>
-                                <span class="descricao">47</span>
+                                <span class="descricao"></span>
                             </div>
-                            <div class="info2">
+                            <div class="info2" id="total-alerta-ram">
                                 <span class="subtitulo">RAM</span>
-                                <span class="descricao">95</span>
+                                <span class="descricao"></span>
                             </div>
-                            <div class="info3">
+                            <div class="info3" id="total-alerta-disco">
                                 <span class="subtitulo">Disco</span>
-                                <span class="descricao">10</span>
+                                <span class="descricao"></span>
                             </div>
                         </div>
                     </div>
@@ -198,5 +196,70 @@
 </html>
 
 <script>
+    var tipoDado = 1
+    var nomeLabel = ''
+    let dados = [];
+    let horarios = [];
+    let myChart; // Gráfico para CPU, RAM, Disco, Rede
 
+    function definirCpu() {
+        tipoDado = 1
+        nomeLabel = "Uso de CPU"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    function definirRam() {
+        tipoDado = 2
+        nomeLabel = "Uso de RAM"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    function definirDisco() {
+        tipoDado = 3
+        nomeLabel = "Uso de Disco"
+        buscarMedidasTempoReal()
+        buscarMedidasBarplot()
+    }
+
+    let cpuData = 0;
+    let ramData = 0;
+    let discoData = 0;
+
+    function mostrarTotaldeAlertas() {
+        fetch(`/marcelo/buscar/${sessionStorage.ID_EMPRESA}/${select_servidor.value}/${1}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    resposta = resposta.reverse()
+                    dados = [];
+                    horarios = [];
+
+                    for (let index = 0; index < resposta.length; index++) {
+                        const element = resposta[index];
+                        dados.push(element.registro)
+                        horarios.push(element.horario)
+                    }
+                    myChart.data.datasets[0].data = dados
+                    myChart.data.labels = horarios
+                    myChart.data.datasets[0].label = nomeLabel;
+                    myChart.update()
+                    setTimeout(function () {
+                        buscarMedidasTempoReal()
+                    }, 5000)
+                }
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+    console.log(dados)
 </script>

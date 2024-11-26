@@ -27,14 +27,17 @@ function editarMaquinas(req, res) {
     var limiteCPU = req.body.limiteCPUServer
     var limiteRam = req.body.limiteRamServer
     var limiteDisco = req.body.limiteDiscoServer
-    var idlocalizacao = req.body.idLocalizacaoServer
-
-
-    if (idlocalizacao != null) {
-        medidaModel.atualizarLocalizacao(latitude, longitude, idlocalizacao)
-        medidaModel.editarMaquinas(idMaquina, idEmpresa, idlocalizacao, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
+    var idcoordenada = req.body.idcoordenadaServer
+    if(idcoordenada == "null"){
+        idcoordenada = null
+    }
+    if (idcoordenada != null) {
+        medidaModel.atualizarLocalizacao(latitude, longitude, idcoordenada)
+        console.log("LINHA 35")
+        medidaModel.editarMaquinas(idMaquina, idEmpresa, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
+                console.log("Estou bem aqui")
             } else {
                 res.status(204).send("Nenhum resultado encontrado!")
             }
@@ -48,11 +51,11 @@ function editarMaquinas(req, res) {
         if (latitude != null && longitude != null) {
             medidaModel.inserirLocalizacao(latitude, longitude)
             medidaModel.buscarLocalizacao(latitude, longitude).then(function (resultado) {
-                idlocalizacao = resultado[0].id
-                medidaModel.atribuirLocalizacao(idlocalizacao, idMaquina, idEmpresa)
+                idcoordenada = resultado[0].id
+                medidaModel.atribuirLocalizacao(idcoordenada, idMaquina, idEmpresa)
             })
         }
-        medidaModel.editarMaquinas(idMaquina, idEmpresa, limiteCPU, limiteRam, limiteDisco).then(function (resultado) {
+        medidaModel.editarMaquinas(idMaquina, idEmpresa, limiteCPU, limiteRam, limiteDisco).then(function (resultado) { 
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {

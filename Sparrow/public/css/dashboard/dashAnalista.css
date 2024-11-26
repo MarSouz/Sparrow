@@ -87,6 +87,11 @@ nav:hover {
     margin-top: 290px;
 }
 
+/* Deixar nav bar pintada */
+.nav-item-ativo {
+    background-color: #eee !important; 
+}
+
 
 .father {
     display: flex;
@@ -112,7 +117,7 @@ nav:hover {
     display: flex;
     height: 100%;
     width: 50%;
-    padding: 39px 30px 25px 35px;
+    padding: 46px 30px 25px 85px;
     transition: margin-left 0.5s ease; /* Transição para abrir a nav bar */
     flex-direction: column;
     justify-content: space-between;
@@ -148,7 +153,7 @@ nav:hover {
 .container-botoes button {
     display: flex;
     flex-direction: column;
-    width: 15%;
+    width: 20%;
     color: #fff;
     background-color: white;
     color: black;
@@ -197,7 +202,8 @@ nav:hover {
     gap: 15px;
     font-size: 12px;
     text-align: center;
-    /* padding: 18px 0 18px 0; */
+    padding: 0 26px 18px 0;
+    /* padding: 39px 50px 25px 85px; */
 
 }
 
@@ -207,6 +213,13 @@ nav:hover {
     font-weight: bold;
     margin-top: 25px;
     /* color: red; */
+}
+
+.content-infos .legenda {
+    display: flex;
+    flex-direction: column;
+    margin-top: -30px;
+    font-size: 12px;
 }
 
 .info-container {
@@ -254,13 +267,12 @@ nav:hover {
     height: 100%;
     display: flex;
     flex-direction: column;
-    /* background-color: purple; */
 }
 
 
 .graficoLinha {
-    width: 68%;
-    height: 50%;
+    width: 70%;
+    height: 98%;
     padding: 20px;
     border-radius: 8px;
     color: black;
@@ -270,8 +282,8 @@ nav:hover {
 
 
 .histograma {
-    width: 68%;
-    height: 50%;
+    width: 70%;
+    height: 100%;
     padding: 20px;
     border-radius: 8px;
     color: black;
@@ -284,9 +296,8 @@ nav:hover {
     display: flex;
     flex-direction: column;
     margin-top: -190px;
-    /* padding: 65px 40px 55px 65px; */
-    padding: 40px 30px 25px 35px;
-    gap: 10px
+    padding: 39px 50px 25px 85px;
+    gap: 10px;
 }
 
 
@@ -299,6 +310,8 @@ nav:hover {
     /* background-color: green; */
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
 
@@ -311,4 +324,12 @@ nav:hover {
     color: black;
     background-color: white;
     box-shadow: 0 0 15px 0 #5a5446;
+    margin-top: -150px;
 }
+
+.content4 .tituloMapa{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
