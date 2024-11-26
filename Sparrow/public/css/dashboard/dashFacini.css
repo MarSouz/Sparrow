@@ -252,7 +252,7 @@ body {
 
 .medias {
     background-color: white;
-    color: #17ae17;
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -264,7 +264,7 @@ body {
 }
 
 .medias h4 {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
 }
 
@@ -355,7 +355,7 @@ body {
     border-radius: 6px;
     position: absolute;
     transition: visibility 0s linear 0.5s, opacity 0.5s linear;
-
+    padding: 6px 10px 6px 10px;
     z-index: 999;
 }
 

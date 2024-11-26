@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/dashboard/dashMarcelo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../assets/imgs/Logo2.png" type="image/x-icon">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
+
+    <title>Sparrow | Dashboard Servidor</title>
+</head>
+
+<body>
+    <div class="menu-lateral">
+        <nav id="nav">
+            <ul>
+                <li>
+                    <a href="#" class="logo">
+                        <img src="../assets/imgs/Logo2.png" alt="">
+                        <span class="nav-item">Sparrow</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="./preDashAnalista.html">
+                        <i class="bx bxs-home"></i>
+                        <span class="nav-item">Início</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashAnalista.html">
+                        <i class="bx bx-radar"></i>
+                        <span class="nav-item">Terminais</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashAnalistaServidor.html">
+                        <i class="bx bxs-server"></i>
+                        <span class="nav-item">Servidores</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="bx bxs-help-circle"></i>
+                        <span class="nav-item">Central de atendimento</span>
+                    </a>
+                </li>
+
+                <div class="container-logout">
+                    <li>
+                        <a href="#" id="logoutBotao" class="logout">
+                            <i class="bx bx-log-out"></i>
+                            <span class="nav-item">Sair</span>
+                        </a>
+                    </li>
+                </div>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="father">
+        <div class="father-content">
+            <div class="terminal-botao">
+
+                <span class="subtitulo">Servidor</span>
+
+                <select name="select-terminal" id="select-terminal">
+                    <option value="#" selected disabled>Escolha qual monitorar</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                </select>
+
+                <div class="info-container">
+                    <div class="info1">
+                        <span class="subtitulo1">CPU</span>
+                        <span class="descricao">30%</span>
+                    </div>
+                    <div class="info2">
+                        <span class="subtitulo1">RAM</span>
+                        <span class="descricao">50%</span>
+                    </div>
+                    <div class="info3">
+                        <span class="subtitulo1">Disco</span>
+                        <span class="descricao">95%</span>
+                    </div>
+                    <div class="info4">
+                        <span class="subtitulo1">Pacotes enviados</span>
+                        <span class="descricao">500 pacotes</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="content3">
+            <div class="map-grafico">
+                <div class="graficoLinha" id="grafico" style="display: none;">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div id="map"></div>
+            </div>
+        </div> -->
+    </div>
+</body>
+
+</html>
+
+<script>
+
+</script>

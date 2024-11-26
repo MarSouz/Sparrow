@@ -71,7 +71,10 @@
                             <div class="tooltip tooltip-white">
                                 <img src="assets/svg/info.svg" class="info">
                                 <span class="tooltiptext tooltip-left" style="text-align: left">
-                                    texto
+                                    Visualize o status detalhado dos principais componentes de hardware, como CPU, RAM e
+                                    disco, classificados como 'Estável' ou 'Crítico'. Caso o status seja crítico, é
+                                    importante verificar o servidor para evitar problemas. Se estiver estável,
+                                    significa que tudo está funcionando dentro do esperado.
                                 </span>
                             </div>
                         </div>
@@ -87,21 +90,27 @@
                             <div class="text-medias">
                                 <p>CPU</p>
                                 <div class="medias">
-                                    <h4>Estável</h4>
+                                    <span>
+                                        <h4 id="estadoCPU"></h4>
+                                    </span>
                                 </div>
                             </div>
 
                             <div class="text-medias">
                                 <p>RAM</p>
                                 <div class="medias">
-                                    <h4>Estável</h4>
+                                    <span>
+                                        <h4 id="estadoRAM"></h4>
+                                    </span>
                                 </div>
                             </div>
 
                             <div class="text-medias">
                                 <p>DISCO</p>
                                 <div class="medias">
-                                    <h4>Estável</h4>
+                                    <span>
+                                        <h4 id="estadoDisco"></h4>
+                                    </span>
                                 </div>
                             </div>
 
@@ -131,7 +140,7 @@
                         <div class="grafico">
 
                             <canvas id="grafico"></canvas>
-                            <script src="script.js"></script>
+                            <!-- <script src="script.js"></script> -->
 
 
                         </div>
@@ -202,36 +211,61 @@
 </html>
 <script>
 
+    let dados
     let grafico
-    var tituloGrafico = ""
-    let dado = 1
     let listaLabels
 
+    window.onload = estadoComponente()
 
-    let ctx = document.getElementById('grafico').getContext('2d');
+    function estadoComponente() {
+        var estadoCPU = document.getElementById('estadoCPU');
+        var estadoRAM = document.getElementById('estadoRAM');
+        var estadoDisco = document.getElementById('estadoDisco');
+    
+        fetch(`/facini/estadoComponentes`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${resposta}`);
 
-    grafico = new Chart(
-        ctx,
-        {
-            type: 'line',
-            labels: listaLabels,
-            data: {
+                        console.log("CPU", resposta.cpu_situacao_critica)
+                        console.log("RAM", resposta.ram_situacao_critica)
+                        console.log("DISCO", resposta.disco_situacao_critica)
 
-                datasets: [{
-                    type: 'line',
-                    label: tituloGrafico,
-                    borderColor: ['#00ffff'],
-                    backgroundColor: ['#01dada']
-                }]
-            },
-        }
-    );
+                        if (resposta.cpu_situacao_critica == 0) {
+                            estadoCPU.innerHTML = '<h4 style="color: #13c013;">Estável</h4>';
+                        } else {
+                            estadoCPU.innerHTML = '<h4 style="color: red;">Crítico</h4>';
+                        }
 
+                        if (resposta.ram_situacao_critica == 0) {
+                            estadoRAM.innerHTML = '<h4 style="color: #13c013;">Estável</h4>';
+                        } else {
+                            estadoRAM.innerHTML = '<h4 style="color: red;">Crítico</h4>';
+                        }
+
+                        if (resposta.disco_situacao_critica == 0) {
+                            estadoDisco.innerHTML = '<h4 style="color: #13c013;">Estável</h4>';
+                        } else {
+                            estadoDisco.innerHTML = '<h4 style="color: red;">Crítico</h4>';
+                        }
+    
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+    }
 
     function selecionarCPU(botao) {
         const botoes = document.querySelectorAll('.opcao-grafico');
         botoes.forEach(b => b.classList.remove('selected'));
         botao.classList.add('selected');
+
+        limparGrafico()
 
         var titulo = document.getElementById("titulo-grafico")
         titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
@@ -244,10 +278,37 @@
         var pacotes = document.getElementById("text-pacotes")
         pacotes.style.display = "none"
 
-        tituloGrafico = "CPU"
+        var tituloGrafico = "CPU"
         dado = 1
 
         buscarTempoReal(dado)
+
+        let ctx = document.getElementById('grafico').getContext('2d');
+
+        grafico = new Chart(
+            ctx,
+            {
+                type: 'line',
+                labels: listaLabels,
+                data: {
+
+                    datasets: [{
+                        type: 'line',
+                        label: tituloGrafico,
+                        borderColor: ['#00ffff'],
+                        backgroundColor: ['#01dada']
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            }
+        );
 
     }
 
@@ -255,6 +316,8 @@
         const botoes = document.querySelectorAll('.opcao-grafico');
         botoes.forEach(b => b.classList.remove('selected'));
         botao.classList.add('selected');
+
+        limparGrafico()
 
         var titulo = document.getElementById("titulo-grafico")
         titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
@@ -267,10 +330,37 @@
         var pacotes = document.getElementById("text-pacotes")
         pacotes.style.display = "none"
 
-        tituloGrafico = "RAM"
+        var tituloGrafico = "RAM"
         dado = 2
 
         buscarTempoReal(dado)
+
+        let ctx = document.getElementById('grafico').getContext('2d');
+
+        grafico = new Chart(
+            ctx,
+            {
+                type: 'line',
+                labels: listaLabels,
+                data: {
+
+                    datasets: [{
+                        type: 'line',
+                        label: tituloGrafico,
+                        borderColor: ['#00ffff'],
+                        backgroundColor: ['#01dada']
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            }
+        );
 
     }
 
@@ -278,6 +368,8 @@
         const botoes = document.querySelectorAll('.opcao-grafico');
         botoes.forEach(b => b.classList.remove('selected'));
         botao.classList.add('selected');
+
+        limparGrafico()
 
         var titulo = document.getElementById("titulo-grafico")
         titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
@@ -290,10 +382,37 @@
         var pacotes = document.getElementById("text-pacotes")
         pacotes.style.display = "none"
 
-        tituloGrafico = "Disco"
+        var tituloGrafico = "Disco"
         dado = 3
 
         buscarTempoReal(dado)
+
+        let ctx = document.getElementById('grafico').getContext('2d');
+
+        grafico = new Chart(
+            ctx,
+            {
+                type: 'line',
+                labels: listaLabels,
+                data: {
+
+                    datasets: [{
+                        type: 'line',
+                        label: tituloGrafico,
+                        borderColor: ['#00ffff'],
+                        backgroundColor: ['#01dada']
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            }
+        );
     }
 
     function selecionarPacotes(botao) {
@@ -312,15 +431,13 @@
         var pacotes = document.getElementById("text-pacotes")
         pacotes.style.display = "block"
 
-        if (grafico) {
-            grafico.destroy()
-        }
-
         buscarPacotesTempoReal()
 
         const ctx = document.getElementById('grafico').getContext('2d');
 
-
+        if (grafico) {
+            grafico.destroy()
+        }
 
         grafico = new Chart(
             ctx,
@@ -328,7 +445,7 @@
                 type: 'line',
                 labels: listaLabels,
                 data: {
-    
+
                     datasets: [{
                         type: 'line',
                         label: 'Pacotes Enviados',
@@ -341,57 +458,72 @@
                         backgroundColor: ['#a51230']
                     }]
                 },
+
             }
         );
     }
 
+    let intervaloAtual;
+
     function buscarTempoReal(dado) {
+
+        if (intervaloAtual) {
+            clearTimeout(intervaloAtual);
+        }
 
         fetch(`/facini/buscar/${dado}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    console.log("error")
+                    console.log("error");
+                    return;
                 }
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    resposta = resposta.reverse()
+                    resposta = resposta.reverse();
                     dados = [];
                     listaLabels = [];
 
                     for (let index = 0; index < resposta.length; index++) {
                         const element = resposta[index];
-                        dados.push(element.registro)
-                        listaLabels.push(element.horario)
+                        dados.push(element.registro);
+                        listaLabels.push(element.horario);
                     }
 
-                    grafico.data.datasets[0].data = dados
-                    grafico.data.labels = listaLabels
-                    grafico.data.datasets[0].label = tituloGrafico;
-                    grafico.update()
-                    setTimeout(function () {
-                        buscarTempoReal(dado)
-                    }, 5000)
-                }
-                )
+                    grafico.data.datasets[0].data = dados;
+                    grafico.data.labels = listaLabels;
+
+                    grafico.update();
+
+                    intervaloAtual = setTimeout(function () {
+                        buscarTempoReal(dado);
+                    }, 5000);
+                });
             } else {
-                throw ('Houve um erro na API!');
+                throw "Houve um erro na API!";
             }
         }).catch(function (resposta) {
             console.error(resposta);
         });
     }
 
+    let intervaloPacotes;
+
     function buscarPacotesTempoReal() {
+        if (intervaloPacotes) {
+            clearTimeout(intervaloPacotes);
+        }
+
         fetch(`/facini/buscarPacotes`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    console.log("error")
+                    console.log("error");
+                    return;
                 }
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    resposta = resposta.reverse()
+                    resposta = resposta.reverse();
                     dados = [];
                     listaLabels = [];
                     dados2 = [];
@@ -399,36 +531,39 @@
 
                     for (let index = 0; index < resposta.length; index++) {
                         const element = resposta[index];
-                        
-                        if (element.fk_dado_monitorado == 4) {
-                            dados.push(element.registro)
-                            listaLabels.push(element.horario)
-                        } else {
-                            dados2.push(element.registro)
-                            listaLabels2.push(element.horario)
-                        }
 
+                        if (element.fk_dado_monitorado == 4) {
+                            dados.push(element.registro);
+                            listaLabels.push(element.horario);
+                        } else {
+                            dados2.push(element.registro);
+                            listaLabels2.push(element.horario);
+                        }
                     }
 
-                    console.log(dados, listaLabels, dados2, listaLabels2, "DADOS PACOTES ENVIADOS E RECEBIDOS")
+                    console.log(dados, listaLabels, dados2, listaLabels2, "DADOS PACOTES ENVIADOS E RECEBIDOS");
 
-                    grafico.data.datasets[0].data = dados
-                    grafico.data.datasets[1].data = dados2
-                    grafico.data.labels = listaLabels
-                    grafico.update()
-                    setTimeout(function () {
-                        buscarPacotesTempoReal()
-                    }, 5000)
+                    grafico.data.datasets[0].data = dados;
+                    grafico.data.datasets[1].data = dados2;
+                    grafico.data.labels = listaLabels;
+                    grafico.update();
 
-                }
-                )
+                    intervaloPacotes = setTimeout(function () {
+                        buscarPacotesTempoReal();
+                    }, 5000);
+                });
             } else {
-                throw ('Houve um erro na API!');
+                throw "Houve um erro na API!";
             }
         }).catch(function (resposta) {
             console.error(resposta);
         });
     }
 
+    function limparGrafico() {
+        if (grafico) {
+            grafico.destroy();
+        }
+    }
 
 </script>

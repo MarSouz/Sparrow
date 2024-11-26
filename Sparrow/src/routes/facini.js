@@ -11,4 +11,8 @@ router.get("/buscarPacotes", function (req, res) {
     faciniController.buscarPacotesTempoReal(req, res);
 });
 
+router.get("/estadoComponentes", function (req, res) {
+    faciniController.estadoComponentes(req, res);
+});
+
 module.exports = router;
