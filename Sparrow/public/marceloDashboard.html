@@ -117,5 +117,45 @@
 </html>
 
 <script>
+    var tipoDado = 1
+    var nomeLabel = ''
+    let dados = [];
+    let myChart; // Gráfico para CPU, RAM, Disco, Rede
 
+    let cpuData = 0;
+    let ramData = 0;
+    let discoData = 0;
+
+    function mostrarTotaldeAlertas() {
+        fetch(`/marcelo/buscar/${sessionStorage.ID_EMPRESA}/${select_servidor.value}/${1}`).then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    console.log("error")
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    resposta = resposta.reverse()
+                    dados = [];
+
+                    for (let index = 0; index < resposta.length; index++) {
+                        const element = resposta[index];
+                        dados.push(element.registro)
+                    }
+                    myChart.data.datasets[0].data 
+                    myChart.data.datasets[0].label = nomeLabel;
+                    myChart.update()
+                    setTimeout(function () {
+                        buscarMedidasTempoReal()
+                    }, 5000)
+                }
+                )
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+    }
+    console.log(dados)
 </script>
