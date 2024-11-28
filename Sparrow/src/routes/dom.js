@@ -28,19 +28,35 @@ router.get("/qtdAlertaPassadoT/:ID_EMPRESA", function (req, res) {
 });
 
 
-router.get("/histComponenteS/:ID_EMPRESA", function (req, res) {
-    domControllerS.histComponenteS(req, res);
+router.get("/histCpuS/:ID_EMPRESA", function (req, res) {
+    domControllerS.histCpuS(req, res);
 });
-router.get("/histComponenteT/:ID_EMPRESA", function (req, res) {
-    domControllerT.histComponenteT(req, res);
+router.get("/histCpuT/:ID_EMPRESA", function (req, res) {
+    domControllerT.histCpuT(req, res);
 });
 
 
-router.get("/histTotalS/:ID_EMPRESA", function (req, res) {
-    domControllerS.histTotalS(req, res);
+router.get("/histRamS/:ID_EMPRESA", function (req, res) {
+    domControllerS.histRamS(req, res);
 });
-router.get("/histTotalT/:ID_EMPRESA", function (req, res) {
-    domControllerT.histTotalT(req, res);
+router.get("/histRamT/:ID_EMPRESA", function (req, res) {
+    domControllerT.histRamT(req, res);
+});
+
+
+router.get("/histDiscoS/:ID_EMPRESA", function (req, res) {
+    domControllerS.histDiscoS(req, res);
+});
+router.get("/histDiscoT/:ID_EMPRESA", function (req, res) {
+    domControllerT.histDiscoT(req, res);
+});
+
+
+router.get("/treemapS/:ID_EMPRESA", function (req, res) {
+    domControllerS.treemapS(req, res);
+});
+router.get("/treemapT/:ID_EMPRESA", function (req, res) {
+    domControllerT.treemapT(req, res);
 });
 
 

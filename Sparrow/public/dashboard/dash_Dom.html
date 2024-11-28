@@ -15,11 +15,24 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""> </script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <title>Sparrow | Pré Dashboard</title>
 </head>
 
-<body onload="qtdServidor(), qtdTerminal(), qtdAlertaAtualS(), qtdAlertaPassadoS(), qtdAlertaAtualT(), qtdAlertaPassadoT()">
+<body onload="
+    qtdServidor(),
+    // qtdTerminal(),
+    qtdAlertaAtualS(),
+    qtdAlertaPassadoS(),
+    // qtdAlertaAtualT(),
+    // qtdAlertaPassadoT(),
+    histCpuS(),
+    histRamS(),
+    histDiscoS(),
+    regressaoServidor(),
+    treemapS()
+    ">
 
     <div class="menu-lateral">
         <nav id="nav">
@@ -99,7 +112,7 @@
                 <option value=1>Servidores</option>
                 <option value=2>Terminais</option>
             </select>
-            <h2>Semana Atual:</h2>
+            <h2>Semana Atual: <b id="semana"></b></h2>
         </div>
 
         <div class="content1">
@@ -107,14 +120,14 @@
                 <br>
                 <center>
                     <h2>Quantidade de Servidores</h2><br><br><br>
-                    <h2><b>3</b></h2>
+                    <h2 id="qtdServidor"><b></b></h2>
                 </center>
             </div>
             <div class="card"><br>
                 <center>
                     <h2>Quantidade de Alertas</h2><br>
                     <h3>Semana Atual</h3><br>
-                    <h2><b>3</b></h2>
+                    <h2 id="qtdAlertaAtualS"><b>0</b></h2>
                 </center>
             </div>
             <div class="card">
@@ -122,26 +135,45 @@
                 <center>
                     <h2>Quantidade de Alertas</h2><br>
                     <h3>Semana Passada</h3><br>
-                    <h2><b>3</b></h2>
+                    <h2 id="qtdAlertaPassadoS"><b>0     </b></h2>
                 </center>
             </div>
             <div class="card1"><br>
-                <center><h2>Quantidade de Alertas por Componente</h2></center>
+                <center>
+                    <h2>Quantidade de Alertas por Componente</h2>
+                </center>
                 <br>
                 <div class="componente">
-                    <h2>CPU <br><br>12</h2>
-                    <h2>RAM <br><br>12</h2>
-                    <h2>Disco <br><br>12</h2>
+                    <h2>CPU <br><br>
+                        <p id="histCpuS">0</p>
+                    </h2>
+                    <h2>RAM <br><br>
+                        <p id="histRamS">0</p>
+                    </h2>
+                    <h2>Disco <br><br>
+                        <p id="histDiscoS">0
+                        <p>
+                    </h2>
                 </div>
             </div>
         </div>
 
         <div class="content2">
             <div class="treemap"><br>
-                <center><h2>Treemap de Alertas</h2></center>
+                <center>
+                    <h2>Treemap de Alertas</h2>
+                    <div class="tooltip">Hover over me
+                        <span class="tooltiptext">Tooltip text</span>
+                      </div>
+                    <div id="treemap-chart"></div>
+                </center>
             </div>
             <div class="prev"><br>
-                <center><h2>Previsão de Alertas</h2></center>
+                <center>
+                    <h2>Histograma de Alertas</h2>
+                    
+                    <canvas id="histograma" width="400" height="250"></canvas>
+                </center>
             </div>
         </div>
     </div>
@@ -155,7 +187,7 @@
                 <option value=1>Servidores</option>
                 <option value=2>Terminais</option>
             </select>
-            <h2>Semana Atual:</h2>
+            <h2>Semana Atual: <b id="semana1"></b></h2>
         </div>
 
         <div class="content1">
@@ -163,14 +195,15 @@
                 <br>
                 <center>
                     <h2>Quantidade de Terminais</h2><br><br><br>
-                    <h2><b>3</b></h2>
+                    <b></b>
+                    <h2 id="qtdTerminais">0</h2></b>
                 </center>
             </div>
             <div class="card"><br>
                 <center>
                     <h2>Quantidade de Alertas</h2><br>
                     <h3>Semana Atual</h3><br>
-                    <h2><b>3</b></h2>
+                    <h2 id="qtdAlertaAtualT"><b>0</b></h2>
                 </center>
             </div>
             <div class="card">
@@ -178,39 +211,70 @@
                 <center>
                     <h2>Quantidade de Alertas</h2><br>
                     <h3>Semana Passada</h3><br>
-                    <h2><b>3</b></h2>
+                    <h2 id="qtdAlertaPassadoT"><b>0</b></h2>
                 </center>
             </div>
             <div class="card1"><br>
-                <center><h2>Quantidade de Alertas por Componente</h2></center>
+                <center>
+                    <h2>Quantidade de Alertas por Componente</h2>
+                </center>
                 <br>
                 <div class="componente">
-                    <h2>CPU <br><br>12</h2>
-                    <h2>RAM <br><br>12</h2>
-                    <h2>Disco <br><br>12</h2>
+                    <h2>CPU <br><br>
+                        <p id="histCpuT">0</p>
+                    </h2>
+                    <h2>RAM <br><br>
+                        <p id="histRamT">0</p>
+                    </h2>
+                    <h2>Disco <br><br>
+                        <p id="histDiscoT">0
+                        <p>
+                    </h2>
                 </div>
             </div>
         </div>
 
         <div class="content2">
             <div class="treemap"><br>
-                <center><h2>Treemap de Alertas</h2></center>
+                <center>
+                    <h2>Treemap de Alertas</h2>
+                </center>
             </div>
             <div class="prev"><br>
-                <center><h2>Previsão de Alertas</h2></center>
+                <center>
+                    <h2>Histograma de Alertas</h2>
+
+                </center>
             </div>
         </div>
     </div>
 
 </html>
 <script>
-    function select(){
+const today = new Date();
+
+
+const dayOfWeek = today.getDay();
+
+
+const startOfWeek = new Date(today);
+startOfWeek.setDate(today.getDate() - dayOfWeek);
+
+
+const endOfWeek = new Date(today);
+endOfWeek.setDate(today.getDate() + (6 - dayOfWeek));
+
+document.getElementById("semana").innerHTML = `${startOfWeek.toLocaleDateString()} - ${endOfWeek.toLocaleDateString()}`
+document.getElementById("semana").innerHTML = `${startOfWeek.toLocaleDateString()} - ${endOfWeek.toLocaleDateString()}`
+
+
+    function select() {
 
         var select_tipo = document.getElementById("select_tipo")
         var terminais = document.getElementById("terminais")
         var servidores = document.getElementById("servidores")
 
-        if (select_tipo.value == 1){
+        if (select_tipo.value == 1) {
 
             terminais.style.display = 'none'
             servidores.style.display = 'block'
@@ -227,7 +291,7 @@
         window.location.replace('../index.html');
     }
 
-
+    //SERVIDOR
     function qtdServidor() {
 
         fetch(`/dom/qtdServidor/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
@@ -236,7 +300,7 @@
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    const qtd = resposta.length; // Exemplo de como pegar a quantidade
+                    const qtd = resposta.length;
                     document.getElementById("qtdServidor").textContent = qtd;
                 });
             } else {
@@ -254,9 +318,11 @@
         fetch(`/dom/qtdAlertaAtualS/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
+                    
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    const qtd = resposta.length; 
+                    
+                    const qtd = resposta;
                     document.getElementById("qtdAlertaAtualS").textContent = qtd;
                 });
             } else {
@@ -276,7 +342,7 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-                    const qtd = resposta.length; 
+                    const qtd = resposta.length;
                     document.getElementById("qtdAlertaPassadoS").textContent = qtd;
                 });
             } else {
@@ -289,6 +355,239 @@
 
     }
 
+    function histCpuS() {
+
+        fetch(`/dom/histCpuS/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    const qtd = resposta.length;
+                    document.getElementById("histCpuS").textContent = qtd;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function histRamS() {
+
+        fetch(`/dom/histRamS/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    const qtd = resposta.length;
+                    document.getElementById("histRamS").textContent = qtd;
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function histDiscoS() {
+
+        fetch(`/dom/histDiscoS/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    if (resposta.length == 0) {
+                        
+                        document.getElementById("histDiscoS").textContent = "0";
+                    } else {
+                        const qtd = resposta.length;
+                        document.getElementById("histDiscoS").textContent = qtd;
+                    }
+                    
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function processarDados(dados) {
+
+        const alertasPorDia = {};
+
+        dados.forEach(item => {
+            if (item.data_hora) {
+                const data = new Date(item.data_hora).toISOString().split('T')[0];
+
+
+                if (!alertasPorDia[data]) {
+                    alertasPorDia[data] = 0;
+                }
+                alertasPorDia[data]++;
+            }
+        });
+
+
+        return Object.entries(alertasPorDia).map(([data, quantidade]) => ({
+            data: data,
+            quantidade: quantidade
+        }));
+    }
+
+    function criarHistograma(dados) {
+        const labels = dados.map(item => item.data);
+        const valores = dados.map(item => item.quantidade);
+
+       
+        const maxValor = Math.max(...valores);
+        const maxIndex = valores.indexOf(maxValor);
+
+        
+        const cores = valores.map((valor, index) => {
+            
+            return index === maxIndex ? '#c15d5d' : '#5D9CC2'; 
+        });
+
+        const ctx = document.getElementById('histograma').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Alertas por Dia',
+                    data: valores,
+                    backgroundColor: cores,  
+                    borderColor: 'black',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Data',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Quantidade de Alertas',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+    function regressaoServidor() {
+        fetch(`/dom/regressaoServidor/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao obter dados da API');
+                }
+            })
+            .then(dados => {
+                const alertasAgrupados = processarDados(dados);
+                criarHistograma(alertasAgrupados);
+            })
+            .catch(error => {
+                console.error(`Erro ao obter os dados: ${error.message}`);
+            });
+    }
+
+    function treemapS() {
+        fetch(`/dom/treemapS/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erro ao obter dados da API');
+                }
+            })
+            .then(dados => {
+                // Processar dados no formato esperado pelo ApexCharts
+                const alertasAgrupados = processarDadosTreemap(dados);
+                criarTreemap(alertasAgrupados);
+            })
+            .catch(error => {
+                console.error(`Erro ao obter os dados: ${error.message}`);
+            });
+    }
+
+    function processarDadosTreemap(dados) {
+        const alertasPorComponente = {};
+
+        dados.forEach(item => {
+            const componente = item.endereco_mac || 'Outro';
+            
+            if (!alertasPorComponente[componente]) {
+                alertasPorComponente[componente] = 0;
+            }
+            alertasPorComponente[componente] = item.total_alertas;
+        });
+
+        // Formatar para o formato do ApexCharts
+        return Object.entries(alertasPorComponente).map(([nome, valor]) => ({
+            x: nome,
+            y: valor,
+        }));
+    }
+
+    function criarTreemap(dados) {
+        const options = {
+            series: [{
+                data: dados,
+            }],
+            chart: {
+                type: 'treemap',
+                height: 450,
+            },
+            
+            colors: ['#E00F00', '#CC1C10', '#FF3C2E', '#DB463F', '#E3645F'], // Paleta de cores
+        };
+
+        const chart = new ApexCharts(document.querySelector("#treemap-chart"), options);
+        chart.render();
+    }
+
+
+
+
+
+    // TERMINALS
     function qtdTerminal() {
 
         fetch(`/dom/qtdTerminal/${sessionStorage.ID_EMPRESA}`, { cache: 'no-store' }).then(function (response) {
@@ -296,7 +595,8 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-
+                    const qtd = resposta.length;
+                    document.getElementById("qtdTerminais").textContent = qtd;
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -314,7 +614,8 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-
+                    const qtd = resposta.length;
+                    document.getElementById("qtdAlertaAtualT").textContent = qtd;
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -333,7 +634,8 @@
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
-
+                    const qtd = resposta.length;
+                    document.getElementById("qtdAlertaPassadoT").textContent = qtd;
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
