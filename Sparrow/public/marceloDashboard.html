@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/dashboard/dashMarcelo.css">
+    <link rel="stylesheet" href="../css/dashboard/dashMarcelo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../assets/imgs/Logo2.png" type="image/x-icon">
 
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -20,105 +21,215 @@
 </head>
 
 <body>
-    <div class="menu-lateral">
-        <nav id="nav">
-            <ul>
-                <li>
-                    <a href="#" class="logo">
-                        <img src="../assets/imgs/Logo2.png" alt="">
-                        <span class="nav-item">Sparrow</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="./preDashAnalista.html">
-                        <i class="bx bxs-home"></i>
-                        <span class="nav-item">Início</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="dashAnalista.html">
-                        <i class="bx bx-radar"></i>
-                        <span class="nav-item">Terminais</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="dashAnalistaServidor.html">
-                        <i class="bx bxs-server"></i>
-                        <span class="nav-item">Servidores</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <i class="bx bxs-help-circle"></i>
-                        <span class="nav-item">Central de atendimento</span>
-                    </a>
-                </li>
-
-                <div class="container-logout">
+    <section id="page-change">
+        <div class="menu-lateral">
+            <nav id="nav">
+                <ul>
                     <li>
-                        <a href="#" id="logoutBotao" class="logout">
-                            <i class="bx bx-log-out"></i>
-                            <span class="nav-item">Sair</span>
+                        <a href="#" class="logo">
+                            <img src="../assets/imgs/Logo2.png" alt="">
+                            <span class="nav-item">Sparrow</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="dashAnalista.html">
+                            <i class='bx bx-line-chart'></i>
+                            <span class="nav-item">Análise diária</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./dashDesgaste.html">
+                            <i class='bx bxs-bar-chart-alt-2'></i>
+                            <span class="nav-item">Análise semanal</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="./marceloDashboard.html">
+                            <i class='bx bxs-calendar'></i>
+                            <span class="nav-item"> Análise mensal</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="bx bxs-help-circle"></i>
+                            <span class="nav-item">Central de atendimento</span>
+                        </a>
+                    </li>
+
+                    <div class="container-logout">
+                        <li>
+                            <a href="#" id="logoutBotao" class="logout">
+                                <i class="bx bx-log-out"></i>
+                                <span class="nav-item">Sair</span>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="father">
+            <div class="father-container">
+                <div class="container">
+                    <div class="terminal-botao">
+                        <span class="titulo">Servidor</span><br>
+
+                        <select name="select-servidor" id="select_servidor">
+                            <option value="#" selected disabled>Escolha qual monitorar</option>
+                            <option value="servidor" selected>Servidor</option>
+                            <option value="terminal">Terminal</option>
+                        </select>
+
+                        <select name="select-servidor" id="select_servidor">
+                            <option value="#" selected disabled>Escolha qual monitorar</option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                        </select>
+
+                        <select name="select-mes" id="select-mes">
+                            <option value="#" selected disabled>Escolha o mês</option>
+                            <option value="janeiro">Janeiro</option>
+                            <option value="fevereiro">Fevereiro</option>
+                            <option value="marco">Março</option>
+                            <option value="abril">Abril</option>
+                            <option value="maio">Maio</option>
+                            <option value="junho">Junho</option>
+                            <option value="julho">Julho</option>
+                            <option value="agosto">Agosto</option>
+                            <option value="setembro">Setembro</option>
+                            <option value="outubro">Outubro</option>
+                            <option value="novembro">Novembro</option>
+                            <option value="dezembro">Dezembro</option>
+                        </select>
+
+                        <div class="info-container">
+                            <div class="info1" id="total-alerta-cpu">
+                                <span class="subtitulo">CPU</span>
+                                <span class="descricao"></span>
+                            </div>
+                            <div class="info2" id="total-alerta-ram">
+                                <span class="subtitulo">RAM</span>
+                                <span class="descricao"></span>
+                            </div>
+                            <div class="info3" id="total-alerta-disco">
+                                <span class="subtitulo">Disco</span>
+                                <span class="descricao"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </ul>
-        </nav>
-    </div>
+            </div>
 
-    <div class="father">
-        <div class="father-content">
-            <div class="terminal-botao">
-
-                <span class="subtitulo">Servidor</span>
-
-                <select name="select-terminal" id="select-terminal">
-                    <option value="#" selected disabled>Escolha qual monitorar</option>
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                </select>
-
-                <div class="info-container">
-                    <div class="info1">
-                        <span class="subtitulo1">CPU</span>
-                        <span class="descricao">30%</span>
+            <div class="father-container2">
+                <div class="container2">
+                    <div class="graficoLinha" id="grafico" style="display: none;">
+                        <canvas id="myChart"></canvas>
                     </div>
-                    <div class="info2">
-                        <span class="subtitulo1">RAM</span>
-                        <span class="descricao">50%</span>
-                    </div>
-                    <div class="info3">
-                        <span class="subtitulo1">Disco</span>
-                        <span class="descricao">95%</span>
-                    </div>
-                    <div class="info4">
-                        <span class="subtitulo1">Pacotes enviados</span>
-                        <span class="descricao">500 pacotes</span>
-                    </div>
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
 
-        <!-- <div class="content3">
-            <div class="map-grafico">
-                <div class="graficoLinha" id="grafico" style="display: none;">
-                    <canvas id="myChart"></canvas>
+        <div class="father">
+            <div class="content3">
+                <span class="titulo">Servidores</span>
+                <div class="cards-scroll">
+                    <div class="cards-content">
+
+                        <div class="card1" style="background-color: red; color: white;">
+                            <a href="./dashAnalistaServidor.html">
+
+                                <div>
+                                    <span class="titulo-card">Servidor: 1 </span>
+                                    <span class="subtitulo-card">Situação: Crítico</span>
+                                </div>
+
+                                <div>
+                                    <span class="subtitulo-card">Uso de CPU: 30% </span>
+                                    <span class="subtitulo-card">Uso de RAM: 50% </span>
+                                    <span class="subtitulo-card">Uso de Disco: 95%</span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card1">
+                            <div>
+                                <span class="titulo-card">Servidor: 2 </span>
+                                <span class="subtitulo-card">Situação: Estável</span>
+                            </div>
+
+                            <div>
+                                <span class="subtitulo-card">Uso de CPU: 30% </span>
+                                <span class="subtitulo-card">Uso de RAM: 50% </span>
+                                <span class="subtitulo-card">Uso de Disco: 60%</span>
+
+                            </div>
+                        </div>
+
+                        <div class="card1">
+                            <div>
+                                <span class="titulo-card">Servidor: 3 </span>
+                                <span class="subtitulo-card">Situação: Estável</span>
+                            </div>
+
+                            <div>
+                                <span class="subtitulo-card">Uso de CPU: 30% </span>
+                                <span class="subtitulo-card">Uso de RAM: 50% </span>
+                                <span class="subtitulo-card">Uso de Disco: 60%</span>
+
+                            </div>
+                        </div>
+
+                        <div class="card1">
+                            <div>
+                                <span class="titulo-card">Servidor: 4 </span>
+                                <span class="subtitulo-card">Situação: Estável</span>
+                            </div>
+
+                            <div>
+                                <span class="subtitulo-card">Uso de CPU: 30% </span>
+                                <span class="subtitulo-card">Uso de RAM: 50% </span>
+                                <span class="subtitulo-card">Uso de Disco: 60%</span>
+
+                            </div>
+                        </div>
+                        <div class="card1">
+                            <div>
+                                <span class="titulo-card">Servidor: 5 </span>
+                                <span class="subtitulo-card">Situação: Estável</span>
+                            </div>
+
+                            <div>
+                                <span class="subtitulo-card">Uso de CPU: 30% </span>
+                                <span class="subtitulo-card">Uso de RAM: 50% </span>
+                                <span class="subtitulo-card">Uso de Disco: 60%</span>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="map"></div>
             </div>
-        </div> -->
-    </div>
+            <div class="father-container4">
+                <div class="container4">
+                    <div id="map">
+                        <div id="heatmapChart" class="heatmapChart">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>
 
 <script>
-    var tipoDado = 1
-    var nomeLabel = ''
+    var tipoDado = 1;
+    var nomeLabel = '';
     let dados = [];
     let myChart; // Gráfico para CPU, RAM, Disco, Rede
 
@@ -126,36 +237,155 @@
     let ramData = 0;
     let discoData = 0;
 
-    function mostrarTotaldeAlertas() {
-        fetch(`/marcelo/buscar/${sessionStorage.ID_EMPRESA}/${select_servidor.value}/${1}`).then(function (resposta) {
-            if (resposta.ok) {
-                if (resposta.status == 204) {
-                    console.log("error")
-                }
+    document.addEventListener("DOMContentLoaded", () => {
+        const mesMap = {
+            janeiro: 1,
+            fevereiro: 2,
+            marco: 3,
+            abril: 4,
+            maio: 5,
+            junho: 6,
+            julho: 7,
+            agosto: 8,
+            setembro: 9,
+            outubro: 10,
+            novembro: 11,
+            dezembro: 12
+        };
 
-                resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    resposta = resposta.reverse()
-                    dados = [];
+        const selectRecurso = document.getElementById("recursoSelecionado3");
+        const heatmapContainer = document.querySelector("#heatmapChart");
 
-                    for (let index = 0; index < resposta.length; index++) {
-                        const element = resposta[index];
-                        dados.push(element.registro)
-                    }
-                    myChart.data.datasets[0].data 
-                    myChart.data.datasets[0].label = nomeLabel;
-                    myChart.update()
-                    setTimeout(function () {
-                        buscarMedidasTempoReal()
-                    }, 5000)
-                }
-                )
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
+        // Inicializa o gráfico de mapa de calor ao carregar a página
+        ListarCapturas("cpu");
+
+        // Atualiza o gráfico de mapa de calor ao mudar a seleção
+        selectRecurso.addEventListener("change", (event) => {
+            const recursoSelecionado = event.target.value;
+            ListarCapturas(recursoSelecionado);
         });
+
+        function ListarCapturas(recursoSelecionado) {
+            const fkRecurso = recursoMap[recursoSelecionado];
+            if (!fkRecurso) {
+                console.error("Recurso inválido selecionado!");
+                return;
+            }
+
+            heatmapContainer.innerHTML = "";
+
+            fetch(`/individual/UsoPorHora/${fkRecurso}`, {
+                method: "GET"
+            })
+                .then((resposta) => {
+                    if (resposta.status === 204) {
+                        console.log("Não há capturas disponíveis.");
+                        return;
+                    }
+
+                    return resposta.json();
+                })
+                .then((alertas) => {
+                    if (!alertas || alertas.length === 0) {
+                        console.log("Nenhum dado disponível para o recurso selecionado.");
+                        return;
+                    }
+
+                    const valores = alertas.map((registro) => registro.valorRegistrado); // Y
+                    const diasDaSemana = alertas.map((registro) => registro.dia_semana); // X
+                    const horas = alertas.map((registro) => new Date(registro.dtHora).getHours()); // Horas de 0 a 23
+
+                    if (valores.length === 0 || diasDaSemana.length === 0 || horas.length === 0) {
+                        console.log("Os dados retornados estão incompletos ou inválidos.");
+                        return;
+                    }
+
+                    // Inicializando as séries com dados organizados por dia da semana
+                    const diasSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+                    const seriesData = diasSemana.map((dia, diaIndex) => {
+                        return {
+                            name: dia,
+                            data: Array.from({ length: 24 }, (_, horaIndex) => {
+                                const valor = valores.find((_, index) => diasDaSemana[index] === diaIndex + 1 && horas[index] === horaIndex);
+                                return {
+                                    x: `${horaIndex}:00`,
+                                    y: valor !== undefined ? valor : Math.floor(Math.random() * 100) // Valor ou dado aleatório
+                                };
+                            })
+                        };
+                    });
+
+                    var heatmapOptions = {
+                        chart: {
+                            type: 'heatmap',
+                            height: 350
+                        },
+                        series: seriesData,
+                        xaxis: {
+                            type: 'category',
+                            title: {
+                                text: 'Hora do Dia'
+                            }
+                        },
+                        yaxis: {
+                            title: {
+                                text: 'Dia da Semana'
+                            }
+                        },
+                        title: {
+                            text: recursoSelecionado.toUpperCase()
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        colors: ['#0BA385']
+                    };
+
+                    const chart = new ApexCharts(heatmapContainer, heatmapOptions);
+                    chart.render();
+                })
+                .catch((erro) => {
+                    console.error(`Erro: ${erro}`);
+                });
+        }
+    });
+
+    function mostrarTotaldeAlertas() {
+        fetch(`/marcelo/buscar/${sessionStorage.ID_EMPRESA}/${select_servidor.value}/1`)
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    if (resposta.status == 204) {
+                        console.log("Nenhum dado encontrado.");
+                        return;
+                    }
+
+                    resposta.json().then(function (resposta) {
+                        console.log("Dados recebidos: ", JSON.stringify(resposta));
+                        resposta = resposta.reverse();
+                        dados = [];
+
+                        for (let index = 0; index < resposta.length; index++) {
+                            const element = resposta[index];
+                            dados.push(element.registro);
+                        }
+
+                        myChart.data.datasets[0].data = dados;
+                        myChart.data.datasets[0].label = nomeLabel;
+                        myChart.update();
+
+                        setTimeout(function () {
+                            buscarMedidasTempoReal();
+                        }, 5000);
+                    });
+                } else {
+                    throw new Error("Houve um erro na API!");
+                }
+            })
+            .catch(function (erro) {
+                console.error("Erro:", erro);
+            });
     }
-    console.log(dados)
+    console.log(dados);
+
+
 </script>

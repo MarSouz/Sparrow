@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscarTotalAlertas(idEmpresa, idMaquina, tipoMaquina ) {
+function buscarTotalAlertas(idEmpresa, idMaquina, tipoMaquina, idMes ) {
 
     var instrucaoSql = `SELECT
     e.id AS id_empresa,
@@ -26,7 +26,7 @@ WHERE
     e.id = ${idEmpresa}
     AND m.id = ${idMaquina}
     AND tm.id = ${tipoMaquina}
-    AND MONTH(dc.data_hora) = 11 
+    AND MONTH(dc.data_hora) = ${idMes}
 GROUP BY
     e.id, m.id, tm.nome, dm.nome, YEAR(dc.data_hora), MONTH(dc.data_hora)
 ORDER BY
