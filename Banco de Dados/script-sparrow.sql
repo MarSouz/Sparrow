@@ -212,6 +212,8 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`elerson_dados_tratados` (
   `mediana` FLOAT NULL,
   `terceiro_quartil` FLOAT NULL,
   `maximo` FLOAT NULL,
+  `desvio_padrao` FLOAT NULL,
+  `outliers` JSON,
   `periodo_dias` INT NOT NULL,
   PRIMARY KEY (`id`)
 );

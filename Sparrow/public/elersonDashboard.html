@@ -52,7 +52,7 @@
 
                 <li>
                     <a href="./dashboard/dash_Dom.html">
-                        <i class='bx bxs-bar-chart-alt-2' ></i>
+                        <i class='bx bxs-bar-chart-alt-2'></i>
                         <span class="nav-item">Relatório de alertas</span>
                     </a>
                 </li>
@@ -87,36 +87,40 @@
             </ul>
         </nav>
     </div>
-
-    <div class="father">
-        <div class="content1">
-            <span class="titulo">Dashboard | Visão geral das máquinas</span>
-            <div class="periodo">
-                <button onclick="periodo7()">7 dias</button>
-                <button onclick="perido15()">15 dias</button>
-                <button onclick="periodo30()">30 dias</button>
+    <div class="fatherzao">
+        <div class="father">
+            <div class="content1">
+                <span class="titulo">Dashboard | Visão geral das máquinas</span>
+                <div class="periodo">
+                    <button onclick="periodo7()">7 dias</button>
+                    <button onclick="perido15()">15 dias</button>
+                    <button onclick="periodo30()">30 dias</button>
+                </div>
+                <div class="dados">
+                    <button onclick="cpuXram()">CPU x RAM</button>
+                    <button onclick="pacotes()">Pacotes Enviados x Recebidos</button>
+                </div>
             </div>
-            <div class="dados">
-                <button onclick="cpuXram()">CPU x RAM</button>
-                <button onclick="pacotes()">Pacotes Enviados x Recebidos</button>
+            <div class="content2">
+                <div class="card">
+                    <span id="titulo">Descrição do gráfico de dispersão</span>
+                    <span id="info1"></span>
+                    <span id="info2"></span>
+                    <span id="info3"></span>
+                </div>
             </div>
+            <div class="boxplot" style="display: none;" id="lero">
+                <div onclick="toggleLero()" class="fechar">
+                    <img src="./assets/svg/icon-close.svg" alt="">
+                </div>
+                <div id="boxplot"></div>
+            </div>
+            
         </div>
-        <div class="content2">
+        <div class="content3">
             <div class="graficoLinha">
                 <canvas id="scatterChart"></canvas>
             </div>
-            <div class="card">
-                <span id="titulo">Descrição do gráfico de dispersão</span>
-                <span id="info1"></span>
-                <span id="info2"></span>
-                <span id="info3"></span>
-            </div>
-        </div>
-        <div class="boxplot" style="display: none;" id="lero">
-            <div onclick="toggleLero()" class="fechar">
-                <img src="./assets/svg/icon-close.svg" alt="">
-            </div>
-            <div id="boxplot"></div>
         </div>
         <div id="blurOverlay" class="blur-overlay"></div>
     </div>
@@ -207,7 +211,7 @@
             if (element.dado1 > mediaX) {
                 acimaX.push(element.fk_maquina)
             }
-            if(element.dado2 > mediaY){
+            if (element.dado2 > mediaY) {
                 acimaY.push(element.fk_maquina)
             }
         }
@@ -226,7 +230,9 @@
                 data: dadosMedias.map(d => ({
                     x: d.dado1,
                     y: d.dado2,
-                    maquina: d.fk_maquina
+                    maquina: d.fk_maquina,
+                    desvioX: d.desvio1,
+                    desvioY: d.desvio2
                 })),
                 backgroundColor: 'blue',
                 pointRadius: 5
@@ -255,13 +261,16 @@
                     tooltip: {
                         callbacks: {
                             label: function (context) {
+                                console.log(context)
                                 const maquina = context.raw.maquina;
                                 const xValue = context.raw.x;
                                 const yValue = context.raw.y;
+                                const xDesvio = context.raw.desvioX;
+                                const yDesvio = context.raw.desvioY
                                 if (texto1 === 'Media de Uso de CPU') {
-                                    return `Máquina ${maquina}: CPU ${xValue}, RAM ${yValue}`;
+                                    return `Máquina ${maquina}: CPU: ${xValue} DP: ${xDesvio}, RAM :${yValue} DP: ${yDesvio}`;
                                 } else {
-                                    return `Máquina ${maquina}: Enviados ${xValue}, Recebidos ${yValue}`;
+                                    return `Máquina ${maquina}: Enviados ${xValue} DP: ${xDesvio}, Recebidos ${yValue} DP: ${yDesvio}`;
                                 }
                             }
                         }
@@ -359,6 +368,20 @@
         lero.style.display = 'block';
         var data = []
         for (var index = 0; index < resposta.length; index++) {
+
+            var nome = ""
+            if (resposta[index].fk_dado_monitorado == 1) {
+                nome = "Uso de CPU"
+            }
+            else if (resposta[index].fk_dado_monitorado == 2) {
+                nome = "Uso de RAM"
+            }
+            else if (resposta[index].fk_dado_monitorado == 4) {
+                nome = "Pacotes Enviados"
+            }
+            else if (resposta[index].fk_dado_monitorado == 5) {
+                nome = "Pacotes Recebidos"
+            }
             var box = {
                 type: 'box',
                 q1: [resposta[index].primeiro_quartil],
@@ -366,18 +389,25 @@
                 q3: [resposta[index].terceiro_quartil],
                 lowerfence: [resposta[index].minimo],
                 upperfence: [resposta[index].maximo],
-                name: 'Grupo 1',
+                name: nome,
                 marker: { color: 'rgba(75, 192, 192, 1)' },
-                boxpoints: false
+                boxpoints: 'all',
+                y: [resposta[index].outliers]
             }
             data.push(box)
         }
         var layout = {
             title: 'Boxplot com Dados Especificados',
             yaxis: { title: 'Valores' },
-            boxmode: 'group'  // Agrupa os boxplots lado a lado
+            boxmode: 'group',
+            margin: {
+                l: 100, r: 100, t: 40, b: 40 // Ajusta os espaços
+            }
         };
-        Plotly.newPlot('boxplot', data, layout);
+        var config = {
+            displayModeBar: false // Desativa a barra de ferramentas
+        };
+        Plotly.newPlot('boxplot', data, layout, config);
 
 
     }

@@ -15,7 +15,19 @@ function buscarMedidasDispersao(idEmpresa, periodo, idDado1, idDado2) {
         WHERE fk_maquina = et.fk_maquina 
           AND fk_dado_monitorado = ${idDado2} 
         ORDER BY id DESC 
-        LIMIT 1) AS dado2
+        LIMIT 1) AS dado2,
+        (SELECT desvio_padrao 
+        FROM elerson_dados_tratados 
+        WHERE fk_maquina = et.fk_maquina 
+          AND fk_dado_monitorado = ${idDado1} 
+        ORDER BY id DESC 
+        LIMIT 1) AS desvio1,
+        (SELECT desvio_padrao
+        FROM elerson_dados_tratados 
+        WHERE fk_maquina = et.fk_maquina 
+          AND fk_dado_monitorado = ${idDado2} 
+        ORDER BY id DESC 
+        LIMIT 1) AS desvio2
 FROM elerson_dados_tratados et
 WHERE fk_empresa = ${idEmpresa} 
 AND periodo_dias = ${periodo}
@@ -35,7 +47,8 @@ function buscarMedidasBoxplot(idEmpresa, idMaquina, periodo, idDado1, idDado2) {
     primeiro_quartil,
     mediana,
     terceiro_quartil,
-    maximo
+    maximo,
+    outliers
 FROM elerson_dados_tratados
 WHERE id IN (
     SELECT MAX(id)
