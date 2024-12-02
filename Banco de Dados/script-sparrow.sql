@@ -218,6 +218,18 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`elerson_dados_tratados` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `Sparrow`.`manu_dados_tratados` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_empresa` INT NOT NULL,
+  `fk_maquina` INT NOT NULL,
+  `fk_dado_monitorado` INT NOT NULL,
+  `fk_alerta` INT NOT NULL,
+  `data_hora` DATETIME NOT NULL,                     
+  `registro` INT NOT NULL, 
+  PRIMARY KEY (`id`)
+);
+s
+
 
 INSERT INTO empresa VALUES (1, "Sparrow", "sparrow", "sparrow@gmail.com", 12345678912345);
 
@@ -235,100 +247,27 @@ INSERT INTO dado_monitorado VALUES (default, "Uso do Disco", "Porcentagem");
 INSERT INTO dado_monitorado VALUES (default, "Pacotes Enviados", "Inteiro");
 INSERT INTO dado_monitorado VALUES (default, "Pacotes Recebidos", "Inteiro");
 
--- Supondo que já existam entradas nas tabelas de referência
-
--- Inserir uma nova máquina
-INSERT INTO `Sparrow`.`maquina` (fk_empresa, endereco_mac, fk_tipo_maquina, fk_coordenada) 
-VALUES (2, '00:1A:2B:3C:4D:5E', 1, null);
-
--- Inserir outra máquina
-INSERT INTO `Sparrow`.`maquina` (fk_empresa, endereco_mac, fk_tipo_maquina, fk_coordenada) 
-VALUES (2, '00:1A:2B:3C:4D:5F', 1, null);
-
--- Inserir mais uma máquina
-INSERT INTO `Sparrow`.`maquina` (fk_empresa, endereco_mac, fk_tipo_maquina, fk_coordenada) 
-VALUES (2, '00:1A:2B:3C:4D:6A', 1, null);
-
--- Inserir outra máquina
-INSERT INTO `Sparrow`.`maquina` (fk_empresa, endereco_mac, fk_tipo_maquina, fk_coordenada) 
-VALUES (2, '00:1A:2B:3C:4D:6B', 1, null);
-
-SELECT
-    m.id AS id,
-    m.fk_empresa as fk_empresa,
-    l.latitude as lat,
-    l.longitude as lon,
-    l.id as idlocalizacao,
-    MAX(CASE WHEN tc.nome = 'Uso de CPU' THEN mc.limite_componente END) AS CPU,
-    MAX(CASE WHEN tc.nome = 'Uso de RAM' THEN mc.limite_componente END) AS RAM,
-    MAX(CASE WHEN tc.nome = 'Uso do Disco' THEN mc.limite_componente END) AS Disco
-FROM
-    maquina m
-JOIN
-    maquina_dado_monitorado mc ON mc.fk_maquina = m.id
-JOIN
-    dado_monitorado tc ON mc.fk_dado_monitorado = tc.id
-LEFT JOIN
-	coordenada l ON l.id = m.fk_coordenada
-WHERE
-    m.fk_empresa = 2 and m.fk_tipo_maquina = 1
-GROUP BY
-    m.id;
- 
- select * from empresa;
- select * from maquina_dado_monitorado;   
-insert into maquina_dado_monitorado (limite_componente, fk_empresa, fk_maquina, fk_dado_monitorado) values(80,2,4,3);
-
-select * from maquina;
 
 DELIMITER //
-CREATE TRIGGER verificar_uso_componentes
+CREATE TRIGGER alerta
 AFTER INSERT ON dado_capturado
-FOR EACH ROW 
+FOR EACH ROW
 BEGIN
-	DECLARE limite INT;
-    
+    DECLARE limite INT;
+
     SELECT limite_componente INTO limite
     FROM maquina_dado_monitorado
     WHERE fk_maquina = NEW.fk_maquina AND fk_dado_monitorado = NEW.fk_dado_monitorado;
-    
+
+	
+	
     IF NEW.registro >= limite THEN
-    INSERT INTO alerta (fk_dado_maquina)
-    VALUES (NEW.id);
+        INSERT INTO alerta (fk_dado_maquina)
+        VALUES (NEW.id);
     END IF;
 END;
 //
 DELIMITER ;
-
-SELECT 
-    data,
-    MAX(registro) AS maior_registro,
-    CASE DAYOFWEEK(data)
-        WHEN 1 THEN 'Domingo'
-        WHEN 2 THEN 'Segunda-feira'
-        WHEN 3 THEN 'Terça-feira'
-        WHEN 4 THEN 'Quarta-feira'
-        WHEN 5 THEN 'Quinta-feira'
-        WHEN 6 THEN 'Sexta-feira'
-        WHEN 7 THEN 'Sábado'
-    END AS dia_da_semana
-FROM (
-    SELECT 
-        DATE(data_hora) AS data,
-        registro
-    FROM 
-        Sparrow.dado_capturado
-    WHERE 
-        DATE(data_hora) >= CURDATE() - INTERVAL 7 DAY -- Filtra os últimos 7 dias
-) AS dados_agrupados
-GROUP BY 
-    data
-ORDER BY 
-    data ASC, -- Organiza por data (do mais antigo para o mais recente)
-    DAYOFWEEK(data) -- Organiza os dias da semana (de segunda a domingo)
-LIMIT 7;
-
-
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
