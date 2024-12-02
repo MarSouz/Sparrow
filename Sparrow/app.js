@@ -25,6 +25,8 @@ var elersonRouter = require("./src/routes/elerson");
 var manuRouter = require("./src/routes/manu")
 var pedroRouter = require("./src/routes/pedro")
 var marceloRouter = require("./src/routes/marcelo")
+var DomRouter = require("./src/routes/dom")
+var faciniRouter = require("./src/routes/facini")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -42,6 +44,8 @@ app.use("/elerson", elersonRouter);
 app.use("/manu", manuRouter)
 app.use("/pedro", pedroRouter)
 app.use("/marcelo", marceloRouter)
+app.use("/dom", DomRouter)
+app.use("/facini", faciniRouter)
 
 app.listen(PORTA_APP, function () {
     console.log(`

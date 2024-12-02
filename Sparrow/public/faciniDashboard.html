@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/dashboard/dashFacini.css">
     <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <title>Dashboard Eduardo</title>
 </head>
 
@@ -70,8 +71,11 @@
                         <div class="father-tips">
                             <div class="tooltip tooltip-white">
                                 <img src="assets/svg/info.svg" class="info">
-                                <span class="tooltiptext tooltip-left" style="text-align: left">
-                                    texto
+                                <span class="tooltiptext tooltip-right" style="text-align: left">
+                                    Visualize o status detalhado dos principais componentes de hardware, como CPU, RAM e
+                                    disco, classificados como 'Estável' ou 'Crítico'. Caso o status seja crítico, é
+                                    importante verificar o servidor para evitar problemas. Se estiver estável,
+                                    significa que tudo está funcionando dentro do esperado.
                                 </span>
                             </div>
                         </div>
@@ -87,21 +91,27 @@
                             <div class="text-medias">
                                 <p>CPU</p>
                                 <div class="medias">
-                                    <h4>Estável</h4>
+                                    <span>
+                                        <h4 id="estadoCPU"></h4>
+                                    </span>
                                 </div>
                             </div>
 
                             <div class="text-medias">
                                 <p>RAM</p>
                                 <div class="medias">
-                                    <h4>Estável</h4>
+                                    <span>
+                                        <h4 id="estadoRAM"></h4>
+                                    </span>
                                 </div>
                             </div>
 
                             <div class="text-medias">
                                 <p>DISCO</p>
                                 <div class="medias">
-                                    <h4>Estável</h4>
+                                    <span>
+                                        <h4 id="estadoDisco"></h4>
+                                    </span>
                                 </div>
                             </div>
 
@@ -131,8 +141,9 @@
                         <div class="grafico">
 
                             <canvas id="grafico"></canvas>
-                            <script src="script.js"></script>
-
+                            <div class="placeholder" id="placeholderGrafico">
+                                <h2>Selecione um componente.</h2>
+                            </div>
 
                         </div>
 
@@ -146,12 +157,23 @@
 
                 <div class="card-right">
 
+                    <div class="placeholder" id="placeholderDescricao">
+                        <h2>Por favor, selecione um componente do gráfico para acessar mais informações.</h2>
+                    </div>
+
                     <div class="text-pacotes" id="text-CPU" style="display: none;">
 
                         <div class="titulo">
                             <div class="contorno-titulo-pacotes">
                                 <h2>CPU</h2>
                             </div>
+                        </div>
+
+                        <div class="text-componente">
+                            <h3 class="titulo-informacoes">Informações gerais:</h3><br>
+                            <h3>A CPU responsável por processar cálculos e executar as instruções dos
+                                sistemas e aplicativos.</h3> <br>
+                            <div id="textCPU"></div>
                         </div>
 
                     </div>
@@ -164,6 +186,13 @@
                             </div>
                         </div>
 
+                        <div class="text-componente">
+                            <h3 class="titulo-informacoes">Informações gerais:</h3><br>
+                            <h3>A RAM armazena dados temporários enquanto o servidor está em operação, garantindo
+                                agilidade nas tarefas.</h3> <br>
+                            <div id="textRAM"></div>
+                        </div>
+
                     </div>
 
                     <div class="text-pacotes" id="text-Disco" style="display: none;">
@@ -174,10 +203,16 @@
                             </div>
                         </div>
 
+                        <div class="text-componente">
+                            <h3 class="titulo-informacoes">Informações gerais:</h3><br>
+                            <h3>O Disco é responsável por armazenar dados de forma permanente e realizar operações
+                                de leitura e escrita.</h3> <br>
+                            <div id="textDisco"></div>
+                        </div>
+
                     </div>
 
                     <div class="text-pacotes" id="text-pacotes" style="display: none;">
-
 
                         <div class="titulo">
                             <div class="contorno-titulo-pacotes">
@@ -185,7 +220,30 @@
                             </div>
                         </div>
 
-                        <div class="legenda-pacotes"></div>
+                        <div class="text-componente">
+                            <h3 class="titulo-informacoes">Informações gerais:</h3>
+                            <h3>A Rede monitora o tráfego de dados, mostrando a quantidade de pacotes enviados e
+                                recebidos em tempo real. <br><br>
+                                Atualmente, o fluxo está estável, dentro do esperado. <br><br></h3>
+                            <div id="pacotes"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-right">
+
+                    <div class="titulo">
+                        <div class="contorno-titulo-pacotes">
+                            <h2>Ameaça Potencial</h2>
+                        </div>
+                    </div>
+
+                    <div class="text-componente">
+
+                        <div id="chart1">
+                        </div>
 
                     </div>
 
@@ -202,36 +260,149 @@
 </html>
 <script>
 
+    let dados
     let grafico
-    var tituloGrafico = ""
-    let dado = 1
     let listaLabels
+    var ultimoCPU = 0
+    var ultimoRAM = 0
+    var ultimoDisco = 0 
+    var ultimoPacEnv
+    var ultimoPacRec
 
+    window.onload = function() {
+        estadoComponente();
+        setTimeout(plotarPercentual, 8000);
+      };
 
-    let ctx = document.getElementById('grafico').getContext('2d');
-
-    grafico = new Chart(
-        ctx,
-        {
-            type: 'line',
-            labels: listaLabels,
-            data: {
-
-                datasets: [{
-                    type: 'line',
-                    label: tituloGrafico,
-                    borderColor: ['#00ffff'],
-                    backgroundColor: ['#01dada']
-                }]
+      function plotarPercentual() {
+        let usoCpu = ultimoCPU;
+        let usoRam = ultimoRAM;
+        let usoDisco = ultimoDisco;
+    
+        let riscoCpu = usoCpu / 100;
+        let riscoRam = usoRam / 100;
+        let riscoDisco = usoDisco / 100;
+    
+        let pesoCpu = 0.4;
+        let pesoRam = 0.4;
+        let pesoDisco = 0.2;
+    
+        let riscoTotal = (riscoCpu * pesoCpu) + (riscoRam * pesoRam) + (riscoDisco * pesoDisco);
+    
+        let percentualDano = riscoTotal * 100;
+    
+        var options1 = {
+            chart: {
+                height: 280,
+                type: "radialBar",
             },
-        }
-    );
+            series: [percentualDano.toFixed(0)],
+            colors: ["#20E647"],
+            plotOptions: {
+                radialBar: {
+                    startAngle: -135,
+                    endAngle: 135,
+                    track: {
+                        background: '#333',
+                        startAngle: -135,
+                        endAngle: 135,
+                    },
+                    dataLabels: {
+                        name: {
+                            show: false,
+                        },
+                        value: {
+                            fontSize: "30px",
+                            show: true
+                        }
+                    }
+                }
+            },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    shade: "dark",
+                    type: "horizontal",
+                    gradientToColors: ["#87D4F9"],
+                    stops: [0, 100]
+                }
+            },
+            stroke: {
+                lineCap: "butt"
+            },
+            labels: ["Progress"]
+        };
+    
+        new ApexCharts(document.querySelector("#chart1"), options1).render();
+    
+        setTimeout(plotarPercentual, 5000);
+    }
+    
 
+    function qtdPacotes() {
+
+        pacotes.innerHTML = `<h3>Pacotes enviados: ${ultimoPacEnv} <br> Pacotes recebidos: ${ultimoPacRec}`
+
+    }
+
+    function estadoComponente() {
+        var estadoCPU = document.getElementById('estadoCPU');
+        var estadoRAM = document.getElementById('estadoRAM');
+        var estadoDisco = document.getElementById('estadoDisco');
+
+        fetch(`/facini/estadoComponentes`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${resposta}`);
+
+                        console.log("CPU", resposta.cpu_situacao_critica)
+                        console.log("RAM", resposta.ram_situacao_critica)
+                        console.log("DISCO", resposta.disco_situacao_critica)
+
+                        if (resposta.cpu_situacao_critica == 0) {
+                            estadoCPU.innerHTML = `<h4 style="color: #13c013;">Estável</h4>`
+                            textCPU.innerHTML = `<h3>Atualmente, está em ${ultimoCPU}% de uso, dentro do limite de 80%.</h3>`
+                        } else {
+                            estadoCPU.innerHTML = `<h4 style="color: red;">Crítico</h4>`
+                            textCPU.innerHTML = `<h3>Atualmente, está em ${ultimoCPU}% de uso, ultrapassando o limite de 80%.</h3>`
+                        }
+
+                        if (resposta.ram_situacao_critica == 0) {
+                            estadoRAM.innerHTML = `<h4 style="color: #13c013;">Estável</h4>`
+                            textRAM.innerHTML = `<h3>Atualmente, está em ${ultimoRAM}% de uso, dentro do limite de 80%.</h3>`
+                        } else {
+                            estadoRAM.innerHTML = `<h4 style="color: red;">Crítico</h4>`
+                            textRAM.innerHTML = `<h3>Atualmente, está em ${ultimoRAM}% de uso, ultrapassando o limite de 80%.</h3>`
+                        }
+
+                        if (resposta.disco_situacao_critica == 0) {
+                            estadoDisco.innerHTML = `<h4 style="color: #13c013;">Estável</h4>`
+                            textDisco.innerHTML = `<h3>Atualmente, está em ${ultimoDisco}% de uso, dentro do limite de 80%.</h3>`
+                        } else {
+                            estadoDisco.innerHTML = `<h4 style="color: red;">Crítico</h4>`
+                            textDisco.innerHTML = `<h3>Atualmente, está em ${ultimoDisco}% de uso, ultrapassando o limite de 80%.</h3>`
+                        }
+
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados: ${error.message}`);
+            });
+        setTimeout(function () {
+            estadoComponente()
+        }, 5000);
+    }
 
     function selecionarCPU(botao) {
         const botoes = document.querySelectorAll('.opcao-grafico');
         botoes.forEach(b => b.classList.remove('selected'));
         botao.classList.add('selected');
+
+        limparGrafico()
 
         var titulo = document.getElementById("titulo-grafico")
         titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
@@ -243,11 +414,42 @@
         Disco.style.display = "none"
         var pacotes = document.getElementById("text-pacotes")
         pacotes.style.display = "none"
+        var placeholderGrafico = document.getElementById("placeholderGrafico")
+        placeholderGrafico.style.display = "none"
+        var placeholderDescricao = document.getElementById("placeholderDescricao")
+        placeholderDescricao.style.display = "none"
 
-        tituloGrafico = "CPU"
+        var tituloGrafico = "CPU"
         dado = 1
 
         buscarTempoReal(dado)
+
+        let ctx = document.getElementById('grafico').getContext('2d');
+
+        grafico = new Chart(
+            ctx,
+            {
+                type: 'line',
+                labels: listaLabels,
+                data: {
+
+                    datasets: [{
+                        type: 'line',
+                        label: tituloGrafico,
+                        borderColor: ['#00ffff'],
+                        backgroundColor: ['#01dada']
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            }
+        );
 
     }
 
@@ -255,6 +457,8 @@
         const botoes = document.querySelectorAll('.opcao-grafico');
         botoes.forEach(b => b.classList.remove('selected'));
         botao.classList.add('selected');
+
+        limparGrafico()
 
         var titulo = document.getElementById("titulo-grafico")
         titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
@@ -266,11 +470,42 @@
         Disco.style.display = "none"
         var pacotes = document.getElementById("text-pacotes")
         pacotes.style.display = "none"
+        var placeholderGrafico = document.getElementById("placeholderGrafico")
+        placeholderGrafico.style.display = "none"
+        var placeholderDescricao = document.getElementById("placeholderDescricao")
+        placeholderDescricao.style.display = "none"
 
-        tituloGrafico = "RAM"
+        var tituloGrafico = "RAM"
         dado = 2
 
         buscarTempoReal(dado)
+
+        let ctx = document.getElementById('grafico').getContext('2d');
+
+        grafico = new Chart(
+            ctx,
+            {
+                type: 'line',
+                labels: listaLabels,
+                data: {
+
+                    datasets: [{
+                        type: 'line',
+                        label: tituloGrafico,
+                        borderColor: ['#00ffff'],
+                        backgroundColor: ['#01dada']
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            }
+        );
 
     }
 
@@ -278,6 +513,8 @@
         const botoes = document.querySelectorAll('.opcao-grafico');
         botoes.forEach(b => b.classList.remove('selected'));
         botao.classList.add('selected');
+
+        limparGrafico()
 
         var titulo = document.getElementById("titulo-grafico")
         titulo.innerHTML = "Gráfico de uso dos componentes (em %)"
@@ -289,11 +526,42 @@
         Disco.style.display = "block"
         var pacotes = document.getElementById("text-pacotes")
         pacotes.style.display = "none"
+        var placeholderGrafico = document.getElementById("placeholderGrafico")
+        placeholderGrafico.style.display = "none"
+        var placeholderDescricao = document.getElementById("placeholderDescricao")
+        placeholderDescricao.style.display = "none"
 
-        tituloGrafico = "Disco"
+        var tituloGrafico = "Disco"
         dado = 3
 
         buscarTempoReal(dado)
+
+        let ctx = document.getElementById('grafico').getContext('2d');
+
+        grafico = new Chart(
+            ctx,
+            {
+                type: 'line',
+                labels: listaLabels,
+                data: {
+
+                    datasets: [{
+                        type: 'line',
+                        label: tituloGrafico,
+                        borderColor: ['#00ffff'],
+                        backgroundColor: ['#01dada']
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                }
+            }
+        );
     }
 
     function selecionarPacotes(botao) {
@@ -311,16 +579,18 @@
         Disco.style.display = "none"
         var pacotes = document.getElementById("text-pacotes")
         pacotes.style.display = "block"
-
-        if (grafico) {
-            grafico.destroy()
-        }
+        var placeholderGrafico = document.getElementById("placeholderGrafico")
+        placeholderGrafico.style.display = "none"
+        var placeholderDescricao = document.getElementById("placeholderDescricao")
+        placeholderDescricao.style.display = "none"
 
         buscarPacotesTempoReal()
 
         const ctx = document.getElementById('grafico').getContext('2d');
 
-
+        if (grafico) {
+            grafico.destroy()
+        }
 
         grafico = new Chart(
             ctx,
@@ -328,7 +598,7 @@
                 type: 'line',
                 labels: listaLabels,
                 data: {
-    
+
                     datasets: [{
                         type: 'line',
                         label: 'Pacotes Enviados',
@@ -341,57 +611,83 @@
                         backgroundColor: ['#a51230']
                     }]
                 },
+
             }
         );
     }
 
+    let intervaloAtual;
+
     function buscarTempoReal(dado) {
+
+        if (intervaloAtual) {
+            clearTimeout(intervaloAtual);
+        }
 
         fetch(`/facini/buscar/${dado}`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    console.log("error")
+                    console.log("error");
+                    return;
                 }
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    resposta = resposta.reverse()
+                    resposta = resposta.reverse();
                     dados = [];
                     listaLabels = [];
 
                     for (let index = 0; index < resposta.length; index++) {
                         const element = resposta[index];
-                        dados.push(element.registro)
-                        listaLabels.push(element.horario)
+                        dados.push(element.registro);
+                        listaLabels.push(element.horario);
                     }
 
-                    grafico.data.datasets[0].data = dados
-                    grafico.data.labels = listaLabels
-                    grafico.data.datasets[0].label = tituloGrafico;
-                    grafico.update()
-                    setTimeout(function () {
-                        buscarTempoReal(dado)
-                    }, 5000)
-                }
-                )
+                    grafico.data.datasets[0].data = dados;
+                    grafico.data.labels = listaLabels;
+
+                    if (dado == 1) {
+                        ultimoCPU = resposta[resposta.length - 1].registro
+                        console.log(`DADO CPU: ${ultimoCPU}`)
+                    } else if (dado == 2) {
+                        ultimoRAM = resposta[resposta.length - 1].registro
+                        console.log(`DADO RAM: ${ultimoRAM}`)
+                    } else if (dado == 3) {
+                        ultimoDisco = resposta[resposta.length - 1].registro
+                        console.log(`DADO Disco: ${ultimoDisco}`)
+                    }
+
+                    grafico.update();
+
+                    intervaloAtual = setTimeout(function () {
+                        buscarTempoReal(dado);
+                    }, 5000);
+                });
             } else {
-                throw ('Houve um erro na API!');
+                throw "Houve um erro na API!";
             }
         }).catch(function (resposta) {
             console.error(resposta);
         });
     }
 
+    let intervaloPacotes;
+
     function buscarPacotesTempoReal() {
+        if (intervaloPacotes) {
+            clearTimeout(intervaloPacotes);
+        }
+
         fetch(`/facini/buscarPacotes`).then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                    console.log("error")
+                    console.log("error");
+                    return;
                 }
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    resposta = resposta.reverse()
+                    resposta = resposta.reverse();
                     dados = [];
                     listaLabels = [];
                     dados2 = [];
@@ -399,36 +695,47 @@
 
                     for (let index = 0; index < resposta.length; index++) {
                         const element = resposta[index];
-                        
-                        if (element.fk_dado_monitorado == 4) {
-                            dados.push(element.registro)
-                            listaLabels.push(element.horario)
-                        } else {
-                            dados2.push(element.registro)
-                            listaLabels2.push(element.horario)
-                        }
 
+                        if (element.fk_dado_monitorado == 4) {
+                            dados.push(element.registro);
+                            listaLabels.push(element.horario);
+                        } else {
+                            dados2.push(element.registro);
+                            listaLabels2.push(element.horario);
+                        }
                     }
 
-                    console.log(dados, listaLabels, dados2, listaLabels2, "DADOS PACOTES ENVIADOS E RECEBIDOS")
+                    console.log(dados, listaLabels, dados2, listaLabels2, "DADOS PACOTES ENVIADOS E RECEBIDOS");
 
-                    grafico.data.datasets[0].data = dados
-                    grafico.data.datasets[1].data = dados2
-                    grafico.data.labels = listaLabels
-                    grafico.update()
-                    setTimeout(function () {
-                        buscarPacotesTempoReal()
-                    }, 5000)
+                    grafico.data.datasets[0].data = dados;
+                    grafico.data.datasets[1].data = dados2;
+                    grafico.data.labels = listaLabels;
+                    grafico.update();
 
-                }
-                )
+                    ultimoPacEnv = dados[dados.length - 1]
+                    console.log(`Pacotes enviados: ${ultimoPacEnv}`)
+
+                    ultimoPacRec = dados2[dados2.length - 1]
+                    console.log(`Pacotes recebidos: ${ultimoPacRec}`)
+
+
+                    intervaloPacotes = setTimeout(function () {
+                        buscarPacotesTempoReal();
+                        qtdPacotes()
+                    }, 5000);
+                });
             } else {
-                throw ('Houve um erro na API!');
+                throw "Houve um erro na API!";
             }
         }).catch(function (resposta) {
             console.error(resposta);
         });
     }
 
+    function limparGrafico() {
+        if (grafico) {
+            grafico.destroy();
+        }
+    }
 
 </script>

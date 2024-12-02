@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: #212529;
+    color: #757575
+}
+
+section {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 50px 0px 50px;
+    gap: 25px;
+}
+
+.contato {
+    color: #AFAFAF;
+    font: 14px Roboto, sans-serif;
+    padding: 0px 0px 0px 30px;
+}
+
+.contato-prin {
+    color: #FFFFFF;
+    font: 70px Montserrat, Roboto, sans-serif;
+    margin: 0px 0px 25px;
+}
+
+.paragrafo {
+    color: #757575;
+    font: 16px Roboto, sans-serif;
+    margin: 0px 0px 40px;
+}
+
+.left-content {
+    width: 45vw;
+    height: 88vh;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+}
+
+.right-content {
+    width: 45vw;
+    height: 90vh;
+    background-size: cover;
+    display: flex;
+    justify-content: right;
+    align-items: end;
+}
+
+.btn {
+    color: #FFFFFF;
+    font: 14.4px Roboto, sans-serif;
+    background-color: #C5A992;
+    margin: 12.24px 0px;
+    padding: 21.6px 38.88px;
+}
+
+.ipt {
+    margin: 0px 0px 20px;
+    padding: 6px 10px 6px 25px;
+    background-color: transparent;
+    color: #000000;
+    background-color: beige;
+}
+
+@media (max-width: 600px) {
+    .container{
+        width: 600px;
+        height: 600px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .right-content{
+        overflow: auto;
+    }
+}

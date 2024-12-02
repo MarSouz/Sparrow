@@ -316,6 +316,12 @@
                             bottom: 2
                         }
                     }
+                },
+                scales:{
+                    y: {
+                        min: 0,
+                        max: 100
+                    }
                 }
             }
         });
@@ -363,7 +369,7 @@
             data: {
                 labels: nomeLabel,
                 datasets: [{
-                    label: 'Quantidade de alertas por hora',
+                    label: 'Quantidade',
                     data: dados,
                     borderWidth: 1,
                     borderColor: ['#08241c'],
@@ -371,6 +377,20 @@
                 }]
             },
             options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Alertas críticos por hora',
+                        font: {
+                            size: 14,
+                            // weight: 'bold'
+                        },
+                        color: '#333',
+                        padding: {
+                            bottom: 2
+                        }
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true

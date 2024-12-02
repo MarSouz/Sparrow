@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Archi - Free Architecture Portfolio HTML Template</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="author" content="TemplatesJungle">
+        <meta name="keywords" content="Free HTML Template">
+        <meta name="description" content="Free HTML Template">
+    
+        <link rel="stylesheet" type="text/css" href="icomoon/icomoon.css">
+        <link rel="stylesheet" type="text/css" href="css/vendor.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="stylea.css">
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet">
+    </head>
+<body>    
+    <section id="contact" class="scrollspy-section bg-dark padding-large">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-6">
+
+					<div class="left-content" id="TelaInicial">
+						<div class="section-header">
+							<div class="title">
+								<span>Bem vindo</span>
+							</div>
+							<h2 class="section-title light">Login</h2>
+						</div>
+						
+						<form id="form-contact" class="form-light" action="contact.php">
+							<p>
+								<a style="color: #ffe4c4;">Email: </a>
+								<input type="email"  id="input_email" placeholder="Digite seu email cadastrado..." required>
+							</p>
+							<p>
+								<a style="color: bisque;">Senha: </a> <br>
+								<input type="password" style="width: 34vw;" id="input_senha" placeholder="Digite sua senha cadastrada..." required>
+							</p>
+							<div class="btn-wrap align-center">
+								<a onclick="Entrar()" class="btn btn-accent btn-rounded btn-xlarge btn-full">Entrar</a>
+							</div>
+							<div class="btn-wrap align-center">
+								<a href="index.html" class="btn btn-accent btn-rounded btn-xlarge btn-full">Voltar</a>
+							</div>
+						</form>
+
+					</div>
+
+					<div class="left-content" id="PrimeiraTela">
+
+						<div class="section-header">
+							<div class="title">
+								<span>Seja parte da sparrow</span>
+							</div>
+							<h2 class="section-title light">Cadastro</h2>
+						</div>
+
+						<p style="color: aliceblue;">Se você já tem um cadastro acesse <a href="login.html" style="color: bisque;">LOGAR</a></p>
+
+						<form id="form-contact" class="form-light" action="contact.php">
+							<a style="color: #ffe4c4;">Selecione o tipo de cadastro que você deseja realizar: </a> 
+							<p>
+								<select style="width: 525px;" id="select_CPFouCNPJ">
+									<option value="#">Escolha uma opção</option>
+									<option value="1"> Administrador  </option>
+									<option value="2">  Empresa </option>
+									
+								</select> <br>
+							</p> 
+
+							<div class="btn-wrap align-center">
+								<a onclick="Selecionar()" class="btn btn-accent btn-rounded btn-xlarge btn-full">Próximo</a>
+							</div>
+							<div class="btn-wrap align-center">
+								<a onclick="Voltar()" class="btn btn-accent btn-rounded btn-xlarge btn-full">Voltar</a>
+							</div>
+						</form>
+					</div>
+
+
+					<div class="left-content" id="SegundaTela">
+						<form id="form-contact" class="form-light" action="contact.php">
+							<a style="color: #ffe4c4;">Digite aqui o seu nome completo: </a>  
+							<p>
+								<input type="text"  placeholder="Nome Completo..." required>
+							</p>
+							<a style="color: #ffe4c4;">Digite aqui o nome da sua empresa:
+							</a> 
+							<p>
+								<input type="text"  placeholder="Empresa..." required>
+							</p>
+							<a style="color: #ffe4c4;">Digite aqui o seu email:</a> 
+							<p>
+								<input type="text"  placeholder="Email..." required>
+							</p>
+							<a style="color: #ffe4c4;">Digite aqui sua senha: </a>  
+                            <p>
+								<input type="password" style="width: 34vw;" id="input_senhaCad" placeholder="Digite sua senha cadastrada..." required>
+							</p>
+							<a style="color: #ffe4c4;">Confirme aqui sua senha: </a> 
+                            <p>
+								<input type="password" style="width: 34vw;" id="input_confirmar" placeholder="Digite sua senha cadastrada..." required>
+							</p>
+
+							<div class="btn-wrap align-center">
+								<a onclick="Cadastrar()" class="btn btn-accent btn-rounded btn-xlarge btn-full">Cadastrar</a>
+							</div>
+							<div class="btn-wrap align-center">
+								<a onclick="Voltar1()" class="btn btn-accent btn-rounded btn-xlarge btn-full">Voltar</a>
+							</div>
+							
+
+						</form>
+					</div>
+
+
+
+
+
+
+
+
+					<div class="left-content" id="TerceiraTela">
+						<form id="form-contact" class="form-light" action="contact.php">
+							<a style="color: #ffe4c4;">Digite aqui o nome da empresa: </a>  
+							 
+							<p>
+								<input type="text"  placeholder="Nome Empresa..." required>
+							</p>
+							<a style="color: #ffe4c4;">Digite aqui o CNPJ da empresa: </a>  
+							
+							<p>
+								<input type="text"  placeholder="CNPJ..." required>
+							</p>
+							<a style="color: #ffe4c4;">Digite aqui o endereço da empresa: </a>  
+							
+							<p>
+								<input type="text"  placeholder="Endereço..." required>
+							</p>
+							<a style="color: #ffe4c4;">Digite aqui sua senha: </a>  
+                            <p>
+								<input type="password" style="width: 34vw;" id="input_senhaCad" placeholder="Digite sua senha cadastrada..." required>
+							</p>
+							<a style="color: #ffe4c4;">Confirme aqui sua senha: </a>  
+                            <p>
+								<input type="password" style="width: 34vw;" id="input_confirmar" placeholder="Digite sua senha cadastrada..." required>
+							</p>
+							<div class="btn-wrap align-center">
+								<a onclick="Cadastrar()" class="btn btn-accent btn-rounded btn-xlarge btn-full">Cadastrar</a>
+							</div>
+							<div class="btn-wrap align-center">
+								<a onclick="Voltar2()" class="btn btn-accent btn-rounded btn-xlarge btn-full">Voltar</a>
+							</div>	
+						</form>
+					</div>
+
+				</div><!--left-content-->
+
+				<div class="col-md-6">
+					<div class="right-content">
+						<div>
+							<img src="Phantom_Spooky_Halloween_Brand_2-removebg-preview.png" style="height: 490px; width: 700px;">
+						</div>
+						<!--right-content-->
+			</div>
+
+		</div>
+	</section>
+</body>
+</html>
+<script> 
+	SegundaTela.style.display = 'none';
+	TerceiraTela.style.display = 'none';
+	PrimeiraTela.style.display = 'none';
+	TelaInicial.style.display = 'block';
+
+
+
+function Entrar(){
+	var email = input_email.value; 
+	var senha = input_senha.value; 
+	var url = "dashboard.html";
+
+if ( email == 'sparrow@gmail.com' && senha == 'sparrow123') {
+    SegundaTela.style.display = 'none';
+	TerceiraTela.style.display = 'none';
+	PrimeiraTela.style.display = 'block';
+	TelaInicial.style.display = 'none';
+
+
+} else if ( email == 'teste@gmail.com' && senha == 'teste123') {
+	SegundaTela.style.display = 'none';
+	TerceiraTela.style.display = 'none';
+	PrimeiraTela.style.display = 'none';
+	TelaInicial.style.display = 'none';
+	window.open(url, "_self")
+
+} else if ( email != 'teste@gmail.com' || senha != 'teste123' || email != 'sparrow@gmail.com' || senha != 'sparrow123') {
+	alert("E-mail ou senha incorreto")
+}
+else {
+	alert("Preencha as lacunas corretamente")
+}
+}
+function Selecionar(){
+var selecionar = select_CPFouCNPJ.value; 
+
+if ( selecionar == '1') {
+    SegundaTela.style.display = 'block';
+	TerceiraTela.style.display = 'none';
+	PrimeiraTela.style.display = 'none';
+
+} else if (selecionar == '2') {
+    SegundaTela.style.display = 'none';
+	TerceiraTela.style.display = 'block';
+	PrimeiraTela.style.display = 'none';}
+
+else {
+	alert("Escolha uma das opções!")
+}
+}
+function Voltar(){
+	SegundaTela.style.display = 'none';
+	TerceiraTela.style.display = 'none';
+	PrimeiraTela.style.display = 'none';
+	TelaInicial.style.display = 'block';
+}
+function Voltar1(){
+	SegundaTela.style.display = 'none';
+	TerceiraTela.style.display = 'none';
+	PrimeiraTela.style.display = 'block';
+}
+
+function Voltar2(){
+	SegundaTela.style.display = 'none';
+	TerceiraTela.style.display = 'none';
+	PrimeiraTela.style.display = 'block';
+}
+function Cadastrar(){
+	SegundaTela.style.display = 'none';
+	TerceiraTela.style.display = 'none';
+	PrimeiraTela.style.display = 'none';
+	TelaInicial.style.display = 'block';
+}
+
+</script>

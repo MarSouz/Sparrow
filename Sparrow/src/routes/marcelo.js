@@ -3,7 +3,7 @@ var router = express.Router();
 
 var marceloController = require("../controllers/marceloController");
 
-router.get("/buscar/:idEmpresa/:idMaquina/:tipoMaquina", function (req, res) {
+router.get("/buscar/:idEmpresa/:idMaquina/:tipoMaquina/:idMes", function (req, res) {
     marceloController.buscarTotalAlertas(req, res);
 });
 

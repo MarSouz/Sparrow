@@ -20,7 +20,7 @@ body {
 nav {
     height: 100vh;
     background-color: white;
-    width: 5.5vw;
+    width: 4.7vw;
     overflow: hidden;
     transition: width 0.2s linear;
     box-shadow: 0 20px 35px rgba(0, 0, 0 0.1);
@@ -106,7 +106,7 @@ nav:hover {
     display: flex;
     align-items: start;
     justify-content: space-between;
-    width: 50%;
+    width: 70%;
 }
 
 .header select {
