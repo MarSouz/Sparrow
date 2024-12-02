@@ -105,7 +105,7 @@ body {
 
 .dash-left {
     height: 100vh;
-    width: 60%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -113,7 +113,7 @@ body {
 
 .espaco-grafico {
     width: 100%;
-    height: 60vh;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,8 +123,8 @@ body {
 }
 
 .text-grafico {
-    height: 75%;
-    width: 70%;
+    height: 95%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -184,12 +184,22 @@ body {
     background-color: white;
     height: 95%;
     width: 100%;
-    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px 1px 4px 4px;
     box-shadow: 0 0 8px 0 #504e4a;
 }
 
+.placeholder {
+    position: absolute;
+    text-align: center;
+    color: #494949;
+    width: 23%;
+}
+
 .espaco-medias {
-    height: 40vh;
+    height: 30vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -199,7 +209,7 @@ body {
 .card-medias {
     position: relative;
     background-color: #d6d09a;
-    width: 70%;
+    width: 85%;
     height: 80%;
     border-radius: 4px;
     box-shadow: 0 0 8px 0 #504e4a;
@@ -212,7 +222,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .contorno-titulo {
@@ -227,7 +237,7 @@ body {
 }
 
 .espaco-cards-medias {
-    height: 57%;
+    height: 65%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -236,8 +246,8 @@ body {
 .text-medias {
     background-color: #504e4a;
     color: white;
-    height: 80%;
-    width: 25%;
+    height: 85%;
+    width: 21%;
     border-radius: 10px;
     padding-top: 6px;
     display: flex;
@@ -270,19 +280,21 @@ body {
 
 .dash-right {
     height: 100vh;
-    width: 40%;
+    width: 35%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    flex-direction: column;
+    padding: 45px 0 22px 0;
 }
 
 .card-right {
     background-color: #d6d09a;
-    height: 84%;
-    width: 75%;
+    height: 48%;
+    width: 80%;
     border-radius: 4px;
     box-shadow: 0 0 8px 0 #504e4a;
-    padding: 25px;
+    padding: 18px;
 }
 
 .text-pacotes {
@@ -290,12 +302,12 @@ body {
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center;
 }
 
 .titulo {
     width: 100%;
-    height: 10%;
+    height: 19%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -305,7 +317,7 @@ body {
     background-color: #504e4a;
     color: white;
     height: 80%;
-    width: 80%;
+    width: 100%;
     border-radius: 8px;
     display: flex;
     justify-content: center;
@@ -323,6 +335,25 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.text-componente {
+    height: 84%;
+    width: 100%;
+    margin-top: 2px;
+    border-radius: 4px;
+    background-color: #ede9e1;
+    padding: 20px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.titulo-informacoes {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
 }
 
 .father-tips {
@@ -348,14 +379,14 @@ body {
     visibility: hidden;
     opacity: 0;
     min-width: 500px;
-    background-color: #EFEAFA;
+    background-color: #f2effa;
     border: 2px solid var(--normal-purple);
     text-align: center;
     padding: var(--gap-1);
     border-radius: 6px;
     position: absolute;
     transition: visibility 0s linear 0.5s, opacity 0.5s linear;
-    padding: 6px 10px 6px 10px;
+    padding: 15px;
     z-index: 999;
 }
 
@@ -406,3 +437,8 @@ body {
 .info {
     width: 90%;
 }
+
+#chart1 {
+    float: left;
+    width: 50%;
+  }
