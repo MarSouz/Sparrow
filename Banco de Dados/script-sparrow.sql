@@ -156,7 +156,7 @@ ENGINE = InnoDB;
 -- Table `Sparrow`.`dado_capturado`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Sparrow`.`dado_capturado` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `registro` INT NULL,
   `data_hora` DATETIME NULL,
   `fk_empresa` INT NOT NULL,
@@ -228,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `Sparrow`.`manu_dados_tratados` (
   `registro` INT NOT NULL, 
   PRIMARY KEY (`id`)
 );
-s
+
 
 
 INSERT INTO empresa VALUES (1, "Sparrow", "sparrow", "sparrow@gmail.com", 12345678912345);
@@ -351,7 +351,1844 @@ END;
 //
 DELIMITER ;
 
+-- Insert da empresa
+INSERT INTO empresa VALUES (DEFAULT, 'SPTech', 'Alessandro', 'alessandro@sptech.school', '12345678909876');
 
+-- Insert dos funcionários
+INSERT INTO funcionario VALUES (2, 'Alessandro', 'alessandro@sptech.school', 'sptech', 2, 1);
+INSERT INTO funcionario VALUES (3, 'Vera', 'vera@sptech.school', 'sptech', 2, 2);
+
+-- Insert da coordenada
+INSERT INTO coordenada VALUES (default, -23.550520, -46.633308);
+
+-- Insert Máquina Sparrow
+INSERT INTO maquina VALUES (default, 1, '1A.2A.3A.4A.5A.6A', 1, 1);
+
+-- Insert Máquinas Cliente 
+INSERT INTO maquina VALUES
+    (default, 2,'3A:4F:92:8B:1C:2E', 1, 1),
+    (default, 2,'F0:18:3C:AA:67:8F', 1, 1),
+    (default, 2,'7D:1B:FA:44:CC:92', 1, 1),
+    (default, 2,'D3:9F:6A:11:8E:23', 1, 1),
+    (default, 2,'AA:5E:4D:78:90:34', 2, 1),
+    (default, 2,'48:2C:9A:DF:63:7B', 2, 1),
+    (default, 2,'19:8F:DE:2A:CB:5D', 2, 1),
+    (default, 2,'6E:77:3B:01:AC:98', 2, 1);
+select * from maquina_dado_monitorado;
+-- Insert maquina_dado_monitorado MAQUINA SPARROW
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 1, 1, 1),
+	(80, 1, 1, 2),
+	(80, 1, 1, 3),
+	(null, 1, 1, 4),
+	(null, 1, 1, 5);
+    
+-- Insert maquina_dado_monitorado MAQUINA 2 CLIENTE
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 2, 2, 1),
+	(80, 2, 2, 2),
+	(80, 2, 2, 3),
+	(null, 2, 2, 4),
+	(null, 2, 2, 5);
+    
+-- Insert maquina_dado_monitorado MAQUINA 3 CLIENTE
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 2, 3, 1),
+	(80, 2, 3, 2),
+	(80, 2, 3, 3),
+	(null, 2, 3, 4),
+	(null, 2, 3, 5);
+    
+-- Insert maquina_dado_monitorado MAQUINA 4 CLIENTE
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 2, 4, 1),
+	(80, 2, 4, 2),
+	(80, 2, 4, 3),
+	(null, 2, 4, 4),
+	(null, 2, 4, 5);
+    
+-- Insert maquina_dado_monitorado MAQUINA 5 CLIENTE
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 2, 5, 1),
+	(80, 2, 5, 2),
+	(80, 2, 5, 3),
+	(null, 2, 5, 4),
+	(null, 2, 5, 5);
+
+-- Insert maquina_dado_monitorado MAQUINA 6 CLIENTE
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 2, 6, 1),
+	(80, 2, 6, 2),
+	(80, 2, 6, 3),
+	(null, 2, 6, 4),
+	(null, 2, 6, 5);
+
+-- Insert maquina_dado_monitorado MAQUINA 7 CLIENTE
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 2, 7, 1),
+	(80, 2, 7, 2),
+	(80, 2, 7, 3),
+	(null, 2, 7, 4),
+	(null, 2, 7, 5);
+
+-- Insert maquina_dado_monitorado MAQUINA 8 CLIENTE
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 2, 8, 1),
+	(80, 2, 8, 2),
+	(80, 2, 8, 3),
+	(null, 2, 8, 4),
+	(null, 2, 8, 5);
+    
+-- Insert maquina_dado_monitorado MAQUINA 9 CLIENTE
+INSERT INTO maquina_dado_monitorado VALUES
+	(80, 2, 9, 1),
+	(80, 2, 9, 2),
+	(80, 2, 9, 3),
+	(null, 2, 9, 4),
+	(null, 2, 9, 5);
+    
+    select * from dado_capturado;
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-01 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-01 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-01 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-01 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-01 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-01 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-01 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-01 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-01 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-01 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-01 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-01 14:00:00', 2, 2, 3);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-02 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-02 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-02 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-02 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-02 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-02 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-02 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-02 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-02 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-02 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-02 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-02 14:00:00', 2, 2, 3);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-03 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-03 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-03 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-03 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-03 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-03 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-03 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-03 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-03 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-03 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-03 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-03 14:00:00', 2, 2, 3);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-04 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-04 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-04 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-04 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-04 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-04 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-04 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-04 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-04 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-04 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-04 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-04 14:00:00', 2, 2, 3);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-05 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-05 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-05 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-05 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-05 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-05 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-05 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-05 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-05 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-05 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-05 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-05 14:00:00', 2, 2, 3);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-06 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-06 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-06 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-06 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-06 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-06 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-06 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-06 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-06 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-06 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-06 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-06 14:00:00', 2, 2, 3);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-07 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-07 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-07 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-07 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-07 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-07 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-07 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-07 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-07 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-07 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-07 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-07 14:00:00', 2, 2, 3);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-08 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-08 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-08 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-08 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-08 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-08 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-08 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-08 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-08 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-08 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-08 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-08 14:00:00', 2, 2, 3);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE CPU 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 2, 1), 
+(default, 90, '2024-12-09 11:00:00', 2, 2, 1), 
+(default, 35, '2024-12-09 12:00:00', 2, 2, 1), 
+(default, 88, '2024-12-09 13:00:00', 2, 2, 1), 
+(default, 35, '2024-12-09 14:00:00', 2, 2, 1);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE RAM 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 2, 2), 
+(default, 90, '2024-12-09 11:00:00', 2, 2, 2), 
+(default, 13, '2024-12-09 12:00:00', 2, 2, 2), 
+(default, 88, '2024-12-09 13:00:00', 2, 2, 2), 
+(default, 74, '2024-12-09 14:00:00', 2, 2, 2);
+
+-- Insert de dado_capturado MAQUINA 2 CLIENTE Disco 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 2, 3), 
+(default, 35, '2024-12-09 11:00:00', 2, 2, 3), 
+(default, 40, '2024-12-09 12:00:00', 2, 2, 3), 
+(default, 40, '2024-12-09 13:00:00', 2, 2, 3), 
+(default, 40, '2024-12-09 14:00:00', 2, 2, 3);
+
+-- ------------------------------
+select * from dado_capturado;
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-01 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-01 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-01 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-01 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-01 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-01 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-01 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-01 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-01 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-01 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-01 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-01 14:00:00', 2, 3, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-02 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-02 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-02 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-02 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-02 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-02 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-02 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-02 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-02 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-02 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-02 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-02 14:00:00', 2, 3, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-03 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-03 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-03 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-03 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-03 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-03 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-03 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-03 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-03 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-03 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-03 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-03 14:00:00', 2, 3, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-04 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-04 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-04 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-04 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-04 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-04 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-04 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-04 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-04 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-04 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-04 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-04 14:00:00', 2, 3, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-05 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-05 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-05 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-05 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-05 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-05 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-05 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-05 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-05 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-05 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-05 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-05 14:00:00', 2, 3, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-06 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-06 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-06 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-06 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-06 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-06 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-06 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-06 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-06 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-06 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-06 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-06 14:00:00', 2, 3, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-07 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-07 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-07 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-07 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-07 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-07 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-07 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-07 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-07 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-07 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-07 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-07 14:00:00', 2, 3, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-08 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-08 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-08 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-08 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-08 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-08 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-08 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-08 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-08 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-08 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-08 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-08 14:00:00', 2, 3, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 3, 1), 
+(default, 90, '2024-12-09 11:00:00', 2, 3, 1), 
+(default, 35, '2024-12-09 12:00:00', 2, 3, 1), 
+(default, 88, '2024-12-09 13:00:00', 2, 3, 1), 
+(default, 35, '2024-12-09 14:00:00', 2, 3, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 3, 2), 
+(default, 90, '2024-12-09 11:00:00', 2, 3, 2), 
+(default, 13, '2024-12-09 12:00:00', 2, 3, 2), 
+(default, 88, '2024-12-09 13:00:00', 2, 3, 2), 
+(default, 74, '2024-12-09 14:00:00', 2, 3, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 3, 3), 
+(default, 35, '2024-12-09 11:00:00', 2, 3, 3), 
+(default, 40, '2024-12-09 12:00:00', 2, 3, 3), 
+(default, 40, '2024-12-09 13:00:00', 2, 3, 3), 
+(default, 40, '2024-12-09 14:00:00', 2, 3, 3);
+
+-- ------------------------- MAQUINA 4
+-- Insert de dado_capturado MAQUINA 4 CLIENTE CPU 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-01 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-01 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-01 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-01 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-01 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-01 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-01 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-01 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-01 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-01 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-01 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-01 14:00:00', 2, 4, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-02 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-02 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-02 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-02 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-02 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-02 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-02 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-02 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-02 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-02 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-02 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-02 14:00:00', 2, 4, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-03 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-03 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-03 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-03 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-03 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-03 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-03 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-03 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-03 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-03 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-03 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-03 14:00:00', 2, 4, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-04 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-04 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-04 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-04 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-04 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-04 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-04 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-04 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-04 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-04 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-04 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-04 14:00:00', 2, 4, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-05 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-05 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-05 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-05 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-05 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-05 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-05 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-05 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-05 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-05 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-05 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-05 14:00:00', 2, 4, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-06 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-06 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-06 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-06 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-06 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-06 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-06 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-06 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-06 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-06 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-06 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-06 14:00:00', 2, 4, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-07 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-07 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-07 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-07 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-07 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-07 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-07 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-07 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-07 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-07 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-07 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-07 14:00:00', 2, 4, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-08 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-08 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-08 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-08 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-08 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-08 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-08 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-08 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-08 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-08 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-08 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-08 14:00:00', 2, 4, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 4, 1), 
+(default, 90, '2024-12-09 11:00:00', 2, 4, 1), 
+(default, 35, '2024-12-09 12:00:00', 2, 4, 1), 
+(default, 88, '2024-12-09 13:00:00', 2, 4, 1), 
+(default, 35, '2024-12-09 14:00:00', 2, 4, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 4, 2), 
+(default, 90, '2024-12-09 11:00:00', 2, 4, 2), 
+(default, 13, '2024-12-09 12:00:00', 2, 4, 2), 
+(default, 88, '2024-12-09 13:00:00', 2, 4, 2), 
+(default, 74, '2024-12-09 14:00:00', 2, 4, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 4, 3), 
+(default, 35, '2024-12-09 11:00:00', 2, 4, 3), 
+(default, 40, '2024-12-09 12:00:00', 2, 4, 3), 
+(default, 40, '2024-12-09 13:00:00', 2, 4, 3), 
+(default, 40, '2024-12-09 14:00:00', 2, 4, 3);
+
+
+-- ------------------------- MAQUINA 5
+-- Insert de dado_capturado MAQUINA 4 CLIENTE CPU 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-01 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-01 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-01 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-01 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-01 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-01 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-01 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-01 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-01 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-01 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-01 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-01 14:00:00', 2, 5, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-02 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-02 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-02 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-02 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-02 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-02 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-02 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-02 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-02 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-02 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-02 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-02 14:00:00', 2, 5, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-03 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-03 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-03 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-03 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-03 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-03 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-03 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-03 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-03 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-03 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-03 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-03 14:00:00', 2, 5, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-04 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-04 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-04 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-04 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-04 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-04 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-04 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-04 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-04 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-04 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-04 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-04 14:00:00', 2, 5, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-05 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-05 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-05 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-05 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-05 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-05 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-05 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-05 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-05 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-05 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-05 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-05 14:00:00', 2, 5, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-06 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-06 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-06 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-06 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-06 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-06 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-06 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-06 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-06 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-06 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-06 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-06 14:00:00', 2, 5, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-07 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-07 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-07 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-07 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-07 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-07 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-07 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-07 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-07 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-07 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-07 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-07 14:00:00', 2, 5, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-08 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-08 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-08 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-08 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-08 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-08 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-08 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-08 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-08 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-08 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-08 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-08 14:00:00', 2, 5, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 5, 1), 
+(default, 90, '2024-12-09 11:00:00', 2, 5, 1), 
+(default, 35, '2024-12-09 12:00:00', 2, 5, 1), 
+(default, 88, '2024-12-09 13:00:00', 2, 5, 1), 
+(default, 35, '2024-12-09 14:00:00', 2, 5, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 5, 2), 
+(default, 90, '2024-12-09 11:00:00', 2, 5, 2), 
+(default, 13, '2024-12-09 12:00:00', 2, 5, 2), 
+(default, 88, '2024-12-09 13:00:00', 2, 5, 2), 
+(default, 74, '2024-12-09 14:00:00', 2, 5, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 5, 3), 
+(default, 35, '2024-12-09 11:00:00', 2, 5, 3), 
+(default, 40, '2024-12-09 12:00:00', 2, 5, 3), 
+(default, 40, '2024-12-09 13:00:00', 2, 5, 3), 
+(default, 40, '2024-12-09 14:00:00', 2, 5, 3);
+
+
+-- ------------------------- MAQUINA 6
+-- Insert de dado_capturado MAQUINA 4 CLIENTE CPU 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-01 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-01 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-01 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-01 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-01 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-01 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-01 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-01 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-01 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-01 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-01 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-01 14:00:00', 2, 6, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-02 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-02 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-02 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-02 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-02 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-02 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-02 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-02 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-02 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-02 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-02 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-02 14:00:00', 2, 6, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-03 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-03 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-03 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-03 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-03 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-03 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-03 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-03 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-03 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-03 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-03 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-03 14:00:00', 2, 6, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-04 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-04 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-04 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-04 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-04 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-04 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-04 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-04 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-04 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-04 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-04 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-04 14:00:00', 2, 6, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-05 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-05 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-05 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-05 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-05 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-05 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-05 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-05 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-05 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-05 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-05 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-05 14:00:00', 2, 6, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-06 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-06 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-06 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-06 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-06 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-06 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-06 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-06 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-06 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-06 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-06 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-06 14:00:00', 2, 6, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-07 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-07 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-07 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-07 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-07 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-07 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-07 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-07 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-07 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-07 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-07 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-07 14:00:00', 2, 6, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-08 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-08 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-08 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-08 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-08 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-08 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-08 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-08 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-08 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-08 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-08 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-08 14:00:00', 2, 6, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 6, 1), 
+(default, 90, '2024-12-09 11:00:00', 2, 6, 1), 
+(default, 35, '2024-12-09 12:00:00', 2, 6, 1), 
+(default, 88, '2024-12-09 13:00:00', 2, 6, 1), 
+(default, 35, '2024-12-09 14:00:00', 2, 6, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 6, 2), 
+(default, 90, '2024-12-09 11:00:00', 2, 6, 2), 
+(default, 13, '2024-12-09 12:00:00', 2, 6, 2), 
+(default, 88, '2024-12-09 13:00:00', 2, 6, 2), 
+(default, 74, '2024-12-09 14:00:00', 2, 6, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 6, 3), 
+(default, 35, '2024-12-09 11:00:00', 2, 6, 3), 
+(default, 40, '2024-12-09 12:00:00', 2, 6, 3), 
+(default, 40, '2024-12-09 13:00:00', 2, 6, 3), 
+(default, 40, '2024-12-09 14:00:00', 2, 6, 3);
+
+
+-- ------------------------- MAQUINA 7
+-- Insert de dado_capturado MAQUINA 4 CLIENTE CPU 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-01 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-01 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-01 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-01 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-01 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-01 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-01 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-01 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-01 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-01 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-01 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-01 14:00:00', 2, 7, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-02 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-02 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-02 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-02 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-02 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-02 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-02 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-02 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-02 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-02 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-02 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-02 14:00:00', 2, 7, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-03 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-03 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-03 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-03 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-03 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-03 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-03 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-03 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-03 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-03 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-03 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-03 14:00:00', 2, 7, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-04 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-04 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-04 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-04 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-04 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-04 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-04 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-04 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-04 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-04 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-04 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-04 14:00:00', 2, 7, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-05 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-05 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-05 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-05 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-05 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-05 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-05 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-05 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-05 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-05 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-05 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-05 14:00:00', 2, 7, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-06 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-06 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-06 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-06 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-06 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-06 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-06 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-06 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-06 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-06 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-06 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-06 14:00:00', 2, 7, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-07 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-07 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-07 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-07 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-07 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-07 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-07 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-07 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-07 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-07 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-07 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-07 14:00:00', 2, 7, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-08 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-08 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-08 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-08 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-08 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-08 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-08 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-08 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-08 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-08 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-08 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-08 14:00:00', 2, 7, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 7, 1), 
+(default, 90, '2024-12-09 11:00:00', 2, 7, 1), 
+(default, 35, '2024-12-09 12:00:00', 2, 7, 1), 
+(default, 88, '2024-12-09 13:00:00', 2, 7, 1), 
+(default, 35, '2024-12-09 14:00:00', 2, 7, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 7, 2), 
+(default, 90, '2024-12-09 11:00:00', 2, 7, 2), 
+(default, 13, '2024-12-09 12:00:00', 2, 7, 2), 
+(default, 88, '2024-12-09 13:00:00', 2, 7, 2), 
+(default, 74, '2024-12-09 14:00:00', 2, 7, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 7, 3), 
+(default, 35, '2024-12-09 11:00:00', 2, 7, 3), 
+(default, 40, '2024-12-09 12:00:00', 2, 7, 3), 
+(default, 40, '2024-12-09 13:00:00', 2, 7, 3), 
+(default, 40, '2024-12-09 14:00:00', 2, 7, 3);
+
+-- ------------------------- MAQUINA 8
+-- Insert de dado_capturado MAQUINA 4 CLIENTE CPU 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-01 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-01 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-01 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-01 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-01 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-01 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-01 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-01 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-01 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-01 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-01 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-01 14:00:00', 2, 8, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-02 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-02 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-02 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-02 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-02 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-02 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-02 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-02 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-02 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-02 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-02 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-02 14:00:00', 2, 8, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-03 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-03 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-03 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-03 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-03 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-03 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-03 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-03 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-03 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-03 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-03 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-03 14:00:00', 2, 8, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-04 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-04 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-04 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-04 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-04 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-04 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-04 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-04 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-04 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-04 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-04 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-04 14:00:00', 2, 8, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-05 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-05 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-05 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-05 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-05 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-05 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-05 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-05 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-05 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-05 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-05 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-05 14:00:00', 2, 8, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-06 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-06 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-06 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-06 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-06 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-06 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-06 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-06 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-06 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-06 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-06 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-06 14:00:00', 2, 8, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-07 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-07 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-07 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-07 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-07 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-07 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-07 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-07 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-07 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-07 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-07 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-07 14:00:00', 2, 8, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-08 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-08 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-08 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-08 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-08 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-08 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-08 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-08 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-08 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-08 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-08 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-08 14:00:00', 2, 8, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 8, 1), 
+(default, 90, '2024-12-09 11:00:00', 2, 8, 1), 
+(default, 35, '2024-12-09 12:00:00', 2, 8, 1), 
+(default, 88, '2024-12-09 13:00:00', 2, 8, 1), 
+(default, 35, '2024-12-09 14:00:00', 2, 8, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 8, 2), 
+(default, 90, '2024-12-09 11:00:00', 2, 8, 2), 
+(default, 13, '2024-12-09 12:00:00', 2, 8, 2), 
+(default, 88, '2024-12-09 13:00:00', 2, 8, 2), 
+(default, 74, '2024-12-09 14:00:00', 2, 8, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 8, 3), 
+(default, 35, '2024-12-09 11:00:00', 2, 8, 3), 
+(default, 40, '2024-12-09 12:00:00', 2, 8, 3), 
+(default, 40, '2024-12-09 13:00:00', 2, 8, 3), 
+(default, 40, '2024-12-09 14:00:00', 2, 8, 3);
+
+-- ------------------------- MAQUINA 9
+-- Insert de dado_capturado MAQUINA 4 CLIENTE CPU 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-01 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-01 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-01 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-01 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-01 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-01 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-01 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-01 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/01
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-01 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-01 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-01 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-01 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-01 14:00:00', 2, 9, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-02 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-02 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-02 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-02 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-02 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-02 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-02 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-02 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/02
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-02 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-02 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-02 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-02 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-02 14:00:00', 2, 9, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-03 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-03 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-03 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-03 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-03 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-03 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-03 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-03 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/03
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-03 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-03 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-03 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-03 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-03 14:00:00', 2, 9, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-04 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-04 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-04 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-04 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-04 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-04 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-04 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-04 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/04
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-04 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-04 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-04 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-04 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-04 14:00:00', 2, 9, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-05 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-05 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-05 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-05 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-05 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-05 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-05 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-05 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/05
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-05 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-05 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-05 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-05 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-05 14:00:00', 2, 9, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-06 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-06 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-06 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-06 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-06 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-06 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-06 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-06 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/06
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-06 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-06 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-06 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-06 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-06 14:00:00', 2, 9, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-07 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-07 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-07 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-07 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-07 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-07 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-07 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-07 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/07
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-07 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-07 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-07 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-07 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-07 14:00:00', 2, 9, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-08 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-08 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-08 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-08 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-08 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-08 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-08 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-08 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/08
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-08 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-08 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-08 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-08 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-08 14:00:00', 2, 9, 3);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE CPU 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 9, 1), 
+(default, 90, '2024-12-09 11:00:00', 2, 9, 1), 
+(default, 35, '2024-12-09 12:00:00', 2, 9, 1), 
+(default, 88, '2024-12-09 13:00:00', 2, 9, 1), 
+(default, 35, '2024-12-09 14:00:00', 2, 9, 1);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE RAM 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 9, 2), 
+(default, 90, '2024-12-09 11:00:00', 2, 9, 2), 
+(default, 13, '2024-12-09 12:00:00', 2, 9, 2), 
+(default, 88, '2024-12-09 13:00:00', 2, 9, 2), 
+(default, 74, '2024-12-09 14:00:00', 2, 9, 2);
+
+-- Insert de dado_capturado MAQUINA 3 CLIENTE Disco 12/09
+INSERT INTO dado_capturado VALUES
+(default, 35, '2024-12-09 10:00:00', 2, 9, 3), 
+(default, 35, '2024-12-09 11:00:00', 2, 9, 3), 
+(default, 40, '2024-12-09 12:00:00', 2, 9, 3), 
+(default, 40, '2024-12-09 13:00:00', 2, 9, 3), 
+(default, 40, '2024-12-09 14:00:00', 2, 9, 3);
+
+select * from dado_capturado;
+select * from alerta;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
