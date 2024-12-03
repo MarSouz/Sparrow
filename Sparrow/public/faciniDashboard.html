@@ -370,6 +370,8 @@
 
         pacotes.innerHTML = `<h3>Pacotes enviados: ${ultimoPacEnv} <br> Pacotes recebidos: ${ultimoPacRec}`
 
+        
+
     }
 
     function estadoComponente() {
@@ -759,7 +761,7 @@
                     intervaloPacotes = setTimeout(function () {
                         buscarPacotesTempoReal();
                         qtdPacotes()
-                    }, 5000);
+                    }, 1000);
                 });
             } else {
                 throw "Houve um erro na API!";

@@ -27,7 +27,7 @@ try:
         print('Connected to MySQL server version -', db_info)
 
         with db.cursor() as cursor:
-            query1 = f"SELECT * FROM maquina WHERE endereco_mac = 'fe80::c928:9ae9:eacc'"
+            query1 = f'SELECT * FROM maquina WHERE endereco_mac = "c4:bd:e5:1e:a9:1a"'
             cursor.execute(query1)
             result = cursor.fetchone()
             print(result[0])
