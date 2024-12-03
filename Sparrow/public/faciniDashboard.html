@@ -157,6 +157,30 @@
 
                 <div class="card-right">
 
+                    <div class="titulo">
+                        <div class="contorno-titulo-pacotes">
+                            <h2>Ameaça Potencial</h2>
+                        </div>
+                    </div>
+
+                    <div class="card-ameaca">
+
+                        <div class="espaco-ameaca">
+
+                            <div class="placeholderTendencia" id="placeholderTendencia">
+                                <h3>Aguardando os dados dos componentes para calcular a tendência.</h3>
+                            </div>
+
+                            <div id="chart1"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card-right">
+
                     <div class="placeholder" id="placeholderDescricao">
                         <h2>Por favor, selecione um componente do gráfico para acessar mais informações.</h2>
                     </div>
@@ -232,23 +256,6 @@
 
                 </div>
 
-                <div class="card-right">
-
-                    <div class="titulo">
-                        <div class="contorno-titulo-pacotes">
-                            <h2>Ameaça Potencial</h2>
-                        </div>
-                    </div>
-
-                    <div class="text-componente">
-
-                        <div id="chart1">
-                        </div>
-
-                    </div>
-
-                </div>
-
             </div>
 
         </div>
@@ -269,16 +276,31 @@
     var ultimoPacEnv
     var ultimoPacRec
 
+    let cpuExecutado = false;
+    let ramExecutado = false;
+    let discoExecutado = false;
+
     window.onload = function() {
         estadoComponente();
-        setTimeout(plotarPercentual, 8000);
       };
 
-      function plotarPercentual() {
+    var chart1;
+
+    function verificarExecucao() {
+
+        if (cpuExecutado && ramExecutado && discoExecutado) {
+            setTimeout(plotarPercentual, 2000)
+        }
+
+    }
+
+    function plotarPercentual() {
+        var placeholderTendencia = document.getElementById("placeholderTendencia")
+        placeholderTendencia.style.display = "none"
+
         let usoCpu = ultimoCPU;
         let usoRam = ultimoRAM;
-        let usoDisco = ultimoDisco;
-    
+        let usoDisco = ultimoDisco; 
         let riscoCpu = usoCpu / 100;
         let riscoRam = usoRam / 100;
         let riscoDisco = usoDisco / 100;
@@ -291,49 +313,54 @@
     
         let percentualDano = riscoTotal * 100;
     
-        var options1 = {
-            chart: {
-                height: 280,
-                type: "radialBar",
-            },
-            series: [percentualDano.toFixed(0)],
-            colors: ["#20E647"],
-            plotOptions: {
-                radialBar: {
-                    startAngle: -135,
-                    endAngle: 135,
-                    track: {
-                        background: '#333',
+        if (!chart1) {
+            var options1 = {
+                chart: {
+                    height: 280,
+                    type: "radialBar",
+                },
+                series: [percentualDano.toFixed(0)],
+                colors: ["#20E647"],
+                plotOptions: {
+                    radialBar: {
                         startAngle: -135,
                         endAngle: 135,
-                    },
-                    dataLabels: {
-                        name: {
-                            show: false,
+                        track: {
+                            background: '#333',
+                            startAngle: -135,
+                            endAngle: 135,
                         },
-                        value: {
-                            fontSize: "30px",
-                            show: true
+                        dataLabels: {
+                            name: {
+                                show: false,
+                            },
+                            value: {
+                                fontSize: "30px",
+                                show: true
+                            }
                         }
                     }
-                }
-            },
-            fill: {
-                type: "gradient",
-                gradient: {
-                    shade: "dark",
-                    type: "horizontal",
-                    gradientToColors: ["#87D4F9"],
-                    stops: [0, 100]
-                }
-            },
-            stroke: {
-                lineCap: "butt"
-            },
-            labels: ["Progress"]
-        };
+                },
+                fill: {
+                    type: "gradient",
+                    gradient: {
+                        shade: "dark",
+                        type: "horizontal",
+                        gradientToColors: ["#00f2ff"],
+                        stops: [25, 75]
+                    }
+                },
+                stroke: {
+                    lineCap: "butt"
+                },
+                labels: ["Progress"]
+            };
     
-        new ApexCharts(document.querySelector("#chart1"), options1).render();
+            chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+            chart1.render();
+        } else {
+            chart1.updateSeries([percentualDano.toFixed(0)]);
+        }
     
         setTimeout(plotarPercentual, 5000);
     }
@@ -450,6 +477,9 @@
                 }
             }
         );
+        
+        cpuExecutado = true
+        verificarExecucao()
 
     }
 
@@ -507,6 +537,9 @@
             }
         );
 
+        ramExecutado = true
+        verificarExecucao()
+
     }
 
     function selecionarDisco(botao) {
@@ -562,6 +595,10 @@
                 }
             }
         );
+
+        discoExecutado = true
+        verificarExecucao()
+
     }
 
     function selecionarPacotes(botao) {

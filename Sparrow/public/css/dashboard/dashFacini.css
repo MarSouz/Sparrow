@@ -194,8 +194,15 @@ body {
 .placeholder {
     position: absolute;
     text-align: center;
-    color: #494949;
+    color: #6b6b6b;
     width: 23%;
+}
+
+.placeholderTendencia {
+    position: absolute;
+    text-align: center;
+    color: #6b6b6b;
+    width: 15%;
 }
 
 .espaco-medias {
@@ -440,5 +447,28 @@ body {
 
 #chart1 {
     float: left;
-    width: 50%;
-  }
+    width: 80%;
+}
+
+.card-ameaca {
+    height: 84%;
+    width: 100%;
+    margin-top: 2px;
+    border-radius: 4px;
+    background-color: #ede9e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.espaco-ameaca {
+    width: 80%;
+    height: 85%;
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
