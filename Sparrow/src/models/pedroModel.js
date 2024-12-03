@@ -46,17 +46,19 @@ LIMIT 7;
 function buscarDadosLimiteSemanal(idEmpresa, idMaquina) {
     let instrucaoSql = `
     SELECT 
-    fk_dado_monitorado,
-    COUNT(*) AS ultrapassagens
-FROM 
-    dado_capturado
-WHERE 
-    data_hora >= CURDATE() - INTERVAL 7 DAY
-    AND registro > 70
-    AND fk_empresa = ${idEmpresa}
-    AND fk_maquina = ${idMaquina}
-GROUP BY 
-    fk_dado_monitorado;`
+    COALESCE(COUNT(a.id), 0) AS ultrapassagens,
+    m.id AS fk_maquina,
+    dc.fk_dado_monitorado
+FROM Sparrow.maquina m
+LEFT JOIN Sparrow.dado_capturado dc
+    ON m.id = dc.fk_maquina
+    AND m.fk_empresa = dc.fk_empresa
+    AND dc.data_hora >= NOW() - INTERVAL 7 DAY
+LEFT JOIN Sparrow.alerta a
+    ON a.fk_dado_maquina = dc.id
+WHERE m.fk_empresa = ${idEmpresa}
+  AND m.id = ${idMaquina}
+GROUP BY m.id, dc.fk_dado_monitorado;`
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
