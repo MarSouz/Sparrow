@@ -108,13 +108,15 @@ nav:hover {
     width: 100%;
     height: 100%;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .itemsUp {
     width: 100%;
     height: 60%;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-around;
 }
 
@@ -142,6 +144,7 @@ nav:hover {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-left: 7px;
 }
 
 .cardListar {
@@ -324,4 +327,13 @@ canvas {
     flex-direction: row;
     align-items: center;
     position: relative;
+}
+
+.back-element {
+    display: flex;
+    background: rgba(244, 155, 47, 0.282);
+    width: 90%;
+    height: 90%;
+    flex-direction: column;
+    box-shadow: 0 10px 20px rgba(86, 82, 82, 0.25);
 }
