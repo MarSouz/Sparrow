@@ -44,7 +44,7 @@ ORDER BY dc.data_hora;
     return database.executar(instrucaoSql);
 }
 
-function graficoAnual() {
+function mostrarGraficoAnual(idEmpresa, idMaquina, tipoMaquina, idMes) {
 
     var instrucaoSql = `SELECT 
     MONTH(dc.data_hora) AS mes,
@@ -80,5 +80,5 @@ ORDER BY
 module.exports = {
   buscarTotalAlertas,
   listarAlertas,
-  graficoAnual
+  mostrarGraficoAnual
 }

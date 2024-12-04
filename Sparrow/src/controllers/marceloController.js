@@ -20,7 +20,19 @@ function listarAlertas(req, res) {
   });
 }
 
+function mostrarGraficoAnual(req, res) {
+  var idEmpresa = req.params.idEmpresa;
+  var idMaquina = req.params.idMaquina;
+  var tipoMaquina = req.params.tipoMaquina;
+  var idMes = req.params.idMes;
+
+  marceloModel.listarAlertas(idEmpresa, idMaquina, tipoMaquina, idMes).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
 module.exports = {
   buscarTotalAlertas,
-  listarAlertas
+  listarAlertas, 
+  mostrarGraficoAnual
 }
