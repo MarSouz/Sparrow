@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="./css/dashboard/dashAdm.css">
-        <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- <link rel="stylesheet" href="./css/dashboard/dashAdm.css"> -->
+    <link rel="shortcut icon" href="assets/imgs/Logo2.png" type="image/x-icon">
     <title>Sparrow | Funcionários</title>
 
     <!-- LINKS OBRIGATORIOS PARA A NAVBAR -->
@@ -126,113 +126,117 @@
         </div>
 
 
+
+
+        <div id="edit-card" class="card-edit-funcionario" style="display: none;">
+            <div class="title">
+                <h3>Editar funcionário</h3>
+                <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
+                </div>
+            </div>
+
+
+            <div class="child-input">
+
+                <div class="input field">
+                    <input type="input" class="campo" placeholder="Nome" required="" id="idFunc" autocomplete="off"
+                        disabled>
+                    <label for="name" class="caixa">ID</label>
+                </div>
+
+                <div class="input field">
+                    <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
+                    <label for="name" class="caixa">Nome do funcionário</label>
+                </div>
+
+
+
+                <div class="input field">
+                    <input type="input" class="campo" placeholder="E-mail" required="" id="email_input"
+                        autocomplete="off">
+                    <label for="name" class="caixa">Email</label>
+                </div>
+
+
+                <div class="input field">
+                    <input type="input" class="campo" placeholder="Senha" required="" id="senha_input"
+                        autocomplete="off">
+                    <label for="name" class="caixa">Senha</label>
+                </div>
+                <div class="input field">
+                    <!-- <input type="input" class="campo" placeholder="Cargo" required="" id="cargo_input" autocomplete="off"> -->
+                    <select name="" id="select_cargo" class="select_cargo">
+                        <option value=1>Administrador</option>
+                        <option value=2>Analista</option>
+                    </select>
+                    <label for="name" class="caixa">Cargo</label>
+                </div>
+            </div>
+            <div class="btn">
+                <button onclick="editarDadosFunc()" class="btn-save">Salvar</button>
+            </div>
+        </div>
+
+        <div id="cadastrar-func" class="card-funcionario" style="display: none;">
+            <div class="title">
+                <h3>Cadastrar funcionário</h3>
+                <div onclick="close_card('cadastrar-func')" class="icon-close"><img src="./assets/svg/icon-close.svg"
+                        alt=""></div>
+            </div>
+            <div class="child-input">
+                <div class="input field">
+                    <input type="input" class="campo" placeholder="Nome" required="" id="ipt_nome" autocomplete="off">
+                    <label for="name" class="caixa">Nome do funcionário</label>
+                </div>
+
+
+
+                <div class="input field">
+                    <input type="input" class="campo" placeholder="E-mail" required="" id="ipt_email"
+                        autocomplete="off">
+                    <label for="name" class="caixa">Email</label>
+                </div>
+
+
+                <div class="input field">
+                    <input type="input" class="campo" placeholder="Senha" required="" id="ipt_senha" autocomplete="off">
+                    <label for="name" class="caixa">Senha</label>
+                </div>
+                <div class="input field">
+                    <!-- <input type="input" class="campo" placeholder="Cargo" required="" id="ipt_cargo" autocomplete="off">
+                    <label for="name" class="caixa">Cargo</label> -->
+                    <select name="" id="select_cargo_cadastrar" class="select_cargo">
+                        <option value="1" selected>Administrador</option>
+                        <option value="2">Analista</option>
+                    </select>
+                </div>
+            </div>
+            <div class="btn">
+                <button onclick="cadastrar()" class="btn-save">Cadastrar</button>
+            </div>
+        </div>
+
+        <div id="card-confirm" class="card-confirm" style="display: none;">
+            <div class="text">Deseja excluir este funcionário?</div>
+            <div class="btns">
+                <button onclick="deletarFunc(removeFuncionario)" class="btnEx">Excluir</button>
+                <button onclick="cancelar()" class="btnC">Cancelar</button>
+            </div>
+        </div>
     </section>
-
-    <div id="edit-card" class="card-edit-funcionario" style="display: none;">
-        <div class="title">
-            <h3>Editar funcionário</h3>
-            <div onclick="close_card('edit-card')" class="icon-close"><img src="./assets/svg/icon-close.svg" alt="">
-            </div>
-        </div>
-
-
-        <div class="child-input">
-
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Nome" required="" id="idFunc" autocomplete="off"
-                    disabled>
-                <label for="name" class="caixa">ID</label>
-            </div>
-
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Nome" required="" id="nome_input" autocomplete="off">
-                <label for="name" class="caixa">Nome do funcionário</label>
-            </div>
-
-
-            
-            <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="email_input" autocomplete="off">
-                <label for="name" class="caixa">Email</label>
-            </div>
-
-
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Senha" required="" id="senha_input" autocomplete="off">
-                <label for="name" class="caixa">Senha</label>
-            </div>
-            <div class="input field">
-                <!-- <input type="input" class="campo" placeholder="Cargo" required="" id="cargo_input" autocomplete="off"> -->
-                 <select name="" id="select_cargo" class="select_cargo">
-                    <option value=1>Administrador</option>
-                    <option value=2>Analista</option>
-                 </select>
-                <label for="name" class="caixa">Cargo</label>
-            </div>
-        </div>
-        <div class="btn">
-            <button onclick="editarDadosFunc()" class="btn-save">Salvar</button>
-        </div>
-    </div>
-
-    <div id="cadastrar-func" class="card-funcionario" style="display: none;">
-        <div class="title">
-            <h3>Cadastrar funcionário</h3>
-            <div onclick="close_card('cadastrar-func')" class="icon-close"><img src="./assets/svg/icon-close.svg"
-                    alt=""></div>
-        </div>
-        <div class="child-input">
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Nome" required="" id="ipt_nome" autocomplete="off">
-                <label for="name" class="caixa">Nome do funcionário</label>
-            </div>
-
-
-           
-            <div class="input field">
-                <input type="input" class="campo" placeholder="E-mail" required="" id="ipt_email" autocomplete="off">
-                <label for="name" class="caixa">Email</label>
-            </div>
-
-
-            <div class="input field">
-                <input type="input" class="campo" placeholder="Senha" required="" id="ipt_senha" autocomplete="off">
-                <label for="name" class="caixa">Senha</label>
-            </div>
-            <div class="input field">
-                <!-- <input type="input" class="campo" placeholder="Cargo" required="" id="ipt_cargo" autocomplete="off">
-                <label for="name" class="caixa">Cargo</label> -->
-                <select name="" id="select_cargo_cadastrar" class="select_cargo">
-                    <option value="1" selected>Administrador</option>
-                    <option value="2">Analista</option>
-                </select>
-            </div>
-        </div>
-        <div class="btn">
-            <button onclick="cadastrar()" class="btn-save">Cadastrar</button>
-        </div>
-    </div>
-
-    <div id="card-confirm" class="card-confirm" style="display: none;">
-        <div class="text">Deseja excluir este funcionário?</div>
-        <div class="btns">
-            <button onclick="deletarFunc(removeFuncionario)" class="btnEx">Excluir</button>
-            <button onclick="cancelar()" class="btnC">Cancelar</button>
-        </div>
-    </div>
 
 </body>
 
 </html>
 
 <script>
-     function logout() {
-        sessionStorage.clear(); 
-        window.location.replace('../index.html'); 
+    function logout() {
+        sessionStorage.clear();
+        window.location.replace('../index.html');
     }
 
     document.getElementById('logoutBotao').addEventListener('click', function (event) {
-        event.preventDefault(); 
+        event.preventDefault();
         logout();
     });
 
@@ -407,7 +411,7 @@
 
     function editarDadosFunc() {
         var id = idFunc.value
-        var nome = nome_input.value 
+        var nome = nome_input.value
         var cargo = Number(select_cargo.value)
         var email = email_input.value
         var senha = senha_input.value

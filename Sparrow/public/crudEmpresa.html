@@ -457,4 +457,14 @@ var removerEmpresa
         add.style.display = "block"
     }
 
+    //DEIXAR A PARTE DA NAV BAR QUE EU TO USANDO SELECIONADA
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlAtual = window.location.href;
+
+        if (urlAtual.includes("crudEmpresa.html")) {
+            const terminaisNavItem = document.querySelector('a[href="crudEmpresa.html"]');
+            terminaisNavItem.classList.add('nav-item-ativo');
+        }
+    });
+
 </script>
