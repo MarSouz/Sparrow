@@ -76,8 +76,13 @@ nav:hover{
 
 
 .logout{
-    margin-top: 400px;
+    margin-top: 380px;
 } 
+
+/* Deixar nav bar pintada */
+.nav-item-ativo {
+    background-color: #eee !important; 
+}
 
 body {
     font-family: 'Playfair Display';
@@ -202,7 +207,14 @@ body {
     position: absolute;
     text-align: center;
     color: #6b6b6b;
-    width: 15%;
+    width: 45%;
+}
+
+.placeholderDescricao {
+    position: absolute;
+    text-align: center;
+    color: #6b6b6b;
+    width: 60%;
 }
 
 .espaco-medias {
@@ -302,6 +314,20 @@ body {
     border-radius: 4px;
     box-shadow: 0 0 8px 0 #504e4a;
     padding: 18px;
+    position: relative;
+}
+
+.card-right-bottom {
+    background-color: #d6d09a;
+    height: 48%;
+    width: 80%;
+    border-radius: 4px;
+    box-shadow: 0 0 8px 0 #504e4a;
+    padding: 18px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .text-pacotes {
@@ -371,6 +397,14 @@ body {
     height: 35px;
 }
 
+.father-tips-zero {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 35px;
+    height: 35px;
+}
+
 .tooltip {
     position: relative;
     display: flex;
@@ -428,10 +462,9 @@ body {
 }
 
 .tooltip-top {
-    width: 120px;
-    bottom: 120%;
-    left: 50%;
-    margin-left: -60px;
+    width: 90px;
+    top: -70px;
+    right: 110%;    
 }
 
 .tooltip-bottom {
@@ -471,4 +504,5 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
