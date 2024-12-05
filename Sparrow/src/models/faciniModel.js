@@ -10,7 +10,7 @@ function buscarMedidasTempoReal(idEmpresa, dado_monitorado, tipoMaquina) {
   WHERE dc.fk_empresa = ${idEmpresa}
     AND dc.fk_dado_monitorado = ${dado_monitorado}
     AND tm.id = ${tipoMaquina}
-    AND m.endereco_mac = "c4:bd:e5:1e:a9:1a"
+    AND m.endereco_mac = "12:74:bc:ab:43:1d"
   ORDER BY dc.data_hora DESC
   LIMIT 20;`;
 
@@ -24,7 +24,7 @@ function buscarPacotesTempoReal(idEmpresa) {
   FROM dado_capturado dc
   JOIN maquina m ON dc.fk_maquina = m.id
   WHERE dc.fk_empresa = ${idEmpresa}
-    AND m.endereco_mac = "c4:bd:e5:1e:a9:1a"
+    AND m.endereco_mac = "12:74:bc:ab:43:1d"
     AND (dc.fk_dado_monitorado = 4 OR dc.fk_dado_monitorado = 5)
   ORDER BY dc.data_hora DESC
   LIMIT 10;`;
@@ -40,7 +40,7 @@ function estadoComponentes(idEmpresa, dado_monitorado) {
 		SELECT registro FROM dado_capturado dc
         JOIN maquina m ON dc.fk_maquina = m.id
 		WHERE m.fk_empresa = ${idEmpresa}
-    AND m.endereco_mac = "c4:bd:e5:1e:a9:1a"
+    AND m.endereco_mac = "12:74:bc:ab:43:1d"
     AND fk_dado_monitorado = ${dado_monitorado}
 		ORDER BY data_hora DESC
 		LIMIT 50
