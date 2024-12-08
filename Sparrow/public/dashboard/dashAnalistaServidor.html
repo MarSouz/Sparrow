@@ -192,7 +192,7 @@
     }
 
     function definirRecebidos() {
-        tipoDado = 5
+        tipoDado = 4
         nomeLabel = "Uso de Pacotes Recebidos"
         buscarMedidasTempoReal()
         buscarMedidasBarplot()
@@ -360,7 +360,7 @@
 
         for (let index = 0; index < resposta.length; index++) {
             const element = resposta[index]
-            dados.push(element.total_alertas)
+            dados.push(element.pico_maximo)
             nomeLabel.push(element.hora)
         }
 
@@ -369,7 +369,7 @@
             data: {
                 labels: nomeLabel,
                 datasets: [{
-                    label: 'Quantidade',
+                    label: 'Pico máximo',
                     data: dados,
                     borderWidth: 1,
                     borderColor: ['#08241c'],
@@ -380,7 +380,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Alertas críticos por hora',
+                        text: 'Pico de utilização por hora',
                         font: {
                             size: 14,
                             // weight: 'bold'
@@ -391,9 +391,10 @@
                         }
                     }
                 },
-                scales: {
+                scales:{
                     y: {
-                        beginAtZero: true
+                        min: 0,
+                        max: 100
                     }
                 }
             }

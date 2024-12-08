@@ -2187,6 +2187,58 @@ INSERT INTO dado_capturado VALUES
 (default, 40, '2024-12-09 13:00:00', 2, 9, 3), 
 (default, 40, '2024-12-09 14:00:00', 2, 9, 3);
 
+-- SERVIDOR
+-- Pico máximo CPU
+INSERT INTO manu_dados_tratados (fk_empresa, fk_maquina, fk_dado_monitorado, fk_alerta, data_hora, registro) VALUES
+(2, 1, 1, 1, '2024-12-08 12:00:00', 80),  
+(2, 1, 1, 1, '2024-12-08 13:00:00', 70),  
+(2, 1, 1, 1, '2024-12-08 14:00:00', 80),  
+(2, 1, 1, 1, '2024-12-08 15:00:00', 60);  
+
+-- Pico máximo RAM
+INSERT INTO `Sparrow`.`manu_dados_tratados` 
+(fk_empresa, fk_maquina, fk_dado_monitorado, fk_alerta, data_hora, registro)
+VALUES 
+(2, 1, 2, 1, '2024-12-08 12:00:00', 50),  
+(2, 1, 2, 1, '2024-12-08 13:00:00', 60), 
+(2, 1, 2, 1, '2024-12-08 14:00:00', 40),  
+(2, 1, 2, 1, '2024-12-08 15:00:00', 40);  
+
+-- Pico máximo Pacotes Enviados
+INSERT INTO manu_dados_tratados (fk_empresa, fk_maquina, fk_dado_monitorado, fk_alerta, data_hora, registro)
+VALUES 
+(2, 1, 5, 1, '2024-12-08 12:00:00', 50), 
+(2, 1, 5, 1, '2024-12-08 13:00:00', 60), 
+(2, 1, 5, 1, '2024-12-08 14:00:00', 40),  
+(2, 1, 5, 1, '2024-12-08 15:00:00', 40);  
+
+
+-- TERMINAL
+-- Pico máximo CPU
+INSERT INTO manu_dados_tratados (fk_empresa, fk_maquina, fk_dado_monitorado, fk_alerta, data_hora, registro) VALUES
+(2, 2, 1, 1, '2024-12-08 12:00:00', 80),  
+(2, 2, 1, 1, '2024-12-08 13:00:00', 70),  
+(2, 2, 1, 1, '2024-12-08 14:00:00', 80), 
+(2, 2, 1, 1, '2024-12-08 15:00:00', 60);  
+
+-- Pico máximo RAM
+INSERT INTO `Sparrow`.`manu_dados_tratados` 
+(fk_empresa, fk_maquina, fk_dado_monitorado, fk_alerta, data_hora, registro)
+VALUES 
+(2, 2, 2, 1, '2024-12-08 12:00:00', 50),  
+(2, 2, 2, 1, '2024-12-08 13:00:00', 60),  
+(2, 2, 2, 1, '2024-12-08 14:00:00', 40),  
+(2, 2, 2, 1, '2024-12-08 15:00:00', 40);  
+
+-- Pico máximo Pacotes Enviados
+INSERT INTO `Sparrow`.`manu_dados_tratados` 
+(fk_empresa, fk_maquina, fk_dado_monitorado, fk_alerta, data_hora, registro)
+VALUES 
+(2, 2, 4, 1, '2024-12-08 12:00:00', 2050), 
+(2, 2, 4, 1, '2024-12-08 13:00:00', 2260),  
+(2, 2, 4, 1, '2024-12-08 14:00:00', 2440),  
+(2, 2, 4, 1, '2024-12-08 15:00:00', 2340); 
+
 select * from dado_capturado;
 select * from alerta;
 SET SQL_MODE=@OLD_SQL_MODE;
