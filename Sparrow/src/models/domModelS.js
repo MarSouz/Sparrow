@@ -18,7 +18,7 @@ function qtdAlertaAtualS(idEmpresa) {
     ON m.id = dc.fk_maquina
     WHERE m.fk_empresa = ${idEmpresa}
     AND m.fk_tipo_maquina = 2
-    AND YEARWEEK(data_hora, 1) = YEARWEEK(CURDATE(), 1);`;
+    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE);`;
 
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -47,7 +47,7 @@ function qtdAlertaPassadoS(idEmpresa) {
 // tipo_maquina = 1,2 || Servidor, Terminal
 function histCpuS(idEmpresa) {
 
-    var instrucaoSql = `select * from alerta as a
+    var instrucaoSql = `select distinct a.*, dc.* from alerta as a
 	join dado_capturado as dc
 		on a.fk_dado_maquina = dc.id
 	join maquina_dado_monitorado as mdm
@@ -55,9 +55,9 @@ function histCpuS(idEmpresa) {
 	join maquina as m
 		on mdm.fk_maquina = m.id
 	where dc.fk_empresa = ${idEmpresa}
-    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE) 
-	and dc.fk_dado_monitorado = 1
-    and m.fk_tipo_maquina = 1;`;
+    and m.fk_tipo_maquina = 1
+    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE)
+    and dc.fk_dado_monitorado = 1;`;
 
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -67,7 +67,7 @@ function histCpuS(idEmpresa) {
 
 function histRamS(idEmpresa) {
 
-    var instrucaoSql = `select * from alerta as a
+    var instrucaoSql = `select distinct a.*, dc.* from alerta as a
 	join dado_capturado as dc
 		on a.fk_dado_maquina = dc.id
 	join maquina_dado_monitorado as mdm
@@ -75,9 +75,9 @@ function histRamS(idEmpresa) {
 	join maquina as m
 		on mdm.fk_maquina = m.id
 	where dc.fk_empresa = ${idEmpresa}
-    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE) 
-	and dc.fk_dado_monitorado = 2
-    and m.fk_tipo_maquina = 1;`;
+    and m.fk_tipo_maquina = 1
+    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE)
+    and dc.fk_dado_monitorado = 2;`;
 
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -87,7 +87,7 @@ function histRamS(idEmpresa) {
 
 function histDiscoS(idEmpresa) {
 
-    var instrucaoSql = `select * from alerta as a
+    var instrucaoSql = `select distinct a.*, dc.* from alerta as a
 	join dado_capturado as dc
 		on a.fk_dado_maquina = dc.id
 	join maquina_dado_monitorado as mdm
@@ -95,9 +95,9 @@ function histDiscoS(idEmpresa) {
 	join maquina as m
 		on mdm.fk_maquina = m.id
 	where dc.fk_empresa = ${idEmpresa}
-    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE) 
-	and dc.fk_dado_monitorado = 3
-    and m.fk_tipo_maquina = 1;`;
+    and m.fk_tipo_maquina = 1
+    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE)
+    and dc.fk_dado_monitorado = 3;`;
 
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -107,7 +107,7 @@ function histDiscoS(idEmpresa) {
 
 function regressaoServidor(idEmpresa) {
 
-    var instrucaoSql = `select * from alerta as a
+    var instrucaoSql = `select distinct a.*, dc.* from alerta as a
 	join dado_capturado as dc
 		on a.fk_dado_maquina = dc.id
 	join maquina_dado_monitorado as mdm
@@ -116,8 +116,8 @@ function regressaoServidor(idEmpresa) {
 		on mdm.fk_maquina = m.id
 	where dc.fk_empresa = ${idEmpresa}
     and m.fk_tipo_maquina = 1
-    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE) 
-    order by dc.data_hora;`;
+    AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE)
+    ORDER BY dc.data_hora;`;
 
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
