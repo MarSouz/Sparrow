@@ -7,7 +7,9 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-
+.nav-item-ativo {
+    background-color: #eee;; 
+}
 
 body {
     display: flex;

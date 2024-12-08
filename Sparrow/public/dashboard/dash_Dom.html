@@ -34,84 +34,76 @@
     treemapS()
     ">
 
-    <div class="menu-lateral">
-        <nav id="nav">
-            <ul>
-                <li>
-                    <a href="#" class="logo">
-                        <img src="../assets/imgs/Logo2.png" alt="">
-                        <span class="nav-item">Sparrow</span>
-                    </a>
-                </li>
+<div class="menu-lateral">
+    <nav id="nav">
+        <ul>
+            <li>
+                <a href="#" class="logo">
+                    <img src="../assets/imgs/Logo2.png" alt="">
+                    <span class="nav-item">Sparrow</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="./preDashAdm.html">
-                        <i class="bx bxs-home"></i>
-                        <span class="nav-item">Início</span>
-                    </a>
-                </li>
+            
 
-                <li>
-                    <a href="./../AlteracoesFunc.html">
-                        <i class="bx bxs-user"></i>
-                        <span class="nav-item">Funcionários</span>
-                    </a>
-                </li>
+            <li>
+                <a href="./../AlteracoesFunc.html">
+                    <i class="bx bxs-user"></i>
+                    <span class="nav-item">Funcionários</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="dashAdm.html">
-                        <i class="bx bx-radar"></i>
-                        <span class="nav-item">Terminais</span>
-                    </a>
-                </li>
+            <li>
+                <a href="../elersonDashboard.html">
+                    <i class="bx bx-radar"></i>
+                    <span class="nav-item">Visão geral das máquinas</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="dashAdmServidor.html">
-                        <i class="bx bxs-server"></i>
-                        <span class="nav-item">Servidores</span>
-                    </a>
-                </li>
+            <li>
+                <a href="../Sparrow/public/dashboard/dash_Dom.html">
+                    <i class='bx bxs-bar-chart-alt-2'></i>
+                    <span class="nav-item">Relatório de alertas</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="./../crudTerminal.html">
-                        <i class="bx bx-laptop"></i>
-                        <span class="nav-item">Gerenciamento de terminais</span>
-                    </a>
-                </li>
+            <li>
+                <a href="./../crudTerminal.html">
+                    <i class="bx bx-laptop"></i>
+                    <span class="nav-item">Gerenciamento de terminais</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="./../crudServidor.html">
-                        <i class="bx bx-laptop"></i>
-                        <span class="nav-item">Gerenciamento de servidores</span>
-                    </a>
-                </li>
+            <li>
+                <a href="./../crudServidor.html">
+                    <i class="bx bx-laptop"></i>
+                    <span class="nav-item">Gerenciamento de servidores</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="#">
-                        <i class="bx bxs-help-circle"></i>
-                        <span class="nav-item">Central de atendimento</span>
-                    </a>
-                </li>
+            <li>
+                <a href="#">
+                    <i class="bx bxs-help-circle"></i>
+                    <span class="nav-item">Central de atendimento</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="#" id="logoutBotao" class="logout">
-                        <i class="bx bx-log-out"></i>
-                        <span class="nav-item">Sair</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+            <li>
+                <a href="#" id="logoutBotao" class="logout">
+                    <i class="bx bx-log-out"></i>
+                    <span class="nav-item">Sair</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
     <!-- SERVIDORES -->
     <div id="servidores" class="global" style="display: block;">
 
         <div class="header">
             <h1>Relatório de Alertas</h1>
-            <select name="" id="select_tipo" onchange="select()">
-                <option value=1>Servidores</option>
-                <option value=2>Terminais</option>
-            </select>
+            
             <h2>Semana Atual: <b id="semana"></b></h2>
         </div>
 
@@ -162,9 +154,7 @@
             <div class="treemap"><br>
                 <center>
                     <h2>Treemap de Alertas</h2>
-                    <div class="tooltip">Hover over me
-                        <span class="tooltiptext">Tooltip text</span>
-                      </div>
+                    
                     <div id="treemap-chart"></div>
                 </center>
             </div>
@@ -183,10 +173,7 @@
 
         <div class="header">
             <h1>Relatório de Alertas</h1>
-            <select name="" id="select_tipo" onchange="select()">
-                <option value=1>Servidores</option>
-                <option value=2>Terminais</option>
-            </select>
+            
             <h2>Semana Atual: <b id="semana1"></b></h2>
         </div>
 
@@ -264,6 +251,18 @@ startOfWeek.setDate(today.getDate() - dayOfWeek);
 const endOfWeek = new Date(today);
 endOfWeek.setDate(today.getDate() + (6 - dayOfWeek));
 
+document.addEventListener("DOMContentLoaded", function () {
+        // Obtém o URL da página atual
+        const urlAtual = window.location.href;
+
+
+        if (urlAtual.includes("dashAnalista.html")) {
+            const terminaisNavItem = document.querySelector('a[href="dash_Dom.html"]');
+            // Adiciona a classe para destacar o item
+            terminaisNavItem.classList.add('nav-item-ativo');
+        }
+    });
+
 document.getElementById("semana").innerHTML = `${startOfWeek.toLocaleDateString()} - ${endOfWeek.toLocaleDateString()}`
 document.getElementById("semana").innerHTML = `${startOfWeek.toLocaleDateString()} - ${endOfWeek.toLocaleDateString()}`
 
@@ -322,7 +321,7 @@ document.getElementById("semana").innerHTML = `${startOfWeek.toLocaleDateString(
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
                     
-                    const qtd = resposta;
+                    const qtd = resposta.length;
                     document.getElementById("qtdAlertaAtualS").textContent = qtd;
                 });
             } else {
@@ -493,6 +492,7 @@ document.getElementById("semana").innerHTML = `${startOfWeek.toLocaleDateString(
                             }
                         }
                     }
+                
                 },
                 responsive: true,
                 plugins: {
