@@ -279,12 +279,13 @@ nav:hover {
 .content3 {
     display: flex;
     width: 70%;
-    height: 50%;
+    height: 88%;
     flex-direction: column;
     align-items: center;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 15px 0 #c3bba8;
+    padding-top: 15px;
 }
 
 .content3 .titulo {
@@ -313,7 +314,7 @@ nav:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 115%;
     font-size: 14px;
@@ -361,8 +362,8 @@ nav:hover {
     height: 100%;
     width: 100%;
     overflow-y: auto;
-    padding: 10px;
-    margin-top: 15px;
+    /* padding: 10px;
+    margin-top: 15px; */
 }
 
 
