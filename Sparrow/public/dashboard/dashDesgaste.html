@@ -73,7 +73,7 @@
             <div class="itemsDown">
 
                 <div class="title-page">
-                    <h1>Veja aqui uma análise semanal e</h1> <br> <h2>alertas sobre suas máquinas</h2>
+                    <h1>Análise de uso semanal</h1> <br> <h2>veja aqui alertas sobre suas máquinas e <br> comportamentos críticos <br> durante a semana</h2>
                 </div>
 
                 <div class="cardListar">
@@ -93,7 +93,7 @@
                                 <p>Alertas nos últimos 7 dias</p>
                             </div>
                             <div class="backpage-coluns-itemM">
-                                <p>Ações</p>
+                                <p>Ação</p>
                             </div>
                         </div>
                         <hr>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="backpage-coluns-item">
                             <select name="" id="componentes"
-                                onchange="buscarDados(idmaquina), buscarDadosLimite(idmaquina)">
+                                onchange="buscarDados(idmaquina)">
                                 <option value="1">CPU</option>
                                 <option value="2">RAM</option>
                                 <option value="3">Disco</option>
@@ -143,7 +143,7 @@
 
                 <div class="graficBar">
                     <div class="titleB">
-                        <h2>Contador de ultrapassagem do limite <br> dos últimos sete dias</h2>
+                        <h2>Contador de ultrapassagem do limite <br> nos últimos sete dias</h2>
                     </div>
                     <canvas id="graficBar"></canvas>
                 </div>
@@ -198,13 +198,15 @@
 
         function buscarDados(fkmaquina) {
 
+            idmaquina = fkmaquina
+
             var idEmpresa = 2; // Defina ou recupere o id da empresa
 
             var componente = Number(document.getElementById("componentes").value);
 
             console.log(`Consultando: /pedro/dados-semana/${idEmpresa}/${componente}/${idmaquina}`);
 
-            fetch(`/pedro/dados-semana/${idEmpresa}/${componente}/${idmaquina}`).then(function (resposta) {
+            fetch(`/pedro/dados-semana/${idEmpresa}/${componente}/${fkmaquina}`).then(function (resposta) {
                 if (resposta.ok) {
                     if (resposta.status == 204) {
                         console.log("error")
@@ -408,11 +410,10 @@
 
                                 var divAcoes = document.createElement("div");
                                 divAcoes.className = "item";
-                                idmaquina = maquina.fk_maquina
                                 var btnVisualizar = document.createElement("button");
                                 btnVisualizar.className = "visualizarG";
                                 btnVisualizar.textContent = "Visualizar";
-                                btnVisualizar.setAttribute("onclick", `buscarDados('${idmaquina}'), buscarDadosLimite('${idmaquina}')`);
+                                btnVisualizar.setAttribute("onclick", `buscarDados('${maquina.fk_maquina}'), buscarDadosLimite('${maquina.fk_maquina}')`);
 
 
                                 divAcoes.appendChild(btnVisualizar);
