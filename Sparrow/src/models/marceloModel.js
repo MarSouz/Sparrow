@@ -27,7 +27,7 @@ function listarAlertas(idEmpresa, idMaquina, idMes) {
 
     var instrucaoSql = `SELECT a.id AS alerta_id,
        a.fk_dado_maquina,
-       dc.data_hora,
+       DATE_FORMAT(dc.data_hora, '%d/%m/%Y %H:%i:%s') AS data_hora,
        dc.fk_empresa,
        dc.fk_maquina,
        dc.fk_dado_monitorado,
@@ -38,6 +38,7 @@ WHERE dc.fk_maquina = ${idMaquina}
   AND dc.fk_empresa = ${idEmpresa}
   AND MONTH(dc.data_hora) = ${idMes}
 ORDER BY dc.data_hora;
+
 `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -78,7 +79,7 @@ ORDER BY
 }
 
 module.exports = {
-  buscarTotalAlertas,
-  listarAlertas,
-  mostrarGraficoAnual
+    buscarTotalAlertas,
+    listarAlertas,
+    mostrarGraficoAnual
 }

@@ -31,34 +31,39 @@
                             <span class="nav-item">Sparrow</span>
                         </a>
                     </li>
+                    <li>    
+                        <a href="dashAnalistaServidor.html">
+                            <i class='bx bxs-server'></i>
+                            <span class="nav-item">Análise diária servidor</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="dashAnalista.html">
                             <i class='bx bx-line-chart'></i>
-                            <span class="nav-item">Análise diária</span>
+                            <span class="nav-item">Análise diária terminal</span>
                         </a>
                     </li>
-
                     <li>
                         <a href="./dashDesgaste.html">
                             <i class='bx bxs-bar-chart-alt-2'></i>
                             <span class="nav-item">Análise semanal</span>
                         </a>
                     </li>
-
+    
                     <li>
                         <a href="./marceloDashboard.html">
                             <i class='bx bxs-calendar'></i>
                             <span class="nav-item"> Análise mensal</span>
                         </a>
                     </li>
-
+    
                     <li>
                         <a href="#">
                             <i class="bx bxs-help-circle"></i>
                             <span class="nav-item">Central de atendimento</span>
                         </a>
                     </li>
-
+    
                     <div class="container-logout">
                         <li>
                             <a href="#" id="logoutBotao" class="logout">
@@ -75,7 +80,13 @@
             <div class="father-container">
                 <div class="container">
                     <div class="terminal-botao">
-                        <span class="titulo">Servidor</span>
+                        <span class="titulo">Análise mensal</span><br>
+
+                        <select name="select-tipo" id="select_tipo" onclick="buscarSelect()">
+                            <option value="#" selected disabled>Escolha qual monitorar</option>
+                            <option value="1">Servidor</option>
+                            <option value="2">Terminal</option>
+                        </select>
 
                         <select name="select-servidor" id="select_servidor"
                             onclick="mostrarTotaldeAlertas(), listarAlertas()">
@@ -120,9 +131,9 @@
             <div class="father-container2">
                 <div class="container2">
                     <div class="graficoLinha" id="grafico" style="display: none;">
-                        <canvas id="myChart"></canvas>
+
                     </div>
-                    <div id="map"></div>
+                    <div id="map"><canvas id="graficoAlertas"></canvas></div>
                 </div>
             </div>
         </div>
@@ -135,17 +146,17 @@
                 </div>
                 <div class="cards-scroll">
                     <div class="cards-content" id="listaAlertas">
-                        
+
                     </div>
                 </div>
             </div>
-            <div class="container2">
+            <!-- <div class="container2">
                 <div id="map">
                     <div id="heatmapChart" class="heatmapChart">
 
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 </body>
@@ -178,6 +189,7 @@
                             total_alerta_disco.innerHTML = element.ultrapassagens
                         }
                     }
+                    graficoAlertas(resposta)
                 }
                 )
             } else {
@@ -191,7 +203,7 @@
     mostrarTotaldeAlertas()
 
     function buscarSelect() {
-        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}/${1}`, {
+        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}/${select_tipo.value}`, {
             method: "GET"  // Aqui, o método GET é passado na configuração do fetch.
         })
             .then(function (resposta) {
@@ -202,6 +214,7 @@
                     }
                     // Caso a resposta seja OK, converte o JSON
                     resposta.json().then(function (dados) {
+                        select_servidor.innerHTML = ""
                         dados.forEach((dado) => {
                             select_servidor.innerHTML += `<option value='${dado.id}'>${dado.id}</option>`;
                         });
@@ -228,7 +241,7 @@
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
                     resposta = resposta.reverse()
-                        
+
                     for (let index = 0; index < resposta.length; index++) {
                         var texto = ""
 
@@ -274,138 +287,193 @@
         });
     }
 
+    // Variável global para armazenar a instância do gráfico
+    let graficoInstancia;
+
+    function graficoAlertas(resposta) {
+        var dados = [];
+        var label = [];
+        var grafico = document.getElementById('graficoAlertas');
+
+        resposta = resposta.reverse();
+
+        for (var index = 0; index < resposta.length; index++) {
+            var element = resposta[index];
+            dados.push(element.ultrapassagens);
+            if (element.fk_dado_monitorado == 1) {
+                label.push("CPU");
+            } else if (element.fk_dado_monitorado == 2) {
+                label.push("RAM");
+            } else if (element.fk_dado_monitorado == 3) {
+                label.push("Disco");
+            }
+        }
+
+        const data = {
+            labels: label,
+            datasets: [{
+                label: 'Total de alertas por componente',
+                data: dados,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            },
+        };
+
+        // Destruir a instância anterior do gráfico, se existir
+        if (graficoInstancia) {
+            graficoInstancia.destroy();
+        }
+
+        // Criar uma nova instância do gráfico e armazená-la
+        graficoInstancia = new Chart(
+            grafico,
+            config
+        );
+    }
 
 
+    var tipoDado = 1
+    var nomeLabel = ''
+    let dados = [];
+    let horarios = [];
+    let myChart; // Gráfico para CPU, RAM, Disco, Rede
 
+    let cpuData = 0;
+    let ramData = 0;
+    let discoData = 0;
 
+    // UsoMensal -- Mapa de calor
+    document.addEventListener("DOMContentLoaded", () => {
+        const selectMes = document.getElementById("select_mes");
+        const meses = [
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio",
+            "Junho", "Julho", "Agosto", "Setembro",
+            "Outubro", "Novembro", "Dezembro"
+        ];
 
+        const selectRecurso = document.getElementById("recursoSelecionado3");
+        const heatmapContainer = document.querySelector("#heatmapChart");
 
+        // Inicializa o gráfico de mapa de calor ao carregar a página
+        ListarCapturas("cpu");
 
+        // Atualiza o gráfico de mapa de calor ao mudar a seleção
+        selectRecurso.addEventListener("change", (event) => {
+            const recursoSelecionado = event.target.value;
+            ListarCapturas(recursoSelecionado);
+        });
 
+        function ListarCapturas(recursoSelecionado) {
+            const fkRecurso = recursoMap[recursoSelecionado];
+            if (!fkRecurso) {
+                console.error("Recurso inválido selecionado!");
+                return;
+            }
 
+            heatmapContainer.innerHTML = "";
 
-    // var tipoDado = 1
-    // var nomeLabel = ''
-    // let dados = [];
-    // let horarios = [];
-    // let myChart; // Gráfico para CPU, RAM, Disco, Rede
+            fetch(`/individual/UsoPorHora/${fkRecurso}`, {
+                method: "GET"
+            })
+                .then((resposta) => {
+                    if (resposta.status === 204) {
+                        console.log("Não há capturas disponíveis.");
+                        return;
+                    }
 
-    // let cpuData = 0;
-    // let ramData = 0;
-    // let discoData = 0;
+                    return resposta.json();
+                })
+                .then((alertas) => {
+                    if (!alertas || alertas.length === 0) {
+                        console.log("Nenhum dado disponível para o recurso selecionado.");
+                        return;
+                    }
 
-    // // UsoMensal -- Mapa de calor
-    // document.addEventListener("DOMContentLoaded", () => {
-    //     const selectMes = document.getElementById("select_mes");
-    //     const meses = [
-    //         "Janeiro", "Fevereiro", "Março", "Abril", "Maio",
-    //         "Junho", "Julho", "Agosto", "Setembro",
-    //         "Outubro", "Novembro", "Dezembro"
-    //     ];
+                    const valores = alertas.map((registro) => registro.valorRegistrado); // Y
+                    const diasDaSemana = alertas.map((registro) => registro.dia_semana); // Recebe o dia da semana do banco
+                    const horas = alertas.map((registro) => new Date(registro.dtHora).getHours()); // Horas de 0 a 23
 
-    //     const selectRecurso = document.getElementById("recursoSelecionado3");
-    //     const heatmapContainer = document.querySelector("#heatmapChart");
+                    if (valores.length === 0 || diasDaSemana.length === 0 || horas.length === 0) {
+                        console.log("Os dados retornados estão incompletos ou inválidos.");
+                        return;
+                    }
 
-    //     // Inicializa o gráfico de mapa de calor ao carregar a página
-    //     ListarCapturas("cpu");
+                    // Inicializando as séries com dados para cada dia da semana (segunda a domingo)
+                    const diasSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
+                    const seriesData = diasSemana.map((dia, diaIndex) => {
+                        return {
+                            name: dia,
+                            data: Array.from({ length: 24 }, (_, horaIndex) => {
+                                const valor = valores.find((valor, index) => diasDaSemana[index] === diaIndex + 1 && horas[index] === horaIndex);
+                                return {
+                                    x: `${horaIndex}:00`,
+                                    y: valor ? valor : Math.floor(Math.random() * 100) // Se não houver valor, atribui aleatório
+                                };
+                            })
+                        };
+                    });
 
-    //     // Atualiza o gráfico de mapa de calor ao mudar a seleção
-    //     selectRecurso.addEventListener("change", (event) => {
-    //         const recursoSelecionado = event.target.value;
-    //         ListarCapturas(recursoSelecionado);
-    //     });
+                    var heatmapOptions = {
+                        chart: {
+                            type: 'heatmap',
+                            height: 350
+                        },
+                        series: seriesData, // Definindo as séries dinamicamente
+                        xaxis: {
+                            type: 'category',
+                            title: {
+                                text: 'Semana'
+                            }
+                        },
+                        yaxis: {
+                            title: {
+                                text: 'Mês'
+                            }
+                        },
+                        title: {
+                            text: `${recursoSelecionado.toUpperCase()}`
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        colors: ['#0BA385']
+                    };
 
-    //     function ListarCapturas(recursoSelecionado) {
-    //         const fkRecurso = recursoMap[recursoSelecionado];
-    //         if (!fkRecurso) {
-    //             console.error("Recurso inválido selecionado!");
-    //             return;
-    //         }
-
-    //         heatmapContainer.innerHTML = "";
-
-    //         fetch(/individual/UsoPorHora/${fkRecurso}, {
-    //             method: "GET"
-    //         })
-    //             .then((resposta) => {
-    //                 if (resposta.status === 204) {
-    //                     console.log("Não há capturas disponíveis.");
-    //                     return;
-    //                 }
-
-    //                 return resposta.json();
-    //             })
-    //             .then((alertas) => {
-    //                 if (!alertas || alertas.length === 0) {
-    //                     console.log("Nenhum dado disponível para o recurso selecionado.");
-    //                     return;
-    //                 }
-
-    //                 const valores = alertas.map((registro) => registro.valorRegistrado); // Y
-    //                 const diasDaSemana = alertas.map((registro) => registro.dia_semana); // Recebe o dia da semana do banco
-    //                 // x
-
-
-    //                 // dado
-    //                 const horas = alertas.map((registro) => new Date(registro.dtHora).getHours()); // Horas de 0 a 23
-
-    //                 if (valores.length === 0 || diasDaSemana.length === 0 || horas.length === 0) {
-    //                     console.log("Os dados retornados estão incompletos ou inválidos.");
-    //                     return;
-    //                 }
-
-    //                 // Inicializando as séries com dados aleatórios para cada dia da semana (segunda a domingo)
-    //                 const diasSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
-    //                 const seriesData = diasSemana.map((dia, diaIndex) => {
-    //                     return {
-    //                         name: dia,
-    //                         data: Array.from({ length: 24 }, (_, horaIndex) => {
-    //                             const valor = valores.find((valor, index) => diasDaSemana[index] === diaIndex + 1 && horas[index] === horaIndex);
-    //                             return {
-    //                                 x: ${horaIndex}:00,
-    //                                 y: valor ? valor : Math.floor(Math.random() * 100) // Se não houver valor, atribui aleatório
-    //                             };
-    //                         })
-    //                     };
-    //                 });
-
-    //                 var heatmapOptions = {
-    //                     chart: {
-    //                         type: 'heatmap',
-    //                         height: 350
-    //                     },
-    //                     series: seriesData, // Definindo as séries dinamicamente
-    //                     xaxis: {
-    //                         type: 'category',
-    //                         title: {
-    //                             text: 'Hora do Dia'
-    //                         }
-    //                     },
-    //                     yaxis: {
-    //                         title: {
-    //                             text: 'Dia da Semana'
-    //                         }
-    //                     },
-    //                     title: {
-    //                         text: ${recursoSelecionado.toUpperCase()}
-    //                     },
-
-    //                     dataLabels: {
-    //                         enabled: false
-    //                     },
-    //                     colors: ['#0BA385']
-    //                 };
-
-    //                 const chart = new ApexCharts(heatmapContainer, heatmapOptions);
-    //                 chart.render();
-    //             })
-    //             .catch((erro) => {
-    //                 console.error(#ERRO: ${erro});
-    //             });
-    //     }
-    // });
-
-
-
-
+                    const chart = new ApexCharts(heatmapContainer, heatmapOptions);
+                    chart.render();
+                })
+                .catch((erro) => {
+                    console.error(`#ERRO: ${erro}`);
+                });
+        }
+    });
 </script>
