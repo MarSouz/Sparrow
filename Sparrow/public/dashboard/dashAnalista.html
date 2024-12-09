@@ -211,7 +211,7 @@
 
     //LISTAR MÁQUINAS
     function buscarSelect() {
-        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}/${1}`, {
+        fetch(`/manu/buscarSelect/${sessionStorage.ID_EMPRESA}/${2}`, {
             method: "GET"  // Aqui, o método GET é passado na configuração do fetch.
         })
             .then(function (resposta) {

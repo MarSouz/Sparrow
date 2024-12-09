@@ -17,7 +17,7 @@ function qtdAlertaAtualS(idEmpresa) {
     JOIN maquina AS m
     ON m.id = dc.fk_maquina
     WHERE m.fk_empresa = ${idEmpresa}
-    AND m.fk_tipo_maquina = 2
+    AND m.fk_tipo_maquina = 1
     AND WEEK(dc.data_hora) = WEEK(CURRENT_DATE);`;
 
 
