@@ -171,8 +171,8 @@
                                 <div class="tooltip tooltip-white">
                                     <img src="assets/svg/info.svg" class="info">
                                     <span class="tooltiptext tooltip-top" style="text-align: left">
-                                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA<br>
-                                        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                                        Percentual estimado de risco com base no uso atual da CPU, RAM e Disco. Valores
+                                        mais altos indicam maior probabilidade de sobrecarga do servidor.
                                     </span>
                                 </div>
                             </div>
@@ -282,7 +282,7 @@
     let listaLabels
     var ultimoCPU = 0
     var ultimoRAM = 0
-    var ultimoDisco = 0 
+    var ultimoDisco = 0
     var ultimoPacEnv = 0
     var ultimoPacRec = 0
 
@@ -290,9 +290,9 @@
     let ramExecutado = false;
     let discoExecutado = false;
 
-    window.onload = function() {
+    window.onload = function () {
         estadoComponente();
-      };
+    };
 
     var chart1;
 
@@ -310,19 +310,19 @@
 
         let usoCpu = ultimoCPU;
         let usoRam = ultimoRAM;
-        let usoDisco = ultimoDisco; 
+        let usoDisco = ultimoDisco;
         let riscoCpu = usoCpu / 100;
         let riscoRam = usoRam / 100;
         let riscoDisco = usoDisco / 100;
-    
+
         let pesoCpu = 0.4;
         let pesoRam = 0.4;
         let pesoDisco = 0.2;
-    
+
         let riscoTotal = (riscoCpu * pesoCpu) + (riscoRam * pesoRam) + (riscoDisco * pesoDisco);
-    
+
         let percentualDano = riscoTotal * 100;
-    
+
         if (!chart1) {
             var options1 = {
                 chart: {
@@ -365,22 +365,22 @@
                 },
                 labels: ["Progress"]
             };
-    
+
             chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
             chart1.render();
         } else {
             chart1.updateSeries([percentualDano.toFixed(0)]);
         }
-    
+
         setTimeout(plotarPercentual, 5000);
     }
-    
+
 
     function qtdPacotes() {
 
         pacotes.innerHTML = `<h3>Pacotes enviados: ${ultimoPacEnv} <br> Pacotes recebidos: ${ultimoPacRec}`
 
-        
+
 
     }
 
@@ -489,7 +489,7 @@
                 }
             }
         );
-        
+
         cpuExecutado = true
         verificarExecucao()
 
