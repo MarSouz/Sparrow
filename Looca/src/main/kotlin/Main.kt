@@ -36,7 +36,7 @@ open class Main {
             }
             while (true) {
                 val interfaces = looca.rede.grupoDeInterfaces.interfaces
-                val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan2") };
+                val interfaceDeConexaoPrincipal = interfaces.filter { it.nome.lowercase().contains("wlan") };
                 if (interfaces.isNotEmpty()) {
                     val pacotesEnviados = interfaceDeConexaoPrincipal[0].pacotesEnviados
                     val pacotesRecebidos = interfaceDeConexaoPrincipal[0].pacotesRecebidos

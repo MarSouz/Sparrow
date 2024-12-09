@@ -35,7 +35,7 @@ function buscarMedidasBarplot(idEmpresa, idMaquina, idDadoMonitorado) {
   var instrucaoSql = `SELECT 
     dm.nome AS componente_nome,
     HOUR(mdt.data_hora) AS hora, 
-    COUNT(mdt.id) AS total_alertas
+    MAX(mdt.registro) AS pico_maximo
 FROM 
     manu_dados_tratados AS mdt
 JOIN 
@@ -43,12 +43,14 @@ JOIN
 WHERE 
     mdt.fk_empresa = ${idEmpresa}
     AND mdt.fk_maquina = ${idMaquina}
-    AND mdt.fk_dado_monitorado = ${idDadoMonitorado}
+    AND mdt.fk_dado_monitorado = ${idDadoMonitorado}  
 GROUP BY 
     dm.nome, 
     HOUR(mdt.data_hora)
 ORDER BY 
     hora;`;
+
+      
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
